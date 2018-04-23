@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:ns1="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentRequestInput/v1" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://vodafone.com.tr/EAI/Common/Header" xmlns:ns3="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/OSMOrder.xsd" xmlns:pfx4="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://vodafone.com.tr/ServiceCatalog/Business/Billing/PrintInvoiceCopy/v1" xmlns:pfx2="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" xmlns:pfx="http://vodafone.com.tr/EAI/Common/RequestEAI" xmlns:pfx6="http://vodafone.com.tr/ServiceCatalog/Business/ResourceManagement/PrintInvoiceCopy/v1">
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/Billing/PrintInvoiceCopy/v1" schemaLocation="/Domains/ServiceCatalog/Business/Billing/PrintInvoiceCopy_v1/Schemas/PrintInvoiceCopy.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" schemaLocation="/Domains/ServiceCatalog/BusinessResources/Schemas/ServiceRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/OSMOrder.xsd" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OSMOrder.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/RequestEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/RequestEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentRequestInput/v1" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OrderComponent/OrderComponentRequestInput.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/ResourceManagement/PrintInvoiceCopy/v1" schemaLocation="/Domains/ServiceCatalog/Business/ResourceManagement/PrintInvoiceCopy_v1/Schemas/PrintInvoiceCopy.xsd"/>
+    <pd:name>Domains/OrderManagement/Business/OrderComponent/Billing/SFX/PrintCopyOfInvoice_v1/PrintCopyOfInvoice.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Input">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx:RequestEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>154</pd:startX>
+    <pd:startY>66</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>831</pd:endX>
+    <pd:endY>64</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://vodafone.com.tr/1435154145882</pd:targetNamespace>
+    <pd:activity name="Parse XML">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>346</pd:x>
+        <pd:y>65</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>true</validateOutput>
+            <term ref="pfx2:Order"/>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Start/Input/pfx:RequestEAI/pfx:Body/*" element="ns1:Request"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:OrderComponentDetails/ns1:XMLMessage/*[1]"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Map Data">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>513</pd:x>
+        <pd:y>68</pd:y>
+        <config>
+            <element ref="pfx6:Request"/>
+        </config>
+        <pd:inputBindings>
+            <pfx6:Request>
+                <xsl:choose>
+                    <xsl:when test="$Parse-XML/Order/OrderType='Print Copy of Invoice'">
+                        <pfx6:BillingAccountCode>
+                            <xsl:value-of select="$Parse-XML/Order/ListOfBillingAccount/BillingAccount[1]/BillAcctCode"/>
+                        </pfx6:BillingAccountCode>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <pfx6:BillingAccountCode>
+                            <xsl:value-of select="$Parse-XML/Order/BillAcctCode"/>
+                        </pfx6:BillingAccountCode>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <pfx6:DistributionChannel>
+                    <xsl:value-of select="$Parse-XML/Order/ListOfBillingAccount/BillingAccount[1]/ListOfInvoiceProfile/InvoiceProfile[1]/PostingMethod"/>
+                </pfx6:DistributionChannel>
+                <xsl:if test="$Parse-XML/Order/ListOfBillingAccount/BillingAccount[1]/ListOfBillingContact/BillingContact[1]/ContactFaxPhone">
+                    <pfx6:FaxNum>
+                        <xsl:value-of select="$Parse-XML/Order/ListOfBillingAccount/BillingAccount[1]/ListOfBillingContact/BillingContact[1]/ContactFaxPhone"/>
+                    </pfx6:FaxNum>
+                </xsl:if>
+                <xsl:choose>
+                    <xsl:when test="string-length($Parse-XML/Order/ListOfBillingAccount/BillingAccount[1]/ListOfInvoiceProfile/InvoiceProfile[1]/BillToEmail) > 0">
+                        <xsl:if test="$Parse-XML/Order/ListOfBillingAccount/BillingAccount[1]/ListOfInvoiceProfile/InvoiceProfile[1]/BillToEmail">
+                            <pfx6:Email>
+                                <xsl:value-of select="$Parse-XML/Order/ListOfBillingAccount/BillingAccount[1]/ListOfInvoiceProfile/InvoiceProfile[1]/BillToEmail"/>
+                            </pfx6:Email>
+                        </xsl:if>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:if test="$Parse-XML/Order/ListOfBillingAccount/BillingAccount[1]/ListOfBillingContact/BillingContact[1]/ContactEmail">
+                            <pfx6:Email>
+                                <xsl:value-of select="$Parse-XML/Order/ListOfBillingAccount/BillingAccount[1]/ListOfBillingContact/BillingContact[1]/ContactEmail"/>
+                            </pfx6:Email>
+                        </xsl:if>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <pfx6:Name>
+                    <xsl:value-of select="concat($Parse-XML/Order/ListOfBillingAccount/BillingAccount[1]/ListOfBillingContact/BillingContact[1]/ContactFirstName[1],$Parse-XML/Order/ListOfBillingAccount/BillingAccount[1]/ListOfBillingContact/BillingContact[1]/ContactLastname, $Parse-XML/Order/ListOfOrderContact/OrderContact[1]/ContactLastname)"/>
+                </pfx6:Name>
+                <pfx6:Invoice>
+                    <xsl:if test="$Parse-XML/Order/ListOfBillingAccount/BillingAccount[1]/ListOfInvoiceProfile/InvoiceProfile[1]/InvoiceProfileId">
+                        <pfx6:InvoiceID>
+                            <xsl:value-of select="$Parse-XML/Order/ListOfBillingAccount/BillingAccount[1]/ListOfInvoiceProfile/InvoiceProfile[1]/InvoiceProfileId"/>
+                        </pfx6:InvoiceID>
+                    </xsl:if>
+                    <xsl:choose>
+                        <xsl:when test="upper-case($Parse-XML/Order/ListOfBillingAccount/BillingAccount[1]/ListOfInvoiceProfile/InvoiceProfile[1]/DetailType)='DETAIL'">
+                            <pfx6:RequestType>
+                                <xsl:value-of select="'Detail'"/>
+                            </pfx6:RequestType>
+                        </xsl:when>
+                        <xsl:when test="upper-case($Parse-XML/Order/ListOfBillingAccount/BillingAccount[1]/ListOfInvoiceProfile/InvoiceProfile[1]/DetailType)='SUMMARY'">
+                            <pfx6:RequestType>
+                                <xsl:value-of select="'Summary'"/>
+                            </pfx6:RequestType>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:if test="$Parse-XML/Order/ListOfBillingAccount/BillingAccount[1]/ListOfInvoiceProfile/InvoiceProfile[1]/DetailType">
+                                <pfx6:RequestType>
+                                    <xsl:value-of select="$Parse-XML/Order/ListOfBillingAccount/BillingAccount[1]/ListOfInvoiceProfile/InvoiceProfile[1]/DetailType"/>
+                                </pfx6:RequestType>
+                            </xsl:if>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </pfx6:Invoice>
+            </pfx6:Request>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="JMS Queue Sender">
+        <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+        <pd:x>670</pd:x>
+        <pd:y>66</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/GlobalCommonResources/Connections/JMS/JMS EAI Connection.sharedjmscon</ConnectionReference>
+            <InDataxsdString ref="pfx4:ServiceRequest"/>
+        </config>
+        <pd:inputBindings>
+            <ns2:ActivityInput>
+                <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:ServiceCatalogQueue">
+                    <destinationQueue>
+                        <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:ServiceCatalogQueue"/>
+                    </destinationQueue>
+                </xsl:if>
+                <replyToQueue>
+                    <xsl:value-of select="tib:concat-sequence-format(($_globalVariables/ns3:GlobalVariables/Constants/Company,$_globalVariables/ns3:GlobalVariables/Constants/ProjectName,$_globalVariables/ns3:GlobalVariables/Domains/OrderManagement/Name,$_globalVariables/ns3:GlobalVariables/Domains/OrderManagement/OrderComponent/Name,$_globalVariables/ns3:GlobalVariables/Constants/Layer/Business,$_globalVariables/ns3:GlobalVariables/Constants/QOS/Guarantee,$_globalVariables/ns3:GlobalVariables/Constants/RequestType/Reply),&quot;.&quot;)"/>
+                </replyToQueue>
+                <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns:Priority">
+                    <JMSPriority>
+                        <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns:Priority"/>
+                    </JMSPriority>
+                </xsl:if>
+                <Body>
+                    <pfx4:ServiceRequest>
+                        <xsl:for-each select="$Start/Input/pfx:RequestEAI/pfx:Header">
+                            <pfx4:Header>
+                                <xsl:if test="ns:RequestId">
+                                    <ns:RequestId>
+                                        <xsl:value-of select="ns:RequestId"/>
+                                    </ns:RequestId>
+                                </xsl:if>
+                                <ns:SourceSystem>
+                                    <xsl:value-of select="ns:SourceSystem"/>
+                                </ns:SourceSystem>
+                                <ns:ReplyExpected>
+                                    <xsl:value-of select="ns:ReplyExpected"/>
+                                </ns:ReplyExpected>
+                                <xsl:if test="ns:QoS">
+                                    <ns:QoS>
+                                        <xsl:value-of select="ns:QoS"/>
+                                    </ns:QoS>
+                                </xsl:if>
+                                <xsl:if test="ns:Schedule">
+                                    <ns:Schedule>
+                                        <xsl:value-of select="ns:Schedule"/>
+                                    </ns:Schedule>
+                                </xsl:if>
+                                <xsl:if test="ns:CorrelationId">
+                                    <ns:CorrelationId>
+                                        <xsl:value-of select="ns:CorrelationId"/>
+                                    </ns:CorrelationId>
+                                </xsl:if>
+                                <xsl:if test="ns:Priority">
+                                    <ns:Priority>
+                                        <xsl:value-of select="ns:Priority"/>
+                                    </ns:Priority>
+                                </xsl:if>
+                                <xsl:for-each select="ns:Credentials">
+                                    <ns:Credentials>
+                                        <ns:ApplicationId>
+                                            <xsl:value-of select="ns:ApplicationId"/>
+                                        </ns:ApplicationId>
+                                        <ns:User>
+                                            <xsl:value-of select="ns:User"/>
+                                        </ns:User>
+                                        <xsl:if test="ns:Password">
+                                            <ns:Password>
+                                                <xsl:value-of select="ns:Password"/>
+                                            </ns:Password>
+                                        </xsl:if>
+                                    </ns:Credentials>
+                                </xsl:for-each>
+                                <xsl:if test="ns:ProxySystem">
+                                    <ns:ProxySystem>
+                                        <xsl:value-of select="ns:ProxySystem"/>
+                                    </ns:ProxySystem>
+                                </xsl:if>
+                                <xsl:if test="ns:ForceSimulate">
+                                    <ns:ForceSimulate>
+                                        <xsl:value-of select="ns:ForceSimulate"/>
+                                    </ns:ForceSimulate>
+                                </xsl:if>
+                                <xsl:for-each select="ns:Attributes">
+                                    <ns:Attributes>
+                                        <xsl:for-each select="ns:Attribute">
+                                            <ns:Attribute>
+                                                <ns:Name>
+                                                    <xsl:value-of select="ns:Name"/>
+                                                </ns:Name>
+                                                <ns:Value>
+                                                    <xsl:value-of select="ns:Value"/>
+                                                </ns:Value>
+                                            </ns:Attribute>
+                                        </xsl:for-each>
+                                    </ns:Attributes>
+                                </xsl:for-each>
+                            </pfx4:Header>
+                        </xsl:for-each>
+                        <pfx4:Body>
+                            <xsl:copy-of select="$Map-Data/pfx6:Request"/>
+                        </pfx4:Body>
+                    </pfx4:ServiceRequest>
+                </Body>
+            </ns2:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Parse XML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse XML</pd:from>
+        <pd:to>Map Data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>JMS Queue Sender</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map Data</pd:from>
+        <pd:to>JMS Queue Sender</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

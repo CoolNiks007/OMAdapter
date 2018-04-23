@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:ns16="http://vodafone.com.tr/ServiceCatalog/Business/OSM/GetValidationOrder/v1" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns17="http://vodafone.com.tr/ServiceCatalog/Business/OSM/GetMasterOrder/v1" xmlns:ns="http://vodafone.com.tr/EAI/Common/Header" xmlns:ns14="http://vodafone.com.tr/ServiceCatalog/Business/OSM/GetOrder/v1" xmlns:ns15="http://vodafone.com.tr/ServiceCatalog/Business/OSM/SubmitFutureOrder/v1" xmlns:ns25="http://vodafone.com.tr/ServiceCatalog/Business/OSM/GetMasterOrderDetails/v1" xmlns:ns26="http://vodafone.com.tr/ServiceCatalog/Business/OSM/FindFDOByKeyword/v1" xmlns:ns18="http://vodafone.com.tr/ServiceCatalog/Business/OSM/CloseMasterOrder/v1" xmlns:ns19="http://vodafone.com.tr/ServiceCatalog/Business/OSM/RegisterCampaigns/v1" xmlns:ns21="http://vodafone.com.tr/ServiceCatalog/Business/OSM/CreateChildOrders/v1" xmlns:ns9="http://vodafone.com.tr/ServiceCatalog/Business/OSM/IsOrderCancellable/v1" xmlns:ns22="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagement/RegisterCampaign/v1" xmlns:ns23="http://vodafone.com.tr/ServiceCatalog/Business/OSM/" xmlns:ns24="http://www.tibco.com/schemas/OrderManagement/Domains/ServiceCatalog/Business/OSM/GetMasterOrderDetails/Schemas/Schema.xsd" xmlns:ns5="http://vodafone.com.tr/ServiceCatalog/Business/OSM/CreateOrderBySpecification/v1" xmlns:ns12="http://vodafone.com.tr/ServiceCatalog/Business/OSM/CreateMasterOrder/v1" xmlns:ns13="http://vodafone.com.tr/ServiceCatalog/Business/OSM/CreateChildOrder/v1" xmlns:ns6="http://vodafone.com.tr/ServiceCatalog/Business/OSM/DecomposeForValidation/v1" xmlns:ns7="http://vodafone.com.tr/ServiceCatalog/Business/OSM/GetOrders/v1" xmlns:ns10="http://vodafone.com.tr/ServiceCatalog/Business/OSM/ResubmitOrder/v1" xmlns:ns20="http://vodafone.com.tr/EAI/Common/RequestEAI" xmlns:ns8="http://vodafone.com.tr/ServiceCatalog/Business/OSM/FindOrders/v1" xmlns:ns11="http://vodafone.com.tr/ServiceCatalog/Business/OSM/SubmitOrderFuture/v1" xmlns:ns2="http://vodafone.com.tr/ServiceCatalog/Business/OSM/CreateOrder/v1" xmlns:ns4="http://vodafone.com.tr/ServiceCatalog/Business/OSM/CancelOrder/v1" xmlns:ns3="http://vodafone.com.tr/EAI/Common/ResponseCodes" xmlns:tns="http://vodafone.com.tr/ServiceCatalog/Business/OSMServices" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://vodafone.com.tr/ServiceCatalog/Business/OSMServices">
+    <import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/IsOrderCancellable/v1" location="../../Business/OSM/IsOrderCancellable_v1/Schemas/IsOrderCancellable.xsd"/>
+    <import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/SubmitFutureOrder/v1" location="../../Business/OSM/SubmitFutureOrder_v1/Schemas/SubmitFutureOrder.xsd"/>
+    <import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/CreateOrder/v1" location="../../Business/OSM/CreateOrder_v1/Schemas/CreateOrder.xsd"/>
+    <import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/GetOrder/v1" location="../../Business/OSM/GetOrder_v1/Schemas/GetOrder.xsd"/>
+    <import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/DecomposeForValidation/v1" location="../../Business/OSM/DecomposeForValidation_v1/Schemas/DecomposeForValidation.xsd"/>
+    <import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/GetMasterOrder/v1" location="../../Business/OSM/GetMasterOrder_v1/Schemas/GetMasterOrder.xsd"/>
+    <import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/GetValidationOrder/v1" location="../../Business/OSM/GetValidationOrder_v1/Schemas/GetValidationOrder.xsd"/>
+    <import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/FindOrders/v1" location="../../Business/OSM/FindOrders_v1/Schemas/FindOrders.xsd"/>
+    <import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/CancelOrder/v1" location="../../Business/OSM/CancelOrder_v1/Schemas/CancelOrder.xsd"/>
+    <import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/ResubmitOrder/v1" location="../../Business/OSM/ResubmitOrder_v1/Schemas/ResubmitOrder.xsd"/>
+    <import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/CreateMasterOrder/v1" location="../../Business/OSM/CreateMasterOrder_v1/Schemas/CreateMasterOrder.xsd"/>
+    <import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/CloseMasterOrder/v1" location="../../Business/OSM/CloseMasterOrder_v1/Schemas/CloseMasterOrder.xsd"/>
+    <import namespace="http://vodafone.com.tr/EAI/Common/RequestEAI" location="../../../../GlobalCommonResources/Schemas/Common/RequestEAI.xsd"/>
+    <import namespace="http://vodafone.com.tr/EAI/Common/Header" location="../../../../GlobalCommonResources/Schemas/Common/Header.xsd"/>
+    <import namespace="http://vodafone.com.tr/EAI/Common/ResponseCodes" location="../../../../GlobalCommonResources/Schemas/Common/ResponseCodes.xsd"/>
+    <import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/CreateChildOrder/v1" location="../../Business/OSM/CreateChildOrder_v1/Schemas/CreateChildOrder.xsd"/>
+    <import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/CreateChildOrders/v1" location="../../Business/OSM/CreateChildOrders_v1/Schemas/CreateChildOrders.xsd"/>
+    <import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagement/RegisterCampaign/v1" location="../../Business/OrderManagement/RegisterCampaign_v1/Schemas/RegisterCampaign.xsd"/>
+    <import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/GetMasterOrderDetails/v1" location="../../Business/OSM/GetMasterOrderDetails_v1/Schemas/GetMasterOrderDetails.xsd"/>
+    <import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/FindFDOByKeyword/v1" location="../../Business/OSM/FindFDOByKeyword_v1/Schemas/FindFDOByKeyword.xsd"/>
+    <message name="CreateOrderRequest_v1">
+        <part name="Header" type="ns:Header"/>
+        <part name="Body" type="ns2:CreateOrderRequest"/>
+    </message>
+    <message name="CreateOrderResponse_v1">
+        <part name="Header" type="ns3:ResponseHeader"/>
+        <part name="Body" type="ns2:CreateOrderResponse"/>
+    </message>
+    <message name="CancelOrderRequest_v1">
+        <part name="Header" type="ns:Header"/>
+        <part name="Body" type="ns4:CancelOrderRequest"/>
+    </message>
+    <message name="CancelOrderResponse_v1">
+        <part name="Header" type="ns3:ResponseHeader"/>
+        <part name="Body" type="ns4:CancelOrderResponse"/>
+    </message>
+    <message name="DecomposeForValidationRequest_v1">
+        <part name="Header" type="ns:Header"/>
+        <part name="Body" type="ns6:DecomposeForValidationRequest"/>
+    </message>
+    <message name="DecomposeForValidationResponse_v1">
+        <part name="Header" type="ns3:ResponseHeader"/>
+        <part name="Body" type="ns6:DecomposeForValidationResponse"/>
+    </message>
+    <message name="GetOrderRequest_v1">
+        <part name="Header" type="ns:Header"/>
+        <part name="Body" type="ns14:GetOrderRequest"/>
+    </message>
+    <message name="GetOrderResponse_v1">
+        <part name="Header" type="ns3:ResponseHeader"/>
+        <part name="Body" type="ns14:GetOrderResponse"/>
+    </message>
+    <message name="IsOrderCancellableRequest_v1">
+        <part name="Header" type="ns:Header"/>
+        <part name="Body" type="ns9:IsOrderCancellableRequest"/>
+    </message>
+    <message name="IsOrderCancellableResponse_v1">
+        <part name="Header" type="ns3:ResponseHeader"/>
+        <part name="Body" type="ns9:IsOrderCancellableResponse"/>
+    </message>
+    <message name="ResubmitOrderRequest_v1">
+        <part name="Header" type="ns:Header"/>
+        <part name="Body" type="ns10:ResubmitOrderRequest"/>
+    </message>
+    <message name="ResubmitOrderResponse_v1">
+        <part name="Header" type="ns3:ResponseHeader"/>
+        <part name="Body" type="ns10:ResubmitOrderResponse"/>
+    </message>
+    <message name="SubmitFutureOrderRequest_v1">
+        <part name="Header" type="ns:Header"/>
+        <part name="Body" type="ns15:SubmitFutureOrderRequest"/>
+    </message>
+    <message name="SubmitFutureOrderResponse_v1">
+        <part name="Header" type="ns3:ResponseHeader"/>
+        <part name="Body" type="ns15:SubmitFutureOrderResponse"/>
+    </message>
+    <message name="GetMasterOrderRequest_v1">
+        <part name="Header" type="ns:Header"/>
+        <part name="Body" type="ns17:GetMasterOrderRequest"/>
+    </message>
+    <message name="GetMasterOrderResponse_v1">
+        <part name="Header" type="ns3:ResponseHeader"/>
+        <part name="Body" type="ns17:GetMasterOrderResponse"/>
+    </message>
+    <message name="GetValidationOrderRequest_v1">
+        <part name="Header" type="ns:Header"/>
+        <part name="Body" type="ns16:GetValidationOrderRequest"/>
+    </message>
+    <message name="GetValidationOrderResponse_v1">
+        <part name="Header" type="ns3:ResponseHeader"/>
+        <part name="Body" type="ns16:GetValidationOrderResponse"/>
+    </message>
+    <message name="FindOrdersRequest_v1">
+        <part name="Header" type="ns:Header"/>
+        <part name="Body" type="ns8:FindOrdersRequest"/>
+    </message>
+    <message name="FindOrdersResponse_v1">
+        <part name="Header" type="ns3:ResponseHeader"/>
+        <part name="Body" type="ns8:FindOrdersResponse"/>
+    </message>
+    <message name="CreateMasterOrderRequest_v1">
+        <part name="Header" type="ns:Header"/>
+        <part name="Body" type="ns12:CreateMasterOrderRequest"/>
+    </message>
+    <message name="CreateMasterOrderResponse_v1">
+        <part name="Header" type="ns3:ResponseHeader"/>
+        <part name="Body" type="ns12:CreateMasterOrderResponse"/>
+    </message>
+    <message name="CreateChildOrderRequest_v1">
+        <part name="Header" type="ns:Header"/>
+        <part name="Body" type="ns13:CreateChildOrderRequest"/>
+    </message>
+    <message name="CreateChildOrderResponse_v1">
+        <part name="Header" type="ns3:ResponseHeader"/>
+        <part name="Body" type="ns13:CreateChildOrderResponse"/>
+    </message>
+    <message name="CloseMasterOrderRequest_v1">
+        <part name="Header" type="ns:Header"/>
+        <part name="Body" type="ns18:CloseMasterOrderRequest"/>
+    </message>
+    <message name="CloseMasterOrderResponse_v1">
+        <part name="Header" type="ns3:ResponseHeader"/>
+        <part name="Body" type="ns18:CloseMasterOrderResponse"/>
+    </message>
+    <message name="CreataChildOrdersRequest_v1">
+        <part name="Header" type="ns:Header"/>
+        <part name="Body" type="ns21:CreateChildOrdersRequest"/>
+    </message>
+    <message name="CreateChildOrdersResponse_v1">
+        <part name="Header" type="ns3:ResponseHeader"/>
+        <part name="Body" type="ns21:CreateChildOrdersResponse"/>
+    </message>
+    <message name="GetMasterOrderDetailsRequest_v1">
+        <part name="Header" type="ns:Header"/>
+        <part name="Body" type="ns25:GetMasterOrderDetailsRequest"/>
+    </message>
+    <message name="GetMasterOrderDetailsResponse_v1">
+        <part name="Header" type="ns3:ResponseHeader"/>
+        <part name="Body" type="ns25:GetMasterOrderDetailsResponse"/>
+    </message>
+    <message name="FindFDOByKeywordRequest_v1">
+        <part name="Header" type="ns:Header"/>
+        <part name="Body" type="ns26:FindFDOByKeywordRequest"/>
+    </message>
+    <message name="FindFDOByKeywordResponse_v1">
+        <part name="Header" type="ns3:ResponseHeader"/>
+        <part name="Body" type="ns26:FindFDOByKeywordResponse"/>
+    </message>
+    <portType name="OSMServicesPortType">
+        <operation name="CreateOrder_v1">
+            <input message="tns:CreateOrderRequest_v1"/>
+            <output message="tns:CreateOrderResponse_v1"/>
+        </operation>
+        <operation name="CancelOrder_v1">
+            <input message="tns:CancelOrderRequest_v1"/>
+            <output message="tns:CancelOrderResponse_v1"/>
+        </operation>
+        <operation name="DecomposeForValidation_v1">
+            <input message="tns:DecomposeForValidationRequest_v1"/>
+            <output message="tns:DecomposeForValidationResponse_v1"/>
+        </operation>
+        <operation name="IsOrderCancellable_v1">
+            <input message="tns:IsOrderCancellableRequest_v1"/>
+            <output message="tns:IsOrderCancellableResponse_v1"/>
+        </operation>
+        <operation name="ResubmitOrderRequest_v1">
+            <input message="tns:ResubmitOrderRequest_v1"/>
+            <output message="tns:ResubmitOrderResponse_v1"/>
+        </operation>
+        <operation name="GetOrder_v1">
+            <input message="tns:GetOrderRequest_v1"/>
+            <output message="tns:GetOrderResponse_v1"/>
+        </operation>
+        <operation name="SubmitFutureOrder_v1">
+            <input message="tns:SubmitFutureOrderRequest_v1"/>
+            <output message="tns:SubmitFutureOrderResponse_v1"/>
+        </operation>
+        <operation name="GetMasterOrder_v1">
+            <input message="tns:GetMasterOrderRequest_v1"/>
+            <output message="tns:GetMasterOrderResponse_v1"/>
+        </operation>
+        <operation name="GetValidationOrder_v1">
+            <input message="tns:GetValidationOrderRequest_v1"/>
+            <output message="tns:GetValidationOrderResponse_v1"/>
+        </operation>
+        <operation name="FindOrders_v1">
+            <input message="tns:FindOrdersRequest_v1"/>
+            <output message="tns:FindOrdersResponse_v1"/>
+        </operation>
+        <operation name="CreateMasterOrder_v1">
+            <input message="tns:CreateMasterOrderRequest_v1"/>
+            <output message="tns:CreateMasterOrderResponse_v1"/>
+        </operation>
+        <operation name="CreateChildOrder_v1">
+            <input message="tns:CreateChildOrderRequest_v1"/>
+            <output message="tns:CreateChildOrderResponse_v1"/>
+        </operation>
+        <operation name="CloseMasterOrder_v1">
+            <input message="tns:CloseMasterOrderRequest_v1"/>
+            <output message="tns:CloseMasterOrderResponse_v1"/>
+        </operation>
+        <operation name="CreateChildOrders_v1">
+            <input message="tns:CreataChildOrdersRequest_v1"/>
+            <output message="tns:CreateChildOrdersResponse_v1"/>
+        </operation>
+        <operation name="GetMasterOrderDetails_v1">
+            <input message="tns:GetMasterOrderDetailsRequest_v1"/>
+            <output message="tns:GetMasterOrderDetailsResponse_v1"/>
+        </operation>
+        <operation name="FindFDOByKeyword_v1">
+            <input message="tns:FindFDOByKeywordRequest_v1"/>
+            <output message="tns:FindFDOByKeywordResponse_v1"/>
+        </operation>
+    </portType>
+</definitions>

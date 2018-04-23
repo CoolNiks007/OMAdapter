@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource>
+    <name>TO2F Database Connection</name>
+    <resourceType>ae.shared.JDBCSharedResource</resourceType>
+    <config>
+        <driver>tibcosoftwareinc.jdbc.oracle.OracleDriver</driver>
+        <maxConnections>%%Database/TO2F/MaxConnections%%</maxConnections>
+        <loginTimeout>%%Database/TO2F/LoginTimeout%%</loginTimeout>
+        <connectionType>JDBC</connectionType>
+        <UseSharedJndiConfig>false</UseSharedJndiConfig>
+        <location>%%Database/TO2F/JdbcUrl%%</location>
+        <user>%%Database/TO2F/Username%%</user>
+        <password>%%Database/TO2F/Password%%</password>
+    </config>
+</BWSharedResource>

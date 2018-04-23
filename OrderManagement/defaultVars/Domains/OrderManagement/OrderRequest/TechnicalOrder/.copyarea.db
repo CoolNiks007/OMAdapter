@@ -1,0 +1,9 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\defaultVars\Domains\OrderManagement\OrderRequest\TechnicalOrder
+2
+5
+17:SyncAccountBillingCycle|2|0|0|0|5b834554aae74e46a973883595489647|0
+f:SyncAccountData|2|0|0|0|c932b70006424b63a2f879bd9e29b224|0
+10:PrintInvoiceCopy|2|0|0|0|ed8f83339e52478ba71ce67f16bdb6f4|0
+f:ManageComplaint|2|0|0|0|d681c1b874e54b07ab5a8e50340efd4f|0
+e:DailyBillShock|2|0|0|0|b466bd413c7f4038b6d558b2965b0ac4|0

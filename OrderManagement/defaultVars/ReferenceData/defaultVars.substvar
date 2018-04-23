@@ -1,0 +1,21 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>StartTime</name>
+			<value>2008 Jul 10 15:02:00 Europe/Lisbon</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1412270114655</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>TimeInterval</name>
+			<value>60000</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>Integer</type>
+			<modTime>1412270115127</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

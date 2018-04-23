@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://vodafone.com.tr/OrderManagement/Technical/Shared/CreateOrder/v1"
+	 targetNamespace="http://vodafone.com.tr/OrderManagement/Technical/Shared/CreateOrder/v1"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="CreateOrderResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="OrderId" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="OrderId" type="xs:string"/>
+	<xs:element name="CreateOrderRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="OrderMessage"/>
+				<xs:element ref="CreatedBy"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="OrderMessage" type="xs:string"/>
+	<xs:element name="CreatedBy" type="xs:string"/>
+</xs:schema>

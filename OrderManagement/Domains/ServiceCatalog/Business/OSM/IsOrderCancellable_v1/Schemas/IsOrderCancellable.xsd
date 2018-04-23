@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns:om="http://vodafone.com.tr/ServiceCatalog/Business/OSM/IsOrderCancellable/v1"
+	 targetNamespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/IsOrderCancellable/v1"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:simpleType name="IsOrderCancellableRequestType">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:element name="IsOrderCancellableResponse" type="om:IsOrderCancellableResponse"/>
+	<xs:complexType name="IsOrderCancellableResponse">
+		<xs:sequence>
+			<xs:element ref="om:Response" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="IsOrderCancellableRequest" type="om:IsOrderCancellableRequest"/>
+	<xs:element name="OrderID" type="xs:string"/>
+	<xs:element name="IsCancellable" type="xs:string"/>
+	<xs:element name="Request" type="om:Request"/>
+	<xs:complexType name="Request">
+		<xs:sequence>
+			<xs:element ref="om:OrderID"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="IsOrderCancellableRequest">
+		<xs:sequence>
+			<xs:element ref="om:Request"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Response" type="om:Response"/>
+	<xs:complexType name="Response">
+		<xs:sequence>
+			<xs:element ref="om:IsCancellable"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

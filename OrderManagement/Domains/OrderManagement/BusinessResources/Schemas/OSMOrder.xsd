@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="OSMOrder">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="DueDate" type="xs:string" minOccurs="0"/>
+				<xs:element name="CreatedBy" type="xs:string" minOccurs="0"/>
+				<xs:element name="OrderValidation" type="xs:string" minOccurs="0"/>
+				<xs:element name="FutureOrder" type="xs:string" minOccurs="0"/>
+				<xs:element name="CategoryAction" type="xs:string" minOccurs="0"/>
+				<xs:element name="BGIndicator" type="xs:string" minOccurs="0"/>
+				<xs:element name="CreatedBySystem" type="xs:string" minOccurs="0"/>
+				<xs:element name="SourceSystem" type="xs:string" minOccurs="0"/>
+				<xs:element name="MasterOrderId" type="xs:string" minOccurs="0"/>
+				<xs:element name="XMLMessage">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

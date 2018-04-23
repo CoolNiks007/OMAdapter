@@ -1,0 +1,29 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>Common</name>
+			<value>Common</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1412270060540</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Company</name>
+			<value>VFTR</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1412270061195</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>ProjectName</name>
+			<value>OrderManagement</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1412270063292</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

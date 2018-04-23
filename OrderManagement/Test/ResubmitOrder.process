@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://vodafone.com.tr/OrderManagement/Technical/OSM/CreateOrder/v1" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://vodafone.com.tr/ServiceCatalog/Business/OSM/CreateOrder/v1" xmlns:ns="http://vodafone.com.tr/EAI/Common/RequestEAI" xmlns:ns3="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx3="http://vodafone.com.tr/ServiceCatalog/Business/OSM/ResubmitOrder/v1" xmlns:pfx2="http://xmlns.example.com/1398280363002" xmlns:pfx="http://vodafone.com.tr/EAI/Common/Header">
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/CreateOrder/v1" schemaLocation="/Domains/ServiceCatalog/Business/OSM/CreateOrder_v1/Schemas/CreateOrder.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/OrderManagement/Technical/OSM/CreateOrder/v1" schemaLocation="/Domains/OrderManagement/Technical/OSM/CreateOrder_v1/Schemas/CreateOrder.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/ResubmitOrder/v1" schemaLocation="/Domains/ServiceCatalog/Business/OSM/ResubmitOrder_v1/Schemas/ResubmitOrder.xsd"/>
+    <wsdl:import namespace="http://xmlns.example.com/1398280363002" location="/Test/WSDL.wsdl"/>
+    <pd:name>Test/ResubmitOrder.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx3:ResubmitOrderRequest"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>74</pd:startX>
+    <pd:startY>67</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>644</pd:endX>
+    <pd:endY>66</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://vodafone.com.tr/1398190275521</pd:targetNamespace>
+    <pd:activity name="ResubmitOrder">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>351</pd:x>
+        <pd:y>66</pd:y>
+        <config>
+            <processName>/Domains/ServiceCatalog/Business/OSM/ResubmitOrder_v1/ResubmitOrder.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <ns:RequestEAI>
+                    <ns:Header>
+                        <pfx:SourceSystem>
+                            <xsl:value-of select="'Siebel'"/>
+                        </pfx:SourceSystem>
+                        <pfx:ReplyExpected>
+                            <xsl:value-of select="'Now'"/>
+                        </pfx:ReplyExpected>
+                        <pfx:QoS>
+                            <xsl:value-of select="'R'"/>
+                        </pfx:QoS>
+                        <pfx:Priority>
+                            <xsl:value-of select="1"/>
+                        </pfx:Priority>
+                        <pfx:Credentials>
+                            <pfx:ApplicationId>
+                                <xsl:value-of select="'EAI'"/>
+                            </pfx:ApplicationId>
+                            <pfx:User>
+                                <xsl:value-of select="'bapv'"/>
+                            </pfx:User>
+                        </pfx:Credentials>
+                        <pfx:TargetSystem>
+                            <xsl:value-of select="'OSM'"/>
+                        </pfx:TargetSystem>
+                    </ns:Header>
+                    <ns:Body>
+                        <pfx3:ResubmitOrderRequest>
+                            <pfx3:Request>
+                                <pfx3:OrderId>
+                                    <xsl:value-of select="$Start/root/pfx3:ResubmitOrderRequest/pfx3:Request/pfx3:OrderId"/>
+                                </pfx3:OrderId>
+                            </pfx3:Request>
+                        </pfx3:ResubmitOrderRequest>
+                    </ns:Body>
+                </ns:RequestEAI>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>ResubmitOrder</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>ResubmitOrder</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

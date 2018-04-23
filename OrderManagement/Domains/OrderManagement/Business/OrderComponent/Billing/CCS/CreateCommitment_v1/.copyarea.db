@@ -1,0 +1,7 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\Business\OrderComponent\Billing\CCS\CreateCommitment_v1
+2
+3
+21:CreateCommitment_Response.process|1|162d7aeb3d1|4477|6302ca0c|1e9ace74a527492da530669c10d041d7|0
+18:CreateCommitment.process|1|162d7aeb3d1|6dce|9b599f81|ad8687af76d548d28810de571dbdc5d0|0
+7:.folder|1|162d7aeb3c2|18c|27f38885|7cd2d37627f5479a950ab4d67be45f7d|0

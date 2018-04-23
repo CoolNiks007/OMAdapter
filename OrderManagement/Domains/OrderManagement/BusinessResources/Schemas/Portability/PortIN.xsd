@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="ListOfPortINMSISDN">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="PortINMSISDN" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="MSISDN" type="xs:string"/>
+							<xs:element name="RootId" type="xs:string" minOccurs="0"/>
+							<xs:element name="BillingAccount" type="xs:string" minOccurs="0"/>
+							<xs:element name="AdvancePaymentPaid" type="xs:string" minOccurs="0"/>
+							<xs:element name="PortINTime" type="xs:string" minOccurs="0"/>
+							<xs:element name="RejectCode" type="xs:string" minOccurs="0"/>
+							<xs:element name="Cancelled" type="xs:string" minOccurs="0"/>
+							<xs:element name="AcctPayType" type="xs:string" minOccurs="0"/>
+							<xs:element name="Stage" type="xs:string"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

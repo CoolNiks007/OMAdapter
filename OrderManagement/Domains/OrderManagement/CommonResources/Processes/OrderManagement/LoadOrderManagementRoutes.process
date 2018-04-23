@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://vodafone.com.tr/OrderManagement/Domains/OrderManagement/CommonResources/Schemas/OrderManagement/Schema.xsd" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns3="pfx" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx="http://vodafone.com.tr/EAI/Common/ResponseCodes">
+    <xsd:import namespace="http://vodafone.com.tr/OrderManagement/Domains/OrderManagement/CommonResources/Schemas/OrderManagement/Schema.xsd" schemaLocation="/Domains/OrderManagement/CommonResources/Schemas/OrderManagement/OrderManagementRouting.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/ResponseCodes" schemaLocation="/GlobalCommonResources/Schemas/Common/ResponseCodes.xsd"/>
+    <pd:name>Domains/OrderManagement/CommonResources/Processes/OrderManagement/LoadOrderManagementRoutes.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>150</pd:startX>
+    <pd:startY>67</pd:startY>
+    <pd:returnBindings>
+        <xsl:choose>
+            <xsl:when test="count($Get-Routes/resultSet/Record)>1">
+                <pfx:ResponseHeader>
+                    <pfx:ResponseCode>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/Success"/>
+                    </pfx:ResponseCode>
+                </pfx:ResponseHeader>
+            </xsl:when>
+            <xsl:otherwise>
+                <pfx:ResponseHeader>
+                    <pfx:ResponseCode>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/InternalError"/>
+                    </pfx:ResponseCode>
+                </pfx:ResponseHeader>
+            </xsl:otherwise>
+        </xsl:choose>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx:ResponseHeader"/>
+    <pd:endX>767</pd:endX>
+    <pd:endY>68</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://vodafone.com.tr/1398500677042</pd:targetNamespace>
+    <pd:activity name="Get Routes">
+        <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+        <pd:x>335</pd:x>
+        <pd:y>67</pd:y>
+        <config>
+            <timeout>%%Database/TO2F/LoginTimeout%%</timeout>
+            <commit>false</commit>
+            <maxRows>1000</maxRows>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <jdbcSharedConfig>/Domains/OrderManagement/CommonResources/Connections/JDBC/TO2F Database Connection.sharedjdbc</jdbcSharedConfig>
+            <statement>SELECT OSM_OC_NAME,
+OSM_SCENARIO_NAME,
+OA_DOMAIN_NAME,
+OA_TARGET_SYSTEM,
+OA_OPERATION_NAME,
+OA_OPERATION_VERSION,
+OA_RESPONSE_SERVICE,
+SC_DOMAIN_NAME,
+SC_SERVICE_NAME,
+SC_OPERATION_NAME,
+SC_OPERATION_VERSION,
+SC_TARGET_SYSTEM,
+SC_DESTINATION_QUEUE FROM OA_SERVICE_ROUTING</statement>
+            <Prepared_Param_DataType/>
+            <oraObjects/>
+            <oraTables/>
+            <QueryOutputCachedSchemaColumns>OSM_OC_NAME</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>OSM_SCENARIO_NAME</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>OA_DOMAIN_NAME</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>OA_TARGET_SYSTEM</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>OA_OPERATION_NAME</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>OA_OPERATION_VERSION</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>-5</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>number</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>OA_RESPONSE_SERVICE</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>SC_DOMAIN_NAME</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>SC_SERVICE_NAME</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>SC_OPERATION_NAME</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>SC_OPERATION_VERSION</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>-5</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>number</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>SC_TARGET_SYSTEM</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>SC_DESTINATION_QUEUE</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+        </config>
+        <pd:inputBindings>
+            <jdbcQueryActivityInput/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SetVariable">
+        <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+        <pd:x>572</pd:x>
+        <pd:y>70</pd:y>
+        <config>
+            <variableConfig>/Domains/OrderManagement/CommonResources/SharedVariables/OrderManagement/OrderManagementRoutingRules.sharedvariable</variableConfig>
+            <showResult>true</showResult>
+        </config>
+        <pd:inputBindings>
+            <Routes>
+                <xsl:for-each select="$Get-Routes/resultSet/Record">
+                    <ns2:OrderManagementRoute>
+                        <ns2:OSM>
+                            <ns2:OrderComponentName>
+                                <xsl:value-of select="OSM_OC_NAME"/>
+                            </ns2:OrderComponentName>
+                            <ns2:ScenarioName>
+                                <xsl:value-of select="OSM_SCENARIO_NAME"/>
+                            </ns2:ScenarioName>
+                        </ns2:OSM>
+                        <ns2:OSMAdapter>
+                            <ns2:Domain>
+                                <xsl:value-of select="OA_DOMAIN_NAME"/>
+                            </ns2:Domain>
+                            <ns2:TargetSystem>
+                                <xsl:value-of select="OA_TARGET_SYSTEM"/>
+                            </ns2:TargetSystem>
+                            <ns2:Operation>
+                                <xsl:value-of select="OA_OPERATION_NAME"/>
+                            </ns2:Operation>
+                            <ns2:Version>
+                                <xsl:value-of select="OA_OPERATION_VERSION"/>
+                            </ns2:Version>
+                            <ns2:ResponseService>
+                                <xsl:value-of select="OA_RESPONSE_SERVICE"/>
+                            </ns2:ResponseService>
+                        </ns2:OSMAdapter>
+                        <ns2:ServiceCatalog>
+                            <ns2:Domain>
+                                <xsl:value-of select="SC_DOMAIN_NAME"/>
+                            </ns2:Domain>
+                            <ns2:Service>
+                                <xsl:value-of select="SC_SERVICE_NAME"/>
+                            </ns2:Service>
+                            <ns2:Operation>
+                                <xsl:value-of select="SC_OPERATION_NAME"/>
+                            </ns2:Operation>
+                            <ns2:Version>
+                                <xsl:value-of select="SC_OPERATION_VERSION"/>
+                            </ns2:Version>
+                            <ns2:Target>
+                                <xsl:value-of select="SC_TARGET_SYSTEM"/>
+                            </ns2:Target>
+                            <ns2:Queue>
+                                <xsl:value-of select="SC_DESTINATION_QUEUE"/>
+                            </ns2:Queue>
+                        </ns2:ServiceCatalog>
+                    </ns2:OrderManagementRoute>
+                </xsl:for-each>
+            </Routes>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Get Routes</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get Routes</pd:from>
+        <pd:to>SetVariable</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SetVariable</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

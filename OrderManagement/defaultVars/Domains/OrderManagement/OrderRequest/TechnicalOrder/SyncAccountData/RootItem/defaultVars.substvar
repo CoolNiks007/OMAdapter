@@ -1,0 +1,37 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>Action</name>
+			<value>Modified</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1415288615650</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>ItemId</name>
+			<value>12345</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1412270098931</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>ProductName</name>
+			<value>TechnicalOrder</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1412270099387</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>ProductType</name>
+			<value>TechnicalOrder</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1412270099736</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

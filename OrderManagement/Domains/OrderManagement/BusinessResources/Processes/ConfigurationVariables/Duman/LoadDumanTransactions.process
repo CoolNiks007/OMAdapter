@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx="http://vodafone.com.tr/EAI/Common/ResponseCodes">
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/ResponseCodes" schemaLocation="/GlobalCommonResources/Schemas/Common/ResponseCodes.xsd"/>
+    <pd:name>Domains/OrderManagement/BusinessResources/Processes/ConfigurationVariables/Duman/LoadDumanTransactions.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>103</pd:startX>
+    <pd:startY>61</pd:startY>
+    <pd:returnBindings>
+        <pfx:ResponseHeader>
+            <xsl:choose>
+                <xsl:when test="count($Retrieve-Duman-Transactions/resultSet/Record)>1">
+                    <pfx:ResponseCode>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/Success"/>
+                    </pfx:ResponseCode>
+                </xsl:when>
+                <xsl:otherwise>
+                    <pfx:ResponseCode>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/InternalError"/>
+                    </pfx:ResponseCode>
+                </xsl:otherwise>
+            </xsl:choose>
+        </pfx:ResponseHeader>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx:ResponseHeader"/>
+    <pd:endX>450</pd:endX>
+    <pd:endY>64</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://vodafone.com.tr/1411467101282</pd:targetNamespace>
+    <pd:activity name="Retrieve Duman Transactions">
+        <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+        <pd:x>211</pd:x>
+        <pd:y>71</pd:y>
+        <config>
+            <timeout>%%Database/TO2F/LoginTimeout%%</timeout>
+            <commit>false</commit>
+            <maxRows>1000</maxRows>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <jdbcSharedConfig>/Domains/OrderManagement/CommonResources/Connections/JDBC/TO2F Database Connection.sharedjdbc</jdbcSharedConfig>
+            <statement>SELECT PRODUCTCATALOGID, CONDITION, TRANSACTION, CODE
+FROM OA_DUMAN_TRANSACTIONS</statement>
+            <oraObjects/>
+            <oraTables/>
+            <QueryOutputCachedSchemaColumns>PRODUCTCATALOGID</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>CONDITION</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>TRANSACTION</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>CODE</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+        </config>
+        <pd:inputBindings>
+            <jdbcQueryActivityInput/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Set Duman Transactions">
+        <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+        <pd:x>330</pd:x>
+        <pd:y>71</pd:y>
+        <config>
+            <variableConfig>/Domains/OrderManagement/BusinessResources/SharedVariables/Duman/Duman Transactions.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings>
+            <ListOfDumanTransactions>
+                <xsl:for-each select="$Retrieve-Duman-Transactions/resultSet/Record">
+                    <DumanTransactions>
+                        <ProductCatalogID>
+                            <xsl:value-of select="PRODUCTCATALOGID"/>
+                        </ProductCatalogID>
+                        <Condition>
+                            <xsl:value-of select="CONDITION"/>
+                        </Condition>
+                        <TransactionName>
+                            <xsl:value-of select="TRANSACTION"/>
+                        </TransactionName>
+                        <TransactionCode>
+                            <xsl:value-of select="CODE"/>
+                        </TransactionCode>
+                    </DumanTransactions>
+                </xsl:for-each>
+            </ListOfDumanTransactions>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Retrieve Duman Transactions</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Retrieve Duman Transactions</pd:from>
+        <pd:to>Set Duman Transactions</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Set Duman Transactions</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

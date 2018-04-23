@@ -1,0 +1,20 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\Business\OrderComponent\CustomerCare\Siebel
+2
+10
+15:CreateSuspendOrder_v1|2|0|0|0|cded6bac93d2491aa5bfb4d665d025cc|0
+13:UpdateItemsDates_v1|2|0|0|0|beaeb8ef07634f4f970934de5ecf05cf|0
+17:ManageServiceRequest_v1|2|0|0|0|db0be7e7e0204158bb70a208e7e001bc|0
+13:MarkRegistration_v1|2|0|0|0|dae67f2811fa41a58aed2a6e1befb648|0
+1a:CreateMNPServiceRequest_v1|2|0|0|0|ac7777276de643a593b5ea94115ac9f2|0
+14:CreateModifyOrder_v1|2|0|0|0|16debd314cfa4a74997397a88e310224|0
+16:UpdateBarringStatus_v1|2|0|0|0|3ee916fd535c453b8de3e72e45a6028a|0
+14:CreateNotifyOrder_v1|2|0|0|0|7adbc85b96eb455ea5878b12c79c89be|0
+16:MembersOrderTrigger_v1|2|0|0|0|492ae2210e9645cbb20eb18acf75fd90|0
+1e:UpdateBillCycleChangeStatus_v1|2|0|0|0|69b55608ac844c22b56af362ffde1975|0
+13:UpdatePortINInfo_v1|2|0|0|0|70f26b4e557d4379b3a317d501607247|0
+19:MarkProvisioningStatus_v1|2|0|0|0|aee6554d6d9244a08289a52024103a30|0
+17:UpdateOrderAttribute_v1|2|0|0|0|4034c6c688614a088219927fa308e726|0
+19:NotifyFutureDatedOrder_v1|2|0|0|0|bf528b67aa424d249b5e5ceb5ab61079|0
+7:.folder|1|162d7aeca3e|17f|c0768362|4d96a259beda48d99c2e6bf4763e7534|0
+1a:CreateSiebelNotifyOrder_v1|2|0|0|0|1908bdfb8c3a40c78e9755f5d3ffdb65|0

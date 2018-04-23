@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://vodafone.com.tr/OrderManagement/Technical/EAI/QueueCampaign//v1"
+	 targetNamespace="http://vodafone.com.tr/OrderManagement/Technical/EAI/QueueCampaign//v1"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:complexType name="Request">
+		<xs:sequence>
+			<xs:element name="PI_EVENT_SOURCE_TYPE" type="xs:string"/>
+			<xs:element name="PI_EVENT_SOURCE" type="xs:string"/>
+			<xs:element name="PI_CAMP_ID" type="xs:string"/>
+			<xs:element name="PI_CHANNEL_TYPE" type="xs:string"/>
+			<xs:element name="PI_CAMP_CON_ID" type="xs:string"/>
+			<xs:element name="PI_RESPONSE_DATE" type="xs:dateTime"/>
+			<xs:element name="PI_RESPONSE_TYPE" type="xs:string" minOccurs="0"/>
+			<xs:element name="PI_REJECTION_REASON" type="xs:string" minOccurs="0"/>
+			<xs:element name="PI_KEYWORD" type="xs:string"/>
+			<xs:element name="PI_PRODUCT_ID" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QueueCampaignRequest">
+		<xs:sequence>
+			<xs:element ref="Request"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Request" type="Request"/>
+	<xs:complexType name="QueueCampaignResponse">
+		<xs:sequence>
+			<xs:element ref="Response"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Response" type="Response"/>
+	<xs:complexType name="Response">
+		<xs:sequence>
+			<xs:element name="PO_ERROR_CODE" type="xs:string" minOccurs="0"/>
+			<xs:element name="PO_ERROR_MESSAGE" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="QueueCampaignResponse" type="QueueCampaignResponse"/>
+	<xs:element name="QueueCampaignRequest" type="QueueCampaignRequest"/>
+</xs:schema>

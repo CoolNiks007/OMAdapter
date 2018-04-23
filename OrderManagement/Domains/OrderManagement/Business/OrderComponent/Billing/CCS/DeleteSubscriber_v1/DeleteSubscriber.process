@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://vodafone.com.tr/EAI/Common/Header" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentRequestInput/v1" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns3="http://vodafone.com.tr/ServiceCatalog/Business/SubscriberManagement/DeleteSubscriber/v1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx4="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" xmlns:pfx2="http://vodafone.com.tr/ServiceCatalog/Business/SubscriberManagement/DeleteSubscriberInfo/v1" xmlns:ns12="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:pfx="http://vodafone.com.tr/EAI/Common/RequestEAI" xmlns:pfx6="http://vodafone.com.tr/ServiceCatalog/Business/SubscriberManagement/ManageGroupMember/v1">
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/RequestEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/RequestEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" schemaLocation="/Domains/ServiceCatalog/BusinessResources/Schemas/ServiceRequest.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/SubscriberManagement/ManageGroupMember/v1" schemaLocation="/Domains/ServiceCatalog/Business/SubscriberManagement/ManageGroupMember_v1/Schemas/ManageGroupMember.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentRequestInput/v1" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OrderComponent/OrderComponentRequestInput.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/SubscriberManagement/DeleteSubscriber/v1" schemaLocation="/Domains/ServiceCatalog/Business/SubscriberManagement/DeleteSubscriber_v1/Schemas/DeleteSubscriber.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/SubscriberManagement/DeleteSubscriberInfo/v1" schemaLocation="/Domains/ServiceCatalog/Business/SubscriberManagement/DeleteSubscriberInfo_v1/Schemas/DeleteSubscriberInfo.xsd"/>
+    <pd:name>Domains/OrderManagement/Business/OrderComponent/Billing/CCS/DeleteSubscriber_v1/DeleteSubscriber.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Input">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx:RequestEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>147</pd:startX>
+    <pd:startY>62</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>667</pd:endX>
+    <pd:endY>62</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://vodafone.com.tr/1415271624908</pd:targetNamespace>
+    <pd:activity name="JMS Queue Sender">
+        <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+        <pd:x>543</pd:x>
+        <pd:y>62</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/GlobalCommonResources/Connections/JMS/JMS EAI Connection.sharedjmscon</ConnectionReference>
+            <InDataxsdString ref="pfx3:ServiceRequest"/>
+        </config>
+        <pd:inputBindings>
+            <ns12:ActivityInput>
+                <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:ServiceCatalogQueue">
+                    <destinationQueue>
+                        <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:ServiceCatalogQueue"/>
+                    </destinationQueue>
+                </xsl:if>
+                <replyToQueue>
+                    <xsl:value-of select="tib:concat-sequence-format(($_globalVariables/ns:GlobalVariables/Constants/Company,$_globalVariables/ns:GlobalVariables/Constants/ProjectName,$_globalVariables/ns:GlobalVariables/Domains/OrderManagement/Name,$_globalVariables/ns:GlobalVariables/Domains/OrderManagement/OrderComponent/Name,$_globalVariables/ns:GlobalVariables/Constants/Layer/Business,$_globalVariables/ns:GlobalVariables/Constants/QOS/Guarantee,$_globalVariables/ns:GlobalVariables/Constants/RequestType/Reply),&quot;.&quot;)"/>
+                </replyToQueue>
+                <JMSPriority>
+                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:Priority"/>
+                </JMSPriority>
+                <Body>
+                    <pfx3:ServiceRequest>
+                        <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$Start/Input/pfx:RequestEAI/pfx:Header">
+                            <pfx3:Header>
+                                <ns2:RequestId>
+                                    <xsl:value-of select="ns2:RequestId"/>
+                                </ns2:RequestId>
+                                <ns2:SourceSystem>
+                                    <xsl:value-of select="ns2:SourceSystem"/>
+                                </ns2:SourceSystem>
+                                <ns2:ReplyExpected>
+                                    <xsl:value-of select="ns2:ReplyExpected"/>
+                                </ns2:ReplyExpected>
+                                <ns2:QoS>
+                                    <xsl:value-of select="ns2:QoS"/>
+                                </ns2:QoS>
+                                <xsl:if test="string-length(ns2:Schedule)>0">
+                                    <ns2:Schedule>
+                                        <xsl:value-of select="ns2:Schedule"/>
+                                    </ns2:Schedule>
+                                </xsl:if>
+                                <ns2:CorrelationId>
+                                    <xsl:value-of select="ns2:CorrelationId"/>
+                                </ns2:CorrelationId>
+                                <ns2:Priority>
+                                    <xsl:value-of select="ns2:Priority"/>
+                                </ns2:Priority>
+                                <xsl:for-each select="ns2:Credentials">
+                                    <ns2:Credentials>
+                                        <ns2:ApplicationId>
+                                            <xsl:value-of select="ns2:ApplicationId"/>
+                                        </ns2:ApplicationId>
+                                        <ns2:User>
+                                            <xsl:value-of select="ns2:User"/>
+                                        </ns2:User>
+                                        <ns2:Password>
+                                            <xsl:value-of select="ns2:Password"/>
+                                        </ns2:Password>
+                                    </ns2:Credentials>
+                                </xsl:for-each>
+                                <ns2:ProxySystem>
+                                    <xsl:value-of select="ns2:ProxySystem"/>
+                                </ns2:ProxySystem>
+                                <xsl:if test="string-length(ns2:ForceSimulate) >0">
+                                    <ns2:ForceSimulate>
+                                        <xsl:value-of select="ns2:ForceSimulate"/>
+                                    </ns2:ForceSimulate>
+                                </xsl:if>
+                                <xsl:copy-of select="ns2:Attributes"/>
+                            </pfx3:Header>
+                        </xsl:for-each>
+                        <pfx3:Body>
+                            <xsl:copy-of select="$Map-Data/pfx2:DeleteSubscriberInfoRequest/pfx2:Request"/>
+                        </pfx3:Body>
+                    </pfx3:ServiceRequest>
+                </Body>
+            </ns12:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Map Data">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>418</pd:x>
+        <pd:y>62</pd:y>
+        <config>
+            <element ref="pfx2:DeleteSubscriberInfoRequest"/>
+        </config>
+        <pd:inputBindings>
+            <pfx2:DeleteSubscriberInfoRequest>
+                <pfx2:Request>
+                    <pfx2:SubscriberNo>
+                        <xsl:value-of select="$Parse-XML/RootItem/ServiceId"/>
+                    </pfx2:SubscriberNo>
+                </pfx2:Request>
+            </pfx2:DeleteSubscriberInfoRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Parse XML">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>284</pd:x>
+        <pd:y>62</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>false</validateOutput>
+            <term>
+                <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="RootItem" type="pfx4:RootItem"/>
+            </term>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Start/Input/pfx:RequestEAI/pfx:Body/*" element="ns1:Request"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:OrderComponentDetails/ns1:XMLMessage/*[1]"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Parse XML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse XML</pd:from>
+        <pd:to>Map Data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map Data</pd:from>
+        <pd:to>JMS Queue Sender</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>JMS Queue Sender</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

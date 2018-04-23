@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://vodafone.com.tr/OrderManagement/Business/Siebel/PrintInvoiceCopy/v1"
+	 targetNamespace="http://vodafone.com.tr/OrderManagement/Business/Siebel/PrintInvoiceCopy/v1"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:complexType name="Request">
+		<xs:sequence>
+			<xs:element name="BillingAccountCode" type="xs:string"/>
+			<xs:element name="DistributionChannel" type="xs:string"/>
+			<xs:element name="FaxNumber" type="xs:string" minOccurs="0"/>
+			<xs:element name="Email" type="xs:string" minOccurs="0"/>
+			<xs:element name="Name" type="xs:string" minOccurs="0"/>
+			<xs:element name="Address" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Address1" type="xs:string" minOccurs="0"/>
+						<xs:element name="Address2" type="xs:string" minOccurs="0"/>
+						<xs:element name="Address3" type="xs:string" minOccurs="0"/>
+						<xs:element name="PostalCode" type="xs:string" minOccurs="0"/>
+						<xs:element name="Province" type="xs:string" minOccurs="0"/>
+						<xs:element name="City" type="xs:string" minOccurs="0"/>
+						<xs:element name="Country" type="xs:string" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Invoice">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="InvoiceId" type="xs:string"/>
+						<xs:element name="RequestType" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Request" type="Request"/>
+	<xs:element name="PrintInvoiceCopyRequest" type="PrintInvoiceCopyRequest"/>
+	<xs:complexType name="PrintInvoiceCopyRequest">
+		<xs:sequence>
+			<xs:element ref="Request"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,29 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>Name</name>
+			<value>CartridgeName</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1412270080433</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Source</name>
+			<value>Source</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1412270080902</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Version</name>
+			<value>Version</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1412270081370</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

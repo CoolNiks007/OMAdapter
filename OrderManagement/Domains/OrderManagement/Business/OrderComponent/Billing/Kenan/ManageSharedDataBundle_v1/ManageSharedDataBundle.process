@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentRequestInput/v1" xmlns:pfx11="http://vodafone.com.tr/ServiceCatalog/Business/SharedDataBundleManagement/ManageSharedDataBundle/v1" xmlns:pfx10="http://vodafone.com.tr/ServiceCatalog/Business/ProductManagement/AddCampaigns/v1" xmlns:ns32="urn:com:metasolv:oms:xmlapi:1" xmlns:ns12="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentResponseInput/v1" xmlns:pfx="http://vodafone.com.tr/EAI/Common/RequestEAI" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns4="http://vodafone.com.tr/EAI/Common/ResponseCodes" xmlns:ns3="http://vodafone.com.tr/EAI/Common/Header" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx4="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" xmlns:pfx3="http://vodafone.com.tr/ServiceCatalog/Business/Billing/AddProducts/v1" xmlns:pfx2="http://vodafone.com.tr/EAI/Common/ResponseEAI" xmlns:pfx9="http://vodafone.com.tr/ServiceCatalog/Business/CDRManagement/ManageGroup/v1" xmlns:pfx8="http://vodafone.com.tr/ServiceCatalog/ServiceReply" xmlns:pfx7="http://vodafone.com.tr/ServiceCatalog/Business/SubscriberInquiries/GetRemainingBalance/v1" xmlns:pfx6="http://vodafone.com.tr/ServiceCatalog/Business/ProductManagement/AddProducts/v1">
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/RequestEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/RequestEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/ResponseEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/ResponseEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentRequestInput/v1" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OrderComponent/OrderComponentRequestInput.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" schemaLocation="/Domains/ServiceCatalog/BusinessResources/Schemas/ServiceRequest.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/Billing/AddProducts/v1" schemaLocation="/Domains/ServiceCatalog/Business/Billing/AddProducts_v1/Schemas/AddProducts.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/ProductManagement/AddProducts/v1" schemaLocation="/Domains/ServiceCatalog/Business/ProductManagement/AddProducts_v1/Schemas/AddProducts.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/SubscriberInquiries/GetRemainingBalance/v1" schemaLocation="/Domains/ServiceCatalog/Business/SubscriberInquiries/GetRemainingBalance_v1/Schemas/GetRemainingBalance.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/ServiceReply" schemaLocation="/Domains/ServiceCatalog/BusinessResources/Schemas/ServiceReply.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/CDRManagement/ManageGroup/v1" schemaLocation="/Domains/ServiceCatalog/Business/CDRManagement/ManageGroup_v1/Schemas/ManageGroup.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/ProductManagement/AddCampaigns/v1" schemaLocation="/Domains/ServiceCatalog/Business/ProductManagement/AddCampaigns_v1/Schemas/AddCampaigns.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/SharedDataBundleManagement/ManageSharedDataBundle/v1" schemaLocation="/Domains/ServiceCatalog/Business/SharedDataBundleManagement/ManageSharedDataBundle_v1/Schemas/ManageSharedDataBundle.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/OSMOrder.xsd" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OSMOrder.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd"/>
+    <pd:name>Domains/OrderManagement/Business/OrderComponent/Billing/Kenan/ManageSharedDataBundle_v1/ManageSharedDataBundle.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Input">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx:RequestEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>157</pd:startX>
+    <pd:startY>174</pd:startY>
+    <pd:returnBindings>
+        <Output>
+            <pfx2:ResponseEAI>
+                <pfx2:Header>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ancestor-or-self::*/namespace::node()"/>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/@*"/>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/node()"/>
+                </pfx2:Header>
+                <pfx2:ResponseCodes>
+                    <ns4:ResponseCode>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/Success"/>
+                    </ns4:ResponseCode>
+                </pfx2:ResponseCodes>
+            </pfx2:ResponseEAI>
+        </Output>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="Output">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx2:ResponseEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>893</pd:endX>
+    <pd:endY>174</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://vodafone.com.tr/1407237293082</pd:targetNamespace>
+    <pd:activity name="GetGlobalData">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>456</pd:x>
+        <pd:y>174</pd:y>
+        <config>
+            <processName>/Domains/OrderManagement/BusinessResources/Processes/TO2FGlobalData/GetGlobalData.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <xsl:if xmlns:xsl="http://www.w3.org/1999/XSL/Transform" test="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:OrderId">
+                    <OrderId>
+                        <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:OrderId"/>
+                    </OrderId>
+                </xsl:if>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="JMS Queue Sender">
+        <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+        <pd:x>746</pd:x>
+        <pd:y>174</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/GlobalCommonResources/Connections/JMS/JMS EAI Connection.sharedjmscon</ConnectionReference>
+            <InDataxsdString ref="pfx5:ServiceRequest"/>
+        </config>
+        <pd:inputBindings>
+            <ns2:ActivityInput>
+                <destinationQueue>
+                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:ServiceCatalogQueue"/>
+                </destinationQueue>
+                <replyToQueue>
+                    <xsl:value-of select="tib:concat-sequence-format(($_globalVariables/ns1:GlobalVariables/Constants/Company,$_globalVariables/ns1:GlobalVariables/Constants/ProjectName,$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/Name,$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/OrderComponent/Name,$_globalVariables/ns1:GlobalVariables/Constants/Layer/Business,$_globalVariables/ns1:GlobalVariables/Constants/QOS/Guarantee,$_globalVariables/ns1:GlobalVariables/Constants/RequestType/Reply),&quot;.&quot;)"/>
+                </replyToQueue>
+                <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns3:Priority">
+                    <JMSPriority>
+                        <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns3:Priority"/>
+                    </JMSPriority>
+                </xsl:if>
+                <Body>
+                    <pfx5:ServiceRequest>
+                        <xsl:for-each select="$Start/Input/pfx:RequestEAI/pfx:Header">
+                            <pfx5:Header>
+                                <xsl:if test="ns3:RequestId">
+                                    <ns3:RequestId>
+                                        <xsl:value-of select="ns3:RequestId"/>
+                                    </ns3:RequestId>
+                                </xsl:if>
+                                <ns3:SourceSystem>
+                                    <xsl:value-of select="ns3:SourceSystem"/>
+                                </ns3:SourceSystem>
+                                <ns3:ReplyExpected>
+                                    <xsl:value-of select="ns3:ReplyExpected"/>
+                                </ns3:ReplyExpected>
+                                <xsl:if test="ns3:QoS">
+                                    <ns3:QoS>
+                                        <xsl:value-of select="ns3:QoS"/>
+                                    </ns3:QoS>
+                                </xsl:if>
+                                <xsl:if test="ns3:Schedule">
+                                    <ns3:Schedule>
+                                        <xsl:value-of select="ns3:Schedule"/>
+                                    </ns3:Schedule>
+                                </xsl:if>
+                                <xsl:if test="ns3:CorrelationId">
+                                    <ns3:CorrelationId>
+                                        <xsl:value-of select="ns3:CorrelationId"/>
+                                    </ns3:CorrelationId>
+                                </xsl:if>
+                                <xsl:if test="ns3:Priority">
+                                    <ns3:Priority>
+                                        <xsl:value-of select="ns3:Priority"/>
+                                    </ns3:Priority>
+                                </xsl:if>
+                                <xsl:for-each select="ns3:Credentials">
+                                    <ns3:Credentials>
+                                        <ns3:ApplicationId>
+                                            <xsl:value-of select="ns3:ApplicationId"/>
+                                        </ns3:ApplicationId>
+                                        <ns3:User>
+                                            <xsl:value-of select="ns3:User"/>
+                                        </ns3:User>
+                                        <xsl:if test="ns3:Password">
+                                            <ns3:Password>
+                                                <xsl:value-of select="ns3:Password"/>
+                                            </ns3:Password>
+                                        </xsl:if>
+                                    </ns3:Credentials>
+                                </xsl:for-each>
+                                <xsl:if test="ns3:ProxySystem">
+                                    <ns3:ProxySystem>
+                                        <xsl:value-of select="ns3:ProxySystem"/>
+                                    </ns3:ProxySystem>
+                                </xsl:if>
+                                <xsl:if test="ns3:ForceSimulate">
+                                    <ns3:ForceSimulate>
+                                        <xsl:value-of select="ns3:ForceSimulate"/>
+                                    </ns3:ForceSimulate>
+                                </xsl:if>
+                                <xsl:for-each select="ns3:Attributes">
+                                    <ns3:Attributes>
+                                        <xsl:for-each select="ns3:Attribute">
+                                            <ns3:Attribute>
+                                                <ns3:Name>
+                                                    <xsl:value-of select="ns3:Name"/>
+                                                </ns3:Name>
+                                                <ns3:Value>
+                                                    <xsl:value-of select="ns3:Value"/>
+                                                </ns3:Value>
+                                            </ns3:Attribute>
+                                        </xsl:for-each>
+                                    </ns3:Attributes>
+                                </xsl:for-each>
+                            </pfx5:Header>
+                        </xsl:for-each>
+                        <pfx5:Body>
+                            <xsl:copy-of select="$Map-Data/pfx11:Request"/>
+                        </pfx5:Body>
+                    </pfx5:ServiceRequest>
+                </Body>
+            </ns2:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Map Data">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>603</pd:x>
+        <pd:y>174</pd:y>
+        <config>
+            <element ref="pfx11:Request"/>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Parse-XML/OSMOrder/XMLMessage/*" element="pfx4:Order" cardinality=""/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <xsl:variable name="rootItem" select="$Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem[ListOfChildItem/ChildItem[ProductCatalogId='1113']]"/>
+            <xsl:variable name="var3" select="$rootItem/BillAcctCode"/>
+            <xsl:variable name="BillingAccount" select="$Parse-XML/OSMOrder/XMLMessage/Order/ListOfBillingAccount/BillingAccount[BillAcctCode=$var3]"/>
+            <xsl:variable name="var4" select="$rootItem/CustAcctCode"/>
+            <xsl:variable name="customerAccount" select="$Parse-XML/OSMOrder/XMLMessage/Order/ListOfCustomerAccount/CustomerAccount[CustAcctCode=$var4]"/>
+            <xsl:variable name="Segment" select="if($customerAccount/CustAcctType = '101')&#xA;then 'EBU'&#xA;else 'CBU'"/>
+            <pfx11:Request>
+                <xsl:variable name="ChildLineItem" select="$rootItem/ListOfChildItem/ChildItem[ProductCatalogId='1113']"/>
+                <xsl:variable name="Action_Resume_New" select="($ChildLineItem/Action='Resume' and $Parse-XML/OSMOrder/CategoryAction = (&quot;CAN_ACT&quot;,&quot;FRO_ACT&quot;,&quot;CAN_CLO&quot;,&quot;FRO_CLO&quot;,&quot;CAN_LIM&quot;,&quot;FRO_LIM&quot;))&#xA;or &#xA;($ChildLineItem/Action='New')"/>
+                <xsl:variable name="Action_Suspend_Delete" select="($ChildLineItem/Action='Suspend' and $Parse-XML/OSMOrder/CategoryAction = ('ACT_CAN','ACT_FRO','CLO_CAN','CLO_FRO','LIM_CAN','LIM_FRO'))&#xA;or &#xA;($ChildLineItem/Action='Deleted')"/>
+                <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:OrderId">
+                    <pfx11:ExternalId>
+                        <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:OrderId"/>
+                    </pfx11:ExternalId>
+                </xsl:if>
+                <pfx11:ExternalComponentId>
+                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:Id"/>
+                </pfx11:ExternalComponentId>
+                <xsl:if test="$Action_Suspend_Delete">
+                    <pfx11:deleteSharedDataBundle>
+                        <pfx11:BillingAccountId>
+                            <xsl:value-of select="$var3"/>
+                        </pfx11:BillingAccountId>
+                        <pfx11:SubscriberId>
+                            <xsl:value-of select="$rootItem/MSISDN"/>
+                        </pfx11:SubscriberId>
+                        <xsl:if test="$var4">
+                            <pfx11:CustomerId>
+                                <xsl:value-of select="$var4"/>
+                            </pfx11:CustomerId>
+                        </xsl:if>
+                        <pfx11:SharedDataBundleProduct>
+                            <pfx11:ProductId>
+                                <xsl:value-of select="$ChildLineItem/ProductCatalogId"/>
+                            </pfx11:ProductId>
+                            <pfx11:ListOfAttributes>
+                                <pfx11:Attribute>
+                                    <pfx11:AttributeName>
+                                        <xsl:value-of select="'Segment'"/>
+                                    </pfx11:AttributeName>
+                                    <pfx11:AttributeValue>
+                                        <xsl:value-of select="$Segment"/>
+                                    </pfx11:AttributeValue>
+                                </pfx11:Attribute>
+                            </pfx11:ListOfAttributes>
+                        </pfx11:SharedDataBundleProduct>
+                        <xsl:if test="count($ChildLineItem/ListOfDataSharingDetail/DataSharingDetail)>0">
+                            <pfx11:SharedDataBundleSubscriberList>
+                                <xsl:for-each select="$ChildLineItem/ListOfDataSharingDetail/DataSharingDetail">
+                                    <pfx11:SharedDataBundleSubscriber>
+                                        <pfx11:SubscriberId>
+                                            <xsl:value-of select="current()/MSISDN"/>
+                                        </pfx11:SubscriberId>
+                                        <pfx11:SharedQuota>
+                                            <xsl:value-of select="current()/SharedDataValue"/>
+                                        </pfx11:SharedQuota>
+                                    </pfx11:SharedDataBundleSubscriber>
+                                </xsl:for-each>
+                            </pfx11:SharedDataBundleSubscriberList>
+                        </xsl:if>
+                        <xsl:choose>
+                            <xsl:when test="string-length($GetGlobalData/Output/ListOfGlobalData/GlobalData[Key =$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/GlobalDataNames/ProvisioningDateTime]/Value)>0">
+                                <pfx11:EndDate>
+                                    <xsl:value-of select="$GetGlobalData/Output/ListOfGlobalData/GlobalData[Key =$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/GlobalDataNames/ProvisioningDateTime]/Value"/>
+                                </pfx11:EndDate>
+                            </xsl:when>
+                            <xsl:when test="tib:validate-dateTime( $_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime,$ChildLineItem/EndDate)">
+                                <pfx11:EndDate>
+                                    <xsl:value-of select="tib:parse-dateTime( $_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime,$ChildLineItem/EndDate)"/>
+                                </pfx11:EndDate>
+                            </xsl:when>
+                            <xsl:when test="tib:validate-dateTime( $_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime,$ChildLineItem/DueDate)">
+                                <pfx11:EndDate>
+                                    <xsl:value-of select="tib:parse-dateTime( $_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime,$ChildLineItem/DueDate)"/>
+                                </pfx11:EndDate>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <pfx11:EndDate>
+                                    <xsl:value-of select="$ChildLineItem/DueDate"/>
+                                </pfx11:EndDate>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="($ChildLineItem/Action='Suspend' and $Parse-XML/OSMOrder/CategoryAction = ('ACT_CAN','ACT_FRO','CLO_CAN','CLO_FRO','LIM_CAN','LIM_FRO'))&#xA;or &#xA;$ChildLineItem/Action='Deleted'">
+                                <pfx11:IsTerminate>
+                                    <xsl:value-of select="true()"/>
+                                </pfx11:IsTerminate>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <pfx11:IsTerminate>
+                                    <xsl:value-of select="false()"/>
+                                </pfx11:IsTerminate>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </pfx11:deleteSharedDataBundle>
+                </xsl:if>
+                <xsl:if test="$Action_Resume_New">
+                    <pfx11:addSharedDataBundle>
+                        <pfx11:BillingAccountId>
+                            <xsl:value-of select="$var3"/>
+                        </pfx11:BillingAccountId>
+                        <pfx11:SubscriberId>
+                            <xsl:value-of select="$rootItem/MSISDN"/>
+                        </pfx11:SubscriberId>
+                        <xsl:if test="$var4">
+                            <pfx11:CustomerId>
+                                <xsl:value-of select="$var4"/>
+                            </pfx11:CustomerId>
+                        </xsl:if>
+                        <pfx11:SharedDataBundleProduct>
+                            <pfx11:ProductId>
+                                <xsl:value-of select="$ChildLineItem/ProductCatalogId"/>
+                            </pfx11:ProductId>
+                            <pfx11:ListOfAttributes>
+                                <pfx11:Attribute>
+                                    <pfx11:AttributeName>
+                                        <xsl:value-of select="'Segment'"/>
+                                    </pfx11:AttributeName>
+                                    <pfx11:AttributeValue>
+                                        <xsl:value-of select="$Segment"/>
+                                    </pfx11:AttributeValue>
+                                </pfx11:Attribute>
+                            </pfx11:ListOfAttributes>
+                        </pfx11:SharedDataBundleProduct>
+                        <pfx11:SharedDataBundleSubscriberList>
+                            <xsl:for-each select="$ChildLineItem/ListOfDataSharingDetail/DataSharingDetail">
+                                <pfx11:SharedDataBundleSubscriber>
+                                    <pfx11:SubscriberId>
+                                        <xsl:value-of select="current()/MSISDN"/>
+                                    </pfx11:SubscriberId>
+                                    <pfx11:SharedQuota>
+                                        <xsl:value-of select="current()/SharedDataValue"/>
+                                    </pfx11:SharedQuota>
+                                </pfx11:SharedDataBundleSubscriber>
+                            </xsl:for-each>
+                        </pfx11:SharedDataBundleSubscriberList>
+                        <xsl:choose>
+                            <xsl:when test="tib:validate-dateTime( $_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime,$ChildLineItem/StartDate)">
+                                <pfx11:StartDate>
+                                    <xsl:value-of select="tib:parse-dateTime( $_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime,$ChildLineItem/StartDate)"/>
+                                </pfx11:StartDate>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <pfx11:StartDate>
+                                    <xsl:value-of select="$ChildLineItem/StartDate"/>
+                                </pfx11:StartDate>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </pfx11:addSharedDataBundle>
+                </xsl:if>
+                <xsl:if test="not( $Action_Resume_New  or &#xA;$Action_Suspend_Delete&#xA;)">
+                    <pfx11:modifySharedDataBundle>
+                        <pfx11:BillingAccountId>
+                            <xsl:value-of select="$var3"/>
+                        </pfx11:BillingAccountId>
+                        <pfx11:SubscriberId>
+                            <xsl:value-of select="$rootItem/MSISDN"/>
+                        </pfx11:SubscriberId>
+                        <xsl:if test="$var4">
+                            <pfx11:CustomerId>
+                                <xsl:value-of select="$var4"/>
+                            </pfx11:CustomerId>
+                        </xsl:if>
+                        <pfx11:SharedDataBundleProduct>
+                            <pfx11:ProductId>
+                                <xsl:value-of select="$ChildLineItem/ProductCatalogId"/>
+                            </pfx11:ProductId>
+                            <pfx11:ListOfAttributes>
+                                <pfx11:Attribute>
+                                    <pfx11:AttributeName>
+                                        <xsl:value-of select="'Segment'"/>
+                                    </pfx11:AttributeName>
+                                    <pfx11:AttributeValue>
+                                        <xsl:value-of select="$Segment"/>
+                                    </pfx11:AttributeValue>
+                                </pfx11:Attribute>
+                            </pfx11:ListOfAttributes>
+                        </pfx11:SharedDataBundleProduct>
+                        <xsl:if test="count($ChildLineItem/ListOfDataSharingDetail/DataSharingDetail)>0">
+                            <pfx11:SharedDataBundleSubscriberList>
+                                <xsl:for-each select="$ChildLineItem/ListOfDataSharingDetail/DataSharingDetail">
+                                    <pfx11:SharedDataBundleSubscriber>
+                                        <pfx11:SubscriberId>
+                                            <xsl:value-of select="current()/MSISDN"/>
+                                        </pfx11:SubscriberId>
+                                        <pfx11:SharedQuota>
+                                            <xsl:value-of select="current()/SharedDataValue"/>
+                                        </pfx11:SharedQuota>
+                                    </pfx11:SharedDataBundleSubscriber>
+                                </xsl:for-each>
+                            </pfx11:SharedDataBundleSubscriberList>
+                        </xsl:if>
+                        <xsl:choose>
+                            <xsl:when test="tib:validate-dateTime( $_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime,$ChildLineItem/ModifyDate)">
+                                <pfx11:ModifyDate>
+                                    <xsl:value-of select="tib:parse-dateTime( $_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime,$ChildLineItem/ModifyDate)"/>
+                                </pfx11:ModifyDate>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <pfx11:ModifyDate>
+                                    <xsl:value-of select="$ChildLineItem/ModifyDate"/>
+                                </pfx11:ModifyDate>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </pfx11:modifySharedDataBundle>
+                </xsl:if>
+            </pfx11:Request>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Parse XML">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>311</pd:x>
+        <pd:y>174</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>false</validateOutput>
+            <term ref="pfx12:OSMOrder"/>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Start/Input/pfx:RequestEAI/pfx:Body/*" element="ns:Request"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:XMLMessage/*[1]"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Parse XML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse XML</pd:from>
+        <pd:to>GetGlobalData</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map Data</pd:from>
+        <pd:to>JMS Queue Sender</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>JMS Queue Sender</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetGlobalData</pd:from>
+        <pd:to>Map Data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

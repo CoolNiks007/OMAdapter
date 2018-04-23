@@ -1,0 +1,16 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Test
+2
+c
+1e:Test SubmitOrderFuture.process|1|162d7af1b69|16d8|6248bdf6|d99619a7e8014c849f29e7c638ccfafb|0
+19:Test Create Order.process|1|162d7af1b4a|10bb|fcfcdde4|89c49018dc124c68beb609fe135f5a3a|0
+15:ResubmitOrder.process|1|162d7af1add|12a6|431b67be|d7cde285e4d247db8d7b5f8a3e62ef05|0
+22:Test Resolve Order Failure.process|1|162d7af1b5a|113c|5f2ce5ca|2ba3df9eb2394baca743a8d9e63c7e2d|0
+1f:Test IsOrderCancellable.process|1|162d7af1b5a|14ab|e1261a64|2dcbc04c2c0b4c63867b2d786ce071f1|0
+16:Test Get Order.process|1|162d7af1b5a|11eb|79942883|cdfe80e44bb34c99b3f4b0e406ef0625|0
+e:TestFR.process|1|162d7af1b69|2f7b|89f1a4ca|af591b77835d41dd8474968d1af73c6a|0
+1c:Test Create Order By.process|1|162d7af1b4a|1d17|4054509|ab5694c5e1944a98adefb0e87a65d51d|0
+25:Test Create Order By Tec Test.process|1|162d7af1b4a|1d20|7cb14801|58c9305662d647328fe9d2e904379ad2|0
+31:Test Create Order By Spec Service Catalog.process|1|162d7af1b3b|168a|733b88fe|d5bdd932d44a4e108dafe49fbaf0d8a4|0
+25:Test Decompose for Validation.process|1|162d7af1b4a|12a3|fc6494e8|4e7c3900fc27469085458b2230cfa138|0
+7:.folder|1|162d7af1acd|17d|b48782ae|4cd56b018b7e4dc9aa5130edd6c27f7e|0

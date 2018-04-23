@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://vodafone.com.tr/ServiceCatalog/Business/OSM/DecomposeForValidation/v1" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://xmlns.oracle.com/communications/ordermanagement" xmlns:ns4="http://vodafone.com.tr/ServiceCatalog/Business/OSM/CreateOrder/v1" xmlns:ns="http://vodafone.com.tr/EAI/Common/RequestEAI" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx="http://vodafone.com.tr/EAI/Common/Header">
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/RequestEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/RequestEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/DecomposeForValidation/v1" schemaLocation="/Domains/ServiceCatalog/Business/OSM/DecomposeForValidation_v1/Schemas/DecomposeForValidation.xsd"/>
+    <xsd:import namespace="http://xmlns.oracle.com/communications/ordermanagement" schemaLocation="/Domains/OrderManagement/TechnicalResources/Schemas/OSM/OrderManagementWS.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/CreateOrder/v1" schemaLocation="/Domains/ServiceCatalog/Business/OSM/CreateOrder_v1/Schemas/CreateOrder.xsd"/>
+    <pd:name>Test/Test Create Order By.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="param">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="param" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>151</pd:startX>
+    <pd:startY>63</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>717</pd:endX>
+    <pd:endY>64</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://vodafone.com.tr/1398787264357</pd:targetNamespace>
+    <pd:activity name="Create Order By Spec">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>487</pd:x>
+        <pd:y>72</pd:y>
+        <config>
+            <processName>/Domains/OrderManagement/Technical/OSM/CreateOrderBySpecification_v1/CreateOrderBySpecification.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <ns:RequestEAI>
+                    <ns:Header>
+                        <pfx:SourceSystem>
+                            <xsl:value-of select="'Siebel'"/>
+                        </pfx:SourceSystem>
+                        <pfx:ReplyExpected>
+                            <xsl:value-of select="'Now'"/>
+                        </pfx:ReplyExpected>
+                        <pfx:QoS>
+                            <xsl:value-of select="'R'"/>
+                        </pfx:QoS>
+                        <pfx:Priority>
+                            <xsl:value-of select="1"/>
+                        </pfx:Priority>
+                        <pfx:Credentials>
+                            <pfx:ApplicationId>
+                                <xsl:value-of select="'EAI'"/>
+                            </pfx:ApplicationId>
+                            <pfx:User>
+                                <xsl:value-of select="'bapv'"/>
+                            </pfx:User>
+                        </pfx:Credentials>
+                        <pfx:TargetSystem>
+                            <xsl:value-of select="'OSM'"/>
+                        </pfx:TargetSystem>
+                    </ns:Header>
+                    <ns:Body>
+                        <ns1:CreateOrderBySpecification>
+                            <ns1:Specification>
+                                <ns1:Cartridge>
+                                    <ns1:Name>
+                                        <xsl:value-of select="'TELCO_DECOMPOSE'"/>
+                                    </ns1:Name>
+                                </ns1:Cartridge>
+                                <ns1:Type>
+                                    <xsl:value-of select="'TelcoDecomposeOrder.order'"/>
+                                </ns1:Type>
+                                <ns1:Source>
+                                    <xsl:value-of select="'TelcoDecomposeOrder.order'"/>
+                                </ns1:Source>
+                                <ns1:View>
+                                    <xsl:value-of select="'TelcoDecomposeCreationTask'"/>
+                                </ns1:View>
+                            </ns1:Specification>
+                            <ns1:Data>
+                                <xsl:copy-of select="$Parse-XML/*"/>
+                            </ns1:Data>
+                        </ns1:CreateOrderBySpecification>
+                    </ns:Body>
+                </ns:RequestEAI>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Parse XML">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>389</pd:x>
+        <pd:y>59</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>false</validateOutput>
+            <term>
+                <xsd:any/>
+            </term>
+        </config>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$Remove-Namespaces/xmlString"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Remove Namespaces">
+        <pd:type>com.tibco.plugin.xml.XMLTransformActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLTransformActivity</pd:resourceType>
+        <pd:x>282</pd:x>
+        <pd:y>68</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <engine>TibcoXML</engine>
+            <stylesheet>/Domains/OrderManagement/CommonResources/Transformations/Remove Namespaces.xslt</stylesheet>
+        </config>
+        <pd:inputBindings>
+            <textInput>
+                <xmlString>
+                    <xsl:value-of select="tib:render-xml($Start/param/param)"/>
+                </xmlString>
+            </textInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Create Order By Spec</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse XML</pd:from>
+        <pd:to>Create Order By Spec</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Remove Namespaces</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Remove Namespaces</pd:from>
+        <pd:to>Parse XML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

@@ -1,0 +1,1566 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentRequestInput/v1" xmlns:pfx="http://vodafone.com.tr/EAI/Common/RequestEAI" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns4="http://vodafone.com.tr/EAI/Common/ResponseCodes" xmlns:ns3="http://vodafone.com.tr/EAI/Common/Header" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" xmlns:pfx4="http://vodafone.com.tr/ServiceCatalog/Business/Billing/SynchronizeEntities/v1" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/OrderEntry-LineItem.xsd" xmlns:pfx2="http://vodafone.com.tr/EAI/Common/ResponseEAI" xmlns:pfx9="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/OSMOrder.xsd" xmlns:pfx8="http://vodafone.com.tr/ServiceCatalog/Business/Provisioning/SynchronizeEntities/v1" xmlns:pfx7="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" xmlns:pfx6="http://www.tibco.com/schemas/OrderManagement/Domains/OrderManagement/BusinessResources/Schemas/Schema.xsd">
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/RequestEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/RequestEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/ResponseEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/ResponseEAI.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/OrderEntry-LineItem.xsd" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OrderEntry-LineItem.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentRequestInput/v1" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OrderComponent/OrderComponentRequestInput.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/Billing/SynchronizeEntities/v1" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OrderComponent/Billing/SynchronizeEntities/SynchronizeEntities.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" schemaLocation="/Domains/ServiceCatalog/BusinessResources/Schemas/ServiceRequest.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/Billing/SynchronizeEntities/v1" schemaLocation="/Domains/ServiceCatalog/Business/Billing/SynchronizeEntities_v1/Schemas/SynchronizeEntities.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/Provisioning/SynchronizeEntities/v1" schemaLocation="/Domains/ServiceCatalog/Business/Provisioning/SynchronizeEntities_v1/Schemas/SynchronizeEntities.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/OSMOrder.xsd" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OSMOrder.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd"/>
+    <pd:name>Domains/OrderManagement/Business/OrderComponent/Network/SDF/SynchronizeEntities_v1/SynchronizeEntities.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Input">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx:RequestEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>150</pd:startX>
+    <pd:startY>64</pd:startY>
+    <pd:returnBindings>
+        <Output>
+            <pfx2:ResponseEAI>
+                <pfx2:Header>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ancestor-or-self::*/namespace::node()"/>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/@*"/>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/node()"/>
+                </pfx2:Header>
+                <pfx2:ResponseCodes>
+                    <ns4:ResponseCode>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/Success"/>
+                    </ns4:ResponseCode>
+                </pfx2:ResponseCodes>
+            </pfx2:ResponseEAI>
+        </Output>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="Output">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx2:ResponseEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>757</pd:endX>
+    <pd:endY>64</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://vodafone.com.tr/1407237293059</pd:targetNamespace>
+    <pd:activity name="Parse XML">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>307</pd:x>
+        <pd:y>65</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>false</validateOutput>
+            <term ref="pfx9:OSMOrder"/>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Start/Input/pfx:RequestEAI/pfx:Body/*" element="ns:Request"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:XMLMessage/*[1]"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Map Data">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>464</pd:x>
+        <pd:y>65</pd:y>
+        <config>
+            <element ref="pfx8:SynchronizeEntitiesRequest"/>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Parse-XML/OSMOrder/XMLMessage/*" element="pfx7:Order" cardinality=""/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <pfx8:SynchronizeEntitiesRequest>
+                <xsl:variable name="rootItem" select="if(count ($Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem[ProductCatalogId = '18400'  or ComponentSubType = 'MOBILE' ] )>1)&#xA;then&#xA;$Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem[ProductCatalogId = '18400'  or ComponentSubType = 'MOBILE' ][Action = ('New','Existing')][1] &#xA;else&#xA;$Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem[1]"/>
+                <xsl:variable name="oldRootItem" select="if(count ($Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem[ProductCatalogId = '18400'  or ComponentSubType = 'MOBILE' ] )>1)&#xA;then&#xA;$Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem[ProductCatalogId = '18400'  or ComponentSubType = 'MOBILE' ][Action = 'Deleted'][1] &#xA;else&#xA;$Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem[ProductCatalogId = '18400'  or ComponentSubType = 'MOBILE' ][1]"/>
+                <xsl:variable name="customer" select="$Parse-XML/OSMOrder/XMLMessage/Order/ListOfCustomerAccount/CustomerAccount[1]"/>
+                <xsl:variable name="account" select="$Parse-XML/OSMOrder/XMLMessage/Order/ListOfBillingAccount/BillingAccount[BillAcctCode = $rootItem/BillAcctCode]"/>
+                <pfx8:Request>
+                    <xsl:if test="string-length($rootItem/CustAcctCode) >0">
+                        <pfx8:Customer>
+                            <pfx8:CustomerID>
+                                <xsl:value-of select="$rootItem/CustAcctCode"/>
+                            </pfx8:CustomerID>
+                            <pfx8:OperationType>
+                                <xsl:value-of select="'MODIFY'"/>
+                            </pfx8:OperationType>
+                            <pfx8:ListAttributes>
+                                <!--vftrcustomertype-->
+                                <xsl:if test="string-length($customer/CustAcctType) >0">
+                                    <pfx8:Attribute>
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'vftrcustomertype'"/>
+                                        </pfx8:Key>
+                                        <xsl:choose>
+                                            <xsl:when test="$customer/CustAcctType/text() = &quot;102&quot;">
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'S'"/>
+                                                </pfx8:Value>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'F'"/>
+                                                </pfx8:Value>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                                <!--vftrownertckn-->
+                                <pfx8:Attribute>
+                                    <!--TC Id field of the customer representative contact. This field will be populated only for mobile lines where the mobile line user is the customer representative.  (line owner)-->
+                                    <pfx8:Key>
+                                        <xsl:value-of select="'vftrownertckn'"/>
+                                    </pfx8:Key>
+                                    <pfx8:Value>
+                                        <xsl:value-of select="$customer/ListOfCustomerContact/CustomerContact[1]/ContactPersonalId"/>
+                                    </pfx8:Value>
+                                </pfx8:Attribute>
+                                <!--vftrcrmstartdate-->
+                                <xsl:choose>
+                                    <xsl:when test="tib:validate-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $customer/CustAcctAcquisitionDate)">
+                                        <pfx8:Attribute>
+                                            <!--Customer start date-->
+                                            <pfx8:Key>
+                                                <xsl:value-of select="'vftrcrmstartdate'"/>
+                                            </pfx8:Key>
+                                            <pfx8:Value>
+                                                <xsl:value-of select="tib:format-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/SDF/DateTime, tib:parse-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime,$customer/CustAcctAcquisitionDate))"/>
+                                            </pfx8:Value>
+                                        </pfx8:Attribute>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:if test="string-length($customer/CustAcctAcquisitionDate) > 0">
+                                            <pfx8:Attribute>
+                                                <!--Customer start date-->
+                                                <pfx8:Key>
+                                                    <xsl:value-of select="'vftrcrmstartdate'"/>
+                                                </pfx8:Key>
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="tib:format-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/SDF/DateTime,$customer/CustAcctAcquisitionDate)"/>
+                                                </pfx8:Value>
+                                            </pfx8:Attribute>
+                                        </xsl:if>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <!--vftrownername-->
+                                <pfx8:Attribute>
+                                    <!--Name of the line owner-->
+                                    <pfx8:Key>
+                                        <xsl:value-of select="'vftrownername'"/>
+                                    </pfx8:Key>
+                                    <pfx8:Value>
+                                        <xsl:value-of select="$customer/ListOfCustomerContact/CustomerContact[1]/ContactFirstName"/>
+                                    </pfx8:Value>
+                                </pfx8:Attribute>
+                                <!--vftrownerlastname-->
+                                <pfx8:Attribute>
+                                    <!--Lastname of the line owner-->
+                                    <pfx8:Key>
+                                        <xsl:value-of select="'vftrownerlastname'"/>
+                                    </pfx8:Key>
+                                    <pfx8:Value>
+                                        <xsl:value-of select="$customer/ListOfCustomerContact/CustomerContact[1]/ContactLastName"/>
+                                    </pfx8:Value>
+                                </pfx8:Attribute>
+                                <!--vftrownerbirthday-->
+                                <xsl:choose>
+                                    <xsl:when test="tib:validate-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/Date, $customer/ListOfCustomerContact/CustomerContact[1]/ContactBirthDate)">
+                                        <pfx8:Attribute>
+                                            <!--Birthday field of the customer representative contact.
+Birthday field of the customer representative contact.-->
+                                            <pfx8:Key>
+                                                <xsl:value-of select="'vftrownerbirthday'"/>
+                                            </pfx8:Key>
+                                            <pfx8:Value>
+                                                <xsl:value-of select="tib:format-date($_globalVariables/ns1:GlobalVariables/Constants/Formats/SDF/Date,tib:parse-date($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/Date, $customer/ListOfCustomerContact/CustomerContact[1]/ContactBirthDate))"/>
+                                            </pfx8:Value>
+                                        </pfx8:Attribute>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:if test="string-length($customer/ListOfCustomerContact/CustomerContact[1]/ContactBirthDate) >0">
+                                            <pfx8:Attribute>
+                                                <!--Birthday field of the customer representative contact.
+Birthday field of the customer representative contact.-->
+                                                <pfx8:Key>
+                                                    <xsl:value-of select="'vftrownerbirthday'"/>
+                                                </pfx8:Key>
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="tib:format-date($_globalVariables/ns1:GlobalVariables/Constants/Formats/SDF/Date,$customer/ListOfCustomerContact/CustomerContact[1]/ContactBirthDate)"/>
+                                                </pfx8:Value>
+                                            </pfx8:Attribute>
+                                        </xsl:if>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <!--vftrowneremail-->
+                                <pfx8:Attribute>
+                                    <!--Customer Contact Email-->
+                                    <pfx8:Key>
+                                        <xsl:value-of select="'vftrowneremail'"/>
+                                    </pfx8:Key>
+                                    <pfx8:Value>
+                                        <xsl:value-of select="$customer/ListOfCustomerContact/CustomerContact[1]/ContactEmail"/>
+                                    </pfx8:Value>
+                                </pfx8:Attribute>
+                                <!--vftrownergender-->
+                                <xsl:if test="string-length($customer/ListOfCustomerContact/CustomerContact[1]/ContactGender) >0">
+                                    <pfx8:Attribute>
+                                        <!--Customer Contact Gender-->
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'vftrownergender'"/>
+                                        </pfx8:Key>
+                                        <pfx8:Value>
+                                            <xsl:value-of select="$customer/ListOfCustomerContact/CustomerContact[1]/ContactGender"/>
+                                        </pfx8:Value>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                                <!--vftrownernationality-->
+                                <pfx8:Attribute>
+                                    <!--Customer Contact Nationality-->
+                                    <pfx8:Key>
+                                        <xsl:value-of select="'vftrownernationality'"/>
+                                    </pfx8:Key>
+                                    <pfx8:Value>
+                                        <xsl:value-of select="$customer/ListOfCustomerContact/CustomerContact[1]/ContactCitizenship"/>
+                                    </pfx8:Value>
+                                </pfx8:Attribute>
+                                <!--vftrisenterpriseiq-->
+                                <xsl:if test="string-length($rootItem[ComponentGroup = 'ENTERPRISE' and ComponentType = 'DIGITAL ASSISTANT']) > 0">
+                                    <pfx8:Attribute>
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'vftrisenterpriseiq'"/>
+                                        </pfx8:Key>
+                                        <xsl:choose>
+                                            <xsl:when test="not($rootItem/Action = 'Deleted')">
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'Y'"/>
+                                                </pfx8:Value>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'N'"/>
+                                                </pfx8:Value>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                            </pfx8:ListAttributes>
+                        </pfx8:Customer>
+                    </xsl:if>
+                    <xsl:if test="string-length($rootItem/BillAcctCode) > 0">
+                        <pfx8:Account>
+                            <pfx8:AccountID>
+                                <xsl:value-of select="$rootItem/BillAcctCode"/>
+                            </pfx8:AccountID>
+                            <pfx8:OperationType>
+                                <xsl:value-of select="'MODIFY'"/>
+                            </pfx8:OperationType>
+                            <pfx8:ListAttributes>
+                                <!--vfcid-->
+                                <pfx8:Attribute>
+                                    <!--customer id of the subscriber-->
+                                    <pfx8:Key>
+                                        <xsl:value-of select="'vfcid'"/>
+                                    </pfx8:Key>
+                                    <pfx8:Value>
+                                        <xsl:value-of select="$rootItem/CustAcctCode"/>
+                                    </pfx8:Value>
+                                </pfx8:Attribute>
+                                <!--vftrbrand-->
+                                <xsl:if test="string-length($account/BillAcctType) >0">
+                                    <pfx8:Attribute>
+                                        <!--Brand of the subscriber (POSTPAID("PO"), PREPAID("MC"))-->
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'vftrbrand'"/>
+                                        </pfx8:Key>
+                                        <xsl:choose>
+                                            <xsl:when test="$account/BillAcctType = 'Postpaid'">
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'PO'"/>
+                                                </pfx8:Value>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'MC'"/>
+                                                </pfx8:Value>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                                <!--oldvftrbrand-->
+                                <xsl:if test="($rootItem/ActionType= '127')&#xA;or&#xA;($rootItem/ActionType= '131' and $rootItem/ActionReason =  '2010')&#xA;or&#xA;($rootItem/ActionType= '137' and $rootItem/ActionReason=  '2013')">
+                                    <pfx8:Attribute>
+                                        <!--Brand of the subscriber (POSTPAID("PO"), PREPAID("MC"))-->
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'oldvftrbrand'"/>
+                                        </pfx8:Key>
+                                        <xsl:choose>
+                                            <xsl:when test="($rootItem/ActionType= '127')&#xA;or&#xA;($rootItem/ActionType= '131' and $rootItem/ActionReason =  '2010')">
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'PO'"/>
+                                                </pfx8:Value>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'MC'"/>
+                                                </pfx8:Value>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                                <!--vftrbillingperiod-->
+                                <pfx8:Attribute>
+                                    <!--VF Bill Cycle field of the Billing Account record that mobile line belongs.
+VF Bill Cycle field of the Billing Account record that mobile line belongs.
+VF Bill Cycle field of the Billing Account record that mobile line belongs.-->
+                                    <pfx8:Key>
+                                        <xsl:value-of select="'vftrbillingperiod'"/>
+                                    </pfx8:Key>
+                                    <pfx8:Value>
+                                        <xsl:value-of select="$account/ListOfInvoiceProfile/InvoiceProfile[1]/BillCycle"/>
+                                    </pfx8:Value>
+                                </pfx8:Attribute>
+                                <!--vftrvirtualbrand-->
+                                <xsl:if test="string-length($account/BillAcctType ) >0">
+                                    <pfx8:Attribute>
+                                        <!--Value will be based on Billing Account Type field of the Billing Account record that mobile line belongs.
+0: if prepaid, 1: if postpaid, 2: if hybrid-->
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'vftrvirtualbrand'"/>
+                                        </pfx8:Key>
+                                        <xsl:choose>
+                                            <xsl:when test="$account/BillAcctType = 'Prepaid'">
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="0"/>
+                                                </pfx8:Value>
+                                            </xsl:when>
+                                            <xsl:when test="$account/BillAcctType = 'Postpaid'">
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="1"/>
+                                                </pfx8:Value>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="2"/>
+                                                </pfx8:Value>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                                <!--vftraddress-->
+                                <xsl:variable name="vftraddress" select="normalize-space(&#xA;concat($account/ListOfBillingAddress/BillingAddress[1]/AddressNbhdVillage,' ',&#xA;$account/ListOfBillingAddress/BillingAddress[1]/AddressName,' ',&#xA;$account/ListOfBillingAddress/BillingAddress[1]/AddressSitePlaza,' ',&#xA;$account/ListOfBillingAddress/BillingAddress[1]/AddressNum,' ',&#xA;$account/ListOfBillingAddress/BillingAddress[1]/AddressZIP,' ',&#xA;$account/ListOfBillingAddress/BillingAddress[1]/AddressDistrictTown,' ',&#xA;$account/ListOfBillingAddress/BillingAddress[1]/AddressCity))"/>
+                                <xsl:if test="string-length($vftraddress) >0">
+                                    <pfx8:Attribute>
+                                        <!--Address of the invoice-->
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'vftraddress'"/>
+                                        </pfx8:Key>
+                                        <pfx8:Value>
+                                            <xsl:value-of select="$vftraddress"/>
+                                        </pfx8:Value>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                            </pfx8:ListAttributes>
+                        </pfx8:Account>
+                    </xsl:if>
+                    <xsl:if test="string-length($rootItem/ServiceId) >0">
+                        <pfx8:Subscriber>
+                            <xsl:choose>
+                                <xsl:when test="$rootItem/ActionType = '102'">
+                                    <pfx8:SubscriberID>
+                                        <xsl:value-of select="concat('90',$rootItem/PreviousServiceId)"/>
+                                    </pfx8:SubscriberID>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <pfx8:SubscriberID>
+                                        <xsl:value-of select="concat('90',$rootItem/ServiceId)"/>
+                                    </pfx8:SubscriberID>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <xsl:if test="$rootItem/ActionReason">
+                                <xsl:choose>
+                                    <xsl:when test="$rootItem/ActionSubReason ='MNPPortIN'">
+                                        <pfx8:Reason>
+                                            <xsl:value-of select="'106|226'"/>
+                                        </pfx8:Reason>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <pfx8:Reason>
+                                            <xsl:value-of select="concat($rootItem/ActionType,'|',$rootItem/ActionReason)"/>
+                                        </pfx8:Reason>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:if>
+                            <xsl:choose>
+                                <xsl:when test="$rootItem/ActionType = '128'&#xA;or&#xA;($rootItem/ActionType = '131' and  $rootItem/ActionReason = ('2011', '2012'))&#xA;or&#xA;($rootItem/ActionType = '137' and  $rootItem/ActionReason = ('2014','2012'))">
+                                    <pfx8:OperationType>
+                                        <xsl:value-of select="'DEVIR'"/>
+                                    </pfx8:OperationType>
+                                </xsl:when>
+                                <xsl:when test="($rootItem/ActionType = '131' and  $rootItem/ActionReason = '2010')&#xA;or&#xA;($rootItem/ActionType = '137' and  $rootItem/ActionReason = ('2013','2015'))&#xA;or&#xA;($rootItem/ActionType ='127' and $rootItem/ActionReason = ('253','1121'))">
+                                    <pfx8:OperationType>
+                                        <xsl:value-of select="'MODIFY'"/>
+                                    </pfx8:OperationType>
+                                </xsl:when>
+                                <xsl:when test="$rootItem/Action = 'New'">
+                                    <pfx8:OperationType>
+                                        <xsl:value-of select="'CREATE'"/>
+                                    </pfx8:OperationType>
+                                </xsl:when>
+                                <xsl:when test="$rootItem/Action = 'Deleted' and $rootItem/ActionReason = '2020'">
+                                    <pfx8:OperationType>
+                                        <xsl:value-of select="'FINAL_DELETE'"/>
+                                    </pfx8:OperationType>
+                                </xsl:when>
+                                <xsl:when test="$rootItem/Action = 'Deleted'">
+                                    <pfx8:OperationType>
+                                        <xsl:value-of select="'DELETE'"/>
+                                    </pfx8:OperationType>
+                                </xsl:when>
+                                <xsl:when test="$rootItem/ActionType = '102'">
+                                    <pfx8:OperationType>
+                                        <xsl:value-of select="'NUMARA_DEGISIKLIGI'"/>
+                                    </pfx8:OperationType>
+                                </xsl:when>
+                                <xsl:when test="$rootItem/ActionType = '116' and $rootItem/ActionReason = '212'">
+                                    <pfx8:OperationType>
+                                        <xsl:value-of select="'DELETE'"/>
+                                    </pfx8:OperationType>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <pfx8:OperationType>
+                                        <xsl:value-of select="'MODIFY'"/>
+                                    </pfx8:OperationType>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <pfx8:ListAttributes>
+                                <!--newvfsid-->
+                                <xsl:if test="$rootItem/ActionType = '102'">
+                                    <pfx8:Attribute>
+                                        <!--Customer type of the subscriber-->
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'newvfsid'"/>
+                                        </pfx8:Key>
+                                        <pfx8:Value>
+                                            <xsl:value-of select="concat('90',$rootItem/ServiceId)"/>
+                                        </pfx8:Value>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                                <!--vftrcrmsubscriberId-->
+                                <pfx8:Attribute>
+                                    <pfx8:Key>
+                                        <xsl:value-of select="'vftrcrmsubscriberId'"/>
+                                    </pfx8:Key>
+                                    <pfx8:Value>
+                                        <xsl:value-of select="$rootItem/IntegrationId"/>
+                                    </pfx8:Value>
+                                </pfx8:Attribute>
+                                <!--vftrbillaccid-->
+                                <pfx8:Attribute>
+                                    <pfx8:Key>
+                                        <xsl:value-of select="'vftrbillaccid'"/>
+                                    </pfx8:Key>
+                                    <pfx8:Value>
+                                        <xsl:value-of select="$rootItem/BillAcctCode"/>
+                                    </pfx8:Value>
+                                </pfx8:Attribute>
+                                <!--oldvftrbillaccid-->
+                                <xsl:if test="$oldRootItem/BillAcctCode !=$rootItem/BillAcctCode">
+                                    <pfx8:Attribute>
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'oldvftrbillaccid'"/>
+                                        </pfx8:Key>
+                                        <pfx8:Value>
+                                            <xsl:value-of select="$oldRootItem/BillAcctCode"/>
+                                        </pfx8:Value>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                                <!--vftrcrmsource-->
+                                <pfx8:Attribute>
+                                    <!--CRM source of the subcriber (CCB("C"), SIEBEL("S"))-->
+                                    <pfx8:Key>
+                                        <xsl:value-of select="'vftrcrmsource'"/>
+                                    </pfx8:Key>
+                                    <pfx8:Value>
+                                        <xsl:value-of select="'S'"/>
+                                    </pfx8:Value>
+                                </pfx8:Attribute>
+                                <!--vfimsi-->
+                                <pfx8:Attribute>
+                                    <!--IMSI of the subscriber-->
+                                    <pfx8:Key>
+                                        <xsl:value-of select="'vfimsi'"/>
+                                    </pfx8:Key>
+                                    <pfx8:Value>
+                                        <xsl:value-of select="$rootItem/IMSI"/>
+                                    </pfx8:Value>
+                                </pfx8:Attribute>
+                                <!--oldvfimsi-->
+                                <xsl:if test="string-length($rootItem/PreviousIMSI) >0">
+                                    <pfx8:Attribute>
+                                        <!--IMSI of the subscriber-->
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'oldvfimsi'"/>
+                                        </pfx8:Key>
+                                        <pfx8:Value>
+                                            <xsl:value-of select="$rootItem/PreviousIMSI"/>
+                                        </pfx8:Value>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                                <!--vftris3guser-->
+                                <xsl:if test="not($rootItem/ProductType = 'TechnicalOrder')">
+                                    <pfx8:Attribute>
+                                        <!--Is 3G user? (YES("Y"), NO("N"))-->
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'vftris3guser'"/>
+                                        </pfx8:Key>
+                                        <xsl:choose>
+                                            <xsl:when test="$customer/CustAcctType = '101'">
+                                                <xsl:choose>
+                                                    <xsl:when test="$rootItem/ListOfChildItem/ChildItem[not(Action = 'Deleted') and ProductCatalogId = '1103']/ListOfChildItemAttribute/ChildItemAttribute[Name = 'Type']/Value = '3G'">
+                                                        <pfx8:Value>
+                                                            <xsl:value-of select="'Y'"/>
+                                                        </pfx8:Value>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <pfx8:Value>
+                                                            <xsl:value-of select="'N'"/>
+                                                        </pfx8:Value>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:choose>
+                                                    <xsl:when test="exists($rootItem/ListOfChildItem/ChildItem[not(Action = 'Deleted') and ProductClass = '3G CLASS'])">
+                                                        <pfx8:Value>
+                                                            <xsl:value-of select="'Y'"/>
+                                                        </pfx8:Value>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <pfx8:Value>
+                                                            <xsl:value-of select="'N'"/>
+                                                        </pfx8:Value>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                                <!--oldvftris3guser-->
+                                <xsl:if test="not($rootItem/ProductType = 'TechnicalOrder')">
+                                    <xsl:choose>
+                                        <xsl:when test="count($Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem) = 1 and &#xA; $rootItem/ListOfChildItem/ChildItem[Action = 'Deleted' and (ProductCatalogId ='1103' or ProductClass = '3G CLASS')]">
+                                            <pfx8:Attribute>
+                                                <!--Is 3G user? (YES("Y"), NO("N"))-->
+                                                <pfx8:Key>
+                                                    <xsl:value-of select="'oldvftris3guser'"/>
+                                                </pfx8:Key>
+                                                <xsl:choose>
+                                                    <xsl:when test="$customer/CustAcctType = '101'">
+                                                        <xsl:choose>
+                                                            <xsl:when test="$rootItem/ListOfChildItem/ChildItem[Action = 'Deleted' and ProductCatalogId ='1103']/ListOfChildItemAttribute/ChildItemAttribute[Name = 'Type']/Value = '3G'">
+                                                                <pfx8:Value>
+                                                                    <xsl:value-of select="'Y'"/>
+                                                                </pfx8:Value>
+                                                            </xsl:when>
+                                                            <xsl:otherwise>
+                                                                <pfx8:Value>
+                                                                    <xsl:value-of select="'N'"/>
+                                                                </pfx8:Value>
+                                                            </xsl:otherwise>
+                                                        </xsl:choose>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <xsl:choose>
+                                                            <xsl:when test="exists($rootItem/ListOfChildItem/ChildItem[Action = 'Deleted' and ProductClass = '3G CLASS'])">
+                                                                <pfx8:Value>
+                                                                    <xsl:value-of select="'Y'"/>
+                                                                </pfx8:Value>
+                                                            </xsl:when>
+                                                            <xsl:otherwise>
+                                                                <pfx8:Value>
+                                                                    <xsl:value-of select="'N'"/>
+                                                                </pfx8:Value>
+                                                            </xsl:otherwise>
+                                                        </xsl:choose>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                            </pfx8:Attribute>
+                                        </xsl:when>
+                                        <xsl:when test="count($Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem) > 1 and  $oldRootItem/ListOfChildItem/ChildItem[Action = 'Deleted' and (ProductCatalogId = '1103' or ProductClass = '3G CLASS')]">
+                                            <pfx8:Attribute>
+                                                <!--Is 3G user? (YES("Y"), NO("N"))-->
+                                                <pfx8:Key>
+                                                    <xsl:value-of select="'oldvftris3guser'"/>
+                                                </pfx8:Key>
+                                                <xsl:choose>
+                                                    <xsl:when test="$customer/CustAcctType = '101'">
+                                                        <xsl:choose>
+                                                            <xsl:when test="$oldRootItem/ListOfChildItem/ChildItem[Action = 'Deleted' and ProductCatalogId ='1103']/ListOfChildItemAttribute/ChildItemAttribute[Name = 'Type']/Value = '3G'">
+                                                                <pfx8:Value>
+                                                                    <xsl:value-of select="'Y'"/>
+                                                                </pfx8:Value>
+                                                            </xsl:when>
+                                                            <xsl:otherwise>
+                                                                <pfx8:Value>
+                                                                    <xsl:value-of select="'N'"/>
+                                                                </pfx8:Value>
+                                                            </xsl:otherwise>
+                                                        </xsl:choose>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <xsl:choose>
+                                                            <xsl:when test="exists($rootItem/ListOfChildItem/ChildItem[Action = 'Deleted' and ProductClass = '3G CLASS'])">
+                                                                <pfx8:Value>
+                                                                    <xsl:value-of select="'Y'"/>
+                                                                </pfx8:Value>
+                                                            </xsl:when>
+                                                            <xsl:otherwise>
+                                                                <pfx8:Value>
+                                                                    <xsl:value-of select="'N'"/>
+                                                                </pfx8:Value>
+                                                            </xsl:otherwise>
+                                                        </xsl:choose>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                            </pfx8:Attribute>
+                                        </xsl:when>
+                                    </xsl:choose>
+                                </xsl:if>
+                                <!--vftrisgprsuser-->
+                                <xsl:if test="not($rootItem/ProductType = 'TechnicalOrder')">
+                                    <pfx8:Attribute>
+                                        <!--Is GPRS user? (YES("Y"), NO("N"))-->
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'vftrisgprsuser'"/>
+                                        </pfx8:Key>
+                                        <xsl:choose>
+                                            <xsl:when test="$customer/CustAcctType = '101'">
+                                                <xsl:choose>
+                                                    <xsl:when test="$rootItem/ListOfChildItem/ChildItem[not(Action = 'Deleted') and ProductCatalogId ='1103']/ListOfChildItemAttribute/ChildItemAttribute[Name = 'Type']/Value = 'GPRS'">
+                                                        <pfx8:Value>
+                                                            <xsl:value-of select="'Y'"/>
+                                                        </pfx8:Value>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <pfx8:Value>
+                                                            <xsl:value-of select="'N'"/>
+                                                        </pfx8:Value>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:choose>
+                                                    <xsl:when test="exists($rootItem/ListOfChildItem/ChildItem[not(Action = 'Deleted') and ProductClass = 'GPRS CLASS'])">
+                                                        <pfx8:Value>
+                                                            <xsl:value-of select="'Y'"/>
+                                                        </pfx8:Value>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <pfx8:Value>
+                                                            <xsl:value-of select="'N'"/>
+                                                        </pfx8:Value>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                                <!--oldvftrisgprsuser-->
+                                <xsl:if test="not($rootItem/ProductType = 'TechnicalOrder')">
+                                    <xsl:choose>
+                                        <xsl:when test="count($Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem) = 1 and  $rootItem/ListOfChildItem/ChildItem[Action = 'Deleted' and (ProductCatalogId ='1103' or ProductClass = 'GPRS CLASS')]">
+                                            <pfx8:Attribute>
+                                                <!--Is GPRS user? (YES("Y"), NO("N"))-->
+                                                <pfx8:Key>
+                                                    <xsl:value-of select="'oldvftrisgprsuser'"/>
+                                                </pfx8:Key>
+                                                <xsl:choose>
+                                                    <xsl:when test="$customer/CustAcctType = '101'">
+                                                        <xsl:choose>
+                                                            <xsl:when test="$rootItem/ListOfChildItem/ChildItem[Action = 'Deleted' and ProductCatalogId ='1103']/ListOfChildItemAttribute/ChildItemAttribute[Name = 'Type']/Value = 'GPRS'">
+                                                                <pfx8:Value>
+                                                                    <xsl:value-of select="'Y'"/>
+                                                                </pfx8:Value>
+                                                            </xsl:when>
+                                                            <xsl:otherwise>
+                                                                <pfx8:Value>
+                                                                    <xsl:value-of select="'N'"/>
+                                                                </pfx8:Value>
+                                                            </xsl:otherwise>
+                                                        </xsl:choose>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <xsl:choose>
+                                                            <xsl:when test="exists($rootItem/ListOfChildItem/ChildItem[Action = 'Deleted' and ProductClass = 'GPRS CLASS'])">
+                                                                <pfx8:Value>
+                                                                    <xsl:value-of select="'Y'"/>
+                                                                </pfx8:Value>
+                                                            </xsl:when>
+                                                            <xsl:otherwise>
+                                                                <pfx8:Value>
+                                                                    <xsl:value-of select="'N'"/>
+                                                                </pfx8:Value>
+                                                            </xsl:otherwise>
+                                                        </xsl:choose>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                            </pfx8:Attribute>
+                                        </xsl:when>
+                                        <xsl:when test="count($Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem) > 1 and  $oldRootItem/ListOfChildItem/ChildItem[Action = 'Deleted' and (ProductCatalogId ='1103' or ProductClass = 'GPRS CLASS')]">
+                                            <pfx8:Attribute>
+                                                <!--Is GPRS user? (YES("Y"), NO("N"))-->
+                                                <pfx8:Key>
+                                                    <xsl:value-of select="'oldvftrisgprsuser'"/>
+                                                </pfx8:Key>
+                                                <xsl:choose>
+                                                    <xsl:when test="$customer/CustAcctType = '101'">
+                                                        <xsl:choose>
+                                                            <xsl:when test="$oldRootItem/ListOfChildItem/ChildItem[Action = 'Deleted' and ProductCatalogId ='1103']/ListOfChildItemAttribute/ChildItemAttribute[Name = 'Type']/Value = 'GPRS'">
+                                                                <pfx8:Value>
+                                                                    <xsl:value-of select="'Y'"/>
+                                                                </pfx8:Value>
+                                                            </xsl:when>
+                                                            <xsl:otherwise>
+                                                                <pfx8:Value>
+                                                                    <xsl:value-of select="'N'"/>
+                                                                </pfx8:Value>
+                                                            </xsl:otherwise>
+                                                        </xsl:choose>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <xsl:choose>
+                                                            <xsl:when test="exists($oldRootItem/ListOfChildItem/ChildItem[Action = 'Deleted' and ProductClass = 'GPRS CLASS'])">
+                                                                <pfx8:Value>
+                                                                    <xsl:value-of select="'Y'"/>
+                                                                </pfx8:Value>
+                                                            </xsl:when>
+                                                            <xsl:otherwise>
+                                                                <pfx8:Value>
+                                                                    <xsl:value-of select="'N'"/>
+                                                                </pfx8:Value>
+                                                            </xsl:otherwise>
+                                                        </xsl:choose>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                            </pfx8:Attribute>
+                                        </xsl:when>
+                                    </xsl:choose>
+                                </xsl:if>
+                                <!--vftrbarringstatus-->
+                                <xsl:if test="not($rootItem/ProductType = 'TechnicalOrder')">
+                                    <pfx8:Attribute>
+                                        <!--Barring status of the subscriber (NO_BARRING("0"), MO_BARRING("1"), MO_MT_BARRING("2"))-->
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'vftrbarringstatus'"/>
+                                        </pfx8:Key>
+                                        <xsl:choose>
+                                            <xsl:when test="$rootItem/Action = ('Suspend','Resume')">
+                                                <xsl:choose>
+                                                    <xsl:when test="substring-after($Parse-XML/OSMOrder/CategoryAction, '_') = ('FRO','CLO','CAN','FRO_KENAN','CLO_KENAN','CAN_KENAN')">
+                                                        <pfx8:Value>
+                                                            <xsl:value-of select="2"/>
+                                                        </pfx8:Value>
+                                                    </xsl:when>
+                                                    <xsl:when test="substring-after($Parse-XML/OSMOrder/CategoryAction, '_') = ('LIM','LIM_KENAN')">
+                                                        <pfx8:Value>
+                                                            <xsl:value-of select="1"/>
+                                                        </pfx8:Value>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <pfx8:Value>
+                                                            <xsl:value-of select="0"/>
+                                                        </pfx8:Value>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:choose>
+                                                    <xsl:when test="$rootItem/DunningStatus = '000' and &#xA;$rootItem/FraudStatus = '000' and&#xA;$rootItem/DocumentMissingStatus = '000' and&#xA;$rootItem/CustomerStatus = '000' and&#xA;$rootItem/CreditStatus = '000'">
+                                                        <pfx8:Value>
+                                                            <xsl:value-of select="0"/>
+                                                        </pfx8:Value>
+                                                    </xsl:when>
+                                                    <xsl:when test="$rootItem/DunningStatus = ('211','222','209') or &#xA;$rootItem/FraudStatus = '213' or&#xA;$rootItem/DocumentMissingStatus = ('2005','2002','2003') or&#xA;$rootItem/CustomerStatus = ('212','208','210') or&#xA;$rootItem/CreditStatus = '297'">
+                                                        <pfx8:Value>
+                                                            <xsl:value-of select="2"/>
+                                                        </pfx8:Value>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <pfx8:Value>
+                                                            <xsl:value-of select="1"/>
+                                                        </pfx8:Value>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                                <!--oldvftrbarringstatus-->
+                                <xsl:if test="not($rootItem/ProductType = 'TechnicalOrder')">
+                                    <pfx8:Attribute>
+                                        <!--Barring status of the subscriber (NO_BARRING("0"), MO_BARRING("1"), MO_MT_BARRING("2"))-->
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'oldvftrbarringstatus'"/>
+                                        </pfx8:Key>
+                                        <xsl:choose>
+                                            <xsl:when test="substring-before($Parse-XML/OSMOrder/CategoryAction, '_') = ('FRO','CLO','CAN')">
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="2"/>
+                                                </pfx8:Value>
+                                            </xsl:when>
+                                            <xsl:when test="substring-before($Parse-XML/OSMOrder/CategoryAction, '_') = 'LIM'">
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="1"/>
+                                                </pfx8:Value>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="0"/>
+                                                </pfx8:Value>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                                <!--vftrislineowner-->
+                                <xsl:if test="not($rootItem/ProductType = 'TechnicalOrder')">
+                                    <pfx8:Attribute>
+                                        <!--Y if the user of the mobile line is also the customer representative.-->
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'vftrislineowner'"/>
+                                        </pfx8:Key>
+                                        <xsl:choose>
+                                            <xsl:when test="$rootItem/CustAcctType = '102'">
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'E'"/>
+                                                </pfx8:Value>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:choose>
+                                                    <xsl:when test="exists($customer/ListOfCustomerContact/CustomerContact[ContactId=$rootItem/ContactId])">
+                                                        <pfx8:Value>
+                                                            <xsl:value-of select="'E'"/>
+                                                        </pfx8:Value>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <pfx8:Value>
+                                                            <xsl:value-of select="'H'"/>
+                                                        </pfx8:Value>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                                <!--vftrisgroupleader-->
+                                <xsl:if test="not($rootItem/ProductType = 'TechnicalOrder')">
+                                    <pfx8:Attribute>
+                                        <!--Y if the user of the mobile line is also the customer representative or contact type = Selfcare Admin User.-->
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'vftrisgroupleader'"/>
+                                        </pfx8:Key>
+                                        <xsl:choose>
+                                            <xsl:when test="(string-length($rootItem/ListOfRootItemContact/RootItemContact[1]/ContactType)>0 and $rootItem/ListOfRootItemContact/RootItemContact/ContactType = 'Selfcare Admin User') or &#xA;exists($customer/ListOfCustomerContact/CustomerContact[ContactId=$rootItem/ContactId])">
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'E'"/>
+                                                </pfx8:Value>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'H'"/>
+                                                </pfx8:Value>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                                <!--vftr3rdpartysmsistemez-->
+                                <xsl:if test="not($rootItem/ProductType = 'TechnicalOrder')">
+                                    <pfx8:Attribute>
+                                        <!--Y if the product with part num = 1128 (EBU) or 71026 (CBU) is active under the mobile line.-->
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'vftr3rdpartysmsistemez'"/>
+                                        </pfx8:Key>
+                                        <xsl:choose>
+                                            <xsl:when test="$rootItem/ListOfChildItem/ChildItem[Action !='Deleted']/ProductCatalogId = ('1128','71026')">
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'E'"/>
+                                                </pfx8:Value>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'H'"/>
+                                                </pfx8:Value>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                                <!--vftrtanitimsmsistemez-->
+                                <xsl:if test="not($rootItem/ProductType = 'TechnicalOrder')">
+                                    <pfx8:Attribute>
+                                        <!--Y if the product with part num = 1129 (EBU) or 71025 (CBU) is active under the mobile line.-->
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'vftrtanitimsmsistemez'"/>
+                                        </pfx8:Key>
+                                        <xsl:choose>
+                                            <xsl:when test="$rootItem/ListOfChildItem/ChildItem[Action !='Deleted']/ProductCatalogId = ('1129','71025')">
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'E'"/>
+                                                </pfx8:Value>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'H'"/>
+                                                </pfx8:Value>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                                <!--vftrtcknsmsistemez-->
+                                <xsl:if test="not($rootItem/ProductType = 'TechnicalOrder')">
+                                    <pfx8:Attribute>
+                                        <!--Y if the product with part num = 33000 (EBU) or 71034(CBU) is active under the mobile line.-->
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'vftrtcknsmsistemez'"/>
+                                        </pfx8:Key>
+                                        <xsl:choose>
+                                            <xsl:when test="$rootItem/ListOfChildItem/ChildItem[Action !='Deleted']/ProductCatalogId = ('33000','71034')">
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'E'"/>
+                                                </pfx8:Value>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'H'"/>
+                                                </pfx8:Value>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                                <!--vftrdlkey1-->
+                                <xsl:if test="not($rootItem/ProductType = 'TechnicalOrder')">
+                                    <pfx8:Attribute>
+                                        <!--Value of the DLKEY1 attribute of the mobile line product (part num: 1000)-->
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'vftrdlkey1'"/>
+                                        </pfx8:Key>
+                                        <pfx8:Value>
+                                            <xsl:value-of select="$rootItem/ListOfRootItemAttribute/RootItemAttribute[Name = 'DLKEY1']/Value"/>
+                                        </pfx8:Value>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                                <!--vftrdlkey2-->
+                                <xsl:if test="not($rootItem/ProductType = 'TechnicalOrder')">
+                                    <pfx8:Attribute>
+                                        <!--Value of the DLKEY2 attribute of the mobile line product (part num: 1000)-->
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'vftrdlkey2'"/>
+                                        </pfx8:Key>
+                                        <pfx8:Value>
+                                            <xsl:value-of select="$rootItem/ListOfRootItemAttribute/RootItemAttribute[Name = 'DLKEY2']/Value"/>
+                                        </pfx8:Value>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                                <!--vftrotastatus-->
+                                <xsl:if test="not($rootItem/ProductType = 'TechnicalOrder')">
+                                    <pfx8:Attribute>
+                                        <!--Value of the OTASTATUS attribute of the mobile line product (part num: 1000)-->
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'vftrotastatus'"/>
+                                        </pfx8:Key>
+                                        <pfx8:Value>
+                                            <xsl:value-of select="$rootItem/ListOfRootItemAttribute/RootItemAttribute[Name = 'OTASTATUS']/Value"/>
+                                        </pfx8:Value>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                                <!--vftrsimcardtype-->
+                                <xsl:if test="string-length($rootItem/SIMCardType) >0">
+                                    <pfx8:Attribute>
+                                        <!--“VF Sim Type” field on the mobile line asset.-->
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'vftrsimcardtype'"/>
+                                        </pfx8:Key>
+                                        <pfx8:Value>
+                                            <xsl:value-of select="$rootItem/SIMCardType"/>
+                                        </pfx8:Value>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                                <!--vftrdirectorylisting-->
+                                <xsl:if test="not($rootItem/ProductType = 'TechnicalOrder')">
+                                    <pfx8:Attribute>
+                                        <!--vftrdirectorylisting
+Value of the Phone Directory attribute of the mobile line product (part num: 1000)-->
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'vftrdirectorylisting'"/>
+                                        </pfx8:Key>
+                                        <pfx8:Value>
+                                            <xsl:value-of select="$rootItem/ListOfRootItemAttribute/RootItemAttribute[Name = 'Phone Directory']/Value"/>
+                                        </pfx8:Value>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                                <!--vftrroamingstatus-->
+                                <xsl:if test="not($rootItem/ProductType = 'TechnicalOrder')">
+                                    <pfx8:Attribute>
+                                        <!--Y if roaming service is active under the mobile line-->
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'vftrroamingstatus'"/>
+                                        </pfx8:Key>
+                                        <xsl:choose>
+                                            <xsl:when test="exists ($rootItem/ListOfChildItem/ChildItem[not(Action = 'Deleted') and (ComponentSubType = 'ROAMING' or ProductType ='ROAMING') ])">
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'1'"/>
+                                                </pfx8:Value>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'0'"/>
+                                                </pfx8:Value>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                                <!--vftrroamingoptions-->
+                                <xsl:if test="1=2">
+                                    <xsl:choose>
+                                        <xsl:when test="count($Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem) = 1">
+                                            <pfx8:Attribute>
+                                                <!--Only active KARGO roaming options under the mobile line will be populated. KARGO options are distinguished by:
+ Group: ADDON, Type: ROAMVOICE
+Subtype: ROAMLINE-->
+                                                <pfx8:Key>
+                                                    <xsl:value-of select="'vftrroamingoptions'"/>
+                                                </pfx8:Key>
+                                                <xsl:choose>
+                                                    <xsl:when test="exists ($rootItem/ListOfChildItem/ChildItem[Action = 'Deleted' and ProductType = 'ROAMING'])">
+                                                        <pfx8:Value>
+                                                            <xsl:value-of select="'1'"/>
+                                                        </pfx8:Value>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <pfx8:Value>
+                                                            <xsl:value-of select="'0'"/>
+                                                        </pfx8:Value>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                            </pfx8:Attribute>
+                                        </xsl:when>
+                                        <xsl:when test="count($Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem) > 1">
+                                            <pfx8:Attribute>
+                                                <!--Only active KARGO roaming options under the mobile line will be populated. KARGO options are distinguished by:
+ Group: ADDON, Type: ROAMVOICE
+Subtype: ROAMLINE-->
+                                                <pfx8:Key>
+                                                    <xsl:value-of select="'vftrroamingoptions'"/>
+                                                </pfx8:Key>
+                                                <xsl:choose>
+                                                    <xsl:when test="exists ($oldRootItem/ListOfChildItem/ChildItem[Action = 'Deleted' and ProductType = 'ROAMING'])">
+                                                        <pfx8:Value>
+                                                            <xsl:value-of select="'1'"/>
+                                                        </pfx8:Value>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <pfx8:Value>
+                                                            <xsl:value-of select="'0'"/>
+                                                        </pfx8:Value>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                            </pfx8:Attribute>
+                                        </xsl:when>
+                                    </xsl:choose>
+                                </xsl:if>
+                                <!--vftrpackageid-->
+                                <pfx8:Attribute>
+                                    <!--Partnumber of the active tariff plan under the mobile line-->
+                                    <pfx8:Key>
+                                        <xsl:value-of select="'vftrpackageid'"/>
+                                    </pfx8:Key>
+                                    <pfx8:Value>
+                                        <xsl:value-of select="$rootItem/ListOfChildItem/ChildItem[ComponentGroup='TARIFF' and Action = ('New', 'Existing', 'Modified')]/ProductCatalogId"/>
+                                    </pfx8:Value>
+                                </pfx8:Attribute>
+                                <!--oldvftrpackageid-->
+                                <xsl:if test="exists($rootItem/ListOfChildItem/ChildItem[ComponentGroup='TARIFF' and Action='Deleted']/ProductCatalogId)">
+                                    <pfx8:Attribute>
+                                        <!--Partnumber of the active tariff plan under the mobile line-->
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'oldvftrpackageid'"/>
+                                        </pfx8:Key>
+                                        <pfx8:Value>
+                                            <xsl:value-of select="$rootItem/ListOfChildItem/ChildItem[ComponentGroup='TARIFF' and Action='Deleted']/ProductCatalogId"/>
+                                        </pfx8:Value>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                                <!--vftrcrmstatus-->
+                                <xsl:if test="not($rootItem/ProductType = 'TechnicalOrder')">
+                                    <pfx8:Attribute>
+                                        <!--Siebel Status-->
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'vftrcrmstatus'"/>
+                                        </pfx8:Key>
+                                        <xsl:choose>
+                                            <xsl:when test="$rootItem/DocumentMissingStatus = '2005' or &#xA;$rootItem/DunningStatus='211' or&#xA;$rootItem/CustomerStatus='212' or&#xA;$rootItem/FraudStatus='270'">
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'Cancelled'"/>
+                                                </pfx8:Value>
+                                            </xsl:when>
+                                            <xsl:when test="$rootItem/DocumentMissingStatus ='2003' or &#xA;$rootItem/DunningStatus =('222','209')">
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'Frozen'"/>
+                                                </pfx8:Value>
+                                            </xsl:when>
+                                            <xsl:when test="$rootItem/FraudStatus = '206' or&#xA;$rootItem/DocumentMissingStatus = '2002' or&#xA;$rootItem/CustomerStatus = '208' or&#xA;$rootItem/CustomerStatus = '217' or&#xA;$rootItem/CreditStatus = '297'">
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'Closed'"/>
+                                                </pfx8:Value>
+                                            </xsl:when>
+                                            <xsl:when test="$rootItem/CustomerStatus = ('1421', '205') or&#xA;$rootItem/DunningStatus = ('1503','204') or&#xA;$rootItem/DocumentMissingStatus = '2004' or&#xA;$rootItem/FraudStatus= ('203', '293') or&#xA;$rootItem/CreditStatus = ('294','284','221','247')">
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'Limited'"/>
+                                                </pfx8:Value>
+                                            </xsl:when>
+                                            <xsl:when test="$rootItem/CustomerStatus = ('1021')">
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'Inactive'"/>
+                                                </pfx8:Value>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'Active'"/>
+                                                </pfx8:Value>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                                <!--vftrcrmstartdate-->
+                                <xsl:choose>
+                                    <xsl:when test="tib:validate-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime,  $rootItem/StartDate)">
+                                        <pfx8:Attribute>
+                                            <!--Siebel Status-->
+                                            <pfx8:Key>
+                                                <xsl:value-of select="'vftrcrmstartdate'"/>
+                                            </pfx8:Key>
+                                            <pfx8:Value>
+                                                <xsl:value-of select="tib:format-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/SDF/DateTime, tib:parse-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $rootItem/StartDate))"/>
+                                            </pfx8:Value>
+                                        </pfx8:Attribute>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:if test="string-length($rootItem/StartDate)>0">
+                                            <pfx8:Attribute>
+                                                <!--Siebel Status-->
+                                                <pfx8:Key>
+                                                    <xsl:value-of select="'vftrcrmstartdate'"/>
+                                                </pfx8:Key>
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="tib:format-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/SDF/DateTime, $rootItem/StartDate)"/>
+                                                </pfx8:Value>
+                                            </pfx8:Attribute>
+                                        </xsl:if>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <!--vftrtckn-->
+                                <xsl:if test="(string-length($rootItem/ListOfRootItemContact/RootItemContact[1]/ContactPersonalId) > 0 and exists($rootItem/ListOfRootItemContact/RootItemContact[1]/ContactPersonalId))&#xA;or&#xA;(string-length($customer/ListOfCustomerContact/CustomerContact[1]/ContactPersonalId) > 0 and exists($customer/ListOfCustomerContact/CustomerContact[1]/ContactPersonalId))">
+                                    <pfx8:Attribute>
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'vftrtckn'"/>
+                                        </pfx8:Key>
+                                        <xsl:choose>
+                                            <xsl:when test="string-length($rootItem/ListOfRootItemContact/RootItemContact[1]/ContactPersonalId) > 0 and exists($rootItem/ListOfRootItemContact/RootItemContact[1]/ContactPersonalId)">
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="$rootItem/ListOfRootItemContact/RootItemContact[1]/ContactPersonalId"/>
+                                                </pfx8:Value>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="$customer/ListOfCustomerContact/CustomerContact[1]/ContactPersonalId"/>
+                                                </pfx8:Value>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                                <!--vftrname-->
+                                <pfx8:Attribute>
+                                    <pfx8:Key>
+                                        <xsl:value-of select="'vftrname'"/>
+                                    </pfx8:Key>
+                                    <xsl:choose>
+                                        <xsl:when test="exists($rootItem/ListOfRootItemContact/RootItemContact[1])">
+                                            <pfx8:Value>
+                                                <xsl:value-of select="$rootItem/ListOfRootItemContact/RootItemContact[1]/ContactFirstName"/>
+                                            </pfx8:Value>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <pfx8:Value>
+                                                <xsl:value-of select="$customer/ListOfCustomerContact/CustomerContact[1]/ContactFirstName"/>
+                                            </pfx8:Value>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </pfx8:Attribute>
+                                <!--vftrlastname-->
+                                <pfx8:Attribute>
+                                    <pfx8:Key>
+                                        <xsl:value-of select="'vftrlastname'"/>
+                                    </pfx8:Key>
+                                    <xsl:choose>
+                                        <xsl:when test="exists($rootItem/ListOfRootItemContact/RootItemContact[1])">
+                                            <pfx8:Value>
+                                                <xsl:value-of select="$rootItem/ListOfRootItemContact/RootItemContact[1]/ContactLastname"/>
+                                            </pfx8:Value>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <pfx8:Value>
+                                                <xsl:value-of select="$customer/ListOfCustomerContact/CustomerContact[1]/ContactLastName"/>
+                                            </pfx8:Value>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </pfx8:Attribute>
+                                <!--vftrbirthday-->
+                                <xsl:choose>
+                                    <xsl:when test="tib:validate-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/Date, $customer/ListOfCustomerContact/CustomerContact[1]/ContactBirthDate)">
+                                        <pfx8:Attribute>
+                                            <!--Birthday field of the customer representative contact.
+Birthday field of the customer representative contact.-->
+                                            <pfx8:Key>
+                                                <xsl:value-of select="'vftrownerbirthday'"/>
+                                            </pfx8:Key>
+                                            <pfx8:Value>
+                                                <xsl:value-of select="tib:format-date($_globalVariables/ns1:GlobalVariables/Constants/Formats/SDF/Date,tib:parse-date($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/Date, $customer/ListOfCustomerContact/CustomerContact[1]/ContactBirthDate))"/>
+                                            </pfx8:Value>
+                                        </pfx8:Attribute>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:if test="string-length($customer/ListOfCustomerContact/CustomerContact[1]/ContactBirthDate) >0">
+                                            <pfx8:Attribute>
+                                                <!--Birthday field of the customer representative contact.
+Birthday field of the customer representative contact.-->
+                                                <pfx8:Key>
+                                                    <xsl:value-of select="'vftrownerbirthday'"/>
+                                                </pfx8:Key>
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="tib:format-date($_globalVariables/ns1:GlobalVariables/Constants/Formats/SDF/Date,$customer/ListOfCustomerContact/CustomerContact[1]/ContactBirthDate)"/>
+                                                </pfx8:Value>
+                                            </pfx8:Attribute>
+                                        </xsl:if>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <!--vftremail-->
+                                <pfx8:Attribute>
+                                    <pfx8:Key>
+                                        <xsl:value-of select="'vftremail'"/>
+                                    </pfx8:Key>
+                                    <xsl:choose>
+                                        <xsl:when test="exists($rootItem/ListOfRootItemContact/RootItemContact[1])">
+                                            <pfx8:Value>
+                                                <xsl:value-of select="$rootItem/ListOfRootItemContact/RootItemContact[1]/ContactEmail"/>
+                                            </pfx8:Value>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <pfx8:Value>
+                                                <xsl:value-of select="$customer/ListOfCustomerContact/CustomerContact[1]/ContactEmail"/>
+                                            </pfx8:Value>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </pfx8:Attribute>
+                                <!--vftrgender-->
+                                <pfx8:Attribute>
+                                    <pfx8:Key>
+                                        <xsl:value-of select="'vftrgender'"/>
+                                    </pfx8:Key>
+                                    <xsl:choose>
+                                        <xsl:when test="exists($rootItem/ListOfRootItemContact/RootItemContact[1])">
+                                            <pfx8:Value>
+                                                <xsl:value-of select="$rootItem/ListOfRootItemContact/RootItemContact[1]/ContactGender"/>
+                                            </pfx8:Value>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <pfx8:Value>
+                                                <xsl:value-of select="$customer/ListOfCustomerContact/CustomerContact[1]/ContactGender"/>
+                                            </pfx8:Value>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </pfx8:Attribute>
+                                <!--vftrnationality-->
+                                <pfx8:Attribute>
+                                    <pfx8:Key>
+                                        <xsl:value-of select="'vftrnationality'"/>
+                                    </pfx8:Key>
+                                    <xsl:choose>
+                                        <xsl:when test="exists($rootItem/ListOfRootItemContact/RootItemContact[1])">
+                                            <pfx8:Value>
+                                                <xsl:value-of select="$rootItem/ListOfRootItemContact/RootItemContact[1]/ContactCitizenship"/>
+                                            </pfx8:Value>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <pfx8:Value>
+                                                <xsl:value-of select="$customer/ListOfCustomerContact/CustomerContact[1]/ContactCitizenship"/>
+                                            </pfx8:Value>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </pfx8:Attribute>
+                                <!--newICCID-->
+                                <pfx8:Attribute>
+                                    <!--Siebel Status-->
+                                    <pfx8:Key>
+                                        <xsl:value-of select="'newICCID'"/>
+                                    </pfx8:Key>
+                                    <pfx8:Value>
+                                        <xsl:value-of select="$rootItem/ICCID"/>
+                                    </pfx8:Value>
+                                </pfx8:Attribute>
+                                <!--orderReferenceId-->
+                                <pfx8:Attribute>
+                                    <!--Siebel Status-->
+                                    <pfx8:Key>
+                                        <xsl:value-of select="'orderReferenceId'"/>
+                                    </pfx8:Key>
+                                    <pfx8:Value>
+                                        <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:OrderId"/>
+                                    </pfx8:Value>
+                                </pfx8:Attribute>
+                                <!--vftris4guser-->
+                                <xsl:if test="not($rootItem/ProductType = 'TechnicalOrder')">
+                                    <pfx8:Attribute>
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'vftris4guser'"/>
+                                        </pfx8:Key>
+                                        <xsl:choose>
+                                            <xsl:when test="$rootItem/ListOfChildItem/ChildItem[ProductCatalogId = '71092']/Action = ('New','Existing','Modified')">
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'Y'"/>
+                                                </pfx8:Value>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'N'"/>
+                                                </pfx8:Value>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                                <!--oldvftris4guser-->
+                                <xsl:if test="not($rootItem/ProductType = 'TechnicalOrder')&#xA;and&#xA;($rootItem/ListOfChildItem/ChildItem[ProductCatalogId = '71092']/Action = 'Deleted'&#xA;or&#xA;$rootItem/ListOfChildItem/ChildItem[ProductCatalogId = '71092']/Action = 'New')&#xA;and&#xA;not($rootItem/ListOfChildItem/ChildItem[ProductCatalogId = '71092']/Action = 'Deleted' and $rootItem/ListOfChildItem/ChildItem[ProductCatalogId = '71092']/Action = 'New')&#xA;and &#xA;not($rootItem/Action = 'New' )">
+                                    <pfx8:Attribute>
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'oldvftris4guser'"/>
+                                        </pfx8:Key>
+                                        <xsl:choose>
+                                            <xsl:when test="$rootItem/ListOfChildItem/ChildItem[ProductCatalogId = '71092']/Action = 'Deleted'&#xA;and&#xA;not($rootItem/ListOfChildItem/ChildItem[ProductCatalogId = '71092']/Action = ('New','Existing','Modified'))">
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'Y'"/>
+                                                </pfx8:Value>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'N'"/>
+                                                </pfx8:Value>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                                <!--vftrisVoLTEuser-->
+                                <xsl:if test="not($rootItem/ProductType = 'TechnicalOrder')">
+                                    <pfx8:Attribute>
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'vftrisVoLTEuser'"/>
+                                        </pfx8:Key>
+                                        <xsl:choose>
+                                            <xsl:when test="$rootItem/ListOfChildItem/ChildItem[ProductCatalogId = '71093']/Action = ('New','Existing','Modified')">
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'Y'"/>
+                                                </pfx8:Value>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'N'"/>
+                                                </pfx8:Value>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                                <!--oldvftrisVoLTEuser-->
+                                <xsl:if test="not($rootItem/ProductType = 'TechnicalOrder')&#xA;and&#xA;($rootItem/ListOfChildItem/ChildItem[ProductCatalogId = '71093']/Action = 'Deleted'&#xA;or&#xA;$rootItem/ListOfChildItem/ChildItem[ProductCatalogId = '71093']/Action = 'New')&#xA;and&#xA;not($rootItem/ListOfChildItem/ChildItem[ProductCatalogId = '71093']/Action = 'Deleted' and $rootItem/ListOfChildItem/ChildItem[ProductCatalogId = '71093']/Action = 'New')&#xA;and &#xA;not($rootItem/Action = 'New' )">
+                                    <pfx8:Attribute>
+                                        <pfx8:Key>
+                                            <xsl:value-of select="'oldvftrisVoLTEuser'"/>
+                                        </pfx8:Key>
+                                        <xsl:choose>
+                                            <xsl:when test="$rootItem/ListOfChildItem/ChildItem[ProductCatalogId = '71093']/Action = 'Deleted'&#xA;and&#xA;not($rootItem/ListOfChildItem/ChildItem[ProductCatalogId = '71093']/Action = ('New','Existing','Modified'))">
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'Y'"/>
+                                                </pfx8:Value>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <pfx8:Value>
+                                                    <xsl:value-of select="'N'"/>
+                                                </pfx8:Value>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </pfx8:Attribute>
+                                </xsl:if>
+                            </pfx8:ListAttributes>
+                        </pfx8:Subscriber>
+                    </xsl:if>
+                </pfx8:Request>
+            </pfx8:SynchronizeEntitiesRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="JMS Queue Sender">
+        <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+        <pd:x>610</pd:x>
+        <pd:y>65</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/GlobalCommonResources/Connections/JMS/JMS EAI Connection.sharedjmscon</ConnectionReference>
+            <InDataxsdString ref="pfx5:ServiceRequest"/>
+        </config>
+        <pd:inputBindings>
+            <ns2:ActivityInput>
+                <destinationQueue>
+                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:ServiceCatalogQueue"/>
+                </destinationQueue>
+                <replyToQueue>
+                    <xsl:value-of select="tib:concat-sequence-format(($_globalVariables/ns1:GlobalVariables/Constants/Company,$_globalVariables/ns1:GlobalVariables/Constants/ProjectName,$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/Name,$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/OrderComponent/Name,$_globalVariables/ns1:GlobalVariables/Constants/Layer/Business,$_globalVariables/ns1:GlobalVariables/Constants/QOS/Guarantee,$_globalVariables/ns1:GlobalVariables/Constants/RequestType/Reply),&quot;.&quot;)"/>
+                </replyToQueue>
+                <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns3:Priority">
+                    <JMSPriority>
+                        <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns3:Priority"/>
+                    </JMSPriority>
+                </xsl:if>
+                <Body>
+                    <pfx5:ServiceRequest>
+                        <xsl:for-each select="$Start/Input/pfx:RequestEAI/pfx:Header">
+                            <pfx5:Header>
+                                <xsl:if test="ns3:RequestId">
+                                    <ns3:RequestId>
+                                        <xsl:value-of select="ns3:RequestId"/>
+                                    </ns3:RequestId>
+                                </xsl:if>
+                                <ns3:SourceSystem>
+                                    <xsl:value-of select="ns3:SourceSystem"/>
+                                </ns3:SourceSystem>
+                                <ns3:ReplyExpected>
+                                    <xsl:value-of select="ns3:ReplyExpected"/>
+                                </ns3:ReplyExpected>
+                                <xsl:if test="ns3:QoS">
+                                    <ns3:QoS>
+                                        <xsl:value-of select="ns3:QoS"/>
+                                    </ns3:QoS>
+                                </xsl:if>
+                                <xsl:if test="ns3:Schedule">
+                                    <ns3:Schedule>
+                                        <xsl:value-of select="ns3:Schedule"/>
+                                    </ns3:Schedule>
+                                </xsl:if>
+                                <xsl:if test="ns3:CorrelationId">
+                                    <ns3:CorrelationId>
+                                        <xsl:value-of select="ns3:CorrelationId"/>
+                                    </ns3:CorrelationId>
+                                </xsl:if>
+                                <xsl:if test="ns3:Priority">
+                                    <ns3:Priority>
+                                        <xsl:value-of select="ns3:Priority"/>
+                                    </ns3:Priority>
+                                </xsl:if>
+                                <xsl:for-each select="ns3:Credentials">
+                                    <ns3:Credentials>
+                                        <ns3:ApplicationId>
+                                            <xsl:value-of select="ns3:ApplicationId"/>
+                                        </ns3:ApplicationId>
+                                        <ns3:User>
+                                            <xsl:value-of select="ns3:User"/>
+                                        </ns3:User>
+                                        <xsl:if test="ns3:Password">
+                                            <ns3:Password>
+                                                <xsl:value-of select="ns3:Password"/>
+                                            </ns3:Password>
+                                        </xsl:if>
+                                    </ns3:Credentials>
+                                </xsl:for-each>
+                                <xsl:if test="ns3:ProxySystem">
+                                    <ns3:ProxySystem>
+                                        <xsl:value-of select="ns3:ProxySystem"/>
+                                    </ns3:ProxySystem>
+                                </xsl:if>
+                                <xsl:if test="ns3:ForceSimulate">
+                                    <ns3:ForceSimulate>
+                                        <xsl:value-of select="ns3:ForceSimulate"/>
+                                    </ns3:ForceSimulate>
+                                </xsl:if>
+                                <xsl:for-each select="ns3:Attributes">
+                                    <ns3:Attributes>
+                                        <xsl:for-each select="ns3:Attribute">
+                                            <ns3:Attribute>
+                                                <ns3:Name>
+                                                    <xsl:value-of select="ns3:Name"/>
+                                                </ns3:Name>
+                                                <ns3:Value>
+                                                    <xsl:value-of select="ns3:Value"/>
+                                                </ns3:Value>
+                                            </ns3:Attribute>
+                                        </xsl:for-each>
+                                    </ns3:Attributes>
+                                </xsl:for-each>
+                            </pfx5:Header>
+                        </xsl:for-each>
+                        <pfx5:Body>
+                            <xsl:copy-of select="$Map-Data/pfx8:SynchronizeEntitiesRequest/pfx8:Request"/>
+                        </pfx5:Body>
+                    </pfx5:ServiceRequest>
+                </Body>
+            </ns2:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Parse XML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse XML</pd:from>
+        <pd:to>Map Data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map Data</pd:from>
+        <pd:to>JMS Queue Sender</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>JMS Queue Sender</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

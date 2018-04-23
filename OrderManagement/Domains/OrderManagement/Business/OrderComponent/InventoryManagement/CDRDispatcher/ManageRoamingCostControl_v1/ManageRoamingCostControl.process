@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentRequestInput/v1" xmlns:ns32="urn:com:metasolv:oms:xmlapi:1" xmlns:ns5="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentResponseInput/v1" xmlns:pfx="http://vodafone.com.tr/EAI/Common/RequestEAI" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns4="http://vodafone.com.tr/EAI/Common/ResponseCodes" xmlns:ns3="http://vodafone.com.tr/EAI/Common/Header" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" xmlns:pfx4="http://vodafone.com.tr/ServiceCatalog/Business/CDRManagement/ManageCDRInformation/v1" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" xmlns:pfx2="http://vodafone.com.tr/EAI/Common/ResponseEAI" xmlns:pfx8="http://vodafone.com.tr/ServiceCatalog/ServiceReply" xmlns:pfx7="http://www.tibco.com/schemas/OrderManagement/Domains/OrderManagement/BusinessResources/Schemas/Schema.xsd" xmlns:pfx6="http://vodafone.com.tr/ServiceCatalog/Business/CDRManagement/ManageRoamingCostControl/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/RequestEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/RequestEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/ResponseEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/ResponseEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentRequestInput/v1" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OrderComponent/OrderComponentRequestInput.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" schemaLocation="/Domains/ServiceCatalog/BusinessResources/Schemas/ServiceRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/CDRManagement/ManageCDRInformation/v1" schemaLocation="/Domains/ServiceCatalog/Business/CDRManagement/ManageCDRInformation_v1/Schemas/ManageCDRInformation.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/CDRManagement/ManageRoamingCostControl/v1" schemaLocation="/Domains/ServiceCatalog/Business/CDRManagement/ManageRoamingCostControl_v1/Schemas/ManageRoamingCostControl.xsd"/>
+    <pd:name>Domains/OrderManagement/Business/OrderComponent/InventoryManagement/CDRDispatcher/ManageRoamingCostControl_v1/ManageRoamingCostControl.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Input">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx:RequestEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>57</pd:startX>
+    <pd:startY>63</pd:startY>
+    <pd:returnBindings>
+        <Output>
+            <pfx2:ResponseEAI>
+                <pfx2:Header>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ancestor-or-self::*/namespace::node()"/>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/@*"/>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/node()"/>
+                </pfx2:Header>
+                <pfx2:ResponseCodes>
+                    <ns4:ResponseCode>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/Success"/>
+                    </ns4:ResponseCode>
+                </pfx2:ResponseCodes>
+            </pfx2:ResponseEAI>
+        </Output>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="Output">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx2:ResponseEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>817</pd:endX>
+    <pd:endY>58</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://vodafone.com.tr/1407237293060</pd:targetNamespace>
+    <pd:activity name="Parse XML">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>192</pd:x>
+        <pd:y>63</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>false</validateOutput>
+            <term ref="pfx3:Order"/>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Start/Input/pfx:RequestEAI/pfx:Body/*" element="ns:Request"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:XMLMessage/*[1]"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetCDRRoamingProducts">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>315</pd:x>
+        <pd:y>63</pd:y>
+        <config>
+            <processName>/Domains/OrderManagement/BusinessResources/Processes/ConfigurationVariables/CDRDispatcher/GetCDRRoamingProducts.process</processName>
+        </config>
+        <pd:inputBindings>
+            <AllProductCatalogIds>
+                <xsl:for-each select="$Parse-XML/Order/ListOfRootItem/RootItem[ComponentSubType='MOBILE']/ListOfChildItem/ChildItem/ProductCatalogId">
+                    <ProductCatalogId>
+                        <xsl:value-of select="."/>
+                    </ProductCatalogId>
+                </xsl:for-each>
+            </AllProductCatalogIds>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Close Order Component">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>476</pd:x>
+        <pd:y>185</pd:y>
+        <config>
+            <processName>/Domains/OrderManagement/BusinessResources/Processes/OrderComponent/OrderComponentResponse.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <ns5:Request>
+                    <ns5:OcDetails>
+                        <ns5:Id>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:Id"/>
+                        </ns5:Id>
+                        <ns5:Name>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:Name"/>
+                        </ns5:Name>
+                        <ns5:Scenario>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:Scenario"/>
+                        </ns5:Scenario>
+                        <ns5:OrderId>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:OrderId"/>
+                        </ns5:OrderId>
+                        <ns5:CorrelationID>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:CorrelationID"/>
+                        </ns5:CorrelationID>
+                        <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:Cartridge">
+                            <ns5:Cartridge>
+                                <ns5:Name>
+                                    <xsl:value-of select="ns:Name"/>
+                                </ns5:Name>
+                                <ns5:Version>
+                                    <xsl:value-of select="ns:Version"/>
+                                </ns5:Version>
+                                <ns5:Source>
+                                    <xsl:value-of select="ns:Source"/>
+                                </ns5:Source>
+                            </ns5:Cartridge>
+                        </xsl:for-each>
+                    </ns5:OcDetails>
+                    <ns5:ServiceReply>
+                        <pfx8:Header>
+                            <ns4:ResponseCode>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/Success"/>
+                            </ns4:ResponseCode>
+                            <ns4:ResponseMsg>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/NoActionToPerformDescription"/>
+                            </ns4:ResponseMsg>
+                        </pfx8:Header>
+                        <pfx8:Body>
+                            <ns32:TelcoOperationResponse>
+                                <Id>
+                                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:Id"/>
+                                </Id>
+                                <Name>
+                                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:Name"/>
+                                </Name>
+                                <OrderId>
+                                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:OrderId"/>
+                                </OrderId>
+                                <StatusCode>
+                                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/Success"/>
+                                </StatusCode>
+                                <StatusMessage>
+                                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/NoActionToPerformDescription"/>
+                                </StatusMessage>
+                            </ns32:TelcoOperationResponse>
+                        </pfx8:Body>
+                    </ns5:ServiceReply>
+                </ns5:Request>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Map Data">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>475</pd:x>
+        <pd:y>62</pd:y>
+        <config>
+            <element>
+                <xsd:element name="ListOfRequests">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element ref="pfx6:Request" minOccurs="0" maxOccurs="unbounded"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </element>
+        </config>
+        <pd:inputBindings>
+            <xsl:variable xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="rootItem" select="$Parse-XML/Order/ListOfRootItem/RootItem[ComponentType = 'MAIN' and ComponentSubType = 'MOBILE']"/>
+            <xsl:variable xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="BundleId" select="$GetCDRRoamingProducts/Output/RoamingProducts/BundleId"/>
+            <xsl:variable xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="ProductCatalogId" select="$GetCDRRoamingProducts/Output/RoamingProducts/ProductCatalogId"/>
+            <ListOfRequests>
+                <xsl:choose xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                    <!--Change MSISDN-->
+                    <xsl:when test="($rootItem/Action = &quot;Modified&quot; and&#xA;$rootItem/ActionReason = (&quot;229&quot;,&quot;607&quot;)  and&#xA;$rootItem/ProductCatalogId = (&quot;1000&quot;,&quot;70000&quot;) and&#xA;$rootItem/ActionType = &quot;102&quot;)&#xA;or&#xA;($rootItem/Action = &quot;Modified&quot; and&#xA;$rootItem/ActionReason = &quot;232&quot; and&#xA;$rootItem/ProductCatalogId = (&quot;1000&quot;,&quot;70000&quot;) and&#xA;$rootItem/ActionType = &quot;102&quot;)">
+                        <xsl:for-each select="$GetCDRRoamingProducts/Output/RoamingProducts">
+                            <pfx6:Request>
+                                <xsl:if test="$rootItem/ListOfRootItemAttribute/RootItemAttribute[Name = 'MSISDN']/Value">
+                                    <pfx6:MSISDN>
+                                        <xsl:value-of select="$rootItem/ListOfRootItemAttribute/RootItemAttribute[Name = 'MSISDN']/Value"/>
+                                    </pfx6:MSISDN>
+                                </xsl:if>
+                                <xsl:if test="string-length($rootItem/ListOfRootItemAttribute/RootItemAttribute[Name = 'MSISDN']/PreviousValue) >0">
+                                    <xsl:if test="$rootItem/ListOfRootItemAttribute/RootItemAttribute[Name = 'MSISDN']/PreviousValue">
+                                        <pfx6:OldMSISDN>
+                                            <xsl:value-of select="$rootItem/ListOfRootItemAttribute/RootItemAttribute[Name = 'MSISDN']/PreviousValue"/>
+                                        </pfx6:OldMSISDN>
+                                    </xsl:if>
+                                </xsl:if>
+                                <xsl:if test="tib:validate-dateTime( $_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $rootItem/ModifyDate)">
+                                    <pfx6:StartDate>
+                                        <xsl:value-of select="tib:parse-dateTime( $_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $rootItem/ModifyDate)"/>
+                                    </pfx6:StartDate>
+                                </xsl:if>
+                                <xsl:if test="tib:validate-dateTime( $_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $rootItem/ModifyDate)">
+                                    <pfx6:EndDate>
+                                        <xsl:value-of select="tib:parse-dateTime( $_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $rootItem/ModifyDate)"/>
+                                    </pfx6:EndDate>
+                                </xsl:if>
+                                <pfx6:BundleId>
+                                    <xsl:choose>
+                                        <xsl:when test="exists(current()/BundleId)">
+                                            <xsl:value-of select="current()/BundleId"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </pfx6:BundleId>
+                                <pfx6:ProcessType>
+                                    <xsl:value-of select="&quot;MSISDN_CHANGE&quot;"/>
+                                </pfx6:ProcessType>
+                                <pfx6:SourceSystem>
+                                    <xsl:value-of select="$Parse-XML/Order/OrderOMSourceSystem"/>
+                                </pfx6:SourceSystem>
+                                <pfx6:ProductCatalogId>
+                                    <xsl:choose>
+                                        <xsl:when test="exists(current()/ProductCatalogId)">
+                                            <xsl:value-of select="current()/ProductCatalogId"/>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </pfx6:ProductCatalogId>
+                            </pfx6:Request>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <!--Change IMSI-->
+                    <xsl:when test="$rootItem/Action = &quot;Modified&quot; and&#xA;$rootItem/ActionReason = (&quot;202&quot;,&quot;248&quot;,&quot;201&quot;,&quot;231&quot;, &quot;608&quot;)  and&#xA;$rootItem/ProductCatalogId = (&quot;1000&quot;,&quot;70000&quot;)  and&#xA;$rootItem/ActionType = &quot;103&quot;">
+                        <xsl:for-each select="$GetCDRRoamingProducts/Output/RoamingProducts">
+                            <pfx6:Request>
+                                <xsl:if test="$rootItem/ListOfRootItemAttribute/RootItemAttribute[Name = 'IMSI']/Value">
+                                    <pfx6:IMSI>
+                                        <xsl:value-of select="$rootItem/ListOfRootItemAttribute/RootItemAttribute[Name = 'IMSI']/Value"/>
+                                    </pfx6:IMSI>
+                                </xsl:if>
+                                <xsl:if test="string-length($rootItem/ListOfRootItemAttribute/RootItemAttribute[Name = 'IMSI']/PreviousValue) >0">
+                                    <xsl:if test="$rootItem/ListOfRootItemAttribute/RootItemAttribute[Name = 'IMSI']/PreviousValue">
+                                        <pfx6:OldIMSI>
+                                            <xsl:value-of select="$rootItem/ListOfRootItemAttribute/RootItemAttribute[Name = 'IMSI']/PreviousValue"/>
+                                        </pfx6:OldIMSI>
+                                    </xsl:if>
+                                </xsl:if>
+                                <xsl:if test="tib:validate-dateTime( $_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $rootItem/ModifyDate)">
+                                    <pfx6:StartDate>
+                                        <xsl:value-of select="tib:parse-dateTime( $_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $rootItem/ModifyDate)"/>
+                                    </pfx6:StartDate>
+                                </xsl:if>
+                                <xsl:if test="tib:validate-dateTime( $_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $rootItem/ModifyDate)">
+                                    <pfx6:EndDate>
+                                        <xsl:value-of select="tib:parse-dateTime( $_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $rootItem/ModifyDate)"/>
+                                    </pfx6:EndDate>
+                                </xsl:if>
+                                <pfx6:BundleId>
+                                    <xsl:value-of select="current()/BundleId"/>
+                                </pfx6:BundleId>
+                                <pfx6:ProcessType>
+                                    <xsl:value-of select="'IMSI_CHANGE'"/>
+                                </pfx6:ProcessType>
+                                <pfx6:SourceSystem>
+                                    <xsl:value-of select="$Parse-XML/Order/OrderOMSourceSystem"/>
+                                </pfx6:SourceSystem>
+                                <pfx6:ProductCatalogId>
+                                    <xsl:value-of select="current()/ProductCatalogId"/>
+                                </pfx6:ProductCatalogId>
+                            </pfx6:Request>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <!--Deactivation-->
+                    <xsl:when test="$Parse-XML/Order/OrderType = 'Disconnect'&#xA;or&#xA;$rootItem/ListOfChildItem/ChildItem[ProductCatalogId =$ProductCatalogId and Action = 'Suspend']">
+                        <xsl:for-each select="$GetCDRRoamingProducts/Output/RoamingProducts">
+                            <pfx6:Request>
+                                <xsl:if test="$rootItem/ListOfRootItemAttribute/RootItemAttribute[Name = 'MSISDN']/Value">
+                                    <pfx6:MSISDN>
+                                        <xsl:value-of select="$rootItem/ListOfRootItemAttribute/RootItemAttribute[Name = 'MSISDN']/Value"/>
+                                    </pfx6:MSISDN>
+                                </xsl:if>
+                                <xsl:if test="$rootItem/ListOfRootItemAttribute/RootItemAttribute[Name = 'IMSI']/Value">
+                                    <pfx6:IMSI>
+                                        <xsl:value-of select="$rootItem/ListOfRootItemAttribute/RootItemAttribute[Name = 'IMSI']/Value"/>
+                                    </pfx6:IMSI>
+                                </xsl:if>
+                                <xsl:if test="tib:validate-dateTime( $_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $rootItem/EndDate)">
+                                    <pfx6:StartDate>
+                                        <xsl:value-of select="tib:parse-dateTime( $_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $rootItem/EndDate)"/>
+                                    </pfx6:StartDate>
+                                </xsl:if>
+                                <xsl:if test="tib:validate-dateTime( $_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $rootItem/EndDate)">
+                                    <pfx6:EndDate>
+                                        <xsl:value-of select="tib:parse-dateTime( $_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $rootItem/EndDate)"/>
+                                    </pfx6:EndDate>
+                                </xsl:if>
+                                <pfx6:BundleId>
+                                    <xsl:value-of select="current()/BundleId"/>
+                                </pfx6:BundleId>
+                                <pfx6:ProcessType>
+                                    <xsl:value-of select="'SIM_DEACTIVATION'"/>
+                                </pfx6:ProcessType>
+                                <pfx6:SourceSystem>
+                                    <xsl:value-of select="$Parse-XML/Order/OrderOMSourceSystem"/>
+                                </pfx6:SourceSystem>
+                                <pfx6:ProductCatalogId>
+                                    <xsl:value-of select="current()/ProductCatalogId"/>
+                                </pfx6:ProductCatalogId>
+                            </pfx6:Request>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <!--Delete Roaming Cost Products-->
+                    <xsl:when test="exists($rootItem/ListOfChildItem/ChildItem[Action='Deleted' and ProductCatalogId=$ProductCatalogId])&#xA;and&#xA;not (($rootItem/Action = &quot;Modified&quot; and&#xA;$rootItem/ActionReason = (&quot;229&quot;,&quot;607&quot;)  and&#xA;$rootItem/ProductCatalogId = (&quot;1000&quot;,&quot;70000&quot;) and&#xA;$rootItem/ActionType = &quot;102&quot;)&#xA;or&#xA;($rootItem/Action = &quot;Modified&quot; and&#xA;$rootItem/ActionReason = &quot;232&quot; and&#xA;$rootItem/ProductCatalogId = (&quot;1000&quot;,&quot;70000&quot;) and&#xA;$rootItem/ActionType = &quot;102&quot;))&#xA;&#xA;and&#xA;not(&#xA;$rootItem/Action = &quot;Modified&quot; and&#xA;$rootItem/ActionReason = (&quot;202&quot;,&quot;248&quot;,&quot;201&quot;,&quot;231&quot;, &quot;608&quot;)  and&#xA;$rootItem/ProductCatalogId = (&quot;1000&quot;,&quot;70000&quot;)  and&#xA;$rootItem/ActionType = &quot;103&quot;)">
+                        <xsl:for-each select="$GetCDRRoamingProducts/Output/RoamingProducts">
+                            <pfx6:Request>
+                                <xsl:if test="$rootItem/ListOfRootItemAttribute/RootItemAttribute[Name = 'MSISDN']/Value">
+                                    <pfx6:MSISDN>
+                                        <xsl:value-of select="$rootItem/ListOfRootItemAttribute/RootItemAttribute[Name = 'MSISDN']/Value"/>
+                                    </pfx6:MSISDN>
+                                </xsl:if>
+                                <xsl:if test="tib:validate-dateTime( $_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $rootItem/ListOfChildItem/ChildItem[Action='Deleted' and ProductCatalogId=('17006','17007','8010','25149','25150','25151')]/EndDate)">
+                                    <pfx6:StartDate>
+                                        <xsl:value-of select="tib:parse-dateTime( $_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $rootItem/ListOfChildItem/ChildItem[Action='Deleted' and ProductCatalogId=('17006','17007','8010','25149','25150','25151')]/EndDate)"/>
+                                    </pfx6:StartDate>
+                                </xsl:if>
+                                <xsl:if test="tib:validate-dateTime( $_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $rootItem/ListOfChildItem/ChildItem[Action='Deleted' and ProductCatalogId=('17006','17007','8010','25149','25150','25151')]/EndDate)">
+                                    <pfx6:EndDate>
+                                        <xsl:value-of select="tib:parse-dateTime( $_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $rootItem/ListOfChildItem/ChildItem[Action='Deleted' and ProductCatalogId=('17006','17007','8010','25149','25150','25151')]/EndDate)"/>
+                                    </pfx6:EndDate>
+                                </xsl:if>
+                                <pfx6:BundleId>
+                                    <xsl:value-of select="current()/BundleId"/>
+                                </pfx6:BundleId>
+                                <pfx6:ProcessType>
+                                    <xsl:value-of select="'UNLINK_SIM'"/>
+                                </pfx6:ProcessType>
+                                <pfx6:SourceSystem>
+                                    <xsl:value-of select="$Parse-XML/Order/OrderOMSourceSystem"/>
+                                </pfx6:SourceSystem>
+                                <pfx6:ProductCatalogId>
+                                    <xsl:value-of select="current()/ProductCatalogId"/>
+                                </pfx6:ProductCatalogId>
+                            </pfx6:Request>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <!--Add Roaming Cost Products-->
+                    <xsl:when test="exists($rootItem/ListOfChildItem/ChildItem[Action='New' and ProductCatalogId=$ProductCatalogId])&#xA;and&#xA;not (($rootItem/Action = &quot;Modified&quot; and&#xA;$rootItem/ActionReason = (&quot;229&quot;,&quot;607&quot;)  and&#xA;$rootItem/ProductCatalogId = (&quot;1000&quot;,&quot;70000&quot;) and&#xA;$rootItem/ActionType = &quot;102&quot;)&#xA;or&#xA;($rootItem/Action = &quot;Modified&quot; and&#xA;$rootItem/ActionReason = &quot;232&quot; and&#xA;$rootItem/ProductCatalogId = (&quot;1000&quot;,&quot;70000&quot;) and&#xA;$rootItem/ActionType = &quot;102&quot;))&#xA;&#xA;and&#xA;not(&#xA;$rootItem/Action = &quot;Modified&quot; and&#xA;$rootItem/ActionReason = (&quot;202&quot;,&quot;248&quot;,&quot;201&quot;,&quot;231&quot;, &quot;608&quot;)  and&#xA;$rootItem/ProductCatalogId = (&quot;1000&quot;,&quot;70000&quot;)  and&#xA;$rootItem/ActionType = &quot;103&quot;)">
+                        <xsl:for-each select="$GetCDRRoamingProducts/Output/RoamingProducts">
+                            <pfx6:Request>
+                                <xsl:if test="$rootItem/ListOfRootItemAttribute/RootItemAttribute[Name = 'MSISDN']/Value">
+                                    <pfx6:MSISDN>
+                                        <xsl:value-of select="$rootItem/ListOfRootItemAttribute/RootItemAttribute[Name = 'MSISDN']/Value"/>
+                                    </pfx6:MSISDN>
+                                </xsl:if>
+                                <xsl:if test="tib:validate-dateTime( $_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $rootItem/StartDate)">
+                                    <pfx6:StartDate>
+                                        <xsl:value-of select="tib:parse-dateTime( $_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $rootItem/StartDate)"/>
+                                    </pfx6:StartDate>
+                                </xsl:if>
+                                <xsl:if test="tib:validate-dateTime( $_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $rootItem/StartDate)">
+                                    <pfx6:EndDate>
+                                        <xsl:value-of select="tib:parse-dateTime( $_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $rootItem/StartDate)"/>
+                                    </pfx6:EndDate>
+                                </xsl:if>
+                                <pfx6:BundleId>
+                                    <xsl:value-of select="current()/BundleId"/>
+                                </pfx6:BundleId>
+                                <pfx6:ProcessType>
+                                    <xsl:value-of select="'LINK_SIM'"/>
+                                </pfx6:ProcessType>
+                                <pfx6:SourceSystem>
+                                    <xsl:value-of select="$Parse-XML/Order/OrderOMSourceSystem"/>
+                                </pfx6:SourceSystem>
+                                <pfx6:ProductCatalogId>
+                                    <xsl:value-of select="current()/ProductCatalogId"/>
+                                </pfx6:ProductCatalogId>
+                            </pfx6:Request>
+                        </xsl:for-each>
+                    </xsl:when>
+                </xsl:choose>
+            </ListOfRequests>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="OrderComponentIterator">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>679</pd:x>
+        <pd:y>58</pd:y>
+        <config>
+            <processName>/Domains/OrderManagement/BusinessResources/Processes/OrderComponent/OrderComponentIterator.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <RequestDestination>
+                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:ServiceCatalogQueue"/>
+                </RequestDestination>
+                <xsl:copy-of select="$Map-Data/ListOfRequests"/>
+                <pfx:RequestEAI>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header"/>
+                    <pfx:Body>
+                        <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request"/>
+                    </pfx:Body>
+                </pfx:RequestEAI>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Parse XML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse XML</pd:from>
+        <pd:to>GetCDRRoamingProducts</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetCDRRoamingProducts</pd:from>
+        <pd:to>Map Data</pd:to>
+        <pd:xpathDescription>Success</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>exists($GetCDRRoamingProducts/Output/RoamingProducts)</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetCDRRoamingProducts</pd:from>
+        <pd:to>Close Order Component</pd:to>
+        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Close Order Component</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map Data</pd:from>
+        <pd:to>OrderComponentIterator</pd:to>
+        <pd:xpathDescription>Success</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>count($Map-Data/ListOfRequests/pfx6:Request)&gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>OrderComponentIterator</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map Data</pd:from>
+        <pd:to>Close Order Component</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

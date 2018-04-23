@@ -1,0 +1,926 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentRequestInput/v1" xmlns:ns22="http://vodafone.com.tr/ServiceCatalog/ServiceReply" xmlns:ns32="urn:com:metasolv:oms:xmlapi:1" xmlns:ns12="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentResponseInput/v1" xmlns:pfx="http://vodafone.com.tr/EAI/Common/RequestEAI" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns4="http://vodafone.com.tr/EAI/Common/ResponseCodes" xmlns:ns3="http://vodafone.com.tr/EAI/Common/Header" xmlns:pfx5="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx4="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://vodafone.com.tr/ServiceCatalog/Business/External/NotifyDocumentTransaction/v2" xmlns:pfx2="http://vodafone.com.tr/EAI/Common/ResponseEAI" xmlns:pfx9="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/Portability/PortIN.xsd" xmlns:pfx7="http://www.tibco.com/schemas/OrderManagement/Domains/OrderManagement/BusinessResources/Schemas/Schema.xsd" xmlns:pfx6="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/ICCB/PortResponseMNP.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/RequestEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/RequestEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/ResponseEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/ResponseEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentRequestInput/v1" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OrderComponent/OrderComponentRequestInput.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" schemaLocation="/Domains/ServiceCatalog/BusinessResources/Schemas/ServiceRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/External/NotifyDocumentTransaction/v2" schemaLocation="/Domains/ServiceCatalog/Business/External/NotifyDocumentTransaction_v2/Schemas/NotifyDocumentTransaction.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/ICCB/PortResponseMNP.xsd" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/ICCB/PortResponseMNP.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/Portability/PortIN.xsd" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/Portability/PortIN.xsd"/>
+    <pd:name>Domains/OrderManagement/Business/OrderComponent/External/Duman/NotifyDocumentTransaction_v2/NotifyDocumentTransaction.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Input">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx:RequestEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>150</pd:startX>
+    <pd:startY>61</pd:startY>
+    <pd:returnBindings>
+        <Output>
+            <pfx2:ResponseEAI>
+                <pfx2:Header>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ancestor-or-self::*/namespace::node()"/>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/@*"/>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/node()"/>
+                </pfx2:Header>
+                <pfx2:ResponseCodes>
+                    <ns4:ResponseCode>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/Success"/>
+                    </ns4:ResponseCode>
+                </pfx2:ResponseCodes>
+            </pfx2:ResponseEAI>
+        </Output>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="Output">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx2:ResponseEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>1069</pd:endX>
+    <pd:endY>60</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://vodafone.com.tr/1407237293059</pd:targetNamespace>
+    <pd:activity name="Fail Order Component">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>576</pd:x>
+        <pd:y>305</pd:y>
+        <config>
+            <processName>/Domains/OrderManagement/BusinessResources/Processes/OrderComponent/OrderComponentResponse.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <ns12:Request>
+                    <ns12:OcDetails>
+                        <ns12:Id>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:Id"/>
+                        </ns12:Id>
+                        <ns12:Name>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:Name"/>
+                        </ns12:Name>
+                        <ns12:Scenario>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:Scenario"/>
+                        </ns12:Scenario>
+                        <ns12:OrderId>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:OrderId"/>
+                        </ns12:OrderId>
+                        <ns12:CorrelationID>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:CorrelationID"/>
+                        </ns12:CorrelationID>
+                        <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:Cartridge">
+                            <ns12:Cartridge>
+                                <ns12:Name>
+                                    <xsl:value-of select="ns:Name"/>
+                                </ns12:Name>
+                                <ns12:Version>
+                                    <xsl:value-of select="ns:Version"/>
+                                </ns12:Version>
+                                <ns12:Source>
+                                    <xsl:value-of select="ns:Source"/>
+                                </ns12:Source>
+                            </ns12:Cartridge>
+                        </xsl:for-each>
+                    </ns12:OcDetails>
+                    <ns12:ServiceReply>
+                        <ns22:Header>
+                            <ns4:ResponseCode>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/Success"/>
+                            </ns4:ResponseCode>
+                            <ns4:ResponseMsg>
+                                <xsl:value-of select="'Duman Transactions not Found'"/>
+                            </ns4:ResponseMsg>
+                        </ns22:Header>
+                        <ns22:Body>
+                            <ns32:TelcoOperationResponse>
+                                <Id>
+                                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:Id"/>
+                                </Id>
+                                <Name>
+                                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:Name"/>
+                                </Name>
+                                <OrderId>
+                                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:OrderId"/>
+                                </OrderId>
+                                <xsl:choose>
+                                    <xsl:when test="$Parse-XML/Order/ListOfRootItem/RootItem[ComponentGroup = 'CAMP PROMO']/Action = ('New', 'Deleted')">
+                                        <StatusCode>
+                                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/Success"/>
+                                        </StatusCode>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <StatusCode>
+                                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/ReferenceDataNotFound"/>
+                                        </StatusCode>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:choose>
+                                    <xsl:when test="$Parse-XML/Order/ListOfRootItem/RootItem[ComponentGroup = 'CAMP PROMO']/Action = ('New', 'Deleted')">
+                                        <StatusMessage>
+                                            <xsl:value-of select="&quot;Nothing to Process.&quot;"/>
+                                        </StatusMessage>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <StatusMessage>
+                                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/ReferenceDataNotFoundDescription"/>
+                                        </StatusMessage>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </ns32:TelcoOperationResponse>
+                        </ns22:Body>
+                    </ns12:ServiceReply>
+                </ns12:Request>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetDumanTransactions">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>458</pd:x>
+        <pd:y>53</pd:y>
+        <config>
+            <processName>/Domains/OrderManagement/BusinessResources/Processes/ConfigurationVariables/Duman/GetDumanTransactions.process</processName>
+        </config>
+        <pd:inputBindings>
+            <GetDumanTransactionsInput>
+                <Order>
+                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:XMLMessage/*[1]"/>
+                </Order>
+            </GetDumanTransactionsInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetGlobalData">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>597</pd:x>
+        <pd:y>196</pd:y>
+        <config>
+            <processName>/Domains/OrderManagement/BusinessResources/Processes/TO2FGlobalData/GetGlobalData.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:MasterOrderId">
+                    <MasterOrderId>
+                        <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:MasterOrderId"/>
+                    </MasterOrderId>
+                </xsl:if>
+                <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:OrderId">
+                    <OrderId>
+                        <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:OrderId"/>
+                    </OrderId>
+                </xsl:if>
+                <Key>
+                    <xsl:value-of select="concat($Parse-XML/Order/OrderPortId, &quot;-&quot;,&quot;PortIN&quot;)"/>
+                </Key>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="JMS Queue Sender">
+        <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+        <pd:x>922</pd:x>
+        <pd:y>59</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/GlobalCommonResources/Connections/JMS/JMS EAI Connection.sharedjmscon</ConnectionReference>
+            <InDataxsdString ref="pfx5:ServiceRequest"/>
+        </config>
+        <pd:inputBindings>
+            <ns2:ActivityInput>
+                <destinationQueue>
+                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:ServiceCatalogQueue"/>
+                </destinationQueue>
+                <replyToQueue>
+                    <xsl:value-of select="tib:concat-sequence-format(($_globalVariables/ns1:GlobalVariables/Constants/Company,$_globalVariables/ns1:GlobalVariables/Constants/ProjectName,$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/Name,$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/OrderComponent/Name,$_globalVariables/ns1:GlobalVariables/Constants/Layer/Business,$_globalVariables/ns1:GlobalVariables/Constants/QOS/Guarantee,$_globalVariables/ns1:GlobalVariables/Constants/RequestType/Reply),&quot;.&quot;)"/>
+                </replyToQueue>
+                <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns3:Priority">
+                    <JMSPriority>
+                        <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns3:Priority"/>
+                    </JMSPriority>
+                </xsl:if>
+                <Body>
+                    <pfx5:ServiceRequest>
+                        <xsl:for-each select="$Start/Input/pfx:RequestEAI/pfx:Header">
+                            <pfx5:Header>
+                                <xsl:if test="ns3:RequestId">
+                                    <ns3:RequestId>
+                                        <xsl:value-of select="ns3:RequestId"/>
+                                    </ns3:RequestId>
+                                </xsl:if>
+                                <ns3:SourceSystem>
+                                    <xsl:value-of select="ns3:SourceSystem"/>
+                                </ns3:SourceSystem>
+                                <ns3:ReplyExpected>
+                                    <xsl:value-of select="ns3:ReplyExpected"/>
+                                </ns3:ReplyExpected>
+                                <xsl:if test="ns3:QoS">
+                                    <ns3:QoS>
+                                        <xsl:value-of select="ns3:QoS"/>
+                                    </ns3:QoS>
+                                </xsl:if>
+                                <xsl:if test="ns3:Schedule">
+                                    <ns3:Schedule>
+                                        <xsl:value-of select="ns3:Schedule"/>
+                                    </ns3:Schedule>
+                                </xsl:if>
+                                <xsl:if test="ns3:CorrelationId">
+                                    <ns3:CorrelationId>
+                                        <xsl:value-of select="ns3:CorrelationId"/>
+                                    </ns3:CorrelationId>
+                                </xsl:if>
+                                <xsl:if test="ns3:Priority">
+                                    <ns3:Priority>
+                                        <xsl:value-of select="ns3:Priority"/>
+                                    </ns3:Priority>
+                                </xsl:if>
+                                <xsl:for-each select="ns3:Credentials">
+                                    <ns3:Credentials>
+                                        <ns3:ApplicationId>
+                                            <xsl:value-of select="ns3:ApplicationId"/>
+                                        </ns3:ApplicationId>
+                                        <ns3:User>
+                                            <xsl:value-of select="ns3:User"/>
+                                        </ns3:User>
+                                        <xsl:if test="ns3:Password">
+                                            <ns3:Password>
+                                                <xsl:value-of select="ns3:Password"/>
+                                            </ns3:Password>
+                                        </xsl:if>
+                                    </ns3:Credentials>
+                                </xsl:for-each>
+                                <xsl:if test="ns3:ProxySystem">
+                                    <ns3:ProxySystem>
+                                        <xsl:value-of select="ns3:ProxySystem"/>
+                                    </ns3:ProxySystem>
+                                </xsl:if>
+                                <xsl:if test="ns3:ForceSimulate">
+                                    <ns3:ForceSimulate>
+                                        <xsl:value-of select="ns3:ForceSimulate"/>
+                                    </ns3:ForceSimulate>
+                                </xsl:if>
+                                <xsl:for-each select="ns3:Attributes">
+                                    <ns3:Attributes>
+                                        <xsl:for-each select="ns3:Attribute">
+                                            <ns3:Attribute>
+                                                <ns3:Name>
+                                                    <xsl:value-of select="ns3:Name"/>
+                                                </ns3:Name>
+                                                <ns3:Value>
+                                                    <xsl:value-of select="ns3:Value"/>
+                                                </ns3:Value>
+                                            </ns3:Attribute>
+                                        </xsl:for-each>
+                                    </ns3:Attributes>
+                                </xsl:for-each>
+                            </pfx5:Header>
+                        </xsl:for-each>
+                        <pfx5:Body>
+                            <xsl:copy-of select="$Map-Data/pfx3:Request"/>
+                        </pfx5:Body>
+                    </pfx5:ServiceRequest>
+                </Body>
+            </ns2:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Map Data">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>763</pd:x>
+        <pd:y>57</pd:y>
+        <config>
+            <element ref="pfx3:Request"/>
+        </config>
+        <pd:inputBindings>
+            <pfx3:Request>
+                <pfx3:ListOfTransactions>
+                    <xsl:variable name="MainRoot" select="$Parse-XML/Order/ListOfRootItem/RootItem[ProductCatalogId='1000' or ProductCatalogId='70000'][1]"/>
+                    <xsl:for-each select="$Parse-XML/Order/ListOfRootItem/RootItem">
+                        <xsl:variable name="rootItem" select="."/>
+                        <xsl:for-each select="$GetDumanTransactions/GetDumanTransactionsOutput/DumanTransaction[$rootItem/IntegrationId = RootIntegrationId]">
+                            <xsl:variable name="ProductAction" select="if(current()/ProductIntegrationId = $rootItem/IntegrationId)&#xA;then&#xA;$rootItem/Action&#xA;else&#xA;$rootItem/ListOfChildItem/ChildItem[IntegrationId =current()/ProductIntegrationId ]/Action"/>
+                            <xsl:variable name="ProductActionType" select="$rootItem/ActionType"/>
+                            <xsl:variable name="ProductStartDate" select="if(current()/ProductIntegrationId = $rootItem/IntegrationId)&#xA;then&#xA;$rootItem/StartDate&#xA;else&#xA;$rootItem/ListOfChildItem/ChildItem[IntegrationId =current()/ProductIntegrationId ]/StartDate"/>
+                            <xsl:variable name="ProductModifyDate" select="if(current()/ProductIntegrationId = $rootItem/IntegrationId)&#xA;then&#xA;$rootItem/ModifyDate&#xA;else&#xA;$rootItem/ListOfChildItem/ChildItem[IntegrationId =current()/ProductIntegrationId ]/ModifyDate"/>
+                            <xsl:variable name="ProductEndDate" select="if(current()/ProductIntegrationId = $rootItem/IntegrationId)&#xA;then&#xA;$rootItem/EndDate&#xA;else&#xA;$rootItem/ListOfChildItem/ChildItem[IntegrationId =current()/ProductIntegrationId ]/EndDate"/>
+                            <xsl:variable name="ChildItem" select="$rootItem/ListOfChildItem/ChildItem[IntegrationId = current()/ProductIntegrationId]"/>
+                            <xsl:variable name="CustomerAccount" select=" $Parse-XML/Order/ListOfCustomerAccount/CustomerAccount[CustAcctCode = $rootItem/CustAcctCode]"/>
+                            <xsl:variable name="_MSISDN" select="if ($rootItem[ProductClass='VF_VPN GROUP']/ListOfChildItem/ChildItem/IntegrationId = current()/ProductIntegrationId)&#xA;then $ChildItem/ListOfChildItemAttribute/ChildItemAttribute[Name='Number']/Value&#xA;else (&#xA;&#x9;if (string-length($rootItem/ServiceId) > 0)&#xA;&#x9;then $rootItem/ServiceId&#xA;&#x9;else $MainRoot/MSISDN&#xA;)"/>
+                            <pfx3:Transaction>
+                                <xsl:if test="$Parse-XML/Order/OrderSourceSystem">
+                                    <pfx3:SourceSystem>
+                                        <xsl:value-of select="$Parse-XML/Order/OrderSourceSystem"/>
+                                    </pfx3:SourceSystem>
+                                </xsl:if>
+                                <xsl:if test="$_MSISDN">
+                                    <pfx3:MSISDN>
+                                        <xsl:value-of select="$_MSISDN"/>
+                                    </pfx3:MSISDN>
+                                </xsl:if>
+                                <xsl:choose>
+                                    <xsl:when test="string-length($rootItem/ICCID)>0">
+                                        <xsl:if test="$rootItem/ICCID">
+                                            <pfx3:ICCID>
+                                                <xsl:value-of select="$rootItem/ICCID"/>
+                                            </pfx3:ICCID>
+                                        </xsl:if>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:if test="$MainRoot/ICCID">
+                                            <pfx3:ICCID>
+                                                <xsl:value-of select="$MainRoot/ICCID"/>
+                                            </pfx3:ICCID>
+                                        </xsl:if>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:choose>
+                                    <xsl:when test="current()/TransactionCode = '1027' &#xA;and&#xA;(&#xA;&#x9;$rootItem[ProductCatalogId = current()/ProductCatalogId]/ComponentGroup = 'HANDSET'&#xA;or&#xA;$rootItem/ListOfChildItem/ChildItem[ProductCatalogId = current()/ProductCatalogId]/ComponentGroup = 'HANDSET'&#xA;)">
+                                        <xsl:if test="$rootItem/IMEI">
+                                            <pfx3:IMEI>
+                                                <xsl:value-of select="$rootItem/IMEI"/>
+                                            </pfx3:IMEI>
+                                        </xsl:if>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:if test="string-length($Parse-XML/Order/ListOfRootItem/RootItem[ListOfChildItem/ChildItem[string-length(IMEI)>0][1]]/ListOfChildItem/ChildItem/IMEI)>0">
+                                            <xsl:if test="$Parse-XML/Order/ListOfRootItem/RootItem[ListOfChildItem/ChildItem[string-length(IMEI)>0][1]]/ListOfChildItem/ChildItem/IMEI">
+                                                <pfx3:IMEI>
+                                                    <xsl:value-of select="$Parse-XML/Order/ListOfRootItem/RootItem[ListOfChildItem/ChildItem[string-length(IMEI)>0][1]]/ListOfChildItem/ChildItem/IMEI"/>
+                                                </pfx3:IMEI>
+                                            </xsl:if>
+                                        </xsl:if>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:choose>
+                                    <xsl:when test="TransactionName='PSTN Aktivasyon' and TransactionCode='1031'">
+                                        <pfx3:TransactionId>
+                                            <xsl:value-of select="concat($Parse-XML/Order/OrderId, '_', $Start/Input/pfx:RequestEAI/pfx:Header/ns3:Attributes/ns3:Attribute[ns3:Name='OrderId']/ns3:Value, '|', TransactionCode, '|', $_MSISDN)"/>
+                                        </pfx3:TransactionId>
+                                    </xsl:when>
+                                    <xsl:when test="TransactionCode='1025' or string-length($rootItem/ServiceId)>0">
+                                        <pfx3:TransactionId>
+                                            <xsl:value-of select="concat($Parse-XML/Order/OrderId, '_', $Start/Input/pfx:RequestEAI/pfx:Header/ns3:Attributes/ns3:Attribute[ns3:Name='OrderId']/ns3:Value, '|', TransactionCode, '|', $rootItem/ServiceId)"/>
+                                        </pfx3:TransactionId>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <pfx3:TransactionId>
+                                            <xsl:value-of select="concat($Parse-XML/Order/OrderId, '_', $Start/Input/pfx:RequestEAI/pfx:Header/ns3:Attributes/ns3:Attribute[ns3:Name='OrderId']/ns3:Value, '|', TransactionCode, '|', $MainRoot/ServiceId)"/>
+                                        </pfx3:TransactionId>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:choose>
+                                    <xsl:when test="contains(upper-case($rootItem/ActionSubReason), 'PORTIN') and string-length($Parse-XML-GlobalData/ListOfPortINMSISDN/PortINMSISDN[MSISDN=$_MSISDN][1]/PortINTime) > 0">
+                                        <pfx3:TransactionDate>
+                                            <xsl:value-of select="$Parse-XML-GlobalData/ListOfPortINMSISDN/PortINMSISDN[MSISDN=$_MSISDN][1]/PortINTime"/>
+                                        </pfx3:TransactionDate>
+                                    </xsl:when>
+                                    <xsl:when test="$ProductActionType = ('127','128') and  tib:validate-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/Date, $Parse-XML/Order/OrderSubmitDate)&#xA;and not(contains($Start/Input/pfx:RequestEAI/pfx:Header/ns3:Attributes/ns3:Attribute[ns3:Name = 'Scenario']/ns3:Value,'FutureOrder'))">
+                                        <pfx3:TransactionDate>
+                                            <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $Parse-XML/Order/OrderSubmitDate)"/>
+                                        </pfx3:TransactionDate>
+                                    </xsl:when>
+                                    <xsl:when test="$ProductAction = ('Modified','Suspend') and  tib:validate-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/Date, $ProductModifyDate)">
+                                        <pfx3:TransactionDate>
+                                            <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $ProductModifyDate)"/>
+                                        </pfx3:TransactionDate>
+                                    </xsl:when>
+                                    <xsl:when test="$ProductAction = 'Deleted' and  tib:validate-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/Date, $ProductEndDate)">
+                                        <pfx3:TransactionDate>
+                                            <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $ProductEndDate)"/>
+                                        </pfx3:TransactionDate>
+                                    </xsl:when>
+                                    <xsl:when test="$ProductAction = 'New' and  tib:validate-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/Date, $ProductStartDate)&#xA;and not($rootItem/ActionType = ( '119','132', '128') and $rootItem/ActionReason = '300')">
+                                        <pfx3:TransactionDate>
+                                            <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $ProductStartDate)"/>
+                                        </pfx3:TransactionDate>
+                                    </xsl:when>
+                                    <xsl:when test="contains($Start/Input/pfx:RequestEAI/pfx:Header/ns3:Attributes/ns3:Attribute[ns3:Name = 'Scenario']/ns3:Value,'FutureOrder')">
+                                        <pfx3:TransactionDate>
+                                            <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $Parse-XML/Order/OrderDueDate)"/>
+                                        </pfx3:TransactionDate>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:if test="$Parse-XML/Order/OrderSubmitDate">
+                                            <pfx3:TransactionDate>
+                                                <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $Parse-XML/Order/OrderSubmitDate)"/>
+                                            </pfx3:TransactionDate>
+                                        </xsl:if>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:choose>
+                                    <xsl:when test="current()/TransactionCode = '1024'">
+                                        <pfx3:TransactionType>
+                                            <xsl:value-of select="1"/>
+                                        </pfx3:TransactionType>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <pfx3:TransactionType>
+                                            <xsl:value-of select="2"/>
+                                        </pfx3:TransactionType>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <pfx3:TransactionName>
+                                    <xsl:value-of select="TransactionName"/>
+                                </pfx3:TransactionName>
+                                <xsl:if test="$rootItem/ServiceType">
+                                    <pfx3:TransactionBrand>
+                                        <xsl:value-of select="$rootItem/ServiceType"/>
+                                    </pfx3:TransactionBrand>
+                                </xsl:if>
+                                <xsl:if test="$Parse-XML/Order/ListOfCustomerAccount/CustomerAccount[1]/CustAcctCode">
+                                    <pfx3:CustomerCode>
+                                        <xsl:value-of select="$Parse-XML/Order/ListOfCustomerAccount/CustomerAccount[1]/CustAcctCode"/>
+                                    </pfx3:CustomerCode>
+                                </xsl:if>
+                                <pfx3:CustomerRepName>
+                                    <xsl:value-of select="$CustomerAccount/ListOfCustomerContact/CustomerContact[1]/ContactFirstName"/>
+                                </pfx3:CustomerRepName>
+                                <pfx3:CustomerRepLastName>
+                                    <xsl:value-of select="$CustomerAccount/ListOfCustomerContact/CustomerContact[1]/ContactLastName"/>
+                                </pfx3:CustomerRepLastName>
+                                <xsl:choose>
+                                    <xsl:when test="TransactionName='PSTN Aktivasyon' and TransactionCode='1031'">
+                                        <pfx3:CustomerType>
+                                            <xsl:value-of select="'101'"/>
+                                        </pfx3:CustomerType>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:if test="$Parse-XML/Order/ListOfCustomerAccount/CustomerAccount[1]/CustAcctType">
+                                            <pfx3:CustomerType>
+                                                <xsl:value-of select="$Parse-XML/Order/ListOfCustomerAccount/CustomerAccount[1]/CustAcctType"/>
+                                            </pfx3:CustomerType>
+                                        </xsl:if>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:if test="$Parse-XML/Order/ListOfCustomerAccount/CustomerAccount[1]/CustAcctCompanyType">
+                                    <pfx3:CompanyType>
+                                        <xsl:value-of select="$Parse-XML/Order/ListOfCustomerAccount/CustomerAccount[1]/CustAcctCompanyType"/>
+                                    </pfx3:CompanyType>
+                                </xsl:if>
+                                <xsl:choose>
+                                    <xsl:when test="contains(upper-case($rootItem/ActionSubReason), 'MNPPORTIN')">
+                                        <pfx3:CompanyName>
+                                            <xsl:value-of select="$Parse-XML/Order/MNPortInCorporateName"/>
+                                        </pfx3:CompanyName>
+                                    </xsl:when>
+                                    <xsl:when test="string-length($CustomerAccount/CustAcctLastName)>0">
+                                        <pfx3:CompanyName>
+                                            <xsl:value-of select="$CustomerAccount/CustAcctLastName"/>
+                                        </pfx3:CompanyName>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <pfx3:CompanyName>
+                                            <xsl:value-of select="string-length($Parse-XML/Order/ListOfOrderContact/OrderContact[1]/ContactLastname)>0"/>
+                                        </pfx3:CompanyName>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:if test="count($CustomerAccount/ListOfCustomerContact/CustomerContact[1]/ContactPersonalId)>0">
+                                    <xsl:if test="$CustomerAccount/ListOfCustomerContact/CustomerContact[1]/ContactPersonalId">
+                                        <pfx3:CustomerTCKN>
+                                            <xsl:value-of select="$CustomerAccount/ListOfCustomerContact/CustomerContact[1]/ContactPersonalId"/>
+                                        </pfx3:CustomerTCKN>
+                                    </xsl:if>
+                                </xsl:if>
+                                <xsl:if test="count($CustomerAccount/ListOfCustomerContact/CustomerContact[1]/ContactMernisStatus)>0">
+                                    <xsl:if test="$CustomerAccount/ListOfCustomerContact/CustomerContact[1]/ContactMernisStatus">
+                                        <pfx3:MernisVerification>
+                                            <xsl:value-of select="$CustomerAccount/ListOfCustomerContact/CustomerContact[1]/ContactMernisStatus"/>
+                                        </pfx3:MernisVerification>
+                                    </xsl:if>
+                                </xsl:if>
+                                <xsl:choose>
+                                    <xsl:when test="$CustomerAccount/CustAcctGIBVerification = ('Verified', 'Doğrulandı', 'Approved', 'Onaylandı')">
+                                        <pfx3:GIBVerification>
+                                            <xsl:value-of select="'Y'"/>
+                                        </pfx3:GIBVerification>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <pfx3:GIBVerification>
+                                            <xsl:value-of select="'N'"/>
+                                        </pfx3:GIBVerification>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:choose>
+                                    <xsl:when test="$CustomerAccount/CustAcctGIBStatus = 'Y'">
+                                        <pfx3:GIBStatus>
+                                            <xsl:value-of select="'A'"/>
+                                        </pfx3:GIBStatus>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <pfx3:GIBStatus>
+                                            <xsl:value-of select="'P'"/>
+                                        </pfx3:GIBStatus>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:choose>
+                                    <xsl:when test="$Parse-XML/Order/ListOfCustomerAccount/CustomerAccount[1]/ListOfCustomerContact/CustomerContact[1]/ContactPersonalId !=&quot;&quot;">
+                                        <pfx3:CustomerNationality>
+                                            <xsl:value-of select="&quot;TR&quot;"/>
+                                        </pfx3:CustomerNationality>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <pfx3:CustomerNationality>
+                                            <xsl:value-of select="&quot;Not TR&quot;"/>
+                                        </pfx3:CustomerNationality>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:choose>
+                                    <xsl:when test="contains(upper-case($rootItem/ActionSubReason), 'PORTIN') and string-length($Parse-XML-GlobalData/ListOfPortINMSISDN/PortINMSISDN[MSISDN=$_MSISDN][1]/PortINTime) > 0">
+                                        <pfx3:ActivationDate>
+                                            <xsl:value-of select="$Parse-XML-GlobalData/ListOfPortINMSISDN/PortINMSISDN[MSISDN=$_MSISDN][1]/PortINTime"/>
+                                        </pfx3:ActivationDate>
+                                    </xsl:when>
+                                    <xsl:when test="$ProductActionType = '128' and  tib:validate-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/Date, $Parse-XML/Order/OrderSubmitDate)">
+                                        <pfx3:ActivationDate>
+                                            <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $Parse-XML/Order/OrderSubmitDate)"/>
+                                        </pfx3:ActivationDate>
+                                    </xsl:when>
+                                    <xsl:when test="$rootItem/StartDate !='' and tib:validate-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $rootItem/StartDate)">
+                                        <pfx3:ActivationDate>
+                                            <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $rootItem/StartDate)"/>
+                                        </pfx3:ActivationDate>
+                                    </xsl:when>
+                                    <xsl:otherwise/>
+                                </xsl:choose>
+                                <xsl:if test="tib:validate-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/Date, $Parse-XML/Order/ListOfBillingAccount/BillingAccount[1]/ListOfBillingContact/BillingContact[1]/ContactBirthDate)">
+                                    <pfx3:CustomerOwnerBirth>
+                                        <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/Date, $Parse-XML/Order/ListOfBillingAccount/BillingAccount[1]/ListOfBillingContact/BillingContact[1]/ContactBirthDate)"/>
+                                    </pfx3:CustomerOwnerBirth>
+                                </xsl:if>
+                                <xsl:if test="tib:validate-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/Date,$Parse-XML/Order/ListOfCustomerAccount/CustomerAccount[1]/ListOfCustomerContact/CustomerContact[ 1]/ContactBirthDate)">
+                                    <pfx3:CustomerUserBirth>
+                                        <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/Date,$Parse-XML/Order/ListOfCustomerAccount/CustomerAccount[1]/ListOfCustomerContact/CustomerContact[ 1]/ContactBirthDate)"/>
+                                    </pfx3:CustomerUserBirth>
+                                </xsl:if>
+                                <xsl:if test="$rootItem/BillAcctCode">
+                                    <pfx3:BillingAccount>
+                                        <xsl:value-of select="$rootItem/BillAcctCode"/>
+                                    </pfx3:BillingAccount>
+                                </xsl:if>
+                                <xsl:choose>
+                                    <xsl:when test="$rootItem/ProductCatalogId = ($_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/OrderComponent/Constants/ProductCatalogId/SIM,$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/OrderComponent/Constants/ProductCatalogId/Consumer_SIM,$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/OrderComponent/Constants/ProductCatalogId/MTT_Group,$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/OrderComponent/Constants/ProductCatalogId/VPN_Group,$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/OrderComponent/Constants/ProductCatalogId/Discount,$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/OrderComponent/Constants/ProductCatalogId/Key_Account_Commitment,$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/OrderComponent/Constants/ProductCatalogId/Invoice_Total_Amount_Discount,$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/OrderComponent/Constants/ProductCatalogId/BulkSMS)">
+                                        <xsl:if test="$rootItem/ListOfChildItem/ChildItem[ComponentGroup = 'TARIFF']/ProductCatalogId">
+                                            <pfx3:PackageCode>
+                                                <xsl:value-of select="$rootItem/ListOfChildItem/ChildItem[ComponentGroup = 'TARIFF']/ProductCatalogId"/>
+                                            </pfx3:PackageCode>
+                                        </xsl:if>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:if test="$MainRoot/ListOfChildItem/ChildItem[ComponentGroup = 'TARIFF']/ProductCatalogId">
+                                            <pfx3:PackageCode>
+                                                <xsl:value-of select="$MainRoot/ListOfChildItem/ChildItem[ComponentGroup = 'TARIFF']/ProductCatalogId"/>
+                                            </pfx3:PackageCode>
+                                        </xsl:if>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:choose>
+                                    <xsl:when test="$rootItem/ProductCatalogId = ($_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/OrderComponent/Constants/ProductCatalogId/SIM,$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/OrderComponent/Constants/ProductCatalogId/Consumer_SIM,$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/OrderComponent/Constants/ProductCatalogId/MTT_Group,$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/OrderComponent/Constants/ProductCatalogId/VPN_Group,$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/OrderComponent/Constants/ProductCatalogId/Discount,$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/OrderComponent/Constants/ProductCatalogId/Key_Account_Commitment,$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/OrderComponent/Constants/ProductCatalogId/Invoice_Total_Amount_Discount,$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/OrderComponent/Constants/ProductCatalogId/BulkSMS)">
+                                        <xsl:if test="$rootItem/ListOfChildItem/ChildItem[ComponentGroup=&quot;TARIFF&quot;]/ProductName">
+                                            <pfx3:PackageName>
+                                                <xsl:value-of select="$rootItem/ListOfChildItem/ChildItem[ComponentGroup=&quot;TARIFF&quot;]/ProductName"/>
+                                            </pfx3:PackageName>
+                                        </xsl:if>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:if test="$MainRoot/ListOfChildItem/ChildItem[ComponentGroup=&quot;TARIFF&quot;]/ProductName">
+                                            <pfx3:PackageName>
+                                                <xsl:value-of select="$MainRoot/ListOfChildItem/ChildItem[ComponentGroup=&quot;TARIFF&quot;]/ProductName"/>
+                                            </pfx3:PackageName>
+                                        </xsl:if>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <!--In the future, it is possible we will remove the DISCOUNT from childItem.-->
+                                <xsl:if test="current()/TransactionCode = ('1027','1036','1037')  and &#xA;$ChildItem[ComponentType=('DISCOUNT','DATA') and not(ProductCatalogId =('5002' , '5003' , '14100' , '14400')) and  IntegrationId = current()/ProductIntegrationId]/Action = 'New'">
+                                    <pfx3:Campaign>
+                                        <pfx3:CampaignCode>
+                                            <xsl:value-of select="$ChildItem[ComponentType=('DISCOUNT','DATA') and not(ProductCatalogId =('5002' , '5003' , '14100' , '14400')) and  IntegrationId = current()/ProductIntegrationId and Action = 'New']/ListOfChildItemAttribute/ChildItemAttribute[Name='Campaign Code']/Value"/>
+                                        </pfx3:CampaignCode>
+                                        <pfx3:CampaignName>
+                                            <xsl:value-of select="$ChildItem[ComponentType=('DISCOUNT','DATA') and not(ProductCatalogId =('5002' , '5003' , '14100' , '14400')) and  IntegrationId = current()/ProductIntegrationId and Action = 'New']/ListOfChildItemAttribute/ChildItemAttribute[Name='Campaign Name']/Value"/>
+                                        </pfx3:CampaignName>
+                                    </pfx3:Campaign>
+                                </xsl:if>
+                                <!--MAF added with DISCOUNT and METROPOLIS campaign discount-->
+                                <xsl:if test="current()/TransactionCode = ('1027','1036','1037','435')  and $rootItem[ComponentType=('HANDSET PROMO','DISCOUNT')]/Action = 'New'&#xA;or&#xA;current()/TransactionCode = ('470')  and &#xA;$ChildItem[ComponentType = 'DISCOUNT' and ComponentSubType = 'METROPOLIS']/Action = &quot;New&quot;">
+                                    <pfx3:CampaignBP>
+                                        <xsl:choose>
+                                            <xsl:when test="current()/TransactionCode = '470'">
+                                                <pfx3:CampaignProductId>
+                                                    <xsl:value-of select="$ChildItem[ComponentType = 'DISCOUNT' and ComponentSubType = 'METROPOLIS' and Action = &quot;New&quot;]/ProductCatalogId"/>
+                                                </pfx3:CampaignProductId>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:if test="$rootItem[ComponentType = ('HANDSET PROMO','DISCOUNT') and Action = &quot;New&quot;]/ProductCatalogId">
+                                                    <pfx3:CampaignProductId>
+                                                        <xsl:value-of select="$rootItem[ComponentType = ('HANDSET PROMO','DISCOUNT') and Action = &quot;New&quot;]/ProductCatalogId"/>
+                                                    </pfx3:CampaignProductId>
+                                                </xsl:if>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                        <xsl:choose>
+                                            <xsl:when test="current()/TransactionCode = '470'">
+                                                <pfx3:CampaignName>
+                                                    <xsl:value-of select="$ChildItem[ComponentType = 'DISCOUNT' and ComponentSubType = 'METROPOLIS' and Action = &quot;New&quot;]/ProductName"/>
+                                                </pfx3:CampaignName>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:if test="$rootItem[ComponentType = ('HANDSET PROMO','DISCOUNT') and Action = &quot;New&quot;]/ProductName">
+                                                    <pfx3:CampaignName>
+                                                        <xsl:value-of select="$rootItem[ComponentType = ('HANDSET PROMO','DISCOUNT') and Action = &quot;New&quot;]/ProductName"/>
+                                                    </pfx3:CampaignName>
+                                                </xsl:if>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                        <xsl:if test="$Parse-XML/Order/ListOfRootItem/RootItem/ListOfChildItem/ChildItem[ComponentType = 'HANDSET' and Action = &quot;New&quot;]/ProductCatalogId">
+                                            <pfx3:CampaignDeviceProductId>
+                                                <xsl:value-of select="$Parse-XML/Order/ListOfRootItem/RootItem/ListOfChildItem/ChildItem[ComponentType = 'HANDSET' and Action = &quot;New&quot;]/ProductCatalogId"/>
+                                            </pfx3:CampaignDeviceProductId>
+                                        </xsl:if>
+                                        <xsl:if test="$Parse-XML/Order/ListOfRootItem/RootItem/ListOfChildItem/ChildItem[ComponentType = 'HANDSET' and Action = &quot;New&quot;]/ProductName">
+                                            <pfx3:CampaignDeviceName>
+                                                <xsl:value-of select="$Parse-XML/Order/ListOfRootItem/RootItem/ListOfChildItem/ChildItem[ComponentType = 'HANDSET' and Action = &quot;New&quot;]/ProductName"/>
+                                            </pfx3:CampaignDeviceName>
+                                        </xsl:if>
+                                        <xsl:if test="$Parse-XML/Order/ListOfRootItem/RootItem/ListOfChildItem/ChildItem[ComponentType = 'HANDSET' and Action = &quot;New&quot;]/ListOfChildItemAttribute/ChildItemAttribute[Name='Model']/Value">
+                                            <pfx3:Model>
+                                                <xsl:value-of select="$Parse-XML/Order/ListOfRootItem/RootItem/ListOfChildItem/ChildItem[ComponentType = 'HANDSET' and Action = &quot;New&quot;]/ListOfChildItemAttribute/ChildItemAttribute[Name='Model']/Value"/>
+                                            </pfx3:Model>
+                                        </xsl:if>
+                                        <xsl:if test="$Parse-XML/Order/ListOfRootItem/RootItem/ListOfChildItem/ChildItem[ComponentType = 'HANDSET' and Action = &quot;New&quot;]/ListOfChildItemAttribute/ChildItemAttribute[Name='Payment Method']/Value">
+                                            <pfx3:PaymentMethod>
+                                                <xsl:value-of select="$Parse-XML/Order/ListOfRootItem/RootItem/ListOfChildItem/ChildItem[ComponentType = 'HANDSET' and Action = &quot;New&quot;]/ListOfChildItemAttribute/ChildItemAttribute[Name='Payment Method']/Value"/>
+                                            </pfx3:PaymentMethod>
+                                        </xsl:if>
+                                        <xsl:if test="$Parse-XML/Order/ListOfRootItem/RootItem/ListOfChildItem/ChildItem[ComponentType = 'HANDSET' and Action = &quot;New&quot;]/ListOfChildItemAttribute/ChildItemAttribute[Name='Duration']/Value">
+                                            <pfx3:Duration>
+                                                <xsl:value-of select="$Parse-XML/Order/ListOfRootItem/RootItem/ListOfChildItem/ChildItem[ComponentType = 'HANDSET' and Action = &quot;New&quot;]/ListOfChildItemAttribute/ChildItemAttribute[Name='Duration']/Value"/>
+                                            </pfx3:Duration>
+                                        </xsl:if>
+                                    </pfx3:CampaignBP>
+                                </xsl:if>
+                                <xsl:if test="$Parse-XML/Order/ListOfBillingAccount/BillingAccount[ 1]/ListOfInvoiceProfile/InvoiceProfile[1]/PaymentMethod">
+                                    <pfx3:PaymentMethod>
+                                        <xsl:value-of select="$Parse-XML/Order/ListOfBillingAccount/BillingAccount[ 1]/ListOfInvoiceProfile/InvoiceProfile[1]/PaymentMethod"/>
+                                    </pfx3:PaymentMethod>
+                                </xsl:if>
+                                <pfx3:ShopCode>
+                                    <xsl:value-of select="$Parse-XML/Order/OrderSalesForceId"/>
+                                </pfx3:ShopCode>
+                                <xsl:if test="contains($rootItem/SalesForceId, '-') and string-length($rootItem/SalesForceId) >0">
+                                    <pfx3:ShopBranchCode>
+                                        <xsl:value-of select="substring-after($rootItem/SalesForceId, '-')"/>
+                                    </pfx3:ShopBranchCode>
+                                </xsl:if>
+                                <xsl:if test="$Parse-XML/Order/OrderCreator">
+                                    <pfx3:ShopUserCode>
+                                        <xsl:value-of select="$Parse-XML/Order/OrderCreator"/>
+                                    </pfx3:ShopUserCode>
+                                </xsl:if>
+                                <xsl:if test="$Parse-XML/Order/OrigShopCode">
+                                    <pfx3:OriginatioDealerCode>
+                                        <xsl:value-of select="$Parse-XML/Order/OrigShopCode"/>
+                                    </pfx3:OriginatioDealerCode>
+                                </xsl:if>
+                                <!--or (current()/TransactionCode=('508','514','526','1026','1025'))
+Clean this with global vars or other thing :)-->
+                                <xsl:if test="current()/TransactionCode=('508','526','1026','1025')">
+                                    <xsl:if test="$Parse-XML/Order/ReferenceNumber">
+                                        <pfx3:MNPTrackCode>
+                                            <xsl:value-of select="$Parse-XML/Order/ReferenceNumber"/>
+                                        </pfx3:MNPTrackCode>
+                                    </xsl:if>
+                                </xsl:if>
+                                <xsl:choose>
+                                    <xsl:when test="string-length($rootItem/ListOfRootItemAttribute/RootItemAttribute[Name = 'TaxType']/Value)>0">
+                                        <xsl:if test="$rootItem/ListOfRootItemAttribute/RootItemAttribute[Name = 'TaxType']/Value">
+                                            <pfx3:TaxProfile>
+                                                <xsl:value-of select="$rootItem/ListOfRootItemAttribute/RootItemAttribute[Name = 'TaxType']/Value"/>
+                                            </pfx3:TaxProfile>
+                                        </xsl:if>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:if test="$MainRoot/ListOfRootItemAttribute/RootItemAttribute[Name = 'TaxType']/Value">
+                                            <pfx3:TaxProfile>
+                                                <xsl:value-of select="$MainRoot/ListOfRootItemAttribute/RootItemAttribute[Name = 'TaxType']/Value"/>
+                                            </pfx3:TaxProfile>
+                                        </xsl:if>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:if test="$Parse-XML/Order/OrderVIPFlag">
+                                    <pfx3:VipFlag>
+                                        <xsl:value-of select="$Parse-XML/Order/OrderVIPFlag"/>
+                                    </pfx3:VipFlag>
+                                </xsl:if>
+                                <xsl:if test="string-length($rootItem/AssetStatus) > 0">
+                                    <xsl:if test="$rootItem/AssetStatus">
+                                        <pfx3:SubscriberStatus>
+                                            <xsl:value-of select="$rootItem/AssetStatus"/>
+                                        </pfx3:SubscriberStatus>
+                                    </xsl:if>
+                                </xsl:if>
+                                <pfx3:TransactionCode>
+                                    <xsl:value-of select="TransactionCode"/>
+                                </pfx3:TransactionCode>
+                                <xsl:if test="$Parse-XML/Order/ListOfCustomerAccount/CustomerAccount[1]/CustAcctTaxId">
+                                    <pfx3:TaxID>
+                                        <xsl:value-of select="$Parse-XML/Order/ListOfCustomerAccount/CustomerAccount[1]/CustAcctTaxId"/>
+                                    </pfx3:TaxID>
+                                </xsl:if>
+                                <xsl:if test="$Parse-XML/Order/ListOfCustomerAccount/CustomerAccount[1]/CustAcctMSegment">
+                                    <pfx3:CustomerClass>
+                                        <xsl:value-of select="$Parse-XML/Order/ListOfCustomerAccount/CustomerAccount[1]/CustAcctMSegment"/>
+                                    </pfx3:CustomerClass>
+                                </xsl:if>
+                                <xsl:if test="$Parse-XML/Order/ListOfCustomerAccount/CustomerAccount[1]/CustAcctSubClass">
+                                    <pfx3:CustomerSubClass>
+                                        <xsl:value-of select="$Parse-XML/Order/ListOfCustomerAccount/CustomerAccount[1]/CustAcctSubClass"/>
+                                    </pfx3:CustomerSubClass>
+                                </xsl:if>
+                                <pfx3:CustomerFatherName>
+                                    <xsl:value-of select="$rootItem/ListOfRootItemContact/RootItemContact[1]/ContactFatherName"/>
+                                </pfx3:CustomerFatherName>
+                                <pfx3:CustomerMotherName>
+                                    <xsl:value-of select="$rootItem/ListOfRootItemContact/RootItemContact[ 1]/ContactMotherName"/>
+                                </pfx3:CustomerMotherName>
+                                <pfx3:CustomerBirthPlace>
+                                    <xsl:value-of select="$rootItem/ListOfRootItemContact/RootItemContact[ 1]/ContactBirthPlace"/>
+                                </pfx3:CustomerBirthPlace>
+                                <xsl:if test="$rootItem/ComponentType='HANDSET PROMO'">
+                                    <pfx3:TEMLIK>
+                                        <xsl:value-of select="$rootItem/Duration*$rootItem/MonthlyInstalments"/>
+                                    </pfx3:TEMLIK>
+                                </xsl:if>
+                            </pfx3:Transaction>
+                        </xsl:for-each>
+                    </xsl:for-each>
+                </pfx3:ListOfTransactions>
+            </pfx3:Request>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Null">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>597</pd:x>
+        <pd:y>60</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Parse XML">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>307</pd:x>
+        <pd:y>60</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>false</validateOutput>
+            <term ref="pfx4:Order"/>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Start/Input/pfx:RequestEAI/pfx:Body/*" element="ns:Request"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:XMLMessage/*[1]"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Parse-XML-GlobalData">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>765</pd:x>
+        <pd:y>196</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>false</validateOutput>
+            <term ref="pfx9:ListOfPortINMSISDN"/>
+        </config>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$GetGlobalData/Output/ListOfGlobalData/GlobalData [1]/Value"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Parse XML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map Data</pd:from>
+        <pd:to>JMS Queue Sender</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>JMS Queue Sender</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse XML</pd:from>
+        <pd:to>GetDumanTransactions</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetDumanTransactions</pd:from>
+        <pd:to>Fail Order Component</pd:to>
+        <pd:xpathDescription>RefDataNotFound</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Fail Order Component</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetDumanTransactions</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:xpathDescription>RefDataFound</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($GetDumanTransactions/GetDumanTransactionsOutput/DumanTransaction[1]/ProductCatalogId)&gt;0 and
+string-length($GetDumanTransactions/GetDumanTransactionsOutput/DumanTransaction[1]/TransactionName)&gt;0 and
+string-length($GetDumanTransactions/GetDumanTransactionsOutput/DumanTransaction[1]/TransactionCode)&gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>Map Data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>GetGlobalData</pd:to>
+        <pd:xpathDescription>MNPPortIN</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($Parse-XML/Order/OrderPortId) &gt; 0
+and
+sum(for $dumanTransaction in $GetDumanTransactions/GetDumanTransactionsOutput/DumanTransaction 
+	return
+		 if (contains(upper-case($Parse-XML/Order/ListOfRootItem/RootItem[RootIntegrationId = $dumanTransaction/RootIntegrationId]/ActionSubReason), 'PORTIN')) 
+		then 1
+		else 0
+) &gt; 0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetGlobalData</pd:from>
+        <pd:to>Parse-XML-GlobalData</pd:to>
+        <pd:xpathDescription>Success</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$GetGlobalData/Output/ErrorCode = $_globalVariables/ns1:GlobalVariables/ErrorCodes/Success</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse-XML-GlobalData</pd:from>
+        <pd:to>Map Data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetGlobalData</pd:from>
+        <pd:to>Map Data</pd:to>
+        <pd:xpathDescription>No Global Data</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

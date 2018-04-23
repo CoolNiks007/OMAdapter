@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx="http://vodafone.com.tr/OrderManagement/Domains/OrderManagement/CommonResources/Schemas/OrderManagement/Schema.xsd">
+    <import namespace="http://vodafone.com.tr/OrderManagement/Domains/OrderManagement/CommonResources/Schemas/OrderManagement/Schema.xsd" schemaLocation="/Domains/OrderManagement/CommonResources/Schemas/OrderManagement/OrderManagementRouting.xsd"/>
+    <name>OrderManagementRoutingRules</name>
+    <resourceType>ae.shared.sharedVariable</resourceType>
+    <config xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <persistent>false</persistent>
+        <multi-engine>false</multi-engine>
+        <initialValue>none</initialValue>
+        <xsdString>
+            <xsd:element name="Routes">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="pfx:OrderManagementRoute" minOccurs="0" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsdString>
+    </config>
+</BWSharedResource>

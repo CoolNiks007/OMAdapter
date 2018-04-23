@@ -1,0 +1,10 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\Business\OrderComponent\Network\SDF
+2
+6
+16:UpdatePromoterScore_v1|2|0|0|0|07a283c53c374d6e8c02c74bff72387b|0
+16:SynchronizeEntities_v1|2|0|0|0|423afefb46364618b90e8208a40dbf51|0
+15:UpdateIVRBlackList_v1|2|0|0|0|66b3a7fa6513452389007c0dfd29547d|0
+1d:UpdateSMSServicesBlackList_v1|2|0|0|0|52dc572bf4f94a86a518ee0126faf61c|0
+7:.folder|1|162d7aed8cf|17c|dc1081eb|69b572e222f9422ebc1eebb658f131cd|0
+1e:ManageVASBundleSubscription_v1|2|0|0|0|2d3af9dfad3646e0b55bd87606bec4df|0

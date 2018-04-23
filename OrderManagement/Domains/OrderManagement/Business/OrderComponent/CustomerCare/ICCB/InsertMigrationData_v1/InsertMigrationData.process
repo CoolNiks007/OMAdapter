@@ -1,0 +1,1210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentRequestInput/v1" xmlns:ns12="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:eai="java://com.telco.eai.EAIFunctions" xmlns:pfx="http://vodafone.com.tr/EAI/Common/RequestEAI" xmlns:ns2="http://vodafone.com.tr/EAI/Common/Header" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx5="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx4="http://www.tibco.com" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" xmlns:pfx2="http://www.tibco.com/ns/no_namespace_schema_location/Domains/CustomerCare/BusinessResources/Schemas/Siebel/SiebelMessage.xsd" xmlns:pfx6="http://vodafone.com.tr/ServiceCatalog/Business/SubscriberManagement/InsertMigrationData/v1">
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" schemaLocation="/Domains/ServiceCatalog/BusinessResources/Schemas/ServiceRequest.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentRequestInput/v1" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OrderComponent/OrderComponentRequestInput.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/RequestEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/RequestEAI.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Domains/CustomerCare/BusinessResources/Schemas/Siebel/SiebelMessage.xsd" schemaLocation="/Domains/CustomerCare/BusinessResources/Schemas/Siebel/SiebelMessage.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd"/>
+    <xsd:import namespace="http://www.tibco.com" schemaLocation=""/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/SubscriberManagement/InsertMigrationData/v1" schemaLocation="/Domains/ServiceCatalog/Business/SubscriberManagement/InsertMigrationData_v1/Schemas/InsertMigrationData.xsd"/>
+    <pd:name>Domains/OrderManagement/Business/OrderComponent/CustomerCare/ICCB/InsertMigrationData_v1/InsertMigrationData.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Input">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx:RequestEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>27</pd:startX>
+    <pd:startY>140</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>681</pd:endX>
+    <pd:endY>140</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://vodafone.com.tr/1411749119075</pd:targetNamespace>
+    <pd:activity name="JMS Queue Sender">
+        <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+        <pd:x>515</pd:x>
+        <pd:y>140</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/GlobalCommonResources/Connections/JMS/JMS EAI Connection.sharedjmscon</ConnectionReference>
+            <InDataxsdString ref="pfx5:ServiceRequest"/>
+        </config>
+        <pd:inputBindings>
+            <ns12:ActivityInput>
+                <destinationQueue>
+                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:ServiceCatalogQueue"/>
+                </destinationQueue>
+                <replyToQueue>
+                    <xsl:value-of select="tib:concat-sequence-format(($_globalVariables/ns1:GlobalVariables/Constants/Company,$_globalVariables/ns1:GlobalVariables/Constants/ProjectName,$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/Name,$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/OrderComponent/Name,$_globalVariables/ns1:GlobalVariables/Constants/Layer/Business,$_globalVariables/ns1:GlobalVariables/Constants/QOS/Guarantee,$_globalVariables/ns1:GlobalVariables/Constants/RequestType/Reply),&quot;.&quot;)"/>
+                </replyToQueue>
+                <JMSPriority>
+                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:Priority"/>
+                </JMSPriority>
+                <Body>
+                    <pfx5:ServiceRequest>
+                        <xsl:for-each select="$Start/Input/pfx:RequestEAI/pfx:Header">
+                            <pfx5:Header>
+                                <xsl:if test="ns2:RequestId">
+                                    <ns2:RequestId>
+                                        <xsl:value-of select="ns2:RequestId"/>
+                                    </ns2:RequestId>
+                                </xsl:if>
+                                <ns2:SourceSystem>
+                                    <xsl:value-of select="ns2:SourceSystem"/>
+                                </ns2:SourceSystem>
+                                <ns2:ReplyExpected>
+                                    <xsl:value-of select="ns2:ReplyExpected"/>
+                                </ns2:ReplyExpected>
+                                <xsl:if test="ns2:QoS">
+                                    <ns2:QoS>
+                                        <xsl:value-of select="ns2:QoS"/>
+                                    </ns2:QoS>
+                                </xsl:if>
+                                <xsl:if test="ns2:Schedule">
+                                    <ns2:Schedule>
+                                        <xsl:value-of select="ns2:Schedule"/>
+                                    </ns2:Schedule>
+                                </xsl:if>
+                                <xsl:if test="ns2:CorrelationId">
+                                    <ns2:CorrelationId>
+                                        <xsl:value-of select="ns2:CorrelationId"/>
+                                    </ns2:CorrelationId>
+                                </xsl:if>
+                                <xsl:if test="ns2:Priority">
+                                    <ns2:Priority>
+                                        <xsl:value-of select="ns2:Priority"/>
+                                    </ns2:Priority>
+                                </xsl:if>
+                                <xsl:for-each select="ns2:Credentials">
+                                    <ns2:Credentials>
+                                        <ns2:ApplicationId>
+                                            <xsl:value-of select="ns2:ApplicationId"/>
+                                        </ns2:ApplicationId>
+                                        <ns2:User>
+                                            <xsl:value-of select="ns2:User"/>
+                                        </ns2:User>
+                                        <xsl:if test="ns2:Password">
+                                            <ns2:Password>
+                                                <xsl:value-of select="ns2:Password"/>
+                                            </ns2:Password>
+                                        </xsl:if>
+                                    </ns2:Credentials>
+                                </xsl:for-each>
+                                <xsl:if test="ns2:ProxySystem">
+                                    <ns2:ProxySystem>
+                                        <xsl:value-of select="ns2:ProxySystem"/>
+                                    </ns2:ProxySystem>
+                                </xsl:if>
+                                <xsl:if test="ns2:ForceSimulate">
+                                    <ns2:ForceSimulate>
+                                        <xsl:value-of select="ns2:ForceSimulate"/>
+                                    </ns2:ForceSimulate>
+                                </xsl:if>
+                                <xsl:for-each select="ns2:Attributes">
+                                    <ns2:Attributes>
+                                        <xsl:for-each select="ns2:Attribute">
+                                            <ns2:Attribute>
+                                                <ns2:Name>
+                                                    <xsl:value-of select="ns2:Name"/>
+                                                </ns2:Name>
+                                                <ns2:Value>
+                                                    <xsl:value-of select="ns2:Value"/>
+                                                </ns2:Value>
+                                            </ns2:Attribute>
+                                        </xsl:for-each>
+                                    </ns2:Attributes>
+                                </xsl:for-each>
+                            </pfx5:Header>
+                        </xsl:for-each>
+                        <pfx5:Body>
+                            <xsl:copy-of select="$Map-Data/pfx6:Request"/>
+                        </pfx5:Body>
+                    </pfx5:ServiceRequest>
+                </Body>
+            </ns12:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Map Data">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>339</pd:x>
+        <pd:y>139</pd:y>
+        <config>
+            <element ref="pfx6:Request"/>
+        </config>
+        <pd:inputBindings>
+            <xsl:variable name="CustomerAccount" select="$Parse-XML/Order/ListOfCustomerAccount/CustomerAccount[1]"/>
+            <xsl:variable name="CustomerContact" select="$CustomerAccount/ListOfCustomerContact/CustomerContact[1]"/>
+            <xsl:variable name="CustomerAddress" select="$CustomerAccount/ListOfCustomerAddress/CustomerAddress[1]"/>
+            <xsl:variable name="BillingAccount" select="$Parse-XML/Order/ListOfBillingAccount/BillingAccount[1]"/>
+            <xsl:variable name="RootItem" select="$Parse-XML/Order/ListOfRootItem/RootItem[1]"/>
+            <xsl:variable name="invoiceProfile" select="$BillingAccount/ListOfInvoiceProfile/InvoiceProfile[1]"/>
+            <xsl:variable name="BillingAddress" select="$BillingAccount/ListOfBillingAddress/BillingAddress[1]"/>
+            <pfx6:Request>
+                <xsl:if test="$Parse-XML/Order/OrderNumber">
+                    <pfx6:SiebelOrderId>
+                        <xsl:value-of select="$Parse-XML/Order/OrderNumber"/>
+                    </pfx6:SiebelOrderId>
+                </xsl:if>
+                <pfx6:Customer>
+                    <xsl:if test="tib:validate-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/Date, $CustomerContact/ContactBirthDate)">
+                        <pfx6:Birthday>
+                            <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/Date, $CustomerContact/ContactBirthDate)"/>
+                        </pfx6:Birthday>
+                    </xsl:if>
+                    <xsl:if test="$CustomerContact/ContactBirthPlace">
+                        <pfx6:BirthPlace>
+                            <xsl:value-of select="$CustomerContact/ContactBirthPlace"/>
+                        </pfx6:BirthPlace>
+                    </xsl:if>
+                    <pfx6:AccountCategory>
+                        <pfx6:Segment>
+                            <xsl:value-of select="$CustomerAccount/CustAcctMSegment"/>
+                        </pfx6:Segment>
+                        <pfx6:Subclass>
+                            <xsl:value-of select="$CustomerAccount/CustAcctSubClass"/>
+                        </pfx6:Subclass>
+                    </pfx6:AccountCategory>
+                    <xsl:if test="$CustomerContact/ContactCitizenship">
+                        <pfx6:Citizenship>
+                            <xsl:value-of select="$CustomerContact/ContactCitizenship"/>
+                        </pfx6:Citizenship>
+                    </xsl:if>
+                    <xsl:if test="tib:validate-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime,$CustomerAccount/CustAcctAcquisitionDate)">
+                        <pfx6:AcquisitionDate>
+                            <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime,$CustomerAccount/CustAcctAcquisitionDate)"/>
+                        </pfx6:AcquisitionDate>
+                    </xsl:if>
+                    <xsl:if test="$CustomerContact/ContactEmail">
+                        <pfx6:Email>
+                            <xsl:value-of select="$CustomerContact/ContactEmail"/>
+                        </pfx6:Email>
+                    </xsl:if>
+                    <xsl:if test="$CustomerContact/ContactGender">
+                        <pfx6:Gender>
+                            <xsl:value-of select="$CustomerContact/ContactGender"/>
+                        </pfx6:Gender>
+                    </xsl:if>
+                    <xsl:if test="$CustomerAccount/CustAcctLastName">
+                        <pfx6:LastName>
+                            <xsl:value-of select="$CustomerAccount/CustAcctLastName"/>
+                        </pfx6:LastName>
+                    </xsl:if>
+                    <xsl:if test="$CustomerAccount/CustAcctFirstName">
+                        <pfx6:Name>
+                            <xsl:value-of select="$CustomerAccount/CustAcctFirstName"/>
+                        </pfx6:Name>
+                    </xsl:if>
+                    <xsl:if test="$CustomerAccount/CustAcctTaxId">
+                        <pfx6:TaxNumber>
+                            <xsl:value-of select="$CustomerAccount/CustAcctTaxId"/>
+                        </pfx6:TaxNumber>
+                    </xsl:if>
+                    <xsl:if test="$CustomerAccount/CustAcctTaxOffice">
+                        <pfx6:TaxOffice>
+                            <xsl:value-of select="$CustomerAccount/CustAcctTaxOffice"/>
+                        </pfx6:TaxOffice>
+                    </xsl:if>
+                    <xsl:if test="$CustomerAccount/CustAcctType">
+                        <pfx6:Type>
+                            <xsl:value-of select="$CustomerAccount/CustAcctType"/>
+                        </pfx6:Type>
+                    </xsl:if>
+                    <xsl:choose>
+                        <xsl:when test="string-length($CustomerContact/ContactMernisStatus) >0">
+                            <xsl:if test="$CustomerContact/ContactMernisStatus">
+                                <pfx6:Verified>
+                                    <xsl:value-of select="$CustomerContact/ContactMernisStatus"/>
+                                </pfx6:Verified>
+                            </xsl:if>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <pfx6:Verified>
+                                <xsl:value-of select="'N'"/>
+                            </pfx6:Verified>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:if test="$CustomerAccount/CustAcctCode">
+                        <pfx6:CustomerCode>
+                            <xsl:value-of select="$CustomerAccount/CustAcctCode"/>
+                        </pfx6:CustomerCode>
+                    </xsl:if>
+                    <xsl:if test="tib:validate-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $CustomerAccount/CustAcctUpdateDate)">
+                        <pfx6:LastUpdateDate>
+                            <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $CustomerAccount/CustAcctUpdateDate)"/>
+                        </pfx6:LastUpdateDate>
+                    </xsl:if>
+                    <pfx6:AdvertisementFlag>
+                        <xsl:value-of select="if (exists($CustomerAccount/CustAcctAdvertisement) and $CustomerAccount/CustAcctAdvertisement = 'Y')&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:AdvertisementFlag>
+                    <xsl:if test="$CustomerAccount/CustAcctPhone">
+                        <pfx6:HomePhone>
+                            <xsl:value-of select="$CustomerAccount/CustAcctPhone"/>
+                        </pfx6:HomePhone>
+                    </xsl:if>
+                    <xsl:if test="$CustomerContact/ContactWorkPhone">
+                        <pfx6:WorkPhone>
+                            <xsl:value-of select="$CustomerContact/ContactWorkPhone"/>
+                        </pfx6:WorkPhone>
+                    </xsl:if>
+                </pfx6:Customer>
+                <pfx6:CustomerAddress>
+                    <xsl:if test="$CustomerAddress/AddressStreetType">
+                        <pfx6:AddressType>
+                            <xsl:value-of select="$CustomerAddress/AddressStreetType"/>
+                        </pfx6:AddressType>
+                    </xsl:if>
+                    <pfx6:ApartmentNumber>
+                        <xsl:value-of select="tib:tokenize($CustomerAddress/AddressAptBldgNum, ' ')[count(tib:tokenize($CustomerAddress/AddressAptBldgNum, ' '))]"/>
+                    </pfx6:ApartmentNumber>
+                    <xsl:if test="$CustomerAddress/AddressName">
+                        <pfx6:Avenue>
+                            <xsl:value-of select="$CustomerAddress/AddressName"/>
+                        </pfx6:Avenue>
+                    </xsl:if>
+                    <xsl:if test="$CustomerAddress/AddressAptBldgNum">
+                        <pfx6:BuildingName>
+                            <xsl:value-of select="$CustomerAddress/AddressAptBldgNum"/>
+                        </pfx6:BuildingName>
+                    </xsl:if>
+                    <xsl:if test="$CustomerAddress/AddressNum">
+                        <pfx6:BuildingNumber>
+                            <xsl:value-of select="$CustomerAddress/AddressNum"/>
+                        </pfx6:BuildingNumber>
+                    </xsl:if>
+                    <pfx6:CityName>
+                        <xsl:value-of select="substring($CustomerAddress/AddressCity, 1, 3 )"/>
+                    </pfx6:CityName>
+                    <xsl:if test="$CustomerAddress/AddressDistrictTown">
+                        <pfx6:District>
+                            <xsl:value-of select="$CustomerAddress/AddressDistrictTown"/>
+                        </pfx6:District>
+                    </xsl:if>
+                    <xsl:if test="$CustomerAddress/AddressNum">
+                        <pfx6:FlatNumber>
+                            <xsl:value-of select="$CustomerAddress/AddressNum"/>
+                        </pfx6:FlatNumber>
+                    </xsl:if>
+                    <xsl:if test="$CustomerAddress/AddressName">
+                        <pfx6:Street>
+                            <xsl:value-of select="$CustomerAddress/AddressName"/>
+                        </pfx6:Street>
+                    </xsl:if>
+                    <xsl:if test="$CustomerAddress/AddressCity">
+                        <pfx6:TownName>
+                            <xsl:value-of select="$CustomerAddress/AddressCity"/>
+                        </pfx6:TownName>
+                    </xsl:if>
+                    <xsl:if test="$CustomerAddress/AddressZIP">
+                        <pfx6:Zipcode>
+                            <xsl:value-of select="$CustomerAddress/AddressZIP"/>
+                        </pfx6:Zipcode>
+                    </xsl:if>
+                    <xsl:if test="$CustomerAddress/AddressId">
+                        <pfx6:SblAddressId>
+                            <xsl:value-of select="$CustomerAddress/AddressId"/>
+                        </pfx6:SblAddressId>
+                    </xsl:if>
+                    <xsl:if test="tib:validate-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $CustomerAddress/AddressLastUpd)">
+                        <pfx6:LastUpdateDate>
+                            <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime, $CustomerAddress/AddressLastUpd)"/>
+                        </pfx6:LastUpdateDate>
+                    </xsl:if>
+                    <xsl:if test="$CustomerAddress/AddressNum">
+                        <pfx6:StreetNumber>
+                            <xsl:value-of select="$CustomerAddress/AddressNum"/>
+                        </pfx6:StreetNumber>
+                    </xsl:if>
+                    <xsl:if test="$CustomerAddress/AddressDistrictTown">
+                        <pfx6:Province>
+                            <xsl:value-of select="$CustomerAddress/AddressDistrictTown"/>
+                        </pfx6:Province>
+                    </xsl:if>
+                    <pfx6:Site>
+                        <xsl:value-of select="tib:tokenize($CustomerAddress/AddressAptBldgNum, ' ')[2]"/>
+                    </pfx6:Site>
+                    <pfx6:Neighborhood>
+                        <xsl:value-of select="tib:tokenize($CustomerAddress/AddressAptBldgNum, ' ')[1]"/>
+                    </pfx6:Neighborhood>
+                    <pfx6:Village>
+                        <xsl:value-of select="tib:tokenize($CustomerAddress/AddressAptBldgNum, ' ')[3]"/>
+                    </pfx6:Village>
+                    <xsl:if test="$CustomerAddress/AddressName">
+                        <pfx6:BoulevardAvenue>
+                            <xsl:value-of select="$CustomerAddress/AddressName"/>
+                        </pfx6:BoulevardAvenue>
+                    </xsl:if>
+                    <pfx6:Place>
+                        <xsl:value-of select="tib:tokenize($CustomerAddress/AddressAptBldgNum, ' ')[2]"/>
+                    </pfx6:Place>
+                    <pfx6:Verified>
+                        <xsl:value-of select="if(exists($CustomerAddress/AddressVerifiedFlg) and $CustomerAddress/AddressVerifiedFlg = 'Y')&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:Verified>
+                </pfx6:CustomerAddress>
+                <pfx6:CustomerAuthority>
+                    <xsl:if test="$CustomerContact/ContactId">
+                        <pfx6:AuthorityId>
+                            <xsl:value-of select="$CustomerContact/ContactId"/>
+                        </pfx6:AuthorityId>
+                    </xsl:if>
+                    <xsl:if test="$CustomerContact/ContactFatherName">
+                        <pfx6:FatherName>
+                            <xsl:value-of select="$CustomerContact/ContactFatherName"/>
+                        </pfx6:FatherName>
+                    </xsl:if>
+                    <xsl:if test="$CustomerContact/ContactHomePhone">
+                        <pfx6:HomePhone>
+                            <xsl:value-of select="$CustomerContact/ContactHomePhone"/>
+                        </pfx6:HomePhone>
+                    </xsl:if>
+                    <xsl:if test="$CustomerAddress/AddressCity">
+                        <pfx6:CityId>
+                            <xsl:value-of select="$CustomerAddress/AddressCity"/>
+                        </pfx6:CityId>
+                    </xsl:if>
+                    <xsl:if test="$CustomerContact/ContactMernisCountyName">
+                        <pfx6:TownId>
+                            <xsl:value-of select="$CustomerContact/ContactMernisCountyName"/>
+                        </pfx6:TownId>
+                    </xsl:if>
+                    <xsl:if test="$CustomerContact/ContactDocType">
+                        <pfx6:TypeId>
+                            <xsl:value-of select="$CustomerContact/ContactDocType"/>
+                        </pfx6:TypeId>
+                    </xsl:if>
+                    <xsl:if test="$CustomerContact/ContactJobTitle">
+                        <pfx6:Job>
+                            <xsl:value-of select="$CustomerContact/ContactJobTitle"/>
+                        </pfx6:Job>
+                    </xsl:if>
+                    <xsl:if test="$CustomerContact/ContactLastName">
+                        <pfx6:LastName>
+                            <xsl:value-of select="$CustomerContact/ContactLastName"/>
+                        </pfx6:LastName>
+                    </xsl:if>
+                    <xsl:if test="$CustomerContact/ContactMaritalStatus">
+                        <pfx6:MaritalStatus>
+                            <xsl:value-of select="$CustomerContact/ContactMaritalStatus"/>
+                        </pfx6:MaritalStatus>
+                    </xsl:if>
+                    <xsl:if test="$CustomerContact/ContactFirstName">
+                        <pfx6:Name>
+                            <xsl:value-of select="$CustomerContact/ContactFirstName"/>
+                        </pfx6:Name>
+                    </xsl:if>
+                    <xsl:if test="$CustomerContact/ContactPersonalId">
+                        <pfx6:TCID>
+                            <xsl:value-of select="$CustomerContact/ContactPersonalId"/>
+                        </pfx6:TCID>
+                    </xsl:if>
+                    <xsl:if test="tib:validate-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/Date, $CustomerContact/ContactLastUpdated)">
+                        <pfx6:LastUpdateDate>
+                            <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/Date, $CustomerContact/ContactLastUpdated)"/>
+                        </pfx6:LastUpdateDate>
+                    </xsl:if>
+                    <xsl:if test="string-length($CustomerContact/ContactMernisDateofDeath)>0">
+                        <pfx6:DeathDate>
+                            <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/Date, $CustomerContact/ContactMernisDateofDeath)"/>
+                        </pfx6:DeathDate>
+                    </xsl:if>
+                    <xsl:if test="$CustomerContact/ContactEducation">
+                        <pfx6:EducationStatus>
+                            <xsl:value-of select="$CustomerContact/ContactEducation"/>
+                        </pfx6:EducationStatus>
+                    </xsl:if>
+                    <pfx6:EmploymentStatus>
+                        <xsl:value-of select="if (string-length($CustomerContact/ContactWorkingDocAvail) >0)&#xA;then&#xA;$CustomerContact/ContactWorkingDocAvail&#xA;else&#xA;'N'"/>
+                    </pfx6:EmploymentStatus>
+                    <xsl:if test="$CustomerContact/ContactFaxPhone">
+                        <pfx6:Fax>
+                            <xsl:value-of select="$CustomerContact/ContactFaxPhone"/>
+                        </pfx6:Fax>
+                    </xsl:if>
+                    <pfx6:GuaranteeLetter>
+                        <xsl:value-of select="if(string-length($CustomerContact/ContactLetterCondition) >0)&#xA;then&#xA;$CustomerContact/ContactLetterCondition&#xA;else&#xA;'N'"/>
+                    </pfx6:GuaranteeLetter>
+                    <xsl:if test="tib:validate-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/Date, $CustomerContact/ContactMernisVerifDate)">
+                        <pfx6:MernisVerificationDate>
+                            <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/Date, $CustomerContact/ContactMernisVerifDate)"/>
+                        </pfx6:MernisVerificationDate>
+                    </xsl:if>
+                    <xsl:if test="$CustomerContact/ContactMotherMaidenName">
+                        <pfx6:MotherMaidenName>
+                            <xsl:value-of select="$CustomerContact/ContactMotherMaidenName"/>
+                        </pfx6:MotherMaidenName>
+                    </xsl:if>
+                    <xsl:if test="$CustomerContact/ContactMotherName">
+                        <pfx6:MotherName>
+                            <xsl:value-of select="$CustomerContact/ContactMotherName"/>
+                        </pfx6:MotherName>
+                    </xsl:if>
+                    <xsl:if test="$CustomerContact/ContactPhone">
+                        <pfx6:PhoneNumber>
+                            <xsl:value-of select="$CustomerContact/ContactPhone"/>
+                        </pfx6:PhoneNumber>
+                    </xsl:if>
+                    <xsl:if test="$CustomerContact/ContactJobStatus">
+                        <pfx6:WorkingStatus>
+                            <xsl:value-of select="$CustomerContact/ContactJobStatus"/>
+                        </pfx6:WorkingStatus>
+                    </xsl:if>
+                </pfx6:CustomerAuthority>
+                <pfx6:Subscriber>
+                    <xsl:if test="$RootItem/MSISDN">
+                        <pfx6:MSISDN>
+                            <xsl:value-of select="$RootItem/MSISDN"/>
+                        </pfx6:MSISDN>
+                    </xsl:if>
+                    <xsl:if test="tib:validate-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime,$RootItem/OriginalStartDate)">
+                        <pfx6:StartDate>
+                            <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/DateTime,$RootItem/OriginalStartDate)"/>
+                        </pfx6:StartDate>
+                    </xsl:if>
+                    <xsl:if test="$RootItem/iCCBTariffPlan">
+                        <pfx6:TargetTariffPlan>
+                            <xsl:value-of select="$RootItem/iCCBTariffPlan"/>
+                        </pfx6:TargetTariffPlan>
+                    </xsl:if>
+                    <xsl:if test="$RootItem/IMEI">
+                        <pfx6:IMEI>
+                            <xsl:value-of select="$RootItem/IMEI"/>
+                        </pfx6:IMEI>
+                    </xsl:if>
+                    <xsl:if test="$RootItem/ICCID">
+                        <pfx6:ICCI>
+                            <xsl:value-of select="$RootItem/ICCID"/>
+                        </pfx6:ICCI>
+                    </xsl:if>
+                    <xsl:if test="$RootItem/IMSI">
+                        <pfx6:IMSI>
+                            <xsl:value-of select="$RootItem/IMSI"/>
+                        </pfx6:IMSI>
+                    </xsl:if>
+                    <pfx6:PIN>
+                        <xsl:value-of select="$RootItem/PreviousPIN"/>
+                    </pfx6:PIN>
+                    <pfx6:PUK>
+                        <xsl:value-of select="$RootItem/PreviousPUK"/>
+                    </pfx6:PUK>
+                    <xsl:if test="$RootItem/ListOfRootItemAttribute/RootItemAttribute[Name='Algorithm']/Value">
+                        <pfx6:Algorithm>
+                            <xsl:value-of select="$RootItem/ListOfRootItemAttribute/RootItemAttribute[Name='Algorithm']/Value"/>
+                        </pfx6:Algorithm>
+                    </xsl:if>
+                    <xsl:if test="$RootItem/ListOfRootItemAttribute/RootItemAttribute[Name='Security Key For GSM']/Value">
+                        <pfx6:SecurityKey>
+                            <xsl:value-of select="$RootItem/ListOfRootItemAttribute/RootItemAttribute[Name='Security Key For GSM']/Value"/>
+                        </pfx6:SecurityKey>
+                    </xsl:if>
+                    <xsl:if test="$RootItem/ListOfRootItemAttribute/RootItemAttribute[Name='Donor Operator']/Value">
+                        <pfx6:DonorOperator>
+                            <xsl:value-of select="$RootItem/ListOfRootItemAttribute/RootItemAttribute[Name='Donor Operator']/Value"/>
+                        </pfx6:DonorOperator>
+                    </xsl:if>
+                    <xsl:if test="$RootItem/ListOfRootItemAttribute/RootItemAttribute[Name='Recipient Operator']/Value">
+                        <pfx6:RecipientOperator>
+                            <xsl:value-of select="$RootItem/ListOfRootItemAttribute/RootItemAttribute[Name='Recipient Operator']/Value"/>
+                        </pfx6:RecipientOperator>
+                    </xsl:if>
+                    <xsl:if test="$RootItem/ListOfRootItemAttribute/RootItemAttribute[Name='Segmentation Field']/Value">
+                        <pfx6:Segmentation>
+                            <xsl:value-of select="$RootItem/ListOfRootItemAttribute/RootItemAttribute[Name='Segmentation Field']/Value"/>
+                        </pfx6:Segmentation>
+                    </xsl:if>
+                    <xsl:if test="string-length($RootItem/ListOfRootItemAttribute/RootItemAttribute[Name='SIM Card Profile']/Value)>0">
+                        <xsl:if test="$RootItem/ListOfRootItemAttribute/RootItemAttribute[Name='SIM Card Profile']/Value">
+                            <pfx6:SimCardProfile>
+                                <xsl:value-of select="$RootItem/ListOfRootItemAttribute/RootItemAttribute[Name='SIM Card Profile']/Value"/>
+                            </pfx6:SimCardProfile>
+                        </xsl:if>
+                    </xsl:if>
+                    <xsl:if test="$RootItem/ListOfRootItemAttribute/RootItemAttribute[Name='Phone Directory']/Value">
+                        <pfx6:PhoneDirectoryFlag>
+                            <xsl:value-of select="$RootItem/ListOfRootItemAttribute/RootItemAttribute[Name='Phone Directory']/Value"/>
+                        </pfx6:PhoneDirectoryFlag>
+                    </xsl:if>
+                    <xsl:if test="if($CustomerAccount/CustAcctType = '101')&#xA;then&#xA;$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1101']/ListOfChildItemAttribute/ChildItemAttribute[Name='Voice']/Value&#xA;else&#xA;$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71005']/ListOfChildItemAttribute/ChildItemAttribute[Name='SES Kisit']/Value">
+                        <pfx6:VoiceService>
+                            <xsl:value-of select="if($CustomerAccount/CustAcctType = '101')&#xA;then&#xA;$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1101']/ListOfChildItemAttribute/ChildItemAttribute[Name='Voice']/Value&#xA;else&#xA;$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71005']/ListOfChildItemAttribute/ChildItemAttribute[Name='SES Kisit']/Value"/>
+                        </pfx6:VoiceService>
+                    </xsl:if>
+                    <pfx6:SMSService>
+                        <xsl:value-of select="if($CustomerAccount/CustAcctType = '101')&#xA;then&#xA;$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1101']/ListOfChildItemAttribute/ChildItemAttribute[Name='SMS']/Value&#xA;else&#xA;$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71006']/ListOfChildItemAttribute/ChildItemAttribute[Name='SMS Kisit']/Value"/>
+                    </pfx6:SMSService>
+                    <pfx6:GPRSService>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71001']) &#xA;or $RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1103']/ListOfChildItemAttribute/ChildItemAttribute[Name='Type']/Value = 'GPRS')&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:GPRSService>
+                    <pfx6:Net3G>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71000']) &#xA;or $RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1103']/ListOfChildItemAttribute/ChildItemAttribute[Name='Type']/Value = '3G')&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:Net3G>
+                    <pfx6:_3GService>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1114']) or exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71004']))&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:_3GService>
+                    <pfx6:_4_5GService>
+                        <xsl:value-of select="if($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1103']/ListOfChildItemAttribute/ChildItemAttribute[Name='Type']/Value = '4.5G')&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:_4_5GService>
+                    <pfx6:VoLTEService>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='9083']))&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:VoLTEService>
+                    <pfx6:BeepService>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId=('9092','71094')]))&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:BeepService>
+                    <pfx6:MMS>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1108']) &#xA;or exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71003']) )&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:MMS>
+                    <pfx6:LTE>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='9082']) or&#xA;exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71007']))&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:LTE>
+                    <pfx6:Fax>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='18405']) or&#xA;exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71008']))&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:Fax>
+                    <pfx6:DataWAP>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='53014']) or&#xA;exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71009']))&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:DataWAP>
+                    <pfx6:OWAP>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='53014']) or&#xA;exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71010']))&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:OWAP>
+                    <pfx6:APN>
+                        <xsl:variable name="_NA" select="'Not Applicable'"/>
+                        <xsl:choose>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1103']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN1' and Value !=$_NA])>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1103']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN1']/Value">
+                                    <pfx6:APN1>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1103']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN1']/Value"/>
+                                    </pfx6:APN1>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1103']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN1' and Value = $_NA])>0">
+                                <pfx6:APN1>
+                                    <xsl:value-of select="''"/>
+                                </pfx6:APN1>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71001']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN1' and Value!=$_NA])>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71001']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN1']/Value">
+                                    <pfx6:APN1>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71001']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN1']/Value"/>
+                                    </pfx6:APN1>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71001']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN1' and Value=$_NA])>0">
+                                <pfx6:APN1>
+                                    <xsl:value-of select="''"/>
+                                </pfx6:APN1>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1103']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 1']/Value)>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1103']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 1']/Value">
+                                    <pfx6:APN1IpAddress>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1103']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 1']/Value"/>
+                                    </pfx6:APN1IpAddress>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71001']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 1']/Value)>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71001']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 1']/Value">
+                                    <pfx6:APN1IpAddress>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71001']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 1']/Value"/>
+                                    </pfx6:APN1IpAddress>
+                                </xsl:if>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1109']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN2' and Value !=$_NA])>0">
+                                <pfx6:APN2>
+                                    <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1109']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN2']/Value"/>
+                                </pfx6:APN2>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1109']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN2' and Value = $_NA])>0">
+                                <pfx6:APN2>
+                                    <xsl:value-of select="''"/>
+                                </pfx6:APN2>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN2' and Value !=$_NA])>0">
+                                <pfx6:APN2>
+                                    <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN2']/Value"/>
+                                </pfx6:APN2>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN2' and Value = $_NA])>0">
+                                <pfx6:APN2>
+                                    <xsl:value-of select="''"/>
+                                </pfx6:APN2>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1109']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 2']/Value)>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1109']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 2']/Value">
+                                    <pfx6:APN2IpAddress>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1109']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 2']/Value"/>
+                                    </pfx6:APN2IpAddress>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 2']/Value)>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 2']/Value">
+                                    <pfx6:APN2IpAddress>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 2']/Value"/>
+                                    </pfx6:APN2IpAddress>
+                                </xsl:if>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='16012']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN3' and Value !=$_NA])>0">
+                                <pfx6:APN3>
+                                    <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='16012']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN3']/Value"/>
+                                </pfx6:APN3>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='16012']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN3' and Value = $_NA])>0">
+                                <pfx6:APN3>
+                                    <xsl:value-of select="''"/>
+                                </pfx6:APN3>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN3' and Value !=$_NA])>0">
+                                <pfx6:APN3>
+                                    <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN3']/Value"/>
+                                </pfx6:APN3>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN3' and Value = $_NA])>0">
+                                <pfx6:APN3>
+                                    <xsl:value-of select="''"/>
+                                </pfx6:APN3>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='16012']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 3']/Value)>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='16012']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 3']/Value">
+                                    <pfx6:APN3IpAddress>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='16012']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 3']/Value"/>
+                                    </pfx6:APN3IpAddress>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 3']/Value)>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 3']/Value">
+                                    <pfx6:APN3IpAddress>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 3']/Value"/>
+                                    </pfx6:APN3IpAddress>
+                                </xsl:if>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN4' and Value !=$_NA])>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN4']/Value">
+                                    <pfx6:APN4>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN4']/Value"/>
+                                    </pfx6:APN4>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN4' and Value = $_NA])>0">
+                                <pfx6:APN4>
+                                    <xsl:value-of select="''"/>
+                                </pfx6:APN4>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN4' and Value !=$_NA])>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN4']/Value">
+                                    <pfx6:APN4>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN4']/Value"/>
+                                    </pfx6:APN4>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN4' and Value = $_NA])>0">
+                                <pfx6:APN4>
+                                    <xsl:value-of select="''"/>
+                                </pfx6:APN4>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 4']/Value)>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 4']/Value">
+                                    <pfx6:APN4IpAddress>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 4']/Value"/>
+                                    </pfx6:APN4IpAddress>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 4']/Value)>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 4']/Value">
+                                    <pfx6:APN4IpAddress>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 4']/Value"/>
+                                    </pfx6:APN4IpAddress>
+                                </xsl:if>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN5' and Value !=$_NA])>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN5']/Value">
+                                    <pfx6:APN5>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN5']/Value"/>
+                                    </pfx6:APN5>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN5' and Value =$_NA])>0">
+                                <pfx6:APN5>
+                                    <xsl:value-of select="''"/>
+                                </pfx6:APN5>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN5' and Value !=$_NA])>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN5']/Value">
+                                    <pfx6:APN5>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN5']/Value"/>
+                                    </pfx6:APN5>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN5' and Value =$_NA])>0">
+                                <pfx6:APN5>
+                                    <xsl:value-of select="''"/>
+                                </pfx6:APN5>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 5']/Value)>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 5']/Value">
+                                    <pfx6:APN5IpAddress>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 5']/Value"/>
+                                    </pfx6:APN5IpAddress>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 5']/Value)>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 5']/Value">
+                                    <pfx6:APN5IpAddress>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 5']/Value"/>
+                                    </pfx6:APN5IpAddress>
+                                </xsl:if>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN6' and Value !=$_NA])>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN6']/Value">
+                                    <pfx6:APN6>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN6']/Value"/>
+                                    </pfx6:APN6>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN6' and Value = $_NA])>0">
+                                <pfx6:APN6>
+                                    <xsl:value-of select="''"/>
+                                </pfx6:APN6>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN6' and Value !=$_NA])>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN6']/Value">
+                                    <pfx6:APN6>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN6']/Value"/>
+                                    </pfx6:APN6>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN6' and Value =$_NA])>0">
+                                <pfx6:APN6>
+                                    <xsl:value-of select="''"/>
+                                </pfx6:APN6>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 6']/Value)>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 6']/Value">
+                                    <pfx6:APN6IpAddress>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 6']/Value"/>
+                                    </pfx6:APN6IpAddress>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 6']/Value)>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 6']/Value">
+                                    <pfx6:APN6IpAddress>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 6']/Value"/>
+                                    </pfx6:APN6IpAddress>
+                                </xsl:if>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1108']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN7'  and Value !=$_NA])>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1108']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN7']/Value">
+                                    <pfx6:APN7>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1108']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN7']/Value"/>
+                                    </pfx6:APN7>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1108']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN7'  and Value =$_NA])>0">
+                                <pfx6:APN7>
+                                    <xsl:value-of select="''"/>
+                                </pfx6:APN7>
+                            </xsl:when>
+                            <xsl:when test="exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71003'])">
+                                <pfx6:APN7>
+                                    <xsl:value-of select="'mms'"/>
+                                </pfx6:APN7>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1108']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 7']/Value)>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1108']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 7']/Value">
+                                    <pfx6:APN7IpAddress>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1108']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 7']/Value"/>
+                                    </pfx6:APN7IpAddress>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 7']/Value)>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 7']/Value">
+                                    <pfx6:APN7IpAddress>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 7']/Value"/>
+                                    </pfx6:APN7IpAddress>
+                                </xsl:if>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN8'  and Value !=$_NA])>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN8']/Value">
+                                    <pfx6:APN8>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN8']/Value"/>
+                                    </pfx6:APN8>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN8'  and Value =$_NA])>0">
+                                <pfx6:APN8>
+                                    <xsl:value-of select="''"/>
+                                </pfx6:APN8>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN8' and Value !=$_NA])>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN8']/Value">
+                                    <pfx6:APN8>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN8']/Value"/>
+                                    </pfx6:APN8>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN8' and Value =$_NA])>0">
+                                <pfx6:APN8>
+                                    <xsl:value-of select="''"/>
+                                </pfx6:APN8>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 8']/Value)>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 8']/Value">
+                                    <pfx6:APN8IpAddress>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 8']/Value"/>
+                                    </pfx6:APN8IpAddress>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 8']/Value)>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 8']/Value">
+                                    <pfx6:APN8IpAddress>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 8']/Value"/>
+                                    </pfx6:APN8IpAddress>
+                                </xsl:if>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN9' and Value !=$_NA])>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN9']/Value">
+                                    <pfx6:APN9>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN9']/Value"/>
+                                    </pfx6:APN9>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN9' and Value =$_NA])>0">
+                                <pfx6:APN9>
+                                    <xsl:value-of select="''"/>
+                                </pfx6:APN9>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN9' and Value !=$_NA])>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN9']/Value">
+                                    <pfx6:APN9>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN9']/Value"/>
+                                    </pfx6:APN9>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN9' and Value =$_NA])>0">
+                                <pfx6:APN9>
+                                    <xsl:value-of select="''"/>
+                                </pfx6:APN9>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 9']/Value)>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 9']/Value">
+                                    <pfx6:APN9IpAddress>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 9']/Value"/>
+                                    </pfx6:APN9IpAddress>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 9']/Value)>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 9']/Value">
+                                    <pfx6:APN9IpAddress>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 9']/Value"/>
+                                    </pfx6:APN9IpAddress>
+                                </xsl:if>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN10' and Value !=$_NA])>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN10']/Value">
+                                    <pfx6:APN10>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN10']/Value"/>
+                                    </pfx6:APN10>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN10' and Value =$_NA])>0">
+                                <pfx6:APN10>
+                                    <xsl:value-of select="''"/>
+                                </pfx6:APN10>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN10' and Value !=$_NA])>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN10']/Value">
+                                    <pfx6:APN10>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN10']/Value"/>
+                                    </pfx6:APN10>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='APN10' and Value =$_NA])>0">
+                                <pfx6:APN10>
+                                    <xsl:value-of select="''"/>
+                                </pfx6:APN10>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 10']/Value)>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 10']/Value">
+                                    <pfx6:APN10IpAddress>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1116']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 10']/Value"/>
+                                    </pfx6:APN10IpAddress>
+                                </xsl:if>
+                            </xsl:when>
+                            <xsl:when test="string-length($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 10']/Value)>0">
+                                <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 10']/Value">
+                                    <pfx6:APN10IpAddress>
+                                        <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71002']/ListOfChildItemAttribute/ChildItemAttribute[Name='Statik IP Adresi 10']/Value"/>
+                                    </pfx6:APN10IpAddress>
+                                </xsl:if>
+                            </xsl:when>
+                        </xsl:choose>
+                    </pfx6:APN>
+                    <pfx6:ACRService>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1104']/ListOfChildItemAttribute/ChildItemAttribute[Name='Anonymous Call Rejection']) &#xA;or exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71014']))&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:ACRService>
+                    <pfx6:WaitService>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1104']/ListOfChildItemAttribute/ChildItemAttribute[Name='Call Waiting']) &#xA;or exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71017']))&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:WaitService>
+                    <pfx6:ClipService>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1104']/ListOfChildItemAttribute/ChildItemAttribute[Name='CLIP']) &#xA;or exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71019']))&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:ClipService>
+                    <pfx6:CLIRService>
+                        <xsl:value-of select="if($RootItem/CustAcctType = '101')&#xA;then $RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1104']/ListOfChildItemAttribute/ChildItemAttribute[Name='CLIR']/Value&#xA;else &#xA;&#x9;if (exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71020']))&#xA;&#x9;&#x9;then 'N'&#xA;&#x9;&#x9;else 'Y'"/>
+                    </pfx6:CLIRService>
+                    <pfx6:ConferenceService>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1104']/ListOfChildItemAttribute/ChildItemAttribute[Name='Tele Conference']) &#xA;or exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71016']))&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:ConferenceService>
+                    <pfx6:HoldService>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='1104']/ListOfChildItemAttribute/ChildItemAttribute[Name='Call Hold']) &#xA;or exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='71015']))&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:HoldService>
+                    <pfx6:RoamingService>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId=('1110','71012')]) )&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:RoamingService>
+                    <pfx6:ThirdPartySMSBlock>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId=('1128','71026')]) )&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:ThirdPartySMSBlock>
+                    <pfx6:ThirdPartyIVRBlackList>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId=('1132','71028')]) )&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:ThirdPartyIVRBlackList>
+                    <pfx6:Property888>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId=('12003','71038')]) )&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:Property888>
+                    <pfx6:Property898>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId=('12002','71037')]) )&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:Property898>
+                    <pfx6:VoiceAnnouncement>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId=('12000','71033')]) )&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:VoiceAnnouncement>
+                    <pfx6:IsDeaf>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId=('12001','71032')]) )&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:IsDeaf>
+                    <pfx6:BNDOff>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId=('1140','71027')]) )&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:BNDOff>
+                    <pfx6:SafeInternet>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId=('51023','71031')]) )&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:SafeInternet>
+                    <xsl:if test="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId=('51023','71031')]/ListOfChildItemAttribute/ChildItemAttribute[Name='Profil Tipi']/Value">
+                        <pfx6:SafeInternetProperty>
+                            <xsl:value-of select="$RootItem/ListOfChildItem/ChildItem[ProductCatalogId=('51023','71031')]/ListOfChildItemAttribute/ChildItemAttribute[Name='Profil Tipi']/Value"/>
+                        </pfx6:SafeInternetProperty>
+                    </xsl:if>
+                    <pfx6:TCKNSMSBlocking>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId=('33000','71034')]) )&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:TCKNSMSBlocking>
+                    <pfx6:MaskCDR>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId=('2221','71030')]) )&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:MaskCDR>
+                    <pfx6:Ozel>
+                        <xsl:value-of select="if($CustomerAccount/CustAcctType = '101')&#xA;then&#xA;(&#xA;&#x9;if($CustomerAccount/CustAcctUsePrivateData = 'N')&#xA;&#x9;then&#xA;&#x9;'Y'&#xA;&#x9;else 'N')&#xA;else&#xA;(&#xA;&#x9;if(not(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='70250'])))&#xA;&#x9;then&#xA;&#x9;'Y'&#x9;&#xA;&#x9;else 'N')"/>
+                    </pfx6:Ozel>
+                    <pfx6:OzelRed>
+                        <xsl:value-of select="if($CustomerAccount/CustAcctType = '101')&#xA;then&#xA;(&#xA;&#x9;if($CustomerAccount/CustAcctUsePrivateData = 'Y')&#xA;&#x9;then&#xA;&#x9;'Y'&#xA;&#x9;else 'N')&#xA;else&#xA;(&#xA;&#x9;if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId='70250']))&#xA;&#x9;then&#xA;&#x9;'Y'&#x9;&#xA;&#x9;else 'N')"/>
+                    </pfx6:OzelRed>
+                    <pfx6:BOS1>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId=('1104','71022')]) )&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:BOS1>
+                    <pfx6:InternationalCall>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId=('1111','71013')]) )&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:InternationalCall>
+                    <pfx6:CallForwarding>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId=('1106','71018')]) )&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:CallForwarding>
+                    <pfx6:SMSBlocking>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId=('1129','71025')]) )&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:SMSBlocking>
+                    <pfx6:MobileMarketing>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId=('12004','71029')]) )&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:MobileMarketing>
+                    <pfx6:RoamingCostControl>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId=('1112','71042')]) )&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:RoamingCostControl>
+                    <pfx6:DefaultCallForwarding>
+                        <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId=('1134','71021')]) )&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                    </pfx6:DefaultCallForwarding>
+                    <xsl:if test="$invoiceProfile/DetailType">
+                        <pfx6:BillingType>
+                            <xsl:value-of select="$invoiceProfile/DetailType"/>
+                        </pfx6:BillingType>
+                    </xsl:if>
+                    <xsl:if test="$RootItem/ContactId">
+                        <pfx6:ContactId>
+                            <xsl:value-of select="$RootItem/ContactId"/>
+                        </pfx6:ContactId>
+                    </xsl:if>
+                    <xsl:if test="$BillingAddress/AddressId">
+                        <pfx6:AddressId>
+                            <xsl:value-of select="$BillingAddress/AddressId"/>
+                        </pfx6:AddressId>
+                    </xsl:if>
+                    <xsl:if test="$CustomerAccount/CustAcctCode">
+                        <pfx6:CustomerCode>
+                            <xsl:value-of select="$CustomerAccount/CustAcctCode"/>
+                        </pfx6:CustomerCode>
+                    </xsl:if>
+                    <xsl:if test="$RootItem/TargetCustomer">
+                        <pfx6:TargetCustomerCode>
+                            <xsl:value-of select="$RootItem/TargetCustomer"/>
+                        </pfx6:TargetCustomerCode>
+                    </xsl:if>
+                    <xsl:if test="$RootItem/ActionReason">
+                        <pfx6:ActionReason>
+                            <xsl:value-of select="$RootItem/ActionReason"/>
+                        </pfx6:ActionReason>
+                    </xsl:if>
+                    <xsl:if test="$RootItem/iCCBBillCycle">
+                        <pfx6:TargetBillingCycle>
+                            <xsl:value-of select="$RootItem/iCCBBillCycle"/>
+                        </pfx6:TargetBillingCycle>
+                    </xsl:if>
+                    <xsl:if test="$RootItem/iCCBTaxProfile">
+                        <pfx6:VIPCode>
+                            <xsl:value-of select="$RootItem/iCCBTaxProfile"/>
+                        </pfx6:VIPCode>
+                    </xsl:if>
+                    <xsl:if test="$RootItem/AccountPayType">
+                        <pfx6:AccountPayType>
+                            <xsl:value-of select="$RootItem/AccountPayType"/>
+                        </pfx6:AccountPayType>
+                    </xsl:if>
+                    <pfx6:MobileSignature>
+                        <pfx6:MobileSignatureFlag>
+                            <xsl:value-of select="if(exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId=('9069','70249')]))&#xA;then 'Y'&#xA;else 'N'"/>
+                        </pfx6:MobileSignatureFlag>
+                        <pfx6:Status>
+                            <xsl:value-of select="if($CustomerAccount/CustAcctType='101')&#xA;then&#xA;$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='9069']/ListOfChildItemAttribute/ChildItemAttribute[Name='Type']/Value='Status'&#xA;else&#xA;$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='70249']/ListOfChildItemAttribute/ChildItemAttribute[Name='Type']/Value='Status'"/>
+                        </pfx6:Status>
+                        <pfx6:FirmNameFlag>
+                            <xsl:value-of select="if($RootItem/ListOfChildItem/ChildItem[ProductCatalogId=('9069','70249')]/ListOfChildItemAttribute/ChildItemAttribute[Name='Type']/Value='FirmNameFlag' = 'Y')&#xA;then&#xA;'Y'&#xA;else&#xA;'N'"/>
+                        </pfx6:FirmNameFlag>
+                        <pfx6:MSSPStatus>
+                            <xsl:value-of select="if($CustomerAccount/CustAcctType='101')&#xA;then&#xA;$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='9069']/ListOfChildItemAttribute/ChildItemAttribute[Name='Type']/Value='MSSP Status'&#xA;else&#xA;$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='70249']/ListOfChildItemAttribute/ChildItemAttribute[Name='Type']/Value='MSSP Status'"/>
+                        </pfx6:MSSPStatus>
+                        <pfx6:EmailAddress>
+                            <xsl:value-of select="if($CustomerAccount/CustAcctType='101')&#xA;then&#xA;$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='9069']/ListOfChildItemAttribute/ChildItemAttribute[Name='Type']/Value='Email Address'&#xA;else&#xA;$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='70249']/ListOfChildItemAttribute/ChildItemAttribute[Name='Type']/Value='Email Address'"/>
+                        </pfx6:EmailAddress>
+                        <xsl:if test="$RootItem/ListOfRootItemContact/RootItemContact[1]/ContactPrimAddressId">
+                            <pfx6:ContactAddress>
+                                <xsl:value-of select="$RootItem/ListOfRootItemContact/RootItemContact[1]/ContactPrimAddressId"/>
+                            </pfx6:ContactAddress>
+                        </xsl:if>
+                        <xsl:if test="exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId=('9069','70249')])">
+                            <pfx6:ActivationDate>
+                                <xsl:value-of select="if($CustomerAccount/CustAcctType='101')&#xA;then&#xA;tib:parse-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/Date, $RootItem/ListOfChildItem/ChildItem[ProductCatalogId='9069']/OriginalStartDate)&#xA;else&#xA;tib:parse-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/Date,$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='70249']/OriginalStartDate)"/>
+                            </pfx6:ActivationDate>
+                        </xsl:if>
+                        <xsl:if test="exists($RootItem/ListOfChildItem/ChildItem[ProductCatalogId=('9069','70249')])">
+                            <pfx6:LastUpdateDate>
+                                <xsl:value-of select="if($CustomerAccount/CustAcctType='101')&#xA;then&#xA;tib:parse-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/Date,$RootItem/ListOfChildItem/ChildItem[ProductCatalogId='9069']/ModifyDate)&#xA;else&#xA;tib:parse-dateTime($_globalVariables/ns1:GlobalVariables/Constants/Formats/Siebel/Date, $RootItem/ListOfChildItem/ChildItem[ProductCatalogId='70249']/ModifyDate)"/>
+                            </pfx6:LastUpdateDate>
+                        </xsl:if>
+                        <xsl:if test="$RootItem/ContactId">
+                            <pfx6:ContactId>
+                                <xsl:value-of select="$RootItem/ContactId"/>
+                            </pfx6:ContactId>
+                        </xsl:if>
+                    </pfx6:MobileSignature>
+                </pfx6:Subscriber>
+            </pfx6:Request>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Parse XML">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>186</pd:x>
+        <pd:y>139</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>false</validateOutput>
+            <term ref="pfx3:Order"/>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Start/Input/pfx:RequestEAI/pfx:Body/*" element="ns:Request"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:XMLMessage/*[1]"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Parse XML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse XML</pd:from>
+        <pd:to>Map Data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map Data</pd:from>
+        <pd:to>JMS Queue Sender</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>JMS Queue Sender</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

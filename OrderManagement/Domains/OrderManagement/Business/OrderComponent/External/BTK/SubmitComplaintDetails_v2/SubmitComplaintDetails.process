@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentRequestInput/v1" xmlns:ns12="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:pfx="http://vodafone.com.tr/EAI/Common/RequestEAI" xmlns:ns2="http://vodafone.com.tr/EAI/Common/Header" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx5="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx4="http://vodafone.com.tr/ServiceCatalog/Business/VPNManagement/AddBlackListProfile/v1" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" xmlns:pfx2="http://vodafone.com.tr/ServiceCatalog/Business/ComplaintManagement/SubmitComplaint/v1" xmlns:pfx7="http://vodafone.com.tr/ServiceCatalog/Business/ComplaintManagement/SubmitComplaintDetails/v1" xmlns:pfx6="http://vodafone.com.tr/ServiceCatalog/Business/CDRManagement/ManageCommunity/v1">
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" schemaLocation="/Domains/ServiceCatalog/BusinessResources/Schemas/ServiceRequest.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/CDRManagement/ManageCommunity/v1" schemaLocation="/Domains/ServiceCatalog/Business/CDRManagement/ManageCommunity_v1/Schemas/ManageCommunity.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/RequestEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/RequestEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/ComplaintManagement/SubmitComplaint/v1" schemaLocation="/Domains/ServiceCatalog/Business/ComplaintManagement/SubmitComplaint_v1/Schemas/SubmitComplaint.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentRequestInput/v1" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OrderComponent/OrderComponentRequestInput.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/VPNManagement/AddBlackListProfile/v1" schemaLocation="/Domains/ServiceCatalog/Business/VPNManagement/AddBlackListProfile_v1/Schemas/AddBlackListProfile.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/ComplaintManagement/SubmitComplaintDetails/v1" schemaLocation="/Domains/ServiceCatalog/Business/ComplaintManagement/SubmitComplaintDetails_v1/Schemas/SubmitComplaintDetails.xsd"/>
+    <pd:name>Domains/OrderManagement/Business/OrderComponent/External/BTK/SubmitComplaintDetails_v2/SubmitComplaintDetails.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Input">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx:RequestEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>155</pd:startX>
+    <pd:startY>158</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>725</pd:endX>
+    <pd:endY>159</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://vodafone.com.tr/1429108839610</pd:targetNamespace>
+    <pd:activity name="OrderComponentIterator">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>571</pd:x>
+        <pd:y>161</pd:y>
+        <config>
+            <processName>/Domains/OrderManagement/BusinessResources/Processes/OrderComponent/OrderComponentIterator.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <RequestDestination>
+                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:ServiceCatalogQueue"/>
+                </RequestDestination>
+                <ListOfRequests>
+                    <xsl:copy-of select="if (count($Map-Requests-SpecialCase/ListOfRequests/pfx7:Request)>0) then $Map-Requests-SpecialCase/ListOfRequests/pfx7:Request&#xA;else  if (count($Map-Requests-Resolution/ListOfRequests/pfx7:Request)>0) then $Map-Requests-Resolution/ListOfRequests/pfx7:Request&#xA;else $Map-Requests-NoResolution/ListOfRequests/pfx7:Request"/>
+                </ListOfRequests>
+                <pfx:RequestEAI>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header"/>
+                    <pfx:Body>
+                        <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request"/>
+                    </pfx:Body>
+                </pfx:RequestEAI>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Parse XML">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>285</pd:x>
+        <pd:y>158</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>false</validateOutput>
+            <term ref="pfx3:Order"/>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Start/Input/pfx:RequestEAI/pfx:Body/*" element="ns:Request"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:XMLMessage/*[1]"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Map-Requests-SpecialCase">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>442</pd:x>
+        <pd:y>50</pd:y>
+        <config>
+            <element>
+                <xsd:element name="ListOfRequests">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element ref="pfx7:Request" minOccurs="0" maxOccurs="unbounded"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </element>
+        </config>
+        <pd:inputBindings>
+            <ListOfRequests>
+                <xsl:variable xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="rootItem" select="$Parse-XML/Order/ListOfRootItem/RootItem[1]"/>
+                <pfx7:Request>
+                    <pfx7:ChildSRID>
+                        <xsl:value-of select="$rootItem/ItemId"/>
+                    </pfx7:ChildSRID>
+                    <xsl:if test="$rootItem/ListOfRootItemAttribute/RootItemAttribute[Name='Description']/Value">
+                        <pfx7:Description>
+                            <xsl:value-of select="$rootItem/ListOfRootItemAttribute/RootItemAttribute[Name='Description']/Value"/>
+                        </pfx7:Description>
+                    </xsl:if>
+                    <pfx7:CreationDate>
+                        <xsl:value-of select="$rootItem/StartDate"/>
+                    </pfx7:CreationDate>
+                    <pfx7:ParentSRID>
+                        <xsl:value-of select="$rootItem/ItemId"/>
+                    </pfx7:ParentSRID>
+                    <pfx7:DetailedNumber>
+                        <xsl:value-of select="1"/>
+                    </pfx7:DetailedNumber>
+                    <pfx7:Status>
+                        <xsl:value-of select="'1'"/>
+                    </pfx7:Status>
+                    <pfx7:DetailedOwner>
+                        <xsl:value-of select="'0'"/>
+                    </pfx7:DetailedOwner>
+                    <pfx7:Responded>
+                        <xsl:value-of select="''"/>
+                    </pfx7:Responded>
+                </pfx7:Request>
+                <pfx7:Request>
+                    <pfx7:ChildSRID>
+                        <xsl:value-of select="concat($rootItem/ItemId,'_2')"/>
+                    </pfx7:ChildSRID>
+                    <pfx7:Description>
+                        <xsl:value-of select="''"/>
+                    </pfx7:Description>
+                    <xsl:if test="$rootItem/ListOfRootItemAttribute/RootItemAttribute[Name='Resolution']/Value">
+                        <pfx7:Resolution>
+                            <xsl:value-of select="$rootItem/ListOfRootItemAttribute/RootItemAttribute[Name='Resolution']/Value"/>
+                        </pfx7:Resolution>
+                    </xsl:if>
+                    <pfx7:CreationDate>
+                        <xsl:value-of select="$rootItem/StartDate"/>
+                    </pfx7:CreationDate>
+                    <pfx7:ParentSRID>
+                        <xsl:value-of select="$rootItem/ItemId"/>
+                    </pfx7:ParentSRID>
+                    <pfx7:DetailedNumber>
+                        <xsl:value-of select="2"/>
+                    </pfx7:DetailedNumber>
+                    <pfx7:Status>
+                        <xsl:value-of select="'2'"/>
+                    </pfx7:Status>
+                    <pfx7:DetailedOwner>
+                        <xsl:value-of select="'1'"/>
+                    </pfx7:DetailedOwner>
+                    <pfx7:Responded>
+                        <xsl:value-of select="''"/>
+                    </pfx7:Responded>
+                </pfx7:Request>
+                <pfx7:Request>
+                    <pfx7:ChildSRID>
+                        <xsl:value-of select="concat($rootItem/ListOfChildItem/ChildItem[1]/ItemId,&quot;_1&quot;)"/>
+                    </pfx7:ChildSRID>
+                    <xsl:if test="$rootItem/ListOfChildItem/ChildItem[1]/ListOfChildItemAttribute/ChildItemAttribute[Name='Description']/Value">
+                        <pfx7:Description>
+                            <xsl:value-of select="$rootItem/ListOfChildItem/ChildItem[1]/ListOfChildItemAttribute/ChildItemAttribute[Name='Description']/Value"/>
+                        </pfx7:Description>
+                    </xsl:if>
+                    <pfx7:CreationDate>
+                        <xsl:value-of select="$rootItem/ListOfChildItem/ChildItem[1]/ListOfChildItemAttribute/ChildItemAttribute[Name='CreationDate']/Value"/>
+                    </pfx7:CreationDate>
+                    <xsl:variable name="URLDescription" select="$rootItem/ListOfChildItem/ChildItem[1]/ListOfChildItemAttribute/ChildItemAttribute[Name='URLDescription']/Value"/>
+                    <xsl:for-each select="$rootItem/ListOfChildItem/ChildItem[1]/ListOfChildItemAttribute/ChildItemAttribute[Name='URL']">
+                        <pfx7:URLs>
+                            <pfx7:URL>
+                                <xsl:value-of select="current()/Value"/>
+                            </pfx7:URL>
+                            <xsl:if test="$URLDescription">
+                                <pfx7:URLDescription>
+                                    <xsl:value-of select="$URLDescription"/>
+                                </pfx7:URLDescription>
+                            </xsl:if>
+                        </pfx7:URLs>
+                    </xsl:for-each>
+                    <pfx7:ParentSRID>
+                        <xsl:value-of select="$rootItem/ListOfChildItem/ChildItem[1]/ParentItemId"/>
+                    </pfx7:ParentSRID>
+                    <pfx7:DetailedNumber>
+                        <xsl:value-of select="3"/>
+                    </pfx7:DetailedNumber>
+                    <pfx7:Status>
+                        <xsl:value-of select="'1'"/>
+                    </pfx7:Status>
+                    <pfx7:DetailedOwner>
+                        <xsl:value-of select="'0'"/>
+                    </pfx7:DetailedOwner>
+                    <pfx7:Responded>
+                        <xsl:value-of select="'2'"/>
+                    </pfx7:Responded>
+                </pfx7:Request>
+            </ListOfRequests>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Map-Requests-Resolution">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>434</pd:x>
+        <pd:y>159</pd:y>
+        <config>
+            <element>
+                <xsd:element name="ListOfRequests">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element ref="pfx7:Request" minOccurs="0" maxOccurs="unbounded"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </element>
+        </config>
+        <pd:inputBindings>
+            <ListOfRequests>
+                <xsl:variable xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="rootItem" select="$Parse-XML/Order/ListOfRootItem/RootItem[1]"/>
+                <pfx7:Request>
+                    <pfx7:ChildSRID>
+                        <xsl:value-of select="concat($rootItem/ListOfChildItem/ChildItem[last()]/ItemId,&quot;_2&quot;)"/>
+                    </pfx7:ChildSRID>
+                    <xsl:if test="$rootItem/ListOfChildItem/ChildItem[last()]/ListOfChildItemAttribute/ChildItemAttribute[Name='Description']/Value">
+                        <pfx7:Description>
+                            <xsl:value-of select="$rootItem/ListOfChildItem/ChildItem[last()]/ListOfChildItemAttribute/ChildItemAttribute[Name='Description']/Value"/>
+                        </pfx7:Description>
+                    </xsl:if>
+                    <xsl:if test="$rootItem/ListOfChildItem/ChildItem[last()]/ListOfChildItemAttribute/ChildItemAttribute[Name='Resolution']/Value">
+                        <pfx7:Resolution>
+                            <xsl:value-of select="$rootItem/ListOfChildItem/ChildItem[last()]/ListOfChildItemAttribute/ChildItemAttribute[Name='Resolution']/Value"/>
+                        </pfx7:Resolution>
+                    </xsl:if>
+                    <pfx7:CreationDate>
+                        <xsl:value-of select="$rootItem/ListOfChildItem/ChildItem[last()]/ListOfChildItemAttribute/ChildItemAttribute[Name='CreationDate']/Value"/>
+                    </pfx7:CreationDate>
+                    <xsl:variable xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="URLDescription" select="$rootItem/ListOfChildItem/ChildItem[last()]/ListOfChildItemAttribute/ChildItemAttribute[Name='URLDescription']/Value"/>
+                    <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$rootItem/ListOfChildItem/ChildItem[last()]/ListOfChildItemAttribute/ChildItemAttribute[Name='URL']">
+                        <pfx7:URLs>
+                            <pfx7:URL>
+                                <xsl:value-of select="current()/Value"/>
+                            </pfx7:URL>
+                            <xsl:if test="$URLDescription">
+                                <pfx7:URLDescription>
+                                    <xsl:value-of select="$URLDescription"/>
+                                </pfx7:URLDescription>
+                            </xsl:if>
+                        </pfx7:URLs>
+                    </xsl:for-each>
+                    <pfx7:ParentSRID>
+                        <xsl:value-of select="$rootItem/ListOfChildItem/ChildItem[last()]/ParentItemId"/>
+                    </pfx7:ParentSRID>
+                    <pfx7:DetailedNumber>
+                        <xsl:value-of select="if (count($rootItem/ListOfChildItem/ChildItem)=1) then 4&#xA;else if (count($rootItem/ListOfChildItem/ChildItem)=2) then 6&#xA;else if (count($rootItem/ListOfChildItem/ChildItem)=3) then 8&#xA;else 0"/>
+                    </pfx7:DetailedNumber>
+                    <pfx7:Status>
+                        <xsl:value-of select="'2'"/>
+                    </pfx7:Status>
+                    <pfx7:DetailedOwner>
+                        <xsl:value-of select="'1'"/>
+                    </pfx7:DetailedOwner>
+                    <pfx7:Responded>
+                        <xsl:value-of select="''"/>
+                    </pfx7:Responded>
+                </pfx7:Request>
+            </ListOfRequests>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Map-Requests-NoResolution">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>440</pd:x>
+        <pd:y>269</pd:y>
+        <config>
+            <element>
+                <xsd:element name="ListOfRequests">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element ref="pfx7:Request" minOccurs="0" maxOccurs="unbounded"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </element>
+        </config>
+        <pd:inputBindings>
+            <ListOfRequests>
+                <xsl:variable xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="rootItem" select="$Parse-XML/Order/ListOfRootItem/RootItem[1]"/>
+                <xsl:if test="count($rootItem/ListOfChildItem/ChildItem[last()-1]/ListOfChildItemAttribute/ChildItemAttribute[Name='Resolution']/Value)=0">
+                    <pfx7:Request>
+                        <pfx7:ChildSRID>
+                            <xsl:value-of select="concat($rootItem/ListOfChildItem/ChildItem[last()-1]/ItemId,&quot;_2&quot;)"/>
+                        </pfx7:ChildSRID>
+                        <pfx7:CreationDate>
+                            <xsl:value-of select="$rootItem/ListOfChildItem/ChildItem[last()-1]/ListOfChildItemAttribute/ChildItemAttribute[Name='CreationDate']/Value"/>
+                        </pfx7:CreationDate>
+                        <xsl:variable name="URLDescription" select="$rootItem/ListOfChildItem/ChildItem[last()-1]/ListOfChildItemAttribute/ChildItemAttribute[Name='URLDescription']/Value"/>
+                        <xsl:for-each select="$rootItem/ListOfChildItem/ChildItem[last()-1]/ListOfChildItemAttribute/ChildItemAttribute[Name='URL']">
+                            <pfx7:URLs>
+                                <pfx7:URL>
+                                    <xsl:value-of select="current()/Value"/>
+                                </pfx7:URL>
+                                <xsl:if test="$URLDescription">
+                                    <pfx7:URLDescription>
+                                        <xsl:value-of select="$URLDescription"/>
+                                    </pfx7:URLDescription>
+                                </xsl:if>
+                            </pfx7:URLs>
+                        </xsl:for-each>
+                        <pfx7:ParentSRID>
+                            <xsl:value-of select="$rootItem/ListOfChildItem/ChildItem[last()-1]/ParentItemId"/>
+                        </pfx7:ParentSRID>
+                        <pfx7:DetailedNumber>
+                            <xsl:value-of select="if (count($rootItem/ListOfChildItem/ChildItem)=2) then 4&#xA;else if (count($rootItem/ListOfChildItem/ChildItem)=3) then 6&#xA;else 0"/>
+                        </pfx7:DetailedNumber>
+                        <pfx7:Status>
+                            <xsl:value-of select="'2'"/>
+                        </pfx7:Status>
+                        <pfx7:DetailedOwner>
+                            <xsl:value-of select="'1'"/>
+                        </pfx7:DetailedOwner>
+                        <pfx7:Responded>
+                            <xsl:value-of select="''"/>
+                        </pfx7:Responded>
+                    </pfx7:Request>
+                </xsl:if>
+                <pfx7:Request>
+                    <pfx7:ChildSRID>
+                        <xsl:value-of select="concat($rootItem/ListOfChildItem/ChildItem[last()]/ItemId,&quot;_1&quot;)"/>
+                    </pfx7:ChildSRID>
+                    <xsl:if test="$rootItem/ListOfChildItem/ChildItem[last()]/ListOfChildItemAttribute/ChildItemAttribute[Name='Description']/Value">
+                        <pfx7:Description>
+                            <xsl:value-of select="$rootItem/ListOfChildItem/ChildItem[last()]/ListOfChildItemAttribute/ChildItemAttribute[Name='Description']/Value"/>
+                        </pfx7:Description>
+                    </xsl:if>
+                    <pfx7:CreationDate>
+                        <xsl:value-of select="$rootItem/ListOfChildItem/ChildItem[last()]/ListOfChildItemAttribute/ChildItemAttribute[Name='CreationDate']/Value"/>
+                    </pfx7:CreationDate>
+                    <xsl:variable xmlns:xsl="http://www.w3.org/1999/XSL/Transform" name="URLDescription" select="$rootItem/ListOfChildItem/ChildItem[last()]/ListOfChildItemAttribute/ChildItemAttribute[Name='URLDescription']/Value"/>
+                    <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$rootItem/ListOfChildItem/ChildItem[last()]/ListOfChildItemAttribute/ChildItemAttribute[Name='URL']">
+                        <pfx7:URLs>
+                            <pfx7:URL>
+                                <xsl:value-of select="current()/Value"/>
+                            </pfx7:URL>
+                            <xsl:if test="$URLDescription">
+                                <pfx7:URLDescription>
+                                    <xsl:value-of select="$URLDescription"/>
+                                </pfx7:URLDescription>
+                            </xsl:if>
+                        </pfx7:URLs>
+                    </xsl:for-each>
+                    <pfx7:ParentSRID>
+                        <xsl:value-of select="$rootItem/ListOfChildItem/ChildItem[last()]/ParentItemId"/>
+                    </pfx7:ParentSRID>
+                    <pfx7:DetailedNumber>
+                        <xsl:value-of select="if (count($rootItem/ListOfChildItem/ChildItem)=2) then 5&#xA;else if (count($rootItem/ListOfChildItem/ChildItem)=3) then 7&#xA;else 0"/>
+                    </pfx7:DetailedNumber>
+                    <pfx7:Status>
+                        <xsl:value-of select="'1'"/>
+                    </pfx7:Status>
+                    <pfx7:DetailedOwner>
+                        <xsl:value-of select="'0'"/>
+                    </pfx7:DetailedOwner>
+                    <pfx7:Responded>
+                        <xsl:value-of select="if (count($rootItem/ListOfChildItem/ChildItem)=2) then 4&#xA;else if (count($rootItem/ListOfChildItem/ChildItem)=3) then 6&#xA;else 0"/>
+                    </pfx7:Responded>
+                </pfx7:Request>
+            </ListOfRequests>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Parse XML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>OrderComponentIterator</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse XML</pd:from>
+        <pd:to>Map-Requests-SpecialCase</pd:to>
+        <pd:xpathDescription>Special case</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>count($Parse-XML/Order/ListOfRootItem/RootItem/ListOfChildItem/ChildItem)=1
+and
+(count($Parse-XML/Order/ListOfRootItem/RootItem/ListOfChildItem/ChildItem/ListOfChildItemAttribute/ChildItemAttribute[Name='Resolution']/Value)=0)</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map-Requests-SpecialCase</pd:from>
+        <pd:to>OrderComponentIterator</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse XML</pd:from>
+        <pd:to>Map-Requests-Resolution</pd:to>
+        <pd:xpathDescription>Resolution</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>count($Parse-XML/Order/ListOfRootItem/RootItem/ListOfChildItem/ChildItem[last()]/ListOfChildItemAttribute/ChildItemAttribute[Name='Resolution']/Value)&gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map-Requests-Resolution</pd:from>
+        <pd:to>OrderComponentIterator</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse XML</pd:from>
+        <pd:to>Map-Requests-NoResolution</pd:to>
+        <pd:xpathDescription>No Resolution</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>count($Parse-XML/Order/ListOfRootItem/RootItem/ListOfChildItem/ChildItem[last()]/ListOfChildItemAttribute/ChildItemAttribute[Name='Resolution']/Value)=0
+and
+count($Parse-XML/Order/ListOfRootItem/RootItem/ListOfChildItem/ChildItem) &gt; 1</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map-Requests-NoResolution</pd:from>
+        <pd:to>OrderComponentIterator</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

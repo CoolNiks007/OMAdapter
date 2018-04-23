@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceResource>
+    <config>
+        <class>com.tibco.bw.service.serviceAgent.ServiceServiceAgent</class>
+        <implType>bw</implType>
+        <groups>
+            <row isDefault="true" groupName="Default"/>
+        </groups>
+        <serviceChange>Wed Nov 30 15:06:13 GMT 2016</serviceChange>
+        <name>OSMServices</name>
+        <resourceType>service.definition</resourceType>
+        <wsdl namespace="http://vodafone.com.tr/1400249251040" embedWsdlComponents="true" embedSchemaComponents="true" embedJndiProperties="false"/>
+        <interfaceImpl>
+            <tab>
+                <tabName>OSMServicesPortType</tabName>
+                <tabType>bw</tabType>
+                <config>
+                    <wsdlDetail location="/Domains/ServiceCatalog/BusinessResources/WSDL/OSMServices.wsdl" portType="OSMServicesPortType" ns="http://vodafone.com.tr/ServiceCatalog/Business/OSMServices"/>
+                    <detail>
+                        <tab>
+                            <tabName>service.definition.impl.tab.label</tabName>
+                            <tabType>impl</tabType>
+                            <config>
+                                <operations>
+                                    <row opName="CreateOrder_v1" opImpl="/Domains/ServiceCatalog/Business/OSM/CreateOrder_v1/SOAPInterface/CreateOrder.process"/>
+                                    <row opName="CancelOrder_v1" opImpl="/Domains/ServiceCatalog/Business/OSM/CancelOrder_v1/SOAPInterface/CancelOrder.process"/>
+                                    <row opName="DecomposeForValidation_v1" opImpl="/Domains/ServiceCatalog/Business/OSM/DecomposeForValidation_v1/SOAPInterface/DecomposeForValidation.process"/>
+                                    <row opName="IsOrderCancellable_v1" opImpl="/Domains/ServiceCatalog/Business/OSM/IsOrderCancellable_v1/SOAPInterface/IsOrderCancellable.process"/>
+                                    <row opName="ResubmitOrderRequest_v1" opImpl="/Domains/ServiceCatalog/Business/OSM/ResubmitOrder_v1/SOAPInterface/ResubmitOrder.process"/>
+                                    <row opName="GetOrder_v1" opImpl="/Domains/ServiceCatalog/Business/OSM/GetOrder_v1/SOAPInterface/GetOrder.process"/>
+                                    <row opName="SubmitFutureOrder_v1" opImpl="/Domains/ServiceCatalog/Business/OSM/SubmitFutureOrder_v1/SOAPInterface/SubmitFutureOrder.process"/>
+                                    <row opName="GetMasterOrder_v1" opImpl="/Domains/ServiceCatalog/Business/OSM/GetMasterOrder_v1/SOAPInterface/GetMasterOrder.process"/>
+                                    <row opName="GetValidationOrder_v1" opImpl="/Domains/ServiceCatalog/Business/OSM/GetValidationOrder_v1/SOAPInterface/GetValidationOrder.process"/>
+                                    <row opName="FindOrders_v1" opImpl="/Domains/ServiceCatalog/Business/OSM/FindOrders_v1/SOAPInterface/FindOrders.process"/>
+                                    <row opName="CreateMasterOrder_v1" opImpl="/Domains/ServiceCatalog/Business/OSM/CreateMasterOrder_v1/SOAPInterface/CreateMasterOrder.process"/>
+                                    <row opName="CreateChildOrder_v1" opImpl="/Domains/ServiceCatalog/Business/OSM/CreateChildOrder_v1/SOAPInterface/CreateChildOrder.process"/>
+                                    <row opName="CloseMasterOrder_v1" opImpl="/Domains/ServiceCatalog/Business/OSM/CloseMasterOrder_v1/SOAPInterface/CloseMasterOrder.process"/>
+                                    <row opName="CreateChildOrders_v1" opImpl="/Domains/ServiceCatalog/Business/OSM/CreateChildOrders_v1/SOAPInterface/CreateChildOrders.process"/>
+                                    <row opName="GetMasterOrderDetails_v1" opImpl="/Domains/ServiceCatalog/Business/OSM/GetMasterOrderDetails_v1/SOAPInterface/GetMasterOrderDetails.process"/>
+                                    <row opName="FindFDOByKeyword_v1" opImpl="/Domains/ServiceCatalog/Business/OSM/FindFDOByKeyword_v1/SOAPInterface/FindFDOByKeyword.process"/>
+                                </operations>
+                            </config>
+                        </tab>
+                        <tab>
+                            <tabName>service.definition.ep.tab.label</tabName>
+                            <tabType>ep</tabType>
+                            <config>
+                                <epBindings>
+                                    <row epName="HTTP" epType="soap">
+                                        <config>
+                                            <epDetail>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.transport.tab.label</tabName>
+                                                    <tabType>transport</tabType>
+                                                    <config>
+                                                        <sharedChannel>/Domains/ServiceCatalog/BusinessResources/Connections/HTTP/HTTP SOAP Connection.sharedhttp</sharedChannel>
+                                                        <transport>
+                                                            <config>
+                                                                <useBasicAuthentication>false</useBasicAuthentication>
+                                                                <httpURI>/ServiceCatalog/OSMServices</httpURI>
+                                                            </config>
+                                                        </transport>
+                                                    </config>
+                                                </tab>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.details.tab.label</tabName>
+                                                    <tabType>details</tabType>
+                                                    <config>
+                                                        <operationStyle>rpc</operationStyle>
+                                                        <soapVersion>SOAP 1.1</soapVersion>
+                                                        <soap>
+                                                            <operation name="CreateOrder_v1">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>CreateOrder_v1</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="CancelOrder_v1">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>CancelOrder_v1</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="DecomposeForValidation_v1">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>DecomposeForValidation_v1</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="IsOrderCancellable_v1">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>IsOrderCancellable_v1</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="ResubmitOrderRequest_v1">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>ResubmitOrderRequest_v1</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="GetOrder_v1">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>GetOrder_v1</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="SubmitFutureOrder_v1">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>SubmitFutureOrder_v1</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="GetMasterOrder_v1">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Domains/ServiceCatalog/BusinessResources/Processes/Starters/OSMServices.serviceagent//GetMasterOrder_v1</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="GetValidationOrder_v1">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Domains/ServiceCatalog/BusinessResources/Processes/Starters/OSMServices.serviceagent//GetValidationOrder_v1</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="FindOrders_v1">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Domains/ServiceCatalog/BusinessResources/Processes/Starters/OSMServices.serviceagent//FindOrders_v1</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="CreateMasterOrder_v1">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Domains/ServiceCatalog/BusinessResources/Processes/Starters/OSMServices.serviceagent//CreateMasterOrder_v1</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="CreateChildOrder_v1">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Domains/ServiceCatalog/BusinessResources/Processes/Starters/OSMServices.serviceagent//CreateChildOrder_v1</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="CloseMasterOrder_v1">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>CloseMasterOrder_v1</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="CreateChildOrders_v1">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Domains/ServiceCatalog/BusinessResources/Processes/Starters/OSMServices.serviceagent//CreateChildOrders_v1</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="GetMasterOrderDetails_v1">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>GetMasterOrderDetails_v1</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="FindFDOByKeyword_v1">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>/Domains/ServiceCatalog/BusinessResources/Processes/Starters/OSMServices.serviceagent//FindFDOByKeyword_v1</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                        </soap>
+                                                    </config>
+                                                </tab>
+                                            </epDetail>
+                                        </config>
+                                    </row>
+                                </epBindings>
+                            </config>
+                        </tab>
+                    </detail>
+                </config>
+            </tab>
+        </interfaceImpl>
+    </config>
+</serviceResource>

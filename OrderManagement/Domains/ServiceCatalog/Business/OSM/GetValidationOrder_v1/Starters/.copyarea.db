@@ -1,0 +1,7 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\ServiceCatalog\Business\OSM\GetValidationOrder_v1\Starters
+2
+3
+32:JMSGetValidationScenariosGuaranteedStarter.process|1|162d7af140a|946e|aedcfb1|bcd6faac1085466e93e844305ca5f28a|0
+30:JMSGetValidationScenariosReliableStarter.process|1|162d7af140a|8112|598d0953|21438b226d5342c798e7fc6bd57d26fc|0
+7:.folder|1|162d7af13fa|181|dd98466|94f27a230e64436489ef6fe499ad010c|0

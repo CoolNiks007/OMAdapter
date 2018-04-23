@@ -1,0 +1,29 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>Location</name>
+			<value>Engine</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1412270069261</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Name</name>
+			<value>Engine</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1412270069777</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>URI</name>
+			<value>ENGINE</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1412270070292</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

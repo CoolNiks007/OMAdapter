@@ -1,0 +1,29 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>CreateAccountAdjust_BalanceId</name>
+			<value>CreateAccountAdjust_BalanceId</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1453821136623</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>GetCUGMembers_MSISDNList</name>
+			<value>GetCUGMembers_MSISDNList</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1460139915447</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>ManageRentalDiscount_DiscountKey</name>
+			<value>ManageRentalDiscount_DiscountKey</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1454517083217</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

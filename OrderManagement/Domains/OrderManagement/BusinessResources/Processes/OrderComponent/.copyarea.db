@@ -1,0 +1,10 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\BusinessResources\Processes\OrderComponent
+2
+6
+1e:OrderComponentResponse.process|1|162d7aee933|1551|c3f49fcc|5d5d30da225e470083f19256c2a8cd7c|0
+1e:OrderComponentIterator.process|1|162d7aee923|ed83|d5c05478|407b47624ef24c7c940ea0fd2fb8bda5|0
+2a:OrderComponentResponseErrorMasking.process|1|162d7aee933|8f5|dc0eaf1d|f42a9cec723f4c558e743fbdcc962e63|0
+8:Starters|2|0|0|0|e6f2b11f4a954ede991023d666aad1f7|0
+7:.folder|1|162d7aee914|187|6e8486bd|daadd1738c0a4dd59110d5d14d953a25|0
+27:OrderComponentProcessDispatcher.process|1|162d7aee933|1153f|b4018896|8e32d4a1350b433ba4d23acf29fd0a09|0

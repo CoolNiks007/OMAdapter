@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns:om="http://vodafone.com.tr/ServiceCatalog/Business/OSM/SubmitFutureOrder/v1"
+	 targetNamespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/SubmitFutureOrder/v1"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:complexType name="Request">
+		<xs:sequence>
+			<xs:element name="OrderMessage" type="xs:string"/>
+			<xs:element name="DueDate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="CreatedBy" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Request" type="om:Request"/>
+	<xs:complexType name="Response">
+		<xs:sequence>
+			<xs:element name="OrderId" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Response" type="om:Response"/>
+	<xs:element name="SubmitFutureOrderRequest" type="om:SubmitFutureOrderRequest"/>
+	<xs:complexType name="SubmitFutureOrderRequest">
+		<xs:sequence>
+			<xs:element ref="om:Request"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="SubmitFutureOrderResponse" type="om:SubmitFutureOrderResponse"/>
+	<xs:complexType name="SubmitFutureOrderResponse">
+		<xs:sequence>
+			<xs:element ref="om:Response" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:ns2="http://vodafone.com.tr/EAI/Common/Header" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://vodafone.com.tr/ServiceCatalog/Business/OSM/CreateOrder/v1" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns4="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns="http://vodafone.com.tr/ServiceCatalog/ServiceReply" xmlns:ns3="http://www.tibco.com/pe/EngineTypes" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx2="http://vodafone.com.tr/ServiceCatalog/Business/OSMServices" xmlns:ns5="http://vodafone.com.tr/EAI/Common/ResponseCodes" xmlns:ns6="http://vodafone.com.tr/EAI/Logging" xmlns:pfx="http://vodafone.com.tr/ServiceCatalog/Business/CreateOrderServices">
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/CreateOrder/v1" schemaLocation="/Domains/ServiceCatalog/Business/OSM/CreateOrder_v1/Schemas/CreateOrder.xsd"/>
+    <wsdl:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSMServices" location="/Domains/ServiceCatalog/BusinessResources/WSDL/OSMServices.wsdl"/>
+    <pd:name>Domains/ServiceCatalog/Business/OSM/CreateOrder_v1/SOAPInterface/CreateOrder.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType wsMsgRef="pfx2:CreateOrderRequest_v1"/>
+    <pd:startX>48</pd:startX>
+    <pd:startY>61</pd:startY>
+    <pd:returnBindings>
+        <xsl:copy-of select="$CreateOrderResponse/pfx2:CreateOrderResponse_v1"/>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType wsMsgRef="pfx2:CreateOrderResponse_v1"/>
+    <pd:endX>588</pd:endX>
+    <pd:endY>61</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <CreateOrderResponse wsMsgRef="pfx2:CreateOrderResponse_v1"/>
+    </pd:processVariables>
+    <pd:targetNamespace>http://vodafone.com.tr/1400159077403</pd:targetNamespace>
+    <pd:activity name="Assign Error">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>338</pd:x>
+        <pd:y>193</pd:y>
+        <config>
+            <variableName>CreateOrderResponse</variableName>
+        </config>
+        <pd:inputBindings>
+            <pfx2:CreateOrderResponse_v1>
+                <Header>
+                    <ns5:ResponseCode>
+                        <xsl:value-of select="$_globalVariables/ns4:GlobalVariables/ErrorCodes/UnspecifiedError"/>
+                    </ns5:ResponseCode>
+                    <xsl:if test="$_error/ns3:ErrorReport/MsgCode">
+                        <ns5:ErrorCode>
+                            <xsl:value-of select="$_error/ns3:ErrorReport/MsgCode"/>
+                        </ns5:ErrorCode>
+                    </xsl:if>
+                    <xsl:if test="$_error/ns3:ErrorReport/Msg">
+                        <ns5:ErrorDescription>
+                            <xsl:value-of select="$_error/ns3:ErrorReport/Msg"/>
+                        </ns5:ErrorDescription>
+                    </xsl:if>
+                </Header>
+                <Body/>
+            </pfx2:CreateOrderResponse_v1>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Assign Response">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>337</pd:x>
+        <pd:y>61</pd:y>
+        <config>
+            <variableName>CreateOrderResponse</variableName>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$CreateOrder/Output/ns:ServiceReply/ns:Body/*" element="ns1:Response"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <pfx2:CreateOrderResponse_v1>
+                <Header>
+                    <xsl:copy-of select="$CreateOrder/Output/ns:ServiceReply/ns:Header/ancestor-or-self::*/namespace::node()"/>
+                    <xsl:copy-of select="$CreateOrder/Output/ns:ServiceReply/ns:Header/@*"/>
+                    <xsl:copy-of select="$CreateOrder/Output/ns:ServiceReply/ns:Header/node()"/>
+                </Header>
+                <Body>
+                    <xsl:copy-of select="$CreateOrder/Output/ns:ServiceReply/ns:Body/ns1:Response"/>
+                </Body>
+            </pfx2:CreateOrderResponse_v1>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>208</pd:x>
+        <pd:y>193</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="CreateOrder">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>216</pd:x>
+        <pd:y>61</pd:y>
+        <config>
+            <processName>/Domains/ServiceCatalog/BusinessResources/Processes/SoapProcessDispatcher.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <xsl:copy-of select="$Start/pfx2:CreateOrderRequest_v1"/>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Logger [END]">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>477</pd:x>
+        <pd:y>61</pd:y>
+        <config>
+            <processName>/GlobalCommonResources/Processes/Logging/Logger.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <ns6:LogMessage>
+                    <xsl:if test="$CreateOrder/Output/Header/ns2:SourceSystem">
+                        <ns6:Source>
+                            <xsl:value-of select="$CreateOrder/Output/Header/ns2:SourceSystem"/>
+                        </ns6:Source>
+                    </xsl:if>
+                    <ns6:Process>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns3:ProcessContext/ProcessId)"/>
+                    </ns6:Process>
+                    <xsl:if test="$CreateOrder/Output/Header/ns2:BusinessInterface/ns2:Service">
+                        <ns6:Service>
+                            <xsl:value-of select="$CreateOrder/Output/Header/ns2:BusinessInterface/ns2:Service"/>
+                        </ns6:Service>
+                    </xsl:if>
+                    <xsl:if test="$CreateOrder/Output/Header/ns2:BusinessInterface/ns2:Operation">
+                        <ns6:Operation>
+                            <xsl:value-of select="$CreateOrder/Output/Header/ns2:BusinessInterface/ns2:Operation"/>
+                        </ns6:Operation>
+                    </xsl:if>
+                    <xsl:if test="$CreateOrder/Output/Header/ns2:RequestId">
+                        <ns6:MsgId>
+                            <xsl:value-of select="$CreateOrder/Output/Header/ns2:RequestId"/>
+                        </ns6:MsgId>
+                    </xsl:if>
+                    <ns6:Type>
+                        <xsl:value-of select="$_globalVariables/ns4:GlobalVariables/Logging/Roles/AuditRoleName"/>
+                    </ns6:Type>
+                    <ns6:Task>
+                        <xsl:value-of select="&quot;END SERVICE&quot;"/>
+                    </ns6:Task>
+                    <xsl:if test="$CreateOrder/Output/ns:ServiceReply/ns:Header/ns5:ErrorDescription">
+                        <ns6:Description>
+                            <xsl:value-of select="$CreateOrder/Output/ns:ServiceReply/ns:Header/ns5:ErrorDescription"/>
+                        </ns6:Description>
+                    </xsl:if>
+                    <xsl:if test="$CreateOrder/Output/ns:ServiceReply/ns:Header/ns5:ErrorCode">
+                        <ns6:ErrorCode>
+                            <xsl:value-of select="$CreateOrder/Output/ns:ServiceReply/ns:Header/ns5:ErrorCode"/>
+                        </ns6:ErrorCode>
+                    </xsl:if>
+                    <ns6:ResponseCode>
+                        <xsl:value-of select="$CreateOrder/Output/ns:ServiceReply/ns:Header/ns5:ResponseCode"/>
+                    </ns6:ResponseCode>
+                    <ns6:MessageBody>
+                        <xsl:value-of select="tib:render-xml($CreateOrderResponse/pfx2:CreateOrderResponse_v1)"/>
+                    </ns6:MessageBody>
+                    <xsl:if test="$CreateOrder/Output/Header/ns2:CorrelationId">
+                        <ns6:CorrelationId>
+                            <xsl:value-of select="$CreateOrder/Output/Header/ns2:CorrelationId"/>
+                        </ns6:CorrelationId>
+                    </xsl:if>
+                    <xsl:if test="$CreateOrder/Output/Header/ns2:Credentials[1]/ns2:User">
+                        <ns6:UserName>
+                            <xsl:value-of select="$CreateOrder/Output/Header/ns2:Credentials[1]/ns2:User"/>
+                        </ns6:UserName>
+                    </xsl:if>
+                    <xsl:if test="$CreateOrder/Output/Header/ns2:BusinessInterface/ns2:Version">
+                        <ns6:Version>
+                            <xsl:value-of select="$CreateOrder/Output/Header/ns2:BusinessInterface/ns2:Version"/>
+                        </ns6:Version>
+                    </xsl:if>
+                </ns6:LogMessage>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Logger [Error]">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>476</pd:x>
+        <pd:y>192</pd:y>
+        <config>
+            <processName>/GlobalCommonResources/Processes/Logging/Logger.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <ns6:LogMessage>
+                    <xsl:if test="$Catch/exceptiondata//*[local-name(.)='SourceSystem']/text()">
+                        <ns6:Source>
+                            <xsl:value-of select="$Catch/exceptiondata//*[local-name(.)='SourceSystem']/text()"/>
+                        </ns6:Source>
+                    </xsl:if>
+                    <ns6:Process>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns3:ProcessContext/ProcessId)"/>
+                    </ns6:Process>
+                    <xsl:if test="tib:tokenize(namespace-uri($Catch/exceptiondata/*/Body/*), &quot;/&quot;)[5]">
+                        <ns6:Service>
+                            <xsl:value-of select="tib:tokenize(namespace-uri($Catch/exceptiondata/*/Body/*), &quot;/&quot;)[5]"/>
+                        </ns6:Service>
+                    </xsl:if>
+                    <xsl:if test="tib:tokenize(namespace-uri($Catch/exceptiondata/*/Body/*), &quot;/&quot;)[6]">
+                        <ns6:Operation>
+                            <xsl:value-of select="tib:tokenize(namespace-uri($Catch/exceptiondata/*/Body/*), &quot;/&quot;)[6]"/>
+                        </ns6:Operation>
+                    </xsl:if>
+                    <xsl:if test="$Catch/exceptiondata//*[local-name(.)='RequestId']/text()">
+                        <ns6:MsgId>
+                            <xsl:value-of select="$Catch/exceptiondata//*[local-name(.)='RequestId']/text()"/>
+                        </ns6:MsgId>
+                    </xsl:if>
+                    <ns6:Type>
+                        <xsl:value-of select="$_globalVariables/ns4:GlobalVariables/Logging/Roles/ErrorRoleName"/>
+                    </ns6:Type>
+                    <ns6:Task>
+                        <xsl:value-of select="&quot;ERROR&quot;"/>
+                    </ns6:Task>
+                    <ns6:Description>
+                        <xsl:value-of select="$CreateOrderResponse/pfx2:CreateOrderResponse_v1/Header/ns5:ErrorDescription"/>
+                    </ns6:Description>
+                    <ns6:ErrorDump>
+                        <xsl:value-of select="concat(tib:left(normalize-space($_error/ns3:ErrorReport/StackTrace), 2000), &quot;&#xA;&quot;, &quot;Exception Data: &quot;, normalize-space(tib:render-xml($Catch/exceptiondata)))"/>
+                    </ns6:ErrorDump>
+                    <ns6:ErrorCode>
+                        <xsl:value-of select="$CreateOrderResponse/pfx2:CreateOrderResponse_v1/Header/ns5:ErrorCode"/>
+                    </ns6:ErrorCode>
+                    <ns6:ResponseCode>
+                        <xsl:value-of select="$CreateOrderResponse/pfx2:CreateOrderResponse_v1/Header/ns5:ResponseCode"/>
+                    </ns6:ResponseCode>
+                    <xsl:if test="$Catch/exceptiondata//*[local-name(.)='User']/text()">
+                        <ns6:UserName>
+                            <xsl:value-of select="$Catch/exceptiondata//*[local-name(.)='User']/text()"/>
+                        </ns6:UserName>
+                    </xsl:if>
+                    <ns6:Version>
+                        <xsl:value-of select="substring-after(tib:tokenize(namespace-uri($Catch/exceptiondata/*/Body/*), &quot;/&quot;)[7], 'v')"/>
+                    </ns6:Version>
+                </ns6:LogMessage>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>CreateOrder</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CreateOrder</pd:from>
+        <pd:to>Assign Response</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign Response</pd:from>
+        <pd:to>Logger [END]</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Logger [END]</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>Assign Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign Error</pd:from>
+        <pd:to>Logger [Error]</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Logger [Error]</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

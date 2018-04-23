@@ -1,0 +1,21 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>DonorOperator</name>
+			<value>Donor Operator</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1456240478334</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>RecipientOperator</name>
+			<value>Recipient Operator</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1457625768508</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

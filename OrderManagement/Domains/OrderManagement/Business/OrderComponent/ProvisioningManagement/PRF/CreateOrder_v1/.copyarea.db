@@ -1,0 +1,7 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\Business\OrderComponent\ProvisioningManagement\PRF\CreateOrder_v1
+2
+3
+13:CreateOrder.process|1|162d7aee08c|34490|de96ad02|2d5fd2f65fd1412282a4f228088b6664|0
+1c:CreateOrder_Response.process|1|162d7aee0bb|4e1a|678b9728|bf8fa64902ae4da8a56fa80b47c779ca|0
+7:.folder|1|162d7aee07c|187|27958664|2f13387b01744156b155710105040d77|0

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://vodafone.com.tr/EAI/Common/ResponseCodes" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="urn:com:metasolv:oms:xmlapi:1" xmlns:ns="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentResponseInput/v1" xmlns:ns4="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns3="http://vodafone.com.tr/ServiceCatalog/ServiceReply" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx2="http://vodafone.com.tr/EAI/Common/ResponseEAI" xmlns:pfx="http://vodafone.com.tr/EAI/Common/RequestEAI">
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/RequestEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/RequestEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/ResponseEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/ResponseEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentResponseInput/v1" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OrderComponent/OrderComponentResponseInput.xsd"/>
+    <xsd:import namespace="urn:com:metasolv:oms:xmlapi:1" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OSM/OSM_OperationResponse.xsd"/>
+    <pd:name>Domains/OrderManagement/Business/OrderComponent/OrderManagement/OSM/CreatePreProvisioningOrders_v1/CreatePreProvisioningOrders_Response.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Input">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx:RequestEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>150</pd:startX>
+    <pd:startY>64</pd:startY>
+    <pd:returnBindings>
+        <Output>
+            <pfx2:ResponseEAI>
+                <pfx2:Header>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ancestor-or-self::*/namespace::node()"/>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/@*"/>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/node()"/>
+                </pfx2:Header>
+                <pfx2:ResponseCodes>
+                    <ns2:ResponseCode>
+                        <xsl:value-of select="$_globalVariables/ns4:GlobalVariables/ErrorCodes/Success"/>
+                    </ns2:ResponseCode>
+                </pfx2:ResponseCodes>
+                <pfx2:Body>
+                    <ns1:TelcoOperationResponse>
+                        <Id>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OcDetails/ns:Id"/>
+                        </Id>
+                        <Name>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OcDetails/ns:Name"/>
+                        </Name>
+                        <OrderId>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OcDetails/ns:OrderId"/>
+                        </OrderId>
+                        <StatusCode>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:ServiceReply/ns3:Header/ns2:ResponseCode"/>
+                        </StatusCode>
+                        <StatusMessage>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:ServiceReply/ns3:Header/ns2:ResponseMsg"/>
+                        </StatusMessage>
+                    </ns1:TelcoOperationResponse>
+                </pfx2:Body>
+            </pfx2:ResponseEAI>
+        </Output>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="Output">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx2:ResponseEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>419</pd:endX>
+    <pd:endY>66</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://vodafone.com.tr/1424712259306</pd:targetNamespace>
+    <pd:activity name="RemoveAsyncControl">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>281</pd:x>
+        <pd:y>66</pd:y>
+        <config>
+            <processName>/GlobalCommonResources/Processes/AsyncControl/RemoveAsyncControl.process</processName>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Start/Input/pfx:RequestEAI/pfx:Body/*" element="ns:Request"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <Input>
+                <TargetCorrelationId>
+                    <xsl:value-of select="concat($Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OcDetails/ns:MasterOrderId, '-','CreatePreProvisioningOrders')"/>
+                </TargetCorrelationId>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>RemoveAsyncControl</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>RemoveAsyncControl</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

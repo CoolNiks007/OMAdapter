@@ -1,0 +1,10 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\ServiceCatalog\Business\OrderManagement\RegisterCampaign_v1
+2
+6
+22:DispatcherRegisterCampaign.process|1|162d7af07da|8e8a|6fe7eb99|ad30309e74454602801c3c4ab086b875|0
+d:SOAPInterface|2|0|0|0|4d718b7f07ee4e65b36a8d45f705167a|0
+18:RegisterCampaign.process|1|162d7af07da|4b46|1b6d4dce|9ef04d118e4d4f0497dbc92d0ada88f7|0
+8:Starters|2|0|0|0|19ee2bd720cb4a2692c91a4e41c35437|0
+7:Schemas|2|0|0|0|257021e8f68f47b6af4b0c0b6d5296f5|0
+7:.folder|1|162d7af07da|18c|1f448879|45d8e4a285b44113ae3e3c2d47178d2e|0

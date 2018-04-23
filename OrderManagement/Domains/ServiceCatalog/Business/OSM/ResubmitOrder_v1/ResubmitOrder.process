@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:ns2="http://www.tibco.com/pe/DeployedVarsType" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://vodafone.com.tr/EAI/Common/Header" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://xmlns.oracle.com/communications/ordermanagement" xmlns:ns3="http://vodafone.com.tr/ServiceCatalog/Business/OSM/ResubmitOrder/v1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx2="http://vodafone.com.tr/EAI/Common/ResponseEAI" xmlns:pfx="http://vodafone.com.tr/EAI/Common/RequestEAI">
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/RequestEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/RequestEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/ResponseEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/ResponseEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/ResubmitOrder/v1" schemaLocation="/Domains/ServiceCatalog/Business/OSM/ResubmitOrder_v1/Schemas/ResubmitOrder.xsd"/>
+    <xsd:import namespace="http://xmlns.oracle.com/communications/ordermanagement" schemaLocation="/Domains/OrderManagement/TechnicalResources/Schemas/OSM/OrderManagementWS.xsd"/>
+    <pd:name>Domains/ServiceCatalog/Business/OSM/ResubmitOrder_v1/ResubmitOrder.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Input">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx:RequestEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>231</pd:startX>
+    <pd:startY>83</pd:startY>
+    <pd:returnCoercions>
+        <pd:coercion xpath="$Resolve-Failure/Output/pfx2:ResponseEAI/pfx2:Body/*" type="ns:ResolveFailureResponseType"/>
+    </pd:returnCoercions>
+    <pd:returnBindings>
+        <Output>
+            <pfx2:ResponseEAI>
+                <xsl:copy-of select="$Resolve-Failure/Output/pfx2:ResponseEAI/pfx2:Header"/>
+                <xsl:copy-of select="$Resolve-Failure/Output/pfx2:ResponseEAI/pfx2:ResponseCodes"/>
+                <pfx2:Body>
+                    <ns3:Response/>
+                </pfx2:Body>
+            </pfx2:ResponseEAI>
+        </Output>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="Output">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx2:ResponseEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>510</pd:endX>
+    <pd:endY>83</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://vodafone.com.tr/1399295081862</pd:targetNamespace>
+    <pd:activity name="Resolve Failure">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>372</pd:x>
+        <pd:y>84</pd:y>
+        <config>
+            <processName>/GlobalCommonResources/Processes/Common/ProcessDispatcher.process</processName>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Start/Input/pfx:RequestEAI/pfx:Body/*" element="ns3:Request"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <Input>
+                <pfx:RequestEAI>
+                    <pfx:Header>
+                        <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:RequestId">
+                            <ns1:RequestId>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:RequestId"/>
+                            </ns1:RequestId>
+                        </xsl:if>
+                        <ns1:SourceSystem>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:SourceSystem"/>
+                        </ns1:SourceSystem>
+                        <ns1:ReplyExpected>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:ReplyExpected"/>
+                        </ns1:ReplyExpected>
+                        <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:QoS">
+                            <ns1:QoS>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:QoS"/>
+                            </ns1:QoS>
+                        </xsl:if>
+                        <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:Schedule">
+                            <ns1:Schedule>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:Schedule"/>
+                            </ns1:Schedule>
+                        </xsl:if>
+                        <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:CorrelationId">
+                            <ns1:CorrelationId>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:CorrelationId"/>
+                            </ns1:CorrelationId>
+                        </xsl:if>
+                        <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:Priority">
+                            <ns1:Priority>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:Priority"/>
+                            </ns1:Priority>
+                        </xsl:if>
+                        <ns1:Credentials>
+                            <ns1:ApplicationId>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:Credentials[1]/ns1:ApplicationId"/>
+                            </ns1:ApplicationId>
+                            <ns1:User>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:Credentials[1]/ns1:User"/>
+                            </ns1:User>
+                        </ns1:Credentials>
+                        <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:Attributes"/>
+                        <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:BusinessInterface"/>
+                        <ns1:TechnicalInterface>
+                            <ns1:Domain>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Domains/OrderManagement/Name"/>
+                            </ns1:Domain>
+                            <ns1:Interface>
+                                <xsl:value-of select="'ResolveFailure'"/>
+                            </ns1:Interface>
+                            <ns1:Version>
+                                <xsl:value-of select="1"/>
+                            </ns1:Version>
+                            <ns1:MethodCall>
+                                <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Constants/Channel/Inline"/>
+                            </ns1:MethodCall>
+                        </ns1:TechnicalInterface>
+                        <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:TargetSystem">
+                            <ns1:TargetSystem>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:TargetSystem"/>
+                            </ns1:TargetSystem>
+                        </xsl:if>
+                        <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:CreationTimestamp">
+                            <ns1:CreationTimestamp>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:CreationTimestamp"/>
+                            </ns1:CreationTimestamp>
+                        </xsl:if>
+                        <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:TimeOut">
+                            <ns1:TimeOut>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:TimeOut"/>
+                            </ns1:TimeOut>
+                        </xsl:if>
+                        <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:Tries">
+                            <ns1:Tries>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:Tries"/>
+                            </ns1:Tries>
+                        </xsl:if>
+                        <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:MaxTries">
+                            <ns1:MaxTries>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:MaxTries"/>
+                            </ns1:MaxTries>
+                        </xsl:if>
+                        <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:Repub">
+                            <ns1:Repub>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:Repub"/>
+                            </ns1:Repub>
+                        </xsl:if>
+                        <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:RepubTime">
+                            <ns1:RepubTime>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:RepubTime"/>
+                            </ns1:RepubTime>
+                        </xsl:if>
+                        <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:History"/>
+                        <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns1:Transport"/>
+                    </pfx:Header>
+                    <pfx:Body>
+                        <ns:ResolveFailure>
+                            <ns:OrderId>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns3:Request/ns3:OrderId"/>
+                            </ns:OrderId>
+                            <ns:Reason>
+                                <xsl:value-of select="''"/>
+                            </ns:Reason>
+                        </ns:ResolveFailure>
+                    </pfx:Body>
+                </pfx:RequestEAI>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Resolve Failure</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Resolve Failure</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

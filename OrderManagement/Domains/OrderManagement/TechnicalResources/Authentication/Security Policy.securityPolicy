@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource>
+    <name>Security Policy</name>
+    <resourceType>ws.security.policy.resource</resourceType>
+    <config>
+        <requiresAuthentication>true</requiresAuthentication>
+        <requiresConfidentiatlity>false</requiresConfidentiatlity>
+        <requiresIntegrity>false</requiresIntegrity>
+        <requiresMessageAge>false</requiresMessageAge>
+        <requiresCustomPassword>false</requiresCustomPassword>
+        <PolicyType>outbound</PolicyType>
+        <authentication>
+            <securityTokenType>UserNameToken</securityTokenType>
+            <passwordType>Text</passwordType>
+            <usernamePasswordIdentity>/Domains/OrderManagement/TechnicalResources/Authentication/OSM Identity.id</usernamePasswordIdentity>
+        </authentication>
+        <integrity>
+            <digestAlgorithm>SHA1</digestAlgorithm>
+            <securityTokenType>UserNameToken</securityTokenType>
+            <passwordType>Text</passwordType>
+            <usernamePasswordIdentity>/Resources/Authentication/OSM Identity.id</usernamePasswordIdentity>
+        </integrity>
+        <confidentiality>
+            <encryptionAlgorithm>3DES</encryptionAlgorithm>
+            <receiverPrivateKeyIdentifierType>X509Token</receiverPrivateKeyIdentifierType>
+        </confidentiality>
+        <authentication-securityTokenTypes>
+            <element value="UserNameToken" isSelected="true"/>
+            <element value="X509Token" isSelected="true"/>
+        </authentication-securityTokenTypes>
+        <integrity-securityTokenTypes>
+            <element value="UserNameToken" isSelected="true"/>
+            <element value="X509Token" isSelected="true"/>
+        </integrity-securityTokenTypes>
+        <integrity-digestAlgorithms>
+            <element value="SHA1" isSelected="true"/>
+            <element value="MD5" isSelected="true"/>
+            <element value="SHA256" isSelected="true"/>
+            <element value="SHA384" isSelected="true"/>
+            <element value="SHA512" isSelected="true"/>
+        </integrity-digestAlgorithms>
+        <confidentiality-encryptionAlgorithms>
+            <element value="3DES" isSelected="true"/>
+            <element value="AES-128" isSelected="true"/>
+            <element value="AES-256" isSelected="true"/>
+        </confidentiality-encryptionAlgorithms>
+    </config>
+</BWSharedResource>

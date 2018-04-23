@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <name>CDR Roaming Products</name>
+    <resourceType>ae.shared.sharedVariable</resourceType>
+    <config xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <persistent>false</persistent>
+        <multi-engine>false</multi-engine>
+        <initialValue>none</initialValue>
+        <xsdString>
+            <xsd:element name="ListOfCDRRoamingProducts">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="CDRRoamingProducts" minOccurs="0" maxOccurs="unbounded">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="ProductCatalogId" type="xsd:string"/>
+                                    <xsd:element name="BundleId" type="xsd:string"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsdString>
+    </config>
+</BWSharedResource>

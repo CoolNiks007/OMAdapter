@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://vodafone.com.tr/OrderManagement/Business/Siebel/SyncAccountData/v1"
+	 targetNamespace="http://vodafone.com.tr/OrderManagement/Business/Siebel/SyncAccountData/v1"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:complexType name="Request">
+		<xs:sequence>
+			<xs:element name="BillingAccount">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="AccountId" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="ExternalId" type="xs:string"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="CustomerId" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="ExternalId" type="xs:string"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Subscriber" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="MSISDN" type="xs:string"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:choice minOccurs="0">
+							<xs:element name="AddressData" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="AddressId" type="xs:string" minOccurs="0"/>
+										<xs:element name="AddressName" type="xs:string" minOccurs="0"/>
+										<xs:element name="AddressNum" type="xs:string" minOccurs="0"/>
+										<xs:element name="ApartmentBuildingNum" type="xs:string" minOccurs="0"/>
+										<xs:element name="City" type="xs:string" minOccurs="0"/>
+										<xs:element name="CountryCode" type="xs:string" default="792" minOccurs="0"/>
+										<xs:element name="CustomerState" type="xs:string" minOccurs="0"/>
+										<xs:element name="DistrictTown" type="xs:string" minOccurs="0"/>
+										<xs:element name="NeighborhoodVillage" type="xs:string" minOccurs="0"/>
+										<xs:element name="SitePlaza" type="xs:string" minOccurs="0"/>
+										<xs:element name="StreetType" type="xs:string" minOccurs="0"/>
+										<xs:element name="Zip" type="xs:string" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="ContactData" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Email" type="xs:string" minOccurs="0"/>
+										<xs:element name="FaxNumber" type="xs:string" minOccurs="0"/>
+										<xs:element name="FirstName" type="xs:string" minOccurs="0"/>
+										<xs:element name="LastName" type="xs:string" minOccurs="0"/>
+										<xs:element name="Phone" type="xs:string" minOccurs="0"/>
+										<xs:element name="WorkPhone" type="xs:string" minOccurs="0"/>
+										<xs:element name="PersonalId" type="xs:string" minOccurs="0"/>
+										<xs:element name="DontPrintBillToContact" type="xs:string" minOccurs="0"/>
+										<xs:element name="Type" type="xs:string" minOccurs="0"/>
+										<xs:element name="Birthdate" type="xs:string" minOccurs="0"/>
+										<xs:element name="Gender" type="xs:string" minOccurs="0"/>
+										<xs:element name="Nationality" type="xs:string" minOccurs="0"/>
+										<xs:element name="Title" type="xs:string" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:choice>
+						<xs:element name="CustomerData" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="LanguageCode" type="xs:string" minOccurs="0"/>
+									<xs:element name="Type" type="xs:string" minOccurs="0"/>
+									<xs:element name="PhysicalFlag" type="xs:string" minOccurs="0"/>
+									<xs:element name="TaxId" type="xs:string" minOccurs="0"/>
+									<xs:element name="AccountCategory" minOccurs="0">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="Segment" type="xs:string" minOccurs="0"/>
+												<xs:element name="Subclass" type="xs:string" minOccurs="0"/>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="TaxOffice" type="xs:string" minOccurs="0"/>
+									<xs:element name="Name" type="xs:string" minOccurs="0"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Request" type="Request"/>
+	<xs:element name="Response" type="Response"/>
+	<xs:complexType name="Response">
+		<xs:sequence>
+			<xs:element name="OrderId" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="SyncAccountDataRequest" type="SyncAccountDataRequest"/>
+	<xs:element name="SyncAccountDataResponse" type="SyncAccountDataResponse"/>
+	<xs:complexType name="SyncAccountDataRequest">
+		<xs:sequence>
+			<xs:element ref="Request"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SyncAccountDataResponse">
+		<xs:sequence>
+			<xs:element ref="Response" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

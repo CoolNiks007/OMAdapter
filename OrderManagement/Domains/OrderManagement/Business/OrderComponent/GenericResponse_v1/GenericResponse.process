@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentResponseInput/v1" xmlns:ns9="http://vodafone.com.tr/ServiceCatalog/Business/ServiceProvisioning/UpdateProvisioningOrder/v1" xmlns:ns5="urn:com:metasolv:oms:xmlapi:1" xmlns:ns6="http://vodafone.com.tr/ServiceCatalog/Business/ServiceProvisioning/CreateProvisioningOrder/v1" xmlns:ns7="http://vodafone.com.tr/ProvisioningManagement/Business/Siebel/ReceiveProvisioningResult/v1" xmlns:pfx="http://vodafone.com.tr/EAI/Common/RequestEAI" xmlns:ns8="http://vodafone.com.tr/ServiceCatalog/Business/SubscriberManagement/CreateSubscriberInfo/v1" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns1="http://vodafone.com.tr/ServiceCatalog/ServiceReply" xmlns:ns4="http://vodafone.com.tr/EAI/Common/Header" xmlns:ns3="http://vodafone.com.tr/EAI/Common/ResponseCodes" xmlns:pfx4="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/PipelineIterator/v1" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://www.tibco.com/schemas/OrderManagement/Domains/OrderManagement/BusinessResources/Schemas/OrderComponent/Schema.xsd" xmlns:pfx2="http://vodafone.com.tr/EAI/Common/ResponseEAI">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://vodafone.com.tr/EAI/Common/RequestEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/RequestEAI.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://vodafone.com.tr/EAI/Common/ResponseEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/ResponseEAI.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentResponseInput/v1" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OrderComponent/OrderComponentResponseInput.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://vodafone.com.tr/ServiceCatalog/ServiceReply" schemaLocation="/Domains/ServiceCatalog/BusinessResources/Schemas/ServiceReply.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="urn:com:metasolv:oms:xmlapi:1" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OSM/OSM_OperationResponse.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://vodafone.com.tr/ProvisioningManagement/Business/Siebel/ReceiveProvisioningResult/v1" schemaLocation="/Domains/ProvisioningManagement/Business/PRF/ReceiveProvisioningResult_v1/Schemas/ReceiveProvisioningResult.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://vodafone.com.tr/ServiceCatalog/Business/SubscriberManagement/CreateSubscriberInfo/v1" schemaLocation="/Domains/ServiceCatalog/Business/SubscriberManagement/CreateSubscriberInfo_v1/Schemas/CreateSubscriberInfo.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://vodafone.com.tr/ServiceCatalog/Business/ServiceProvisioning/UpdateProvisioningOrder/v1" schemaLocation="/Domains/ServiceCatalog/Business/ServiceProvisioning/UpdateProvisioningOrder_v1/Schemas/UpdateProvisioningOrder.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://vodafone.com.tr/ServiceCatalog/Business/ServiceProvisioning/CreateProvisioningOrder/v1" schemaLocation="/Domains/ServiceCatalog/Business/ServiceProvisioning/CreateProvisioningOrder_v1/Schemas/CreateProvisioningOrder.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/PipelineIterator/v1" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OrderComponent/PipelineIterator.xsd"/>
+    <pd:name>Domains/OrderManagement/Business/OrderComponent/GenericResponse_v1/GenericResponse.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="Input">
+            <xs:complexType>
+                <xs:sequence>
+                    <xs:element ref="pfx:RequestEAI"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:element>
+    </pd:startType>
+    <pd:startX>150</pd:startX>
+    <pd:startY>64</pd:startY>
+    <pd:returnCoercions>
+        <pd:coercion xpath="$Start/Input/pfx:RequestEAI/pfx:Body/*" element="ns:Request"/>
+    </pd:returnCoercions>
+    <pd:returnBindings>
+        <Output>
+            <pfx2:ResponseEAI>
+                <pfx2:Header>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ancestor-or-self::*/namespace::node()"/>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/@*"/>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/node()"/>
+                </pfx2:Header>
+                <pfx2:ResponseCodes>
+                    <ns3:ResponseCode>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ErrorCodes/Success"/>
+                    </ns3:ResponseCode>
+                </pfx2:ResponseCodes>
+                <pfx2:Body>
+                    <ns5:TelcoOperationResponse>
+                        <Id>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OcDetails/ns:Id"/>
+                        </Id>
+                        <Name>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OcDetails/ns:Name"/>
+                        </Name>
+                        <OrderId>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OcDetails/ns:OrderId"/>
+                        </OrderId>
+                        <StatusCode>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:ServiceReply/ns1:Header/ns3:ResponseCode"/>
+                        </StatusCode>
+                        <StatusMessage>
+                            <xsl:value-of select="tib:left(concat($Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:ServiceReply/ns1:Header/ns3:ResponseMsg,': ', $Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:ServiceReply/ns1:Header/ns3:ErrorDescription), 1000)"/>
+                        </StatusMessage>
+                        <xsl:if test="string-length($Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:ServiceReply/ns1:Body/ns1:ServiceReply/ns1:Header/ns3:Attributes/ns3:Attribute[ns3:Name = $_globalVariables/ns2:GlobalVariables/Domains/OrderManagement/OrderComponent/Constants/CurrentIterationValue]/ns3:Value)>0">
+                            <PipelineItem>
+                                <OperationName>
+                                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:ServiceReply/ns1:Body/ns1:ServiceReply/ns1:Header/ns3:Attributes/ns3:Attribute[ns3:Name = $_globalVariables/ns2:GlobalVariables/Domains/OrderManagement/OrderComponent/Constants/Name]/ns3:Value"/>
+                                </OperationName>
+                                <OperationId>
+                                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:ServiceReply/ns1:Body/ns1:ServiceReply/ns1:Header/ns3:Attributes/ns3:Attribute[ns3:Name = $_globalVariables/ns2:GlobalVariables/Domains/OrderManagement/OrderComponent/Constants/Id]/ns3:Value"/>
+                                </OperationId>
+                                <PipelineMessage>
+                                    <xsl:value-of select="tib:render-xml($Map-Data/pfx4:PipelineIterator)"/>
+                                </PipelineMessage>
+                            </PipelineItem>
+                        </xsl:if>
+                    </ns5:TelcoOperationResponse>
+                </pfx2:Body>
+            </pfx2:ResponseEAI>
+        </Output>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xs:element xmlns:xs="http://www.w3.org/2001/XMLSchema" name="Output">
+            <xs:complexType>
+                <xs:sequence>
+                    <xs:element ref="pfx2:ResponseEAI"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:element>
+    </pd:endType>
+    <pd:endX>447</pd:endX>
+    <pd:endY>62</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://vodafone.com.tr/1400495378282</pd:targetNamespace>
+    <pd:activity name="Map Data">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>295</pd:x>
+        <pd:y>144</pd:y>
+        <config>
+            <element ref="pfx4:PipelineIterator"/>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Start/Input/pfx:RequestEAI/pfx:Body/*" element="ns:Request"/>
+            <pd:coercion xpath="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:ServiceReply/ns1:Body/*" element="ns1:ServiceReply"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <pfx4:PipelineIterator>
+                <pfx4:CurrentIterationValue>
+                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:ServiceReply/ns1:Body/ns1:ServiceReply/ns1:Header/ns3:Attributes/ns3:Attribute[ns3:Name = $_globalVariables/ns2:GlobalVariables/Domains/OrderManagement/OrderComponent/Constants/CurrentIterationValue]/ns3:Value"/>
+                </pfx4:CurrentIterationValue>
+                <pfx4:CurrentIterationState>
+                    <xsl:value-of select="'Response'"/>
+                </pfx4:CurrentIterationState>
+            </pfx4:PipelineIterator>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Map Data</pd:to>
+        <pd:xpathDescription>HasIterator</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:ServiceReply/ns1:Body/ns1:ServiceReply/ns1:Header/ns3:Attributes/ns3:Attribute[ns3:Name = $_globalVariables/ns2:GlobalVariables/Domains/OrderManagement/OrderComponent/Constants/CurrentIterationValue]/ns3:Value) &gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map Data</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

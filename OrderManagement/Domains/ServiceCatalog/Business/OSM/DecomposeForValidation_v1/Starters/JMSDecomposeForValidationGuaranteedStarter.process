@@ -1,0 +1,725 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:ns5="http://vodafone.com.tr/EAI/ServiceCatalog" xmlns:eai="java://com.telco.eai.EAIFunctions" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/pe/EngineTypes" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns4="http://vodafone.com.tr/EAI/Logging" xmlns:ns3="http://vodafone.com.tr/EAI/Common/ResponseCodes" xmlns:ns0="http://www.tibco.com/pe/CheckpointSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx4="http://vodafone.com.tr/EAI/Common/Header" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx8="http://vodafone.com.tr/ServiceCatalog/ServiceReply" xmlns:pfx7="http://vodafone.com.tr/ServiceCatalog/ServiceRequest">
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" schemaLocation="/Domains/ServiceCatalog/BusinessResources/Schemas/ServiceRequest.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/ServiceReply" schemaLocation="/Domains/ServiceCatalog/BusinessResources/Schemas/ServiceReply.xsd"/>
+    <pd:name>Domains/ServiceCatalog/Business/OSM/DecomposeForValidation_v1/Starters/JMSDecomposeForValidationGuaranteedStarter.process</pd:name>
+    <pd:startName>JMS Queue Receiver</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings/>
+    <pd:starter name="JMS Queue Receiver">
+        <pd:type>com.tibco.plugin.jms.JMSQueueEventSource</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueEventSource</pd:resourceType>
+        <pd:x>65</pd:x>
+        <pd:y>164</pd:y>
+        <config>
+            <PermittedMessageType>Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>2</acknowledgeMode>
+                <maxSessions>%%Transport/JMS/MaxSessions%%</maxSessions>
+                <destination>%%Constants/Company%%.%%Constants/ProjectName%%.%%Domains/ServiceCatalog/Name%%.%%Engines/TargetApplication%%.%%Constants/Layer/Business%%.%%Constants/QOS/Guarantee%%.%%Constants/RequestType/Request%%.DecomposeForValidation_v1</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/GlobalCommonResources/Connections/JMS/JMS EAI Connection.sharedjmscon</ConnectionReference>
+            <ApplicationProperties>/GlobalCommonResources/Connections/JMS/JMS EAI Properties.sharedjmsapp</ApplicationProperties>
+        </config>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>1110</pd:endX>
+    <pd:endY>322</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <ServiceReply ref="pfx8:ServiceReply"/>
+    </pd:processVariables>
+    <pd:targetNamespace>http://vodafone.com.tr/1400176762110</pd:targetNamespace>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>151</pd:x>
+        <pd:y>73</pd:y>
+        <pd:width>321</pd:width>
+        <pd:height>164</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>simpleGroup</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>Confirm</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Parse XML</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Confirm</pd:from>
+            <pd:to>Parse XML</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="Confirm">
+            <pd:type>com.tibco.pe.core.ConfirmActivity</pd:type>
+            <pd:resourceType>activity.confirm</pd:resourceType>
+            <pd:x>250</pd:x>
+            <pd:y>149</pd:y>
+            <config>
+                <ConfirmEvent>JMS Queue Receiver</ConfirmEvent>
+            </config>
+            <pd:inputBindings/>
+        </pd:activity>
+        <pd:activity name="Parse XML">
+            <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+            <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+            <pd:x>380</pd:x>
+            <pd:y>151</pd:y>
+            <config>
+                <inputStyle>text</inputStyle>
+                <xsdVersion>default</xsdVersion>
+                <validateOutput>true</validateOutput>
+                <term ref="pfx7:ServiceRequest"/>
+            </config>
+            <pd:inputBindings>
+                <xmlString>
+                    <xsl:value-of select="$JMS-Queue-Receiver/ns:ActivityOutput/Body"/>
+                </xmlString>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:activity name="Logger [ERROR]">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>612</pd:x>
+        <pd:y>472</pd:y>
+        <config>
+            <processName>/GlobalCommonResources/Processes/Logging/Logger.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <ns4:LogMessage>
+                    <xsl:choose>
+                        <xsl:when test="string-length($Parse-XML/pfx7:ServiceRequest/pfx7:Header/pfx4:SourceSystem)>0">
+                            <ns4:Source>
+                                <xsl:value-of select="$Parse-XML/pfx7:ServiceRequest/pfx7:Header/pfx4:SourceSystem"/>
+                            </ns4:Source>
+                        </xsl:when>
+                        <xsl:when test="exists($Parse-Invalid-Request/pfx7:ServiceRequest/pfx7:Header/pfx4:SourceSystem)">
+                            <xsl:if test="$Parse-Invalid-Request/pfx7:ServiceRequest/pfx7:Header/pfx4:SourceSystem">
+                                <ns4:Source>
+                                    <xsl:value-of select="$Parse-Invalid-Request/pfx7:ServiceRequest/pfx7:Header/pfx4:SourceSystem"/>
+                                </ns4:Source>
+                            </xsl:if>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <ns4:Source>
+                                <xsl:value-of select="&quot;UNKNOWN&quot;"/>
+                            </ns4:Source>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:choose>
+                        <xsl:when test="exists($GetServiceAttributes/Output/Service/ns5:TargetSystem)">
+                            <xsl:if test="$GetServiceAttributes/Output/Service/ns5:TargetSystem">
+                                <ns4:Target>
+                                    <xsl:value-of select="$GetServiceAttributes/Output/Service/ns5:TargetSystem"/>
+                                </ns4:Target>
+                            </xsl:if>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <ns4:Target>
+                                <xsl:value-of select="'UNKNOWN'"/>
+                            </ns4:Target>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <ns4:ProcessId>
+                        <xsl:value-of select="$_processContext/ns2:ProcessContext/ProcessId"/>
+                    </ns4:ProcessId>
+                    <ns4:Process>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns2:ProcessContext/ProcessId)"/>
+                    </ns4:Process>
+                    <ns4:Service>
+                        <xsl:value-of select="$ServiceReply/pfx8:ServiceReply/pfx8:Header/ns3:Service"/>
+                    </ns4:Service>
+                    <ns4:Operation>
+                        <xsl:value-of select="$ServiceReply/pfx8:ServiceReply/pfx8:Header/ns3:Operation"/>
+                    </ns4:Operation>
+                    <xsl:choose>
+                        <xsl:when test="string-length($ServiceReply/pfx8:ServiceReply/pfx8:Header/ns3:RequestId)>0">
+                            <ns4:MsgId>
+                                <xsl:value-of select="$ServiceReply/pfx8:ServiceReply/pfx8:Header/ns3:RequestId"/>
+                            </ns4:MsgId>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <ns4:MsgId>
+                                <xsl:value-of select="eai:getUID()"/>
+                            </ns4:MsgId>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <ns4:Type>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Logging/Roles/ErrorRoleName"/>
+                    </ns4:Type>
+                    <ns4:Task>
+                        <xsl:value-of select="tib:substring-after-last($_error/ns2:ErrorReport/ProcessStack, &quot;/&quot;)"/>
+                    </ns4:Task>
+                    <ns4:Description>
+                        <xsl:value-of select="$ServiceReply/pfx8:ServiceReply/pfx8:Header/ns3:ErrorDescription"/>
+                    </ns4:Description>
+                    <ns4:ErrorDump>
+                        <xsl:value-of select="$_error/ns2:ErrorReport/StackTrace"/>
+                    </ns4:ErrorDump>
+                    <ns4:ErrorCode>
+                        <xsl:value-of select="$ServiceReply/pfx8:ServiceReply/pfx8:Header/ns3:ErrorCode"/>
+                    </ns4:ErrorCode>
+                    <ns4:ResponseCode>
+                        <xsl:value-of select="$ServiceReply/pfx8:ServiceReply/pfx8:Header/ns3:ResponseCode"/>
+                    </ns4:ResponseCode>
+                    <ns4:MessageBody>
+                        <xsl:value-of select="$JMS-Queue-Receiver/ns:ActivityOutput/Body"/>
+                    </ns4:MessageBody>
+                    <xsl:choose>
+                        <xsl:when test="string-length($Parse-XML/pfx7:ServiceRequest/pfx7:Header/pfx4:CorrelationId)>0">
+                            <xsl:if test="$Parse-XML/pfx7:ServiceRequest/pfx7:Header/pfx4:CorrelationId">
+                                <ns4:CorrelationId>
+                                    <xsl:value-of select="$Parse-XML/pfx7:ServiceRequest/pfx7:Header/pfx4:CorrelationId"/>
+                                </ns4:CorrelationId>
+                            </xsl:if>
+                        </xsl:when>
+                        <xsl:when test="exists($Parse-Invalid-Request/pfx7:ServiceRequest/pfx7:Header/pfx4:CorrelationId)">
+                            <xsl:if test="$Parse-Invalid-Request/pfx7:ServiceRequest/pfx7:Header/pfx4:CorrelationId">
+                                <ns4:CorrelationId>
+                                    <xsl:value-of select="$Parse-Invalid-Request/pfx7:ServiceRequest/pfx7:Header/pfx4:CorrelationId"/>
+                                </ns4:CorrelationId>
+                            </xsl:if>
+                        </xsl:when>
+                    </xsl:choose>
+                    <xsl:choose>
+                        <xsl:when test="string-length($Parse-XML/pfx7:ServiceRequest/pfx7:Header/pfx4:Credentials[1]/pfx4:User)>0">
+                            <ns4:UserName>
+                                <xsl:value-of select="$Parse-XML/pfx7:ServiceRequest/pfx7:Header/pfx4:Credentials[1]/pfx4:User"/>
+                            </ns4:UserName>
+                        </xsl:when>
+                        <xsl:when test="exists($Parse-Invalid-Request/pfx7:ServiceRequest/pfx7:Header/pfx4:Credentials[1]/pfx4:User)">
+                            <xsl:if test="$Parse-Invalid-Request/pfx7:ServiceRequest/pfx7:Header/pfx4:Credentials[1]/pfx4:User">
+                                <ns4:UserName>
+                                    <xsl:value-of select="$Parse-Invalid-Request/pfx7:ServiceRequest/pfx7:Header/pfx4:Credentials[1]/pfx4:User"/>
+                                </ns4:UserName>
+                            </xsl:if>
+                        </xsl:when>
+                    </xsl:choose>
+                    <ns4:Version>
+                        <xsl:value-of select="$ServiceReply/pfx8:ServiceReply/pfx8:Header/ns3:Version"/>
+                    </ns4:Version>
+                </ns4:LogMessage>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Assign Error">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>612</pd:x>
+        <pd:y>318</pd:y>
+        <config>
+            <variableName>ServiceReply</variableName>
+        </config>
+        <pd:inputBindings>
+            <pfx8:ServiceReply>
+                <pfx8:Header>
+                    <ns3:ResponseCode>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/UnspecifiedError"/>
+                    </ns3:ResponseCode>
+                    <ns3:ResponseMsg>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/UnspecifiedErrorDescription"/>
+                    </ns3:ResponseMsg>
+                    <ns3:ErrorCode>
+                        <xsl:value-of select="$_error/ns2:ErrorReport/MsgCode"/>
+                    </ns3:ErrorCode>
+                    <ns3:ErrorDescription>
+                        <xsl:value-of select="$_error/ns2:ErrorReport/Msg"/>
+                    </ns3:ErrorDescription>
+                    <xsl:if test="$Parse-XML/pfx7:ServiceRequest/pfx7:Header/pfx4:RequestId">
+                        <ns3:RequestId>
+                            <xsl:value-of select="$Parse-XML/pfx7:ServiceRequest/pfx7:Header/pfx4:RequestId"/>
+                        </ns3:RequestId>
+                    </xsl:if>
+                    <xsl:if test="tib:tokenize(namespace-uri($Parse-XML/pfx7:ServiceRequest/pfx7:Body/*), &quot;/&quot;)[5]">
+                        <ns3:Service>
+                            <xsl:value-of select="tib:tokenize(namespace-uri($Parse-XML/pfx7:ServiceRequest/pfx7:Body/*), &quot;/&quot;)[5]"/>
+                        </ns3:Service>
+                    </xsl:if>
+                    <xsl:if test="tib:tokenize(namespace-uri($Parse-XML/pfx7:ServiceRequest/pfx7:Body/*), &quot;/&quot;)[6]">
+                        <ns3:Operation>
+                            <xsl:value-of select="tib:tokenize(namespace-uri($Parse-XML/pfx7:ServiceRequest/pfx7:Body/*), &quot;/&quot;)[6]"/>
+                        </ns3:Operation>
+                    </xsl:if>
+                    <xsl:if test="tib:tokenize(namespace-uri($Parse-XML/pfx7:ServiceRequest/pfx7:Body/*), &quot;/&quot;)[7]">
+                        <ns3:Version>
+                            <xsl:value-of select="substring-after(tib:tokenize(namespace-uri($Parse-XML/pfx7:ServiceRequest/pfx7:Body/*), &quot;/&quot;)[7],'v')"/>
+                        </ns3:Version>
+                    </xsl:if>
+                </pfx8:Header>
+            </pfx8:ServiceReply>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Null">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>779</pd:x>
+        <pd:y>322</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Assign Success">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>780</pd:x>
+        <pd:y>163</pd:y>
+        <config>
+            <variableName>ServiceReply</variableName>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$ProcessDispatcher/Output/pfx8:ServiceReply"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="ProcessDispatcher">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>607</pd:x>
+        <pd:y>159</pd:y>
+        <config>
+            <processName>/Domains/ServiceCatalog/BusinessResources/Processes/ProcessDispatcher.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <xsl:copy-of select="$Parse-XML/pfx7:ServiceRequest"/>
+                <Transport>
+                    <xsl:if test="$JMS-Queue-Receiver/ns:ActivityOutput/JMSHeaders/ns:JMSReplyTo">
+                        <ReplyTo>
+                            <xsl:value-of select="$JMS-Queue-Receiver/ns:ActivityOutput/JMSHeaders/ns:JMSReplyTo"/>
+                        </ReplyTo>
+                    </xsl:if>
+                    <xsl:if test="$JMS-Queue-Receiver/ns:ActivityOutput/JMSHeaders/ns:JMSDestination">
+                        <Destination>
+                            <xsl:value-of select="$JMS-Queue-Receiver/ns:ActivityOutput/JMSHeaders/ns:JMSDestination"/>
+                        </Destination>
+                    </xsl:if>
+                    <xsl:if test="$JMS-Queue-Receiver/ns:ActivityOutput/JMSHeaders/ns:JMSMessageID">
+                        <MessageId>
+                            <xsl:value-of select="$JMS-Queue-Receiver/ns:ActivityOutput/JMSHeaders/ns:JMSMessageID"/>
+                        </MessageId>
+                    </xsl:if>
+                </Transport>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="JMS Queue Sender">
+        <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+        <pd:x>942</pd:x>
+        <pd:y>224</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/GlobalCommonResources/Connections/JMS/JMS EAI Connection.sharedjmscon</ConnectionReference>
+            <ApplicationProperties>/GlobalCommonResources/Connections/JMS/JMS EAI Properties.sharedjmsapp</ApplicationProperties>
+            <InDataxsdString ref="pfx8:ServiceReply"/>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <xsl:choose>
+                    <xsl:when test="string-length($JMS-Queue-Receiver/ns:ActivityOutput/JMSHeaders/ns:JMSReplyTo)>0">
+                        <destinationQueue>
+                            <xsl:value-of select="$JMS-Queue-Receiver/ns:ActivityOutput/JMSHeaders/ns:JMSReplyTo"/>
+                        </destinationQueue>
+                    </xsl:when>
+                    <xsl:when test="string-length($Parse-XML/pfx7:ServiceRequest/pfx7:Header/pfx4:ProxySystem)>0">
+                        <destinationQueue>
+                            <xsl:value-of select="concat($_globalVariables/ns1:GlobalVariables/Constants/Company,'.',$_globalVariables/ns1:GlobalVariables/Constants/ProjectName,'.',$_globalVariables/ns1:GlobalVariables/Domains/ServiceCatalog/Name,'.',$_globalVariables/ns1:GlobalVariables/Constants/Layer/Business,'.',$_globalVariables/ns1:GlobalVariables/Constants/QOS/Guarantee,'.', $_globalVariables/ns1:GlobalVariables/Constants/RequestType/Reply,'.',$Parse-XML/pfx7:ServiceRequest/pfx7:Header/pfx4:ProxySystem)"/>
+                        </destinationQueue>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <destinationQueue>
+                            <xsl:value-of select="concat($_globalVariables/ns1:GlobalVariables/Constants/Company,'.',$_globalVariables/ns1:GlobalVariables/Constants/ProjectName ,'.',$_globalVariables/ns1:GlobalVariables/Domains/ServiceCatalog/Name,'.',$_globalVariables/ns1:GlobalVariables/Constants/Layer/Business,'.',$_globalVariables/ns1:GlobalVariables/Constants/QOS/Guarantee,'.', $_globalVariables/ns1:GlobalVariables/Constants/RequestType/Reply,'.',$Parse-XML/pfx7:ServiceRequest/pfx7:Header/pfx4:SourceSystem)"/>
+                        </destinationQueue>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:if test="$JMS-Queue-Receiver/ns:ActivityOutput/JMSHeaders/ns:JMSMessageID">
+                    <JMSCorrelationID>
+                        <xsl:value-of select="$JMS-Queue-Receiver/ns:ActivityOutput/JMSHeaders/ns:JMSMessageID"/>
+                    </JMSCorrelationID>
+                </xsl:if>
+                <OtherProperties>
+                    <CorrelationId>
+                        <xsl:value-of select="$Parse-XML/pfx7:ServiceRequest/pfx7:Header/pfx4:CorrelationId"/>
+                    </CorrelationId>
+                    <Service>
+                        <xsl:value-of select="tib:tokenize(namespace-uri($Parse-XML/pfx7:ServiceRequest/pfx7:Body/*), &quot;/&quot;)[6]"/>
+                    </Service>
+                </OtherProperties>
+                <Body>
+                    <xsl:copy-of select="$ServiceReply/pfx8:ServiceReply"/>
+                </Body>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Assign Error Invalid Parameters">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>441</pd:x>
+        <pd:y>326</pd:y>
+        <config>
+            <variableName>ServiceReply</variableName>
+        </config>
+        <pd:inputBindings>
+            <pfx8:ServiceReply>
+                <pfx8:Header>
+                    <ns3:ResponseCode>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/InvalidInputParameters"/>
+                    </ns3:ResponseCode>
+                    <ns3:ResponseMsg>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/InvalidInputParametersDescription"/>
+                    </ns3:ResponseMsg>
+                    <ns3:ErrorCode>
+                        <xsl:value-of select="$_error/ns2:ErrorReport/MsgCode"/>
+                    </ns3:ErrorCode>
+                    <ns3:ErrorDescription>
+                        <xsl:value-of select="$_error/ns2:ErrorReport/Msg"/>
+                    </ns3:ErrorDescription>
+                    <xsl:if test="$Parse-Invalid-Request/pfx7:ServiceRequest/pfx7:Header/pfx4:RequestId">
+                        <ns3:RequestId>
+                            <xsl:value-of select="$Parse-Invalid-Request/pfx7:ServiceRequest/pfx7:Header/pfx4:RequestId"/>
+                        </ns3:RequestId>
+                    </xsl:if>
+                    <xsl:if test="$GetServiceAttributes/Output/Service/ns5:ProjectName">
+                        <ns3:Domain>
+                            <xsl:value-of select="$GetServiceAttributes/Output/Service/ns5:ProjectName"/>
+                        </ns3:Domain>
+                    </xsl:if>
+                    <xsl:choose xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                        <xsl:when test="exists($GetServiceAttributes/Output/Service/ns5:ServiceName)">
+                            <xsl:if test="$GetServiceAttributes/Output/Service/ns5:ServiceName">
+                                <ns3:Service>
+                                    <xsl:value-of select="$GetServiceAttributes/Output/Service/ns5:ServiceName"/>
+                                </ns3:Service>
+                            </xsl:if>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <ns3:Service>
+                                <xsl:value-of select="'UNKNOWN'"/>
+                            </ns3:Service>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:choose xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                        <xsl:when test="exists($GetServiceAttributes/Output/Service/ns5:OperationName)">
+                            <xsl:if test="$GetServiceAttributes/Output/Service/ns5:OperationName">
+                                <ns3:Operation>
+                                    <xsl:value-of select="$GetServiceAttributes/Output/Service/ns5:OperationName"/>
+                                </ns3:Operation>
+                            </xsl:if>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <ns3:Operation>
+                                <xsl:value-of select="'UNKNOWN'"/>
+                            </ns3:Operation>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:choose xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                        <xsl:when test="exists($GetServiceAttributes/Output/Service/ns5:Version)">
+                            <xsl:if test="$GetServiceAttributes/Output/Service/ns5:Version">
+                                <ns3:Version>
+                                    <xsl:value-of select="$GetServiceAttributes/Output/Service/ns5:Version"/>
+                                </ns3:Version>
+                            </xsl:if>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <ns3:Version>
+                                <xsl:value-of select="'0'"/>
+                            </ns3:Version>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </pfx8:Header>
+            </pfx8:ServiceReply>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Assign Service Project Mismatch">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>444</pd:x>
+        <pd:y>478</pd:y>
+        <config>
+            <variableName>ServiceReply</variableName>
+        </config>
+        <pd:inputBindings>
+            <pfx8:ServiceReply>
+                <pfx8:Header>
+                    <ns3:ResponseCode>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/ServiceNotFound"/>
+                    </ns3:ResponseCode>
+                    <ns3:ResponseMsg>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/ServiceNotFoundDescription"/>
+                    </ns3:ResponseMsg>
+                    <ns3:ErrorDescription>
+                        <xsl:value-of select="'This service does not belong to this project.'"/>
+                    </ns3:ErrorDescription>
+                    <xsl:if test="$Parse-Invalid-Request/pfx7:ServiceRequest/pfx7:Header/pfx4:RequestId">
+                        <ns3:RequestId>
+                            <xsl:value-of select="$Parse-Invalid-Request/pfx7:ServiceRequest/pfx7:Header/pfx4:RequestId"/>
+                        </ns3:RequestId>
+                    </xsl:if>
+                    <ns3:Domain>
+                        <xsl:value-of select="$GetServiceAttributes/Output/Service/ns5:ProjectName"/>
+                    </ns3:Domain>
+                    <ns3:Service>
+                        <xsl:value-of select="$GetServiceAttributes/Output/Service/ns5:ServiceName"/>
+                    </ns3:Service>
+                    <ns3:Operation>
+                        <xsl:value-of select="$GetServiceAttributes/Output/Service/ns5:OperationName"/>
+                    </ns3:Operation>
+                    <ns3:Version>
+                        <xsl:value-of select="$GetServiceAttributes/Output/Service/ns5:Version"/>
+                    </ns3:Version>
+                </pfx8:Header>
+            </pfx8:ServiceReply>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetServiceAttributes">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>316</pd:x>
+        <pd:y>469</pd:y>
+        <config>
+            <processName>/GlobalCommonResources/Processes/ServiceCatalog/GetServiceAttributes.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <Service>
+                    <xsl:value-of select="tib:tokenize(namespace-uri($Parse-Invalid-Request/pfx7:ServiceRequest/pfx7:Body/*), &quot;/&quot;)[5]"/>
+                </Service>
+                <Operation>
+                    <xsl:value-of select="tib:tokenize(namespace-uri($Parse-Invalid-Request/pfx7:ServiceRequest/pfx7:Body/*), &quot;/&quot;)[6]"/>
+                </Operation>
+                <Version>
+                    <xsl:value-of select="substring-after(tib:tokenize(namespace-uri($Parse-Invalid-Request/pfx7:ServiceRequest/pfx7:Body/*), &quot;/&quot;)[7],'v')"/>
+                </Version>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Assign Service Not Found">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>440</pd:x>
+        <pd:y>620</pd:y>
+        <config>
+            <variableName>ServiceReply</variableName>
+        </config>
+        <pd:inputBindings>
+            <pfx8:ServiceReply>
+                <pfx8:Header>
+                    <ns3:ResponseCode>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/ServiceNotFound"/>
+                    </ns3:ResponseCode>
+                    <ns3:ResponseMsg>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/ServiceNotFoundDescription"/>
+                    </ns3:ResponseMsg>
+                    <xsl:if test="$Parse-Invalid-Request/pfx7:ServiceRequest/pfx7:Header/pfx4:RequestId">
+                        <ns3:RequestId>
+                            <xsl:value-of select="$Parse-Invalid-Request/pfx7:ServiceRequest/pfx7:Header/pfx4:RequestId"/>
+                        </ns3:RequestId>
+                    </xsl:if>
+                    <ns3:Service>
+                        <xsl:value-of select="'UNKNOWN'"/>
+                    </ns3:Service>
+                    <ns3:Operation>
+                        <xsl:value-of select="'UNKNOWN'"/>
+                    </ns3:Operation>
+                    <ns3:Version>
+                        <xsl:value-of select="'0'"/>
+                    </ns3:Version>
+                </pfx8:Header>
+            </pfx8:ServiceReply>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Parse Invalid Request">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>314</pd:x>
+        <pd:y>326</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>false</validateOutput>
+            <term ref="pfx7:ServiceRequest"/>
+        </config>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$JMS-Queue-Receiver/ns:ActivityOutput/Body"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>JMS Queue Receiver</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>ProcessDispatcher</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>Parse Invalid Request</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-65536</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign Error</pd:from>
+        <pd:to>Logger [ERROR]</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Logger [ERROR]</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign Success</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ProcessDispatcher</pd:from>
+        <pd:to>Assign Success</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ProcessDispatcher</pd:from>
+        <pd:to>Assign Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-65536</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>JMS Queue Sender</pd:to>
+        <pd:xpathDescription>Reply</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$Parse-XML/pfx7:ServiceRequest/pfx7:Header/pfx4:ReplyExpected!=$_globalVariables/ns1:GlobalVariables/Constants/Reply/No and $ProcessDispatcher/Output/pfx8:ServiceReply/pfx8:Header/ns3:ResponseCode!=$_globalVariables/ns1:GlobalVariables/ErrorCodes/RequestRetry
+and
+$ServiceReply/pfx8:ServiceReply/pfx8:Header/ns3:ResponseCode!=$_globalVariables/ns1:GlobalVariables/ErrorCodes/NoNotify
+or
+string-length($_error/ns2:ErrorReport)&gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>JMS Queue Sender</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign Error Invalid Parameters</pd:from>
+        <pd:to>Logger [ERROR]</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign Service Project Mismatch</pd:from>
+        <pd:to>Logger [ERROR]</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign Service Not Found</pd:from>
+        <pd:to>Logger [ERROR]</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetServiceAttributes</pd:from>
+        <pd:to>Assign Service Project Mismatch</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse Invalid Request</pd:from>
+        <pd:to>GetServiceAttributes</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetServiceAttributes</pd:from>
+        <pd:to>Assign Error Invalid Parameters</pd:to>
+        <pd:xpathDescription>valid service</pd:xpathDescription>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$_globalVariables/ns1:GlobalVariables/Constants/ProjectName=$GetServiceAttributes/Output/Service/ns5:ProjectName</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetServiceAttributes</pd:from>
+        <pd:to>Assign Service Not Found</pd:to>
+        <pd:lineType>Straight</pd:lineType>
+        <pd:lineColor>-65536</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse Invalid Request</pd:from>
+        <pd:to>Assign Error Invalid Parameters</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-65536</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

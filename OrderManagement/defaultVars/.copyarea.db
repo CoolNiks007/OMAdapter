@@ -1,0 +1,15 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\defaultVars
+2
+b
+8:Database|2|0|0|0|1abf0467246b458e9b0ea34f3274d0f7|0
+7:Logging|2|0|0|0|a21f3bc96dcc4f5da2d54c80a492e6a2|0
+9:Constants|2|0|0|0|dd09942ec4fb41f282bae5d98968a05c|0
+d:ReferenceData|2|0|0|0|440e6628986441fb95ee1c0fe3be6bc0|0
+7:Engines|2|0|0|0|dfcbd70d00dc433b8487d3dcb5c52c19|0
+7:Domains|2|0|0|0|1e322e5fb8f64763b114ebda17f20243|0
+14:defaultVars.substvar|1|162d7ae9691|11d4|ea78a225|cef87f6304c840afb96d85f554e8ba20|0
+9:Transport|2|0|0|0|ef8d42609dc745cb967a12f2fd4cbdca|0
+8:Defaults|2|0|0|0|cebeea56d47b4e67af5b5d6c1a66b906|0
+9:Republish|2|0|0|0|94d9f5c77fb3481ea7e506331015130d|0
+a:ErrorCodes|2|0|0|0|7250f040fecf44b78c771c89a4b2fe25|0

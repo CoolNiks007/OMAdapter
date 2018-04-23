@@ -1,0 +1,8 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\BusinessResources\Schemas\OrderComponent
+2
+4
+14:PipelineIterator.xsd|1|162d7aeed19|35c|c2eb16ff|58944134928e45beb76523442b45e272|0
+1f:OrderComponentResponseInput.xsd|1|162d7aeed19|630|8d6008df|0565ac2cb1da4f7c8242deae0e33a0a3|0
+1e:OrderComponentRequestInput.xsd|1|162d7aeed0a|a07|c28edd78|fcb9a7307e284ab990b603564cf35f0c|0
+7:.folder|1|162d7aeed0a|187|6e8486bd|d6356eb206ac432ea302770fe0b84aa2|0

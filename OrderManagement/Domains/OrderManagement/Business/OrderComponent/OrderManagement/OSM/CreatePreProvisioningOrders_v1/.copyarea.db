@@ -1,0 +1,7 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\Business\OrderComponent\OrderManagement\OSM\CreatePreProvisioningOrders_v1
+2
+3
+2c:CreatePreProvisioningOrders_Response.process|1|162d7aedad1|1645|8348cf77|f0cc17d3b26448dbac1afd6fd587b8b6|0
+23:CreatePreProvisioningOrders.process|1|162d7aedac2|74ed|39c990ab|e61f5f1e2d55427790cf7bd09bffef4c|0
+7:.folder|1|162d7aedab2|197|c14e8d05|18dfb530b6be4be8bce7659570adfe4f|0

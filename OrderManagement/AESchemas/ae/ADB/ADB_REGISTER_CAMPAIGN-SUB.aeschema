@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns="http://www.tibco.com/xmlns/aemeta/types/2002" xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <designer>
+        <lockedProperties>
+            <locked>
+                <resource>/Classes/EX_VFTR_CAMPAIGN_OPAQUE</resource>
+                <properties>superClassReference</properties>
+            </locked>
+            <locked>
+                <resource>/Classes/%ADB_OPAQUE_EXCP</resource>
+                <properties>name,superClassReference</properties>
+            </locked>
+        </lockedProperties>
+        <fixedChildren/>
+        <resourceDescriptions/>
+    </designer>
+    <class name="VFTR_CAMPAIGN_REQUEST">
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>ID</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+            <isKey>true</isKey>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>ORDER_ID</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+            <isKey>false</isKey>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>MESSAGE_ID</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+            <isKey>false</isKey>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>ERROR_CODE</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+            <isKey>false</isKey>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>ERROR_MESSAGE</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+            <isKey>false</isKey>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>ADB_OPCODE</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.i4</attributeType>
+            <isKey>false</isKey>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>ADB_TRACKINGID</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+            <isKey>false</isKey>
+        </attribute>
+    </class>
+    <class name="VFTR_CAMPAIGN_REQUEST_GROUP">
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>ADB_ROW</name>
+            <attributeType isRef="true">/AESchemas/ae/ADB/ADB_REGISTER_CAMPAIGN-SUB.aeschema#sequence.sequence[VFTR_CAMPAIGN_REQUEST]</attributeType>
+        </attribute>
+    </class>
+    <sequence name="sequence[VFTR_CAMPAIGN_REQUEST]">
+        <elementType isRef="true">/AESchemas/ae/ADB/ADB_REGISTER_CAMPAIGN-SUB.aeschema#class.VFTR_CAMPAIGN_REQUEST</elementType>
+    </sequence>
+    <class name="EX_VFTR_CAMPAIGN">
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>ID</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+            <isKey>true</isKey>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>ORDER_ID</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+            <isKey>false</isKey>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>MESSAGE_ID</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+            <isKey>false</isKey>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>ERROR_CODE</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+            <isKey>false</isKey>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>ERROR_MESSAGE</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+            <isKey>false</isKey>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>ADB_TRACKINGID</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+            <isKey>false</isKey>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>ADB_OPCODE</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.i4</attributeType>
+            <isKey>false</isKey>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>ADB_UPDATE_ALL</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.i4</attributeType>
+            <isKey>false</isKey>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>ADB_ERROR_TEXT</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+            <isKey>false</isKey>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>ADB_JOIN_ID</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+            <isKey>false</isKey>
+        </attribute>
+    </class>
+    <class name="%ADB_OPAQUE_EXCP">
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>ADB_SUBTAB</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+            <isKey>false</isKey>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>ADB_TRACKINGID</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+            <isKey>false</isKey>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>ADB_ERROR_TEXT</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+            <isKey>false</isKey>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>ADB_SUBJECT</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.string</attributeType>
+            <isKey>false</isKey>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>ADB_TRANSPORT</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.i4</attributeType>
+            <isKey>false</isKey>
+        </attribute>
+        <attribute>
+            <isReadable>true</isReadable>
+            <isWriteable>true</isWriteable>
+            <name>ADB_MSG</name>
+            <attributeType isRef="true">/AESchemas/ae.aeschema#scalar.binary</attributeType>
+            <isKey>false</isKey>
+        </attribute>
+    </class>
+    <class name="EX_VFTR_CAMPAIGN_OPAQUE">
+        <superclass isRef="true">#class.%ADB_OPAQUE_EXCP</superclass>
+    </class>
+</Repository:repository>

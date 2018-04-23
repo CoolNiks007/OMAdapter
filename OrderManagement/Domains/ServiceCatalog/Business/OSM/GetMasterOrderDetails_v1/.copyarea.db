@@ -1,0 +1,9 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\ServiceCatalog\Business\OSM\GetMasterOrderDetails_v1
+2
+5
+d:SOAPInterface|2|0|0|0|fc3e47705ce64d889ed730d0548d606f|0
+1d:GetMasterOrderDetails.process|1|162d7af119a|3dd9|64266401|407539bef5a443228c86fba4508142a3|0
+8:Starters|2|0|0|0|cae77e1a3d3f4274bfad3d60776382ea|0
+7:Schemas|2|0|0|0|8228a348c32446ae84b529b58854c876|0
+7:.folder|1|162d7af118a|191|fb088a62|4b61e883fcaf4939bb9fcd74afc43f65|0

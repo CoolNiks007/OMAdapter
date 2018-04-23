@@ -1,0 +1,8 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\BusinessResources\Processes\TO2FGlobalData
+2
+4
+18:DeleteGlobalData.process|1|162d7aeeaf7|2d2e|bde75c72|ebc4356d106b426188d57ee509d5783d|0
+15:GetGlobalData.process|1|162d7aeeb07|40b9|2ee0f610|6e3b536e570b436dae531c9488fe2ffb|0
+18:UpsertGlobalData.process|1|162d7aeeb36|3523|f2b3397a|ad4c21e97dd742bba44b667b69960c7d|0
+7:.folder|1|162d7aeeae8|187|c9c885f4|b783546b62674630a84d7a01639c6b8c|0

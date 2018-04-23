@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://vodafone.com.tr/EAI/Common/Header" xmlns:ns25="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagement/SendCallbackNotification/v1" xmlns:ns26="http://vodafone.com.tr/OrderManagement/Technical/EAI/SendCallbackNotification//v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns5="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:pfx="http://vodafone.com.tr/EAI/Common/RequestEAI" xmlns:ns2="http://siebel.com/CustomUI" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns4="http://vodafone.com.tr/EAI/Common/ResponseCodes" xmlns:ns3="http://vodafone.com.tr/OrderManagement/Technical/EAI/SendCallbackNotification/v1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagement/RegisterCampaign/v1" xmlns:pfx4="http://vodafone.com.tr/ServiceCatalog/ServiceReply" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://vodafone.com.tr/OrderManagement/Technical/EAI/QueueCampaign//v1" xmlns:pfx2="http://vodafone.com.tr/EAI/Common/ResponseEAI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/RequestEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/RequestEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/ResponseEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/ResponseEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/CustomerCare/CreditCardGetTempCustomersData/v1" schemaLocation="/Domains/ServiceCatalog/Business/CustomerCare/CreditCardGetTempCustomersData_v1/Schemas/CreditCardGetTempCustomersData.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/ServiceReply" schemaLocation="/Domains/ServiceCatalog/BusinessResources/Schemas/ServiceReply.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagement/RegisterCampaign/v1" schemaLocation="/Domains/ServiceCatalog/Business/OrderManagement/RegisterCampaign_v1/Schemas/RegisterCampaign.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/OrderManagement/Technical/EAI/SendCallbackNotification/v1" schemaLocation="/Domains/OrderManagement/Technical/EAI/SendCallbackNotification_v1/Schema/SendCallbackNotification.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagement/SendCallbackNotification/v1" schemaLocation="/Domains/ServiceCatalog/Business/OrderManagement/SendCallbackNotification_v1/Schemas/SendCallbackNotification.xsd"/>
+    <pd:name>Domains/ServiceCatalog/Business/OrderManagement/SendCallbackNotification_v1/SendCallbackNotification.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Input">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx:RequestEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>119</pd:startX>
+    <pd:startY>83</pd:startY>
+    <pd:returnCoercions>
+        <pd:coercion xpath="$SendCallbackNotification/Output/pfx2:ResponseEAI/pfx2:Body/*" element="ns3:Response"/>
+    </pd:returnCoercions>
+    <pd:returnBindings>
+        <Output>
+            <xsl:choose>
+                <xsl:when test="exists($Start/Input/pfx:RequestEAI/pfx:Body/ns25:Request/pfx4:ServiceReply) and string-length($Start/Input/pfx:RequestEAI/pfx:Body/ns25:Request/pfx4:ServiceReply) >0">
+                    <pfx2:ResponseEAI>
+                        <xsl:copy-of select="$SendCallbackNotification/Output/pfx2:ResponseEAI/pfx2:Header"/>
+                        <xsl:copy-of select="$SendCallbackNotification/Output/pfx2:ResponseEAI/pfx2:ResponseCodes"/>
+                    </pfx2:ResponseEAI>
+                </xsl:when>
+                <xsl:otherwise>
+                    <pfx2:ResponseEAI>
+                        <pfx2:Header>
+                            <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ancestor-or-self::*/namespace::node()"/>
+                            <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/@*"/>
+                            <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/node()"/>
+                        </pfx2:Header>
+                        <pfx2:ResponseCodes>
+                            <ns4:ResponseCode>
+                                <xsl:value-of select="$GetAsyncControl/Output/ResponseCodes/ns4:ResponseCode"/>
+                            </ns4:ResponseCode>
+                            <ns4:ResponseMsg>
+                                <xsl:value-of select="$GetAsyncControl/Output/ResponseCodes/ns4:ResponseMsg"/>
+                            </ns4:ResponseMsg>
+                            <ns4:ErrorCode>
+                                <xsl:value-of select="$GetAsyncControl/Output/ResponseCodes/ns4:ErrorCode"/>
+                            </ns4:ErrorCode>
+                            <ns4:ErrorDescription>
+                                <xsl:value-of select="$GetAsyncControl/Output/ResponseCodes/ns4:ErrorDescription"/>
+                            </ns4:ErrorDescription>
+                        </pfx2:ResponseCodes>
+                    </pfx2:ResponseEAI>
+                </xsl:otherwise>
+            </xsl:choose>
+        </Output>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="Output">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx2:ResponseEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>728</pd:endX>
+    <pd:endY>88</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://vodafone.com.tr/11256010108456343242</pd:targetNamespace>
+    <pd:activity name="SendCallbackNotification">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>382</pd:x>
+        <pd:y>56</pd:y>
+        <config>
+            <processName>/GlobalCommonResources/Processes/Common/ProcessDispatcher.process</processName>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Start/Input/pfx:RequestEAI/pfx:Body/*" element="ns25:Request"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <Input>
+                <pfx:RequestEAI>
+                    <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$Start/Input/pfx:RequestEAI/pfx:Header">
+                        <pfx:Header>
+                            <xsl:if test="ns:RequestId">
+                                <ns:RequestId>
+                                    <xsl:value-of select="ns:RequestId"/>
+                                </ns:RequestId>
+                            </xsl:if>
+                            <ns:SourceSystem>
+                                <xsl:value-of select="ns:SourceSystem"/>
+                            </ns:SourceSystem>
+                            <ns:ReplyExpected>
+                                <xsl:value-of select="ns:ReplyExpected"/>
+                            </ns:ReplyExpected>
+                            <xsl:if test="ns:QoS">
+                                <ns:QoS>
+                                    <xsl:value-of select="ns:QoS"/>
+                                </ns:QoS>
+                            </xsl:if>
+                            <xsl:if test="ns:Schedule">
+                                <ns:Schedule>
+                                    <xsl:value-of select="ns:Schedule"/>
+                                </ns:Schedule>
+                            </xsl:if>
+                            <xsl:choose>
+                                <xsl:when test="exists($Start/Input/pfx:RequestEAI/pfx:Body/ns25:Request/pfx4:ServiceReply) and string-length($Start/Input/pfx:RequestEAI/pfx:Body/ns25:Request/pfx4:ServiceReply) >0">
+                                    <ns:CorrelationId>
+                                        <xsl:value-of select="ns:CorrelationId"/>
+                                    </ns:CorrelationId>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <ns:CorrelationId>
+                                        <xsl:value-of select="$GetAsyncControl/Output/MessageBody/Header/ns:Attributes/ns:Attribute[ns:Name = 'Id']/ns:Value"/>
+                                    </ns:CorrelationId>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <xsl:if test="ns:Priority">
+                                <ns:Priority>
+                                    <xsl:value-of select="ns:Priority"/>
+                                </ns:Priority>
+                            </xsl:if>
+                            <xsl:copy-of select="ns:Credentials"/>
+                            <xsl:if test="ns:ProxySystem">
+                                <ns:ProxySystem>
+                                    <xsl:value-of select="ns:ProxySystem"/>
+                                </ns:ProxySystem>
+                            </xsl:if>
+                            <xsl:if test="ns:ForceSimulate">
+                                <ns:ForceSimulate>
+                                    <xsl:value-of select="ns:ForceSimulate"/>
+                                </ns:ForceSimulate>
+                            </xsl:if>
+                            <xsl:copy-of select="ns:Attributes"/>
+                            <xsl:copy-of select="ns:BusinessInterface"/>
+                            <ns:TechnicalInterface>
+                                <ns:Domain>
+                                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/Name"/>
+                                </ns:Domain>
+                                <ns:Interface>
+                                    <xsl:value-of select="'SendCallbackNotification'"/>
+                                </ns:Interface>
+                                <ns:Version>
+                                    <xsl:value-of select="1"/>
+                                </ns:Version>
+                                <ns:MethodCall>
+                                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Constants/Channel/Inline"/>
+                                </ns:MethodCall>
+                            </ns:TechnicalInterface>
+                            <ns:TargetSystem>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Domains/EAI/Name"/>
+                            </ns:TargetSystem>
+                            <xsl:if test="ns:CreationTimestamp">
+                                <ns:CreationTimestamp>
+                                    <xsl:value-of select="ns:CreationTimestamp"/>
+                                </ns:CreationTimestamp>
+                            </xsl:if>
+                            <xsl:if test="ns:TimeOut">
+                                <ns:TimeOut>
+                                    <xsl:value-of select="ns:TimeOut"/>
+                                </ns:TimeOut>
+                            </xsl:if>
+                            <xsl:if test="ns:Tries">
+                                <ns:Tries>
+                                    <xsl:value-of select="ns:Tries"/>
+                                </ns:Tries>
+                            </xsl:if>
+                            <xsl:if test="ns:MaxTries">
+                                <ns:MaxTries>
+                                    <xsl:value-of select="ns:MaxTries"/>
+                                </ns:MaxTries>
+                            </xsl:if>
+                            <xsl:if test="ns:Repub">
+                                <ns:Repub>
+                                    <xsl:value-of select="ns:Repub"/>
+                                </ns:Repub>
+                            </xsl:if>
+                            <xsl:if test="ns:RepubTime">
+                                <ns:RepubTime>
+                                    <xsl:value-of select="ns:RepubTime"/>
+                                </ns:RepubTime>
+                            </xsl:if>
+                            <xsl:copy-of select="ns:History"/>
+                            <xsl:copy-of select="ns:Transport"/>
+                        </pfx:Header>
+                    </xsl:for-each>
+                    <pfx:Body>
+                        <xsl:for-each select="$Start/Input/pfx:RequestEAI/pfx:Body/ns25:Request">
+                            <ns3:Request>
+                                <xsl:choose>
+                                    <xsl:when test="exists(ns25:CallbackQueue) and string-length(ns25:CallbackQueue)>0">
+                                        <ns3:CallbackQueue>
+                                            <xsl:value-of select="ns25:CallbackQueue"/>
+                                        </ns3:CallbackQueue>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <ns3:CallbackQueue>
+                                            <xsl:value-of select="tib:concat-sequence-format(($_globalVariables/ns1:GlobalVariables/Constants/Company,&#xA;$_globalVariables/ns1:GlobalVariables/Constants/ProjectName,&#xA;$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/Name,&#xA;$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/OrderComponent/Name,&#xA;$_globalVariables/ns1:GlobalVariables/Constants/Layer/Business,&#xA;$_globalVariables/ns1:GlobalVariables/Constants/QOS/Guarantee,&#xA;$_globalVariables/ns1:GlobalVariables/Constants/RequestType/Reply),'.')"/>
+                                        </ns3:CallbackQueue>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:if test="ns25:CorrelationId">
+                                    <ns3:CorrelationId>
+                                        <xsl:value-of select="ns25:CorrelationId"/>
+                                    </ns3:CorrelationId>
+                                </xsl:if>
+                                <xsl:choose>
+                                    <xsl:when test="exists($Start/Input/pfx:RequestEAI/pfx:Body/ns25:Request/pfx4:ServiceReply) and string-length($Start/Input/pfx:RequestEAI/pfx:Body/ns25:Request/pfx4:ServiceReply) >0">
+                                        <xsl:copy-of select="pfx4:ServiceReply"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <pfx4:ServiceReply>
+                                            <pfx4:Header>
+                                                <xsl:choose>
+                                                    <xsl:when test="ns25:errorCode = '0'">
+                                                        <ns4:ResponseCode>
+                                                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/Success"/>
+                                                        </ns4:ResponseCode>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <ns4:ResponseCode>
+                                                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/TargetSystemError"/>
+                                                        </ns4:ResponseCode>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                                <xsl:choose>
+                                                    <xsl:when test="ns25:errorCode = '0'">
+                                                        <ns4:ResponseMsg>
+                                                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/SuccessDescription"/>
+                                                        </ns4:ResponseMsg>
+                                                    </xsl:when>
+                                                    <xsl:otherwise>
+                                                        <ns4:ResponseMsg>
+                                                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/TargetSystemErrorDescription"/>
+                                                        </ns4:ResponseMsg>
+                                                    </xsl:otherwise>
+                                                </xsl:choose>
+                                                <xsl:if test="ns25:errorCode">
+                                                    <ns4:ErrorCode>
+                                                        <xsl:value-of select="ns25:errorCode"/>
+                                                    </ns4:ErrorCode>
+                                                </xsl:if>
+                                                <xsl:if test="ns25:errorMessage">
+                                                    <ns4:ErrorDescription>
+                                                        <xsl:value-of select="ns25:errorMessage"/>
+                                                    </ns4:ErrorDescription>
+                                                </xsl:if>
+                                                <xsl:if test="$GetAsyncControl/Output/MessageBody/Header/ns:RequestId">
+                                                    <ns4:RequestId>
+                                                        <xsl:value-of select="$GetAsyncControl/Output/MessageBody/Header/ns:RequestId"/>
+                                                    </ns4:RequestId>
+                                                </xsl:if>
+                                                <xsl:if test="$GetAsyncControl/Output/MessageBody/Header/ns:BusinessInterface/ns:Domain">
+                                                    <ns4:Domain>
+                                                        <xsl:value-of select="$GetAsyncControl/Output/MessageBody/Header/ns:BusinessInterface/ns:Domain"/>
+                                                    </ns4:Domain>
+                                                </xsl:if>
+                                                <xsl:if test="$GetAsyncControl/Output/MessageBody/Header/ns:BusinessInterface/ns:Service">
+                                                    <ns4:Service>
+                                                        <xsl:value-of select="$GetAsyncControl/Output/MessageBody/Header/ns:BusinessInterface/ns:Service"/>
+                                                    </ns4:Service>
+                                                </xsl:if>
+                                                <xsl:if test="$GetAsyncControl/Output/MessageBody/Header/ns:BusinessInterface/ns:Operation">
+                                                    <ns4:Operation>
+                                                        <xsl:value-of select="$GetAsyncControl/Output/MessageBody/Header/ns:BusinessInterface/ns:Operation"/>
+                                                    </ns4:Operation>
+                                                </xsl:if>
+                                                <xsl:if test="$GetAsyncControl/Output/MessageBody/Header/ns:BusinessInterface/ns:Version">
+                                                    <ns4:Version>
+                                                        <xsl:value-of select="$GetAsyncControl/Output/MessageBody/Header/ns:BusinessInterface/ns:Version"/>
+                                                    </ns4:Version>
+                                                </xsl:if>
+                                                <xsl:for-each select="$GetAsyncControl/Output/MessageBody/Header/ns:Attributes">
+                                                    <ns4:Attributes>
+                                                        <xsl:for-each select="ns:Attribute">
+                                                            <ns4:Attribute>
+                                                                <ns4:Name>
+                                                                    <xsl:value-of select="ns:Name"/>
+                                                                </ns4:Name>
+                                                                <ns4:Value>
+                                                                    <xsl:value-of select="ns:Value"/>
+                                                                </ns4:Value>
+                                                            </ns4:Attribute>
+                                                        </xsl:for-each>
+                                                    </ns4:Attributes>
+                                                </xsl:for-each>
+                                            </pfx4:Header>
+                                        </pfx4:ServiceReply>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </ns3:Request>
+                        </xsl:for-each>
+                    </pfx:Body>
+                </pfx:RequestEAI>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetAsyncControl">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>252</pd:x>
+        <pd:y>197</pd:y>
+        <config>
+            <processName>/GlobalCommonResources/Processes/AsyncControl/GetAsyncControl.process</processName>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Start/Input/pfx:RequestEAI/pfx:Body/*" element="ns25:Request"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <Input>
+                <TargetCorrelationId>
+                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns25:Request/ns25:CorrelationId"/>
+                </TargetCorrelationId>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="RemoveAsyncControl">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>549</pd:x>
+        <pd:y>56</pd:y>
+        <config>
+            <processName>/GlobalCommonResources/Processes/AsyncControl/RemoveAsyncControl.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <TargetCorrelationId>
+                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns25:Request/ns25:CorrelationId"/>
+                </TargetCorrelationId>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>SendCallbackNotification</pd:to>
+        <pd:xpathDescription>ServiceReplyPresent</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>exists($Start/Input/pfx:RequestEAI/pfx:Body/ns25:Request/pfx4:ServiceReply) and string-length($Start/Input/pfx:RequestEAI/pfx:Body/ns25:Request/pfx4:ServiceReply) &gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SendCallbackNotification</pd:from>
+        <pd:to>RemoveAsyncControl</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>GetAsyncControl</pd:to>
+        <pd:xpathDescription>Generic</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetAsyncControl</pd:from>
+        <pd:to>SendCallbackNotification</pd:to>
+        <pd:xpathDescription>Success</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$GetAsyncControl/Output/ResponseCodes/ns4:ResponseCode = $_globalVariables/ns1:GlobalVariables/ErrorCodes/Success</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>RemoveAsyncControl</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetAsyncControl</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

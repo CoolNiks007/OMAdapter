@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns:om="http://vodafone.com.tr/ServiceCatalog/Business/OSM/CreateChildOrder/v1"
+	 targetNamespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/CreateChildOrder/v1"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:complexType name="CreateChildOrderRequest">
+		<xs:sequence>
+			<xs:element ref="om:Request"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Request" type="om:Request"/>
+	<xs:complexType name="Request">
+		<xs:sequence>
+			<xs:element name="OrderParent" type="xs:string" minOccurs="0"/>
+			<xs:element name="OrderXML" type="xs:string" minOccurs="0"/>
+			<xs:element name="CreatedBy" type="xs:string" minOccurs="0"/>
+			<xs:element name="CreationWeight" type="xs:string" minOccurs="0"/>
+			<xs:element name="DueDate" type="xs:dateTime" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Response" type="om:Response"/>
+	<xs:complexType name="Response">
+		<xs:sequence>
+			<xs:element name="OrderId" type="xs:string"/>
+			<xs:element name="OrderState" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="CreateChildOrderRequest" type="om:CreateChildOrderRequest"/>
+	<xs:element name="CreateChildOrderResponse" type="om:CreateChildOrderResponse"/>
+	<xs:complexType name="CreateChildOrderResponse">
+		<xs:sequence>
+			<xs:element ref="om:Response" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

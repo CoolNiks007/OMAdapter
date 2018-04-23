@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://vodafone.com.tr/ServiceCatalog/Business/OSM/GetMasterOrderDetails/v1"
+	 targetNamespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/GetMasterOrderDetails/v1"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="GetMasterOrderDetailsRequest" type="GetMasterOrderDetailsRequest"/>
+	<xs:complexType name="GetMasterOrderDetailsRequest">
+		<xs:sequence>
+			<xs:element ref="Request"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Request" type="Request"/>
+	<xs:complexType name="Request">
+		<xs:sequence>
+			<xs:element name="MasterOrderID" type="xs:string"/>
+			<xs:element name="ChildOrderStatus" type="xs:string" minOccurs="0"/>
+			<xs:element name="ChildOrderServiceID" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="GetMasterOrderDetailsResponse" type="GetMasterOrderDetailsResponse"/>
+	<xs:complexType name="GetMasterOrderDetailsResponse">
+		<xs:sequence>
+			<xs:element ref="Response" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Response" type="Response"/>
+	<xs:complexType name="Response">
+		<xs:sequence>
+			<xs:element name="OrderId" type="xs:string" minOccurs="0"/>
+			<xs:element name="Status" type="xs:string" minOccurs="0"/>
+			<xs:element name="ChildOrderList" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ChildOrder" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="OrderId" type="xs:string" minOccurs="0"/>
+									<xs:element name="Status" type="xs:string" minOccurs="0"/>
+									<xs:element name="ErrorMessage" type="xs:string" minOccurs="0"/>
+									<xs:element name="CreationDate" type="xs:string" minOccurs="0"/>
+									<xs:element name="RootId" type="xs:string" minOccurs="0"/>
+									<xs:element name="ServiceId" type="xs:string" minOccurs="0"/>
+									<xs:element name="IsCancellableAlone" type="xs:string" minOccurs="0"/>
+									<xs:element name="ResponseCode" type="xs:string" minOccurs="0"/>
+									<xs:element name="ErrorCode" type="xs:string" minOccurs="0"/>
+									<xs:element name="ErrorDescription" type="xs:string" minOccurs="0"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

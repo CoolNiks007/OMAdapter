@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://vodafone.com.tr/OrderManagement/Technical/OSM/CreateOrder/v1" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://vodafone.com.tr/ServiceCatalog/Business/OSM/CreateOrder/v1" xmlns:ns4="http://vodafone.com.tr/ServiceCatalog/Business/OSM/ResubmitOrder/v1" xmlns:ns="http://vodafone.com.tr/EAI/Common/RequestEAI" xmlns:ns3="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx2="http://xmlns.example.com/1398280363002" xmlns:ns5="http://vodafone.com.tr/ServiceCatalog/Business/OSM/SubmitOrderFuture/v1" xmlns:pfx="http://vodafone.com.tr/EAI/Common/Header">
+    <xsd:import namespace="http://vodafone.com.tr/OrderManagement/Technical/OSM/CreateOrder/v1" schemaLocation="/Domains/OrderManagement/Technical/OSM/CreateOrder_v1/Schemas/CreateOrder.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/ResubmitOrder/v1" schemaLocation="/Domains/ServiceCatalog/Business/OSM/ResubmitOrder_v1/Schemas/ResubmitOrder.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/CreateOrder/v1" schemaLocation="/Domains/ServiceCatalog/Business/OSM/CreateOrder_v1/Schemas/CreateOrder.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/SubmitOrderFuture/v1" schemaLocation="/Domains/ServiceCatalog/Business/OSM/SubmitOrderFuture_v1/Schemas/SubmitOrderFuture.xsd"/>
+    <wsdl:import namespace="http://xmlns.example.com/1398280363002" location="/Test/WSDL.wsdl"/>
+    <pd:name>Test/Test SubmitOrderFuture.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="root">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="param" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>71</pd:startX>
+    <pd:startY>63</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>450</pd:endX>
+    <pd:endY>64</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://vodafone.com.tr/1398190275521</pd:targetNamespace>
+    <pd:activity name="Submit Future Order">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>311</pd:x>
+        <pd:y>62</pd:y>
+        <config>
+            <processName>/Domains/ServiceCatalog/Business/OSM/SubmitFutureOrder_v1/SubmitFutureOrder.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <ns:RequestEAI>
+                    <ns:Header>
+                        <pfx:SourceSystem>
+                            <xsl:value-of select="'Siebel'"/>
+                        </pfx:SourceSystem>
+                        <pfx:ReplyExpected>
+                            <xsl:value-of select="'Now'"/>
+                        </pfx:ReplyExpected>
+                        <pfx:QoS>
+                            <xsl:value-of select="'R'"/>
+                        </pfx:QoS>
+                        <pfx:Priority>
+                            <xsl:value-of select="1"/>
+                        </pfx:Priority>
+                        <pfx:Credentials>
+                            <pfx:ApplicationId>
+                                <xsl:value-of select="'EAI'"/>
+                            </pfx:ApplicationId>
+                            <pfx:User>
+                                <xsl:value-of select="'bapv'"/>
+                            </pfx:User>
+                        </pfx:Credentials>
+                        <pfx:TargetSystem>
+                            <xsl:value-of select="'OSM'"/>
+                        </pfx:TargetSystem>
+                    </ns:Header>
+                    <ns:Body>
+                        <ns5:SubmitOrderFutureRequest>
+                            <ns5:Request>
+                                <xsl:copy-of select="$Parse-XML/*"/>
+                            </ns5:Request>
+                        </ns5:SubmitOrderFutureRequest>
+                    </ns:Body>
+                </ns:RequestEAI>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Parse XML">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>208</pd:x>
+        <pd:y>64</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>false</validateOutput>
+            <term>
+                <xsd:any/>
+            </term>
+        </config>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$Start/root/param"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Parse XML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Submit Future Order</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse XML</pd:from>
+        <pd:to>Submit Future Order</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

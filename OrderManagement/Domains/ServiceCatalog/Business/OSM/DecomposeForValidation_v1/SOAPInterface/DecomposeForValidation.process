@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/pe/DeployedVarsType" xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:ns1="http://www.tibco.com/pe/EngineTypes" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns4="http://vodafone.com.tr/ServiceCatalog/ServiceReply" xmlns:ns3="http://vodafone.com.tr/EAI/Common/Header" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx2="http://vodafone.com.tr/ServiceCatalog/Business/OSMServices" xmlns:ns12="http://vodafone.com.tr/EAI/Logging" xmlns:ns5="http://vodafone.com.tr/EAI/Common/ResponseCodes" xmlns:ns6="http://vodafone.com.tr/ServiceCatalog/Business/OSM/DecomposeForValidation/v1">
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/DecomposeForValidation/v1" schemaLocation="/Domains/ServiceCatalog/Business/OSM/DecomposeForValidation_v1/Schemas/DecomposeForValidation.xsd"/>
+    <wsdl:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSMServices" location="/Domains/ServiceCatalog/BusinessResources/WSDL/OSMServices.wsdl"/>
+    <pd:name>Domains/ServiceCatalog/Business/OSM/DecomposeForValidation_v1/SOAPInterface/DecomposeForValidation.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType wsMsgRef="pfx2:DecomposeForValidationRequest_v1"/>
+    <pd:startX>150</pd:startX>
+    <pd:startY>63</pd:startY>
+    <pd:returnBindings>
+        <xsl:copy-of select="$DecomposeForValidationResponse_v1/pfx2:DecomposeForValidationResponse_v1"/>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType wsMsgRef="pfx2:DecomposeForValidationResponse_v1"/>
+    <pd:endX>785</pd:endX>
+    <pd:endY>66</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <DecomposeForValidationResponse_v1 wsMsgRef="pfx2:DecomposeForValidationResponse_v1"/>
+    </pd:processVariables>
+    <pd:targetNamespace>http://vodafone.com.tr/1400176907989</pd:targetNamespace>
+    <pd:activity name="Assign Error">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>469</pd:x>
+        <pd:y>210</pd:y>
+        <config>
+            <variableName>DecomposeForValidationResponse_v1</variableName>
+        </config>
+        <pd:inputBindings>
+            <pfx2:DecomposeForValidationResponse_v1>
+                <Header>
+                    <ns5:ResponseCode>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ErrorCodes/UnspecifiedError"/>
+                    </ns5:ResponseCode>
+                    <ns5:ResponseMsg>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/ErrorCodes/UnspecifiedErrorDescription"/>
+                    </ns5:ResponseMsg>
+                    <xsl:if test="$_error/ns1:ErrorReport/MsgCode">
+                        <ns5:ErrorCode>
+                            <xsl:value-of select="$_error/ns1:ErrorReport/MsgCode"/>
+                        </ns5:ErrorCode>
+                    </xsl:if>
+                    <xsl:if test="$_error/ns1:ErrorReport/Msg">
+                        <ns5:ErrorDescription>
+                            <xsl:value-of select="$_error/ns1:ErrorReport/Msg"/>
+                        </ns5:ErrorDescription>
+                    </xsl:if>
+                </Header>
+                <Body/>
+            </pfx2:DecomposeForValidationResponse_v1>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>299</pd:x>
+        <pd:y>210</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Logger [END]">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>637</pd:x>
+        <pd:y>62</pd:y>
+        <config>
+            <processName>/GlobalCommonResources/Processes/Logging/Logger.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <ns12:LogMessage>
+                    <ns12:Source>
+                        <xsl:value-of select="$Decompose-For-Validation/Output/Header/ns3:SourceSystem"/>
+                    </ns12:Source>
+                    <ns12:Process>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns1:ProcessContext/ProcessId)"/>
+                    </ns12:Process>
+                    <ns12:Service>
+                        <xsl:value-of select="$Decompose-For-Validation/Output/Header/ns3:BusinessInterface/ns3:Service"/>
+                    </ns12:Service>
+                    <ns12:Operation>
+                        <xsl:value-of select="$Decompose-For-Validation/Output/Header/ns3:BusinessInterface/ns3:Operation"/>
+                    </ns12:Operation>
+                    <ns12:MsgId>
+                        <xsl:value-of select="$Decompose-For-Validation/Output/Header/ns3:RequestId"/>
+                    </ns12:MsgId>
+                    <ns12:Type>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Logging/Roles/AuditRoleName"/>
+                    </ns12:Type>
+                    <ns12:Task>
+                        <xsl:value-of select="&quot;END SERVICE&quot;"/>
+                    </ns12:Task>
+                    <ns12:Description>
+                        <xsl:value-of select="$Decompose-For-Validation/Output/ns4:ServiceReply/ns4:Header/ns5:ErrorDescription"/>
+                    </ns12:Description>
+                    <ns12:ErrorCode>
+                        <xsl:value-of select="$Decompose-For-Validation/Output/ns4:ServiceReply/ns4:Header/ns5:ErrorCode"/>
+                    </ns12:ErrorCode>
+                    <ns12:ResponseCode>
+                        <xsl:value-of select="$Decompose-For-Validation/Output/ns4:ServiceReply/ns4:Header/ns5:ResponseCode"/>
+                    </ns12:ResponseCode>
+                    <ns12:MessageBody>
+                        <xsl:value-of select="tib:render-xml($DecomposeForValidationResponse_v1/pfx2:DecomposeForValidationResponse_v1)"/>
+                    </ns12:MessageBody>
+                    <ns12:CorrelationId>
+                        <xsl:value-of select="$Decompose-For-Validation/Output/Header/ns3:CorrelationId"/>
+                    </ns12:CorrelationId>
+                    <ns12:UserName>
+                        <xsl:value-of select="$Decompose-For-Validation/Output/Header/ns3:Credentials[1]/ns3:User"/>
+                    </ns12:UserName>
+                    <ns12:Version>
+                        <xsl:value-of select="$Decompose-For-Validation/Output/Header/ns3:BusinessInterface/ns3:Version"/>
+                    </ns12:Version>
+                </ns12:LogMessage>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Logger [Error]">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>637</pd:x>
+        <pd:y>210</pd:y>
+        <config>
+            <processName>/GlobalCommonResources/Processes/Logging/Logger.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <ns12:LogMessage>
+                    <ns12:Source>
+                        <xsl:value-of select="$Catch/exceptiondata/*/Header/ns3:SourceSystem"/>
+                    </ns12:Source>
+                    <ns12:Process>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns1:ProcessContext/ProcessId)"/>
+                    </ns12:Process>
+                    <ns12:Service>
+                        <xsl:value-of select="tib:tokenize(namespace-uri($Catch/exceptiondata/*/Body/*), &quot;/&quot;)[5]"/>
+                    </ns12:Service>
+                    <ns12:Operation>
+                        <xsl:value-of select="tib:tokenize(namespace-uri($Catch/exceptiondata/*/Body/*), &quot;/&quot;)[6]"/>
+                    </ns12:Operation>
+                    <ns12:MsgId>
+                        <xsl:value-of select="$Catch/exceptiondata/*/Header/ns3:RequestId"/>
+                    </ns12:MsgId>
+                    <ns12:Type>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Logging/Roles/ErrorRoleName"/>
+                    </ns12:Type>
+                    <ns12:Task>
+                        <xsl:value-of select="&quot;ERROR&quot;"/>
+                    </ns12:Task>
+                    <ns12:Description>
+                        <xsl:value-of select="$DecomposeForValidationResponse_v1/pfx2:DecomposeForValidationResponse_v1/Header/ns5:ErrorDescription"/>
+                    </ns12:Description>
+                    <ns12:ErrorDump>
+                        <xsl:value-of select="concat(tib:left(normalize-space($_error/ns1:ErrorReport/StackTrace), 2000), &quot;&#xA;&quot;, &quot;Exception Data: &quot;, normalize-space(tib:render-xml($Catch/exceptiondata)))"/>
+                    </ns12:ErrorDump>
+                    <ns12:ErrorCode>
+                        <xsl:value-of select="$DecomposeForValidationResponse_v1/pfx2:DecomposeForValidationResponse_v1/Header/ns5:ErrorCode"/>
+                    </ns12:ErrorCode>
+                    <ns12:ResponseCode>
+                        <xsl:value-of select="$DecomposeForValidationResponse_v1/pfx2:DecomposeForValidationResponse_v1/Header/ns5:ResponseCode"/>
+                    </ns12:ResponseCode>
+                    <ns12:UserName>
+                        <xsl:value-of select="$Catch/exceptiondata/*/Header/ns3:Credentials[1]/ns3:User"/>
+                    </ns12:UserName>
+                    <ns12:Version>
+                        <xsl:value-of select="substring-after(tib:tokenize(namespace-uri($Catch/exceptiondata/*/Body/*), &quot;/&quot;)[7], 'v')"/>
+                    </ns12:Version>
+                </ns12:LogMessage>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Decompose For Validation">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>309</pd:x>
+        <pd:y>72</pd:y>
+        <config>
+            <processName>/Domains/ServiceCatalog/BusinessResources/Processes/SoapProcessDispatcher.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <xsl:copy-of select="$Start/pfx2:DecomposeForValidationRequest_v1"/>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Assign">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>481</pd:x>
+        <pd:y>62</pd:y>
+        <config>
+            <variableName>DecomposeForValidationResponse_v1</variableName>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Decompose-For-Validation/Output/ns4:ServiceReply/ns4:Body/*" element="ns6:Response"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <pfx2:DecomposeForValidationResponse_v1>
+                <Header>
+                    <xsl:copy-of select="$Decompose-For-Validation/Output/ns4:ServiceReply/ns4:Header/ancestor-or-self::*/namespace::node()"/>
+                    <xsl:copy-of select="$Decompose-For-Validation/Output/ns4:ServiceReply/ns4:Header/@*"/>
+                    <xsl:copy-of select="$Decompose-For-Validation/Output/ns4:ServiceReply/ns4:Header/node()"/>
+                </Header>
+                <Body>
+                    <xsl:copy-of select="$Decompose-For-Validation/Output/ns4:ServiceReply/ns4:Body/ns6:Response"/>
+                </Body>
+            </pfx2:DecomposeForValidationResponse_v1>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Logger [END]</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>Assign Error</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign Error</pd:from>
+        <pd:to>Logger [Error]</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Logger [Error]</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Decompose For Validation</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Decompose For Validation</pd:from>
+        <pd:to>Assign</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign</pd:from>
+        <pd:to>Logger [END]</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

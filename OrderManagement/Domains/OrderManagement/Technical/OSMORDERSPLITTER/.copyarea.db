@@ -1,0 +1,16 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\Technical\OSMORDERSPLITTER
+2
+c
+13:CreateChildOrder_v1|2|0|0|0|2838e96e356141adb0f97222ec2b6c63|0
+b:GetOrder_v1|2|0|0|0|b07d2b66dba6489cb97f42eaff187f0f|0
+e:CancelOrder_v1|2|0|0|0|e524ab94308142989d31f0577b97c232|0
+15:GetOrderByClientId_v1|2|0|0|0|533061dc8ab6416db977674e51e25648|0
+11:GetMasterOrder_v1|2|0|0|0|869468b7b2fe49c4a2aa45df7f6cd9d5|0
+14:CreateChildOrders_v1|2|0|0|0|fbcd440a5bb143a7acc35208938c87ed|0
+13:CloseMasterOrder_v1|2|0|0|0|3da6ded87626470c956039dfbbfbb252|0
+11:ResolveFailure_v1|2|0|0|0|fb2c6eb193444f298d1b15f21e6d30c3|0
+15:IsOrderCancellable_v1|2|0|0|0|fdb19e288f5448a990cb28562fa6d9da|0
+7:.folder|1|162d7aefaa1|189|482185f0|1d8ae992fccb4b96856f26d4e9d75744|0
+14:CreateMasterOrder_v1|2|0|0|0|f45d3a71543340eb9b4a61154f9c5be7|0
+e:CreateOrder_v1|2|0|0|0|c4241711b25c4f238b45584317e6d1a3|0

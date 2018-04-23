@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://vodafone.com.tr/OrderManagement/Business/Siebel/ManageComplaint/v1"
+	 targetNamespace="http://vodafone.com.tr/OrderManagement/Business/Siebel/ManageComplaint/v1"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:complexType name="ParentServiceRequest">
+		<xs:sequence>
+			<xs:element name="MSISDN" type="xs:string"/>
+			<xs:element name="SRID" type="xs:string"/>
+			<xs:element name="Email" type="xs:string"/>
+			<xs:element name="PhoneNumber" type="xs:string" minOccurs="0"/>
+			<xs:element name="Name" type="xs:string"/>
+			<xs:element name="CreationDate" type="xs:string"/>
+			<xs:element name="Category" type="xs:string"/>
+			<xs:element name="Address" type="xs:string"/>
+			<xs:element name="City" type="xs:string"/>
+			<xs:element name="Province" type="xs:string" minOccurs="0"/>
+			<xs:element name="Description" type="xs:string" minOccurs="0"/>
+			<xs:element name="Resolution" type="xs:string" minOccurs="0"/>
+			<xs:element name="ChildsServiceRequests" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="SRID" type="xs:string"/>
+						<xs:element name="URL" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="Description" type="xs:string" minOccurs="0"/>
+						<xs:element name="Resolution" type="xs:string" minOccurs="0"/>
+						<xs:element name="CreationDate" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Request">
+		<xs:sequence>
+			<xs:element name="ParentServiceRequest" type="ParentServiceRequest" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Request" type="Request"/>
+	<xs:element name="ManageComplaintRequest" type="ManageComplaintRequest"/>
+	<xs:complexType name="ManageComplaintRequest">
+		<xs:sequence>
+			<xs:element ref="Request"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

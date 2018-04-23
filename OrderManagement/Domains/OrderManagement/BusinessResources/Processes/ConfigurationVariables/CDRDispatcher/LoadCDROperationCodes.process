@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx="http://vodafone.com.tr/EAI/Common/ResponseCodes">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://vodafone.com.tr/EAI/Common/ResponseCodes" schemaLocation="/GlobalCommonResources/Schemas/Common/ResponseCodes.xsd"/>
+    <pd:name>Domains/OrderManagement/BusinessResources/Processes/ConfigurationVariables/CDRDispatcher/LoadCDROperationCodes.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>103</pd:startX>
+    <pd:startY>61</pd:startY>
+    <pd:returnBindings>
+        <xsl:choose>
+            <xsl:when test="count($Retrieve-CDR-Operations/resultSet/Record)>1">
+                <pfx:ResponseHeader>
+                    <pfx:ResponseCode>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/Success"/>
+                    </pfx:ResponseCode>
+                </pfx:ResponseHeader>
+            </xsl:when>
+            <xsl:otherwise>
+                <pfx:ResponseHeader>
+                    <pfx:ResponseCode>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/InternalError"/>
+                    </pfx:ResponseCode>
+                </pfx:ResponseHeader>
+            </xsl:otherwise>
+        </xsl:choose>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx:ResponseHeader"/>
+    <pd:endX>450</pd:endX>
+    <pd:endY>64</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://vodafone.com.tr/1411467101282</pd:targetNamespace>
+    <pd:activity name="Retrieve CDR Operations">
+        <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+        <pd:x>211</pd:x>
+        <pd:y>71</pd:y>
+        <config>
+            <timeout>%%Database/TO2F/LoginTimeout%%</timeout>
+            <commit>false</commit>
+            <maxRows>1000</maxRows>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <jdbcSharedConfig>/Domains/OrderManagement/CommonResources/Connections/JDBC/TO2F Database Connection.sharedjdbc</jdbcSharedConfig>
+            <statement>SELECT * FROM OA_CDR_OPERATION</statement>
+            <oraObjects/>
+            <oraTables/>
+            <QueryOutputCachedSchemaColumns>ORDERTYPECODE</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>ACTIONTYPE</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>ACTIONREASON</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>OPERATIONTYPE</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>REASON</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>PROCESSTYPE</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+        </config>
+        <pd:inputBindings>
+            <jdbcQueryActivityInput/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Set PRF Transactions">
+        <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+        <pd:x>330</pd:x>
+        <pd:y>71</pd:y>
+        <config>
+            <variableConfig>/Domains/OrderManagement/BusinessResources/SharedVariables/CDRDispatcher/CDR Operations.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings>
+            <ListOfCDROperationCodes>
+                <xsl:for-each select="$Retrieve-CDR-Operations/resultSet/Record">
+                    <CDROperationCodes>
+                        <OrderTypeCode>
+                            <xsl:value-of select="ORDERTYPECODE"/>
+                        </OrderTypeCode>
+                        <ActionType>
+                            <xsl:value-of select="ACTIONTYPE"/>
+                        </ActionType>
+                        <ActionReason>
+                            <xsl:value-of select="ACTIONREASON"/>
+                        </ActionReason>
+                        <OperationType>
+                            <xsl:value-of select="OPERATIONTYPE"/>
+                        </OperationType>
+                        <Reason>
+                            <xsl:value-of select="REASON"/>
+                        </Reason>
+                        <ProcessType>
+                            <xsl:value-of select="PROCESSTYPE"/>
+                        </ProcessType>
+                    </CDROperationCodes>
+                </xsl:for-each>
+            </ListOfCDROperationCodes>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Retrieve CDR Operations</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Retrieve CDR Operations</pd:from>
+        <pd:to>Set PRF Transactions</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Set PRF Transactions</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

@@ -1,0 +1,7 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\ServiceCatalog\Business\OSM\SubmitFutureOrder_v1\Starters
+2
+3
+2b:JMSSubmitFutureOrderReliableStarter.process|1|162d7af1773|8103|912c0395|3a0f3dfde58e4d75a964ea4f93587d9f|0
+2d:JMSSubmitFutureOrderGuaranteedStarter.process|1|162d7af1764|945f|10c6c9f3|4546b82fe72649c196d1acaeaf5fa2c9|0
+7:.folder|1|162d7af1754|181|dd98466|11c27fbd9792452aaeac5898b357355c|0

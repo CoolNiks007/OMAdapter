@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagement/RegisterCampaign/v1"
+	 targetNamespace="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagement/RegisterCampaign/v1"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:complexType name="Request">
+		<xs:sequence>
+			<xs:element name="EventSourceType" type="xs:string"/>
+			<xs:element name="EventSource" type="xs:string"/>
+			<xs:element name="CampId" type="xs:string"/>
+			<xs:element name="ChannelType" type="xs:string"/>
+			<xs:element name="CampConId" type="xs:string"/>
+			<xs:element name="ResponseDate" type="xs:dateTime"/>
+			<xs:element name="ResponseType" type="xs:string" minOccurs="0"/>
+			<xs:element name="RejectionReason" type="xs:string" minOccurs="0"/>
+			<xs:element name="Keyword" type="xs:string"/>
+			<xs:element name="ProductId" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RegisterCampaignRequest">
+		<xs:sequence>
+			<xs:element ref="Request"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Request" type="Request"/>
+	<xs:complexType name="RegisterCampaignResponse">
+		<xs:sequence>
+			<xs:element ref="Response"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Response" type="Response"/>
+	<xs:complexType name="Response">
+		<xs:sequence>
+			<xs:element name="OrderId" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="RegisterCampaignResponse" type="RegisterCampaignResponse"/>
+	<xs:element name="RegisterCampaignRequest" type="RegisterCampaignRequest"/>
+</xs:schema>

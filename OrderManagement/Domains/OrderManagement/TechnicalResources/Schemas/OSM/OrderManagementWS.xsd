@@ -1,0 +1,1371 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+ Copyright (c) 2007, 2012, Oracle and/or its affiliates. All rights reserved. 
+    
+-->
+<xsd:schema targetNamespace="http://xmlns.oracle.com/communications/ordermanagement" elementFormDefault="qualified"
+	 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	 xmlns:wsi="http://ws-i.org/profiles/basic/1.1/xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	 xmlns:osm="http://xmlns.oracle.com/communications/ordermanagement">
+	<xsd:import namespace="http://ws-i.org/profiles/basic/1.1/xsd" schemaLocation="swaref.xsd"/>
+	<xsd:simpleType name="OrderIdType">
+		<xsd:annotation>
+			<xsd:documentation>				This ID identifies a specific Order and Service Management order.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:normalizedString"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="EntityIdType">
+		<xsd:annotation>
+			<xsd:documentation>				An id of an entity within the instance of the				Provisioning application.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:long">
+			<xsd:minExclusive value="0"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="OrderSummaryType">
+		<xsd:annotation>
+			<xsd:documentation>				This type provides summary information about an order.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Id" type="osm:OrderIdType">
+				<xsd:annotation>
+					<xsd:documentation>
+						The id of the order.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Key" type="osm:OrderKeyType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						The order key. Present if one or more keys are
+						defined for the order, and the order has started
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Specification"
+				type="osm:OrderSpecificationType">
+				<xsd:annotation>
+					<xsd:documentation>
+						The order definition.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="State" type="osm:OrderStateType">
+				<xsd:annotation>
+					<xsd:documentation>
+						The current state of the order.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TargetState" type="osm:OrderStateType"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						The target state of the order. This element is
+						omitted if the target order is not currently in
+						transition.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Reference" type="xsd:string"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						The order reference.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CreatedDate" type="xsd:dateTime"
+				maxOccurs="1" minOccurs="1">
+			</xsd:element>
+			<xsd:element name="RequestedDeliveryDate"
+				type="xsd:dateTime" minOccurs="0">
+			  <xsd:annotation>
+					<xsd:documentation>
+						The date the service has been requested to be
+						delivered.
+					</xsd:documentation>
+			  </xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExpectedStartDate" type="xsd:dateTime"
+				minOccurs="0">
+			  <xsd:annotation>
+					<xsd:documentation>
+						The date that OSM expects to start the order.
+					</xsd:documentation>
+			  </xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExpectedDuration" type="xsd:duration"
+				minOccurs="0">
+			  <xsd:annotation>
+					<xsd:documentation>
+						The amount of time OSM requires to process the
+						order.
+					</xsd:documentation>
+			  </xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExpectedOrderCompletionDate"
+				type="xsd:dateTime" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						The expected order completion date. For an
+						orchestration order, this value is calculated by
+						the orchestration plan generator. For a
+						non-orchestration order, this value is based on
+						the modelled process duration.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ViewName" type="xsd:string"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						The View mnemonics related with order.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ProcessStatus" type="xsd:string"
+				minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						The Process Status related with order.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>			
+			<xsd:element name="Priority" type="osm:PriorityType">
+				<xsd:annotation>
+					<xsd:documentation>
+						The priority of the order.
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="EntityNameType">
+		<xsd:restriction base="xsd:NCName">
+			<xsd:minLength value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OrderStateType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="open.not_running.not_started">
+				<xsd:annotation>
+					<xsd:documentation>						Order is in the creation task</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="open.not_running.suspended">
+				<xsd:annotation>
+					<xsd:documentation>						No work items in the order can be processed.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="open.not_running.cancelled">
+				<xsd:annotation>
+					<xsd:documentation>						Order is in the creation task after having been						cancelled.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="open.not_running.waiting_for_revision">
+				<xsd:annotation>
+					<xsd:documentation>                        Order is in the state where the fallout is resolved.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="open.not_running.failed">
+				<xsd:annotation>
+					<xsd:documentation>                        Order is in a fallout.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="open.running.in_progress">
+				<xsd:annotation>
+					<xsd:documentation>						Order has at least one work item in a live						thread</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="open.running.compensating.amending">
+				<xsd:annotation>
+					<xsd:documentation>						Order is being compensated for an amendment						order. Work items are being undone or redone as						necessary to compensate for the amendment.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="open.running.compensating.cancelling">
+				<xsd:annotation>
+					<xsd:documentation>						Order is being compensated for a cancel request.						All completed work items are being undone</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="closed.completed">
+				<xsd:annotation>
+					<xsd:documentation>						All task on the order are complete</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="closed.aborted">
+				<xsd:annotation>
+					<xsd:documentation>                        The order is aborted</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="TransactionType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="DELETE_ORDER"/>
+			<xsd:enumeration value="UPDATE_ORDER"/>
+			<xsd:enumeration value="RAISE_EXCEPTION"/>
+			<xsd:enumeration value="PROCESS_TASK"/>
+			<xsd:enumeration value="SUSPEND_ORDER"/>
+			<xsd:enumeration value="RESUME_ORDER"/>
+			<xsd:enumeration value="SUBMIT_AMENDMENT"/>
+			<xsd:enumeration value="CANCEL_ORDER"/>
+			<xsd:enumeration value="PROCESS_AMENDMENT"/>
+			<xsd:enumeration value="COPY_ORDER"/>
+			<xsd:enumeration value="COMPENSATE_TASK"/>
+			<xsd:enumeration value="FAIL_ORDER"/>
+			<xsd:enumeration value="ABORT_ORDER"/>
+            <xsd:enumeration value="MANAGE_ORDER_FALLOUT" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="OrderSpecificationType">
+		<xsd:annotation>
+			<xsd:documentation>				This type refers to the specification of an order by its type,				source and cartridge (name and optional version).</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Cartridge" type="osm:CartridgeType"/>
+			<xsd:element name="Type" type="osm:EntityNameType"/>
+			<xsd:element name="Source" type="osm:EntityNameType"/>
+			<xsd:element name="View" type="osm:EntityNameType" maxOccurs="1" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>                         The optional element refers to a view, will be used for creating order data. </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CartridgeType">
+		<xsd:annotation>
+			<xsd:documentation>				This type identifies a cartridge by its name and				optional version.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Name" type="osm:EntityNameType">
+				<xsd:annotation>
+					<xsd:documentation>						The cartridge name.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Version" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>						The cartridge version.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="PriorityType">
+		<xsd:annotation>
+			<xsd:documentation>				This type defines the priority of an entity in the				system. Entities with a higher priority value are				considered to be more important than entities with a				lower priority value. The valid priority range is 0..9,				however the priority range may be restricted for orders				within the order definition metadata.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:int">
+			<xsd:minExclusive value="0"/>
+			<xsd:maxExclusive value="9"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="OrderDetailType">
+		<xsd:annotation>
+			<xsd:documentation>        		Provides information about the details of an order,        		including order data (the structure of which is defined        		by metadata) as well as any remarks and attachments that        		may be present on the order.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Data" type="osm:OrderDataType">
+				<xsd:annotation>
+					<xsd:documentation>                		This element contains the detailed order data                		that is present on the order. The                		structure/content of detail order data is                		defined by metadata.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Remark" type="osm:RemarkType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>                		This element contains any remarks and                		attachments that may be associated with the                		order.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="OrderDataType">
+		<xsd:sequence>
+			<xsd:any namespace="##any" processContents="skip" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RemarkType">
+		<xsd:annotation>
+			<xsd:documentation>        		Defines a remark that has been attached to an order. A        		remark can have free form text and zero or more file        		attachments.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Id" type="osm:EntityIdType">
+				<xsd:annotation>
+					<xsd:documentation>						The unique id for this remark.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Text" type="xsd:normalizedString"/>
+			<xsd:element name="Timestamp" type="xsd:dateTime">
+				<xsd:annotation>
+					<xsd:documentation>						The time the remark was added</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="UserName" type="xsd:normalizedString">
+				<xsd:annotation>
+					<xsd:documentation>						The name of the user that added the remark.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TaskName" type="osm:EntityNameType">
+				<xsd:annotation>
+					<xsd:documentation>						The name of the task to which the remark was						added.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="WorkItemId" type="osm:EntityIdType">
+				<xsd:annotation>
+					<xsd:documentation>						The work item id indicating when/where in the						order the remark was added.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="State" type="osm:EntityNameType">
+				<xsd:annotation>
+					<xsd:documentation>						The state of the work item when the remark was						added.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ReadOnly" type="xsd:boolean">
+				<xsd:annotation>
+					<xsd:documentation>						A "true" or "false" value indicating if the						remark can still be modified. To modify, the						current user must be the author of the remark						and the remark cannot be older than the max time						specified by the system administrator for						editable remarks.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Attachment" type="osm:AttachmentType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>						The set of files that have been attached with						this remark.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AttachmentType">
+		<xsd:annotation>
+			<xsd:documentation>				Defines a file that has been attached to a remark.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Name" type="osm:NonEmptyNormalizedStringType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>						The name of the file for this attachment.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:choice>
+				<xsd:annotation>
+					<xsd:documentation>						Several formats for attachment content are supported.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:element name="swaRefMimeContent" type="wsi:swaRef">
+					<xsd:annotation>
+						<xsd:documentation>						The attachment content is in swaRef format (see http://www.ws-i.org/Profiles/AttachmentsProfile-1.0-2004-08-24.html).						swaRef attachments are supported only with HTTP transport binding.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="base64BinaryContent" type="xsd:base64Binary">
+					<xsd:annotation>
+						<xsd:documentation>						The attachment content is inline base64 encoded binary content.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="hexBinaryContent" type="xsd:hexBinary">
+					<xsd:annotation>
+						<xsd:documentation>						The attachment content is inline hex encoded binary content.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="DataChangeRequestType">
+		<xsd:complexContent>
+			<xsd:extension base="osm:OrderDataDeltaType">
+				<xsd:sequence>
+					<xsd:element name="AutoAddMandatoryData" type="xsd:boolean" default="false" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>								This element controls whether or not the system								will automatically add mandatory data that is								missing from a request. Missing mandatory data								will be added using default values defined in								metadata.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="OrderDataDeltaType">
+		<xsd:annotation>
+			<xsd:documentation>				Order nodes may be added to, updated in, or deleted from the order, using the elements				defined in this type.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Add" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:any namespace="##any" processContents="skip" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>									A single node or a complete hierarchy of nodes and their values									may be added at this level. The value of the any element must be									in XML form and reflect the hierarchy of the nodes to be added.</xsd:documentation>
+							</xsd:annotation>
+						</xsd:any>
+					</xsd:sequence>
+					<xsd:attribute name="Path" type="xsd:normalizedString" use="required">
+						<xsd:annotation>
+							<xsd:documentation>								The path to the parent node of the node(s) to be added.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Update" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>						Updates a single order node with a new value. 						The value of this element is the new value of the node to be updated.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="xsd:normalizedString">
+							<xsd:attribute name="Path" type="xsd:normalizedString" use="required">
+								<xsd:annotation>
+									<xsd:documentation>										The name of the node, including its full path, that is to be updated.</xsd:documentation>
+								</xsd:annotation>
+							</xsd:attribute>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Delete" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>						Deletes a single order node. This element takes no value.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:attribute name="Path" type="xsd:normalizedString" use="required">
+						<xsd:annotation>
+							<xsd:documentation>								The name of the node, including its full path, that is to be deleted.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:attribute>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CreateRemarkType">
+		<xsd:annotation>
+			<xsd:documentation>        		This type allows textual remarks and file attachments to        		be created.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Text" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Attachment" type="osm:AttachmentType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="GracePeriodTransitionType">
+		<xsd:annotation>
+			<xsd:documentation>				This type is used to define a time period for Grace Period transitions.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="immediate"/>
+			<xsd:enumeration value="infinite"/>
+			<xsd:enumeration value="default"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="CreateOrderBySpecificationRequestType">
+		<xsd:sequence>
+			<xsd:element name="Specification" type="osm:OrderSpecificationType">
+				<xsd:annotation>
+					<xsd:documentation>						The order definition.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Reference" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>						The order reference. The order reference is						typically used to store an upstream order id for						tracking purposes, however it can be used for						any required purpose.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Priority" type="osm:PriorityType" default="5" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>						The priority of the order. If the priority value						is outside the valid priority range specified as						part of the order definition, then the priority						value will be automatically rounded to the						nearest valid value.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AutoAddMandatoryData" type="xsd:boolean" default="false" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>						This element controls whether or not the system						will automatically add mandatory data that is						missing from a request. Missing mandatory data						will be added using default values defined in						metadata.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="StartOrder" type="xsd:boolean" default="true" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>						This element controls whether or not the order						will be automatically started or not.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:sequence>
+				<xsd:element name="Data" type="osm:OrderDataType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>	                		The structure and acceptable content of this	                		element is defined by the metadata associated	                		with the order specification. In particular, the	                		creation view associated with the order	                		specification type and source determines the	                		exact values required.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:sequence>
+			<xsd:element name="Remark" type="osm:CreateRemarkType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>						This element allows remarks and attachments to						be added to the order.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CreateOrderBySpecificationResponseType">
+		<xsd:annotation>
+			<xsd:documentation>				A summary of the created order.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="OrderSummary" type="osm:OrderSummaryType">
+				<xsd:annotation>
+					<xsd:documentation>						A summary of the order.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AmendmentSummary" type="osm:AmendmentSummaryType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>						If the created order is an amendment, a summary						of the order that is being amended is returned.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="OrderStateTransitionRequestType" abstract="true">
+		<xsd:annotation>
+			<xsd:documentation>				Common base type for operations that perform a state				transition on the order where a grace period is allowed.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="OrderId" type="osm:OrderIdType">
+				<xsd:annotation>
+					<xsd:documentation>						The id of the order to be transitioned.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Reason" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>						A reason or cause for the transition.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:choice>
+				<xsd:element name="GracePeriodExpiryDate" type="xsd:dateTime" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>							A point in time, after which the grace							period for completing accepted work items							expires. After this time, the order will be							transitioned regardless of whether or not							there are outstanding work items.                            The grace period expiry date specified here                            must be within the limits imposed by the grace                            period expiry range specified in the order                            state policy.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="GracePeriodExpiry" type="osm:GracePeriodTransitionType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>                            Specifies whether the grace period is                            immediate (no grace period) or infinite                            (grace period is forever). If the grace                            period is immediate, this means there is no                            grace period in effect and the order will                            immediately transition. If the grace period                            is infinite, then this means the order will                            not be transitioned until all accepted work                            items are complete.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			<xsd:element name="EventInterval" type="xsd:duration" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>						An event will be generated periodically while						the order remains in grace period. This event						acts as a warning to external systems than an						order is in grace period and awaiting completion						of accepted work items. This value controls the						frequency that the event will be generated.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SuspendOrderResponseType">
+		<xsd:sequence>
+			<xsd:element name="OrderId" type="osm:OrderIdType">
+				<xsd:annotation>
+					<xsd:documentation>						The id of the order that has been suspended.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ResumeOrderResponseType">
+		<xsd:sequence>
+			<xsd:element name="OrderId" type="osm:OrderIdType">
+				<xsd:annotation>
+					<xsd:documentation>						The id of the order that has been resumed.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CancelOrderRequestType" abstract="false">
+		<xsd:complexContent>
+			<xsd:extension base="osm:OrderStateTransitionRequestType"/>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="SuspendOrderRequestType" abstract="false">
+		<xsd:complexContent>
+			<xsd:extension base="osm:OrderStateTransitionRequestType"/>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="CancelOrderResponseType">
+		<xsd:sequence>
+			<xsd:element name="OrderId" type="osm:OrderIdType">
+				<xsd:annotation>
+					<xsd:documentation>						The id of the order that is being cancelled.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+    <xsd:complexType name="SimpleOrderStateTransitionRequestType" abstract="true">
+		<xsd:annotation>
+		    <xsd:documentation>				Common base type for operations that perform a state              transition on the order where only order-id and reason are allowed.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="OrderId" type="osm:OrderIdType">
+				<xsd:annotation>
+					<xsd:documentation>						The id of the order to be transitioned.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Reason" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>						A reason or cause for the transition.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FailOrderRequestType" abstract="false">
+		<xsd:complexContent>
+			<xsd:extension base="osm:OrderStateTransitionRequestType"/>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="AbortOrderRequestType" abstract="false">
+		<xsd:complexContent>
+			<xsd:extension base="osm:SimpleOrderStateTransitionRequestType"/>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="ResolveFailureRequestType" abstract="false">
+		<xsd:complexContent>
+		    <xsd:extension base="osm:SimpleOrderStateTransitionRequestType"/>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FailOrderResponseType">
+		<xsd:sequence>
+			<xsd:element name="OrderId" type="osm:OrderIdType">
+				<xsd:annotation>
+					<xsd:documentation>						The id of the order that is being failed.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AbortOrderResponseType">
+		<xsd:sequence>
+			<xsd:element name="OrderId" type="osm:OrderIdType">
+				<xsd:annotation>
+					<xsd:documentation>						The id of the order that is being aborted.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ResolveFailureResponseType">
+		<xsd:sequence>
+			<xsd:element name="OrderId" type="osm:OrderIdType">
+				<xsd:annotation>
+					<xsd:documentation>						The id of the failed order to resolve.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="UpdateOrderRequestType">
+		<xsd:sequence>
+			<xsd:element name="OrderId" type="osm:OrderIdType">
+				<xsd:annotation>
+					<xsd:documentation>						The id of the order to update.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="View" type="osm:EntityNameType">
+				<xsd:annotation>
+					<xsd:documentation>							The name of the view that is used to determine							the order detail data that can be updated. This is							a "workgroup view" that must be associated with							one or more workgroups the requesting user is a							member of for the definition (type/source plus							cartridge name/version) of the order that is							being retrieved.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:choice>
+				<xsd:element name="UpdatedOrder" type="osm:OrderDataType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>							Allows the user to update the order by supplying							a complete order. The existing order will then be							updated (elements added, changed or deleted as necessary)							to match the supplied order.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="UpdatedNodes" type="osm:OrderDataType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>			Allows the user to update the order by supplying only							the nodes that should be added or updated. The nodes are							supplied in the format of the existing order, i.e. the structure							of the nodes (parents and children) must match the view specification							for the view being used. No deletes will be performed using this approach.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="DataChange" type="osm:DataChangeRequestType" minOccurs="0">
+					<xsd:annotation>
+						<xsd:documentation>							Allows the user to update the order by supplying a series of							Add, Update and Delete elements that will be used to manipulate							the order as required.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			<xsd:element name="StartOrder" type="xsd:boolean" default="false" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>						This element controls whether or not the order						will be automatically started or not.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Remark" type="osm:CreateRemarkType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="UpdateOrderResponseType">
+		<xsd:annotation>
+			<xsd:documentation>				An empty response with no errors signals a successful				updates. If a remark was part of the update, the				response includes the id of the remark and if applicable				the id and filename of the attachment.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="OrderId" type="osm:OrderIdType">
+				<xsd:annotation>
+					<xsd:documentation>						The order id that was provided in the request.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Remark" type="osm:RemarkResponseType" minOccurs="0"/>
+			<xsd:element name="State" type="osm:OrderStateType">
+				<xsd:annotation>
+					<xsd:documentation>						The current state of the order.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TargetState" type="osm:OrderStateType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>						The target state of the order. This element is						omitted if the target order is not currently in						transition.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AmendmentSummary" type="osm:AmendmentSummaryType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>						Used when update started the order process flow.						If the started order is an amendment, a summary						of the order that is being amended is returned.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OrderAlreadyStartedWarning" minOccurs="0">
+				<xsd:complexType>
+					<xsd:annotation>
+						<xsd:documentation>							Used when update tried to start the order which is already started the order process flow.</xsd:documentation>
+					</xsd:annotation>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ResumeOrderRequestType">
+		<xsd:sequence>
+			<xsd:element name="OrderId" type="osm:OrderIdType"/>
+			<xsd:element name="Reason" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="OrderNotFoundFaultType">
+		<xsd:annotation>
+			<xsd:documentation>				This fault is raised when an attempt is made to perform				a transaction on an invalid or non existent order.				Generally this fault occurs when an incorrect order id				is specified.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="osm:FaultType">
+				<xsd:sequence>
+					<xsd:element name="OrderId" type="osm:EntityIdType">
+						<xsd:annotation>
+							<xsd:documentation>								The id of the order that cannot be								found.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="NotAuthorizedFaultType">
+		<xsd:annotation>
+			<xsd:documentation>				This fault is raised when an attempt is made by a user who				does not have enough privilege.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="osm:FaultType"/>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="InvalidFindOrderFaultType">
+		<xsd:annotation>
+			<xsd:documentation>				This fault is raised when invalid data is				found related with mnemonics for namespace, version,order type,order source,header.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="osm:FaultType"/>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="FaultType">
+		<xsd:sequence>
+			<xsd:element name="Description" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="OrderTransactionNotAllowedFaultType" abstract="false">
+		<xsd:annotation>
+			<xsd:documentation>				This fault is raised when the transaction being				attempted is not permitted. This fault generally occurs				for two reasons: the requesting user is not authorized				to perform the transaction, or the order lifecycle policy				associated with the order does not permit the requested				transaction from being performed at this time.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="osm:FaultType">
+				<xsd:sequence>
+					<xsd:element name="OrderId" type="osm:EntityIdType">
+						<xsd:annotation>
+							<xsd:documentation>								The id of the order upon which the								failed transaction request was								attempted.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Policy" type="osm:EntityNameType">
+						<xsd:annotation>
+							<xsd:documentation>								The order lifecycle policy associated with								the order's definition.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="OrderState" type="osm:OrderStateType">
+						<xsd:annotation>
+							<xsd:documentation>								The current state of the order.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Cartridge" type="osm:CartridgeType">
+						<xsd:annotation>
+							<xsd:documentation>								The cartridge associated with the order.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Transaction" type="osm:TransactionType">
+						<xsd:annotation>
+							<xsd:documentation>								The transaction being requested.</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="InvalidOrderSpecificationFaultType">
+		<xsd:annotation>
+			<xsd:documentation>		This fault is raised when the specified order definition				cannot be found. Generally this fault occurs for one of				the following reasons: an incorrect order type or source				is specified, an incorrect cartridge namespace or				version is specified, or the user does has not been				granted access to the creation task for the specified				order definition.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="osm:FaultType"/>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="AmendmentSummaryType">
+		<xsd:annotation>
+			<xsd:documentation>				A summary of the order being amended.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="MatchedOrderID" type="osm:OrderIdType"/>
+			<xsd:element name="Status" type="osm:AmendmentStatusType">
+				<xsd:annotation>
+					<xsd:documentation>						The status of the amendment order.						Accepted means it has been successfully accepted by						the system.						Queued means it is pending processing because the order						is already processing an amendment or cannot accept						amendments at the current time.						Completed means the compensation for the amendment has						completed.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="AmendmentStatusType">
+		<xsd:annotation>
+			<xsd:documentation>				The status of the amendment request.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="accepted"/>
+			<xsd:enumeration value="queued"/>
+			<xsd:enumeration value="in_progress"/>
+			<xsd:enumeration value="skipped"/>
+			<xsd:enumeration value="completed"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="GetOrderRequestType">
+		<xsd:sequence>
+			<xsd:element name="OrderId" type="osm:OrderIdType">
+				<xsd:annotation>
+					<xsd:documentation>					The id of the order to be retrieved.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="View" type="osm:EntityNameType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>						The name of the view that is used to determine						the order detail data that is returned. This is						a "workgroup view" that must be associated with						one or more workgroups the requesting user is a						member of for the definition (type/source plus			cartridge name/version) of the order that is						being retrieved.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RemarkFilter" type="osm:RemarkFilter" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>						Controls how remarks and attachments are						returned.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AmendmentFilter" type="osm:AmendmentFilterType" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>						Controls how amendment related information for						the order is returned.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="LifecycleEventFilter" type="osm:OrderLifecycleEventFilterType" maxOccurs="1"
+				 minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>						Controls how order lifecycle events for						the order are returned.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="GetOrderResponseType">
+		<xsd:sequence>
+			<xsd:element name="OrderSummary" type="osm:OrderSummaryType">
+				<xsd:annotation>
+					<xsd:documentation>						A summary of the order.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Data" type="osm:OrderDataType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>						Contains the order data based on the view						provided on the request.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Remarks" type="osm:RemarksType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>						This element contains any remarks and						attachments that may be associated with the						order. Remarks are returned based on the						RemarkFilter set on the request.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Amendments" type="osm:AmendmentsType" maxOccurs="1" minOccurs="0"/>
+			<xsd:element name="LifecycleEvents" type="osm:OrderLifecycleEvents" maxOccurs="1" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="CreateOrderBySpecification" type="osm:CreateOrderBySpecificationRequestType"/>
+	<xsd:element name="CreateOrderBySpecificationResponse" type="osm:CreateOrderBySpecificationResponseType"/>
+	<xsd:element name="GetOrder" type="osm:GetOrderRequestType"/>
+	<xsd:element name="GetOrderResponse" type="osm:GetOrderResponseType"/>
+	<xsd:element name="ResumeOrder" type="osm:ResumeOrderRequestType"/>
+	<xsd:element name="ResumeOrderResponse" type="osm:ResumeOrderResponseType"/>
+	<xsd:element name="OrderNotFoundFault" type="osm:OrderNotFoundFaultType"/>
+	<xsd:element name="NotAuthorizedFault" type="osm:NotAuthorizedFaultType"/>
+	<xsd:element name="InvalidFindOrderFault" type="osm:InvalidFindOrderFaultType"/>
+	<xsd:element name="OrderTransactionNotAllowedFault" type="osm:OrderTransactionNotAllowedFaultType"/>
+	<xsd:element name="InvalidOrderSpecificationFault" type="osm:InvalidOrderSpecificationFaultType"/>
+	<xsd:element name="SuspendOrder" type="osm:SuspendOrderRequestType"/>
+	<xsd:element name="SuspendOrderResponse" type="osm:SuspendOrderResponseType"/>
+	<xsd:element name="CancelOrder" type="osm:CancelOrderRequestType"/>
+	<xsd:element name="CancelOrderResponse" type="osm:CancelOrderResponseType"/>
+	<xsd:element name="UpdateOrder" type="osm:UpdateOrderRequestType"/>
+	<xsd:element name="UpdateOrderResponse" type="osm:UpdateOrderResponseType"/>
+	<xsd:element name="FailOrder" type="osm:FailOrderRequestType"/>
+	<xsd:element name="FailOrderResponse" type="osm:FailOrderResponseType"/>
+	<xsd:element name="AbortOrder" type="osm:AbortOrderRequestType"/>
+	<xsd:element name="AbortOrderResponse" type="osm:AbortOrderResponseType"/>
+	<xsd:element name="ResolveFailure" type="osm:ResolveFailureRequestType" />
+	<xsd:element name="ResolveFailureResponse" type="osm:ResolveFailureResponseType" />
+	<xsd:element name="FindOrder" type="osm:FindOrderRequestType">
+		<xsd:annotation>
+			<xsd:documentation>				FindOrder is used to find a set of orders that match the select clause. The set of conditions must all be satisfied before an order is returned in the results.				The Select element is used to specify what information is to be returned in the results. Results can contain a combination of flexible headers and view data. The calling user must belong to a role with permissions for the view. If the user does not have the view permission, no view data is returned.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="FindOrderResponse" type="osm:FindOrderResponseType">
+		<xsd:annotation>
+			<xsd:documentation>Results that satisfy the selector conditions from a FindOrder request.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="GetOrder_fault">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="GetOrder_fault" type="xsd:string"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="InvalidViewFault" type="osm:InvalidViewFaultType"/>
+	<xsd:complexType name="InvalidViewFaultType">
+		<xsd:annotation>
+			<xsd:documentation>				This fault is raised when an attempt is made to retrieve				an order based on an invalid view. Generally this fault				occurs if the specified view does not exist or is not				associated with a workgroup that the requesting user is				a member of.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="osm:FaultType">
+				<xsd:sequence>
+					<xsd:element name="View" type="osm:EntityNameType"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="InvalidOrderDataFault" type="osm:InvalidOrderDataFaultType"/>
+	<xsd:complexType name="InvalidOrderDataFaultType">
+		<xsd:annotation>
+			<xsd:documentation>				This fault is raised when the order data provided is not valid.				Typically this fault occurs when the order data contains order 				nodes that are not present in view being used for the				transaction.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexContent>
+			<xsd:extension base="osm:FaultType"/>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="AttachmentFilter">
+		<xsd:sequence>
+			<xsd:element name="FileNameMatch" type="xsd:normalizedString" default=".*" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>						A regular expression that is applied to the file						name of the attachment - if the attachment file						name does not match the specified regular						expression, then the attachment does not pass						this filter. If omitted, all attachment file						names are matched.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MinSize" default="0" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>						The minimum size in kilobytes of an attachment						that applies to this filter.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:long">
+						<xsd:minInclusive value="0"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="MaxSize" default="4" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>						The maximum size in kilobytes of an attachment						that applies to this filter.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:long">
+						<xsd:minInclusive value="0"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Format" default="inlineBase64Binary" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>						The format in which the attachment is returned.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="inlineBase64Binary"/>
+						<xsd:enumeration value="inlineHexBinary"/>
+						<xsd:enumeration value="mimeSwaRef"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RemarkFilter">
+		<xsd:annotation>
+			<xsd:documentation>        		This type provides fine control over how remarks and        		attachments are returned.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="RetrieveRemarks" type="xsd:boolean" default="false" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>						Set to true if remarks and associated						attachments should be returned.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AttachmentFilter" type="osm:AttachmentFilter" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>						Zero or more attachment filters that control how						attachments are returned. Attachment filters are						processed in the order they are provided. A						given attachment will match at most one filter.						If no filters are provided, then attachments are						not returned. This element is only considered if						RetrieveRemarks is set to true.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="NonEmptyNormalizedStringType">
+		<xsd:restriction base="xsd:normalizedString">
+			<xsd:minLength value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="RemarksType">
+		<xsd:sequence>
+			<xsd:element name="Remark" type="osm:RemarkType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RemarkResponseType">
+		<xsd:sequence>
+			<xsd:element name="RemarkId" type="osm:EntityIdType"/>
+			<xsd:element name="Attachment" type="osm:AttachmentResponseType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AttachmentResponseType">
+		<xsd:sequence>
+			<xsd:element name="AttachmentId" type="osm:EntityIdType"/>
+			<xsd:element name="FileName" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="CreateOrder" type="osm:CreateOrderRequestType"/>
+	<xsd:element name="CreateOrderResponse" type="osm:CreateOrderResponseType"/>
+	<xsd:complexType name="CreateOrderRequestType">
+		<xsd:sequence>
+			<xsd:any namespace="##any" processContents="skip" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CreateOrderResponseType">
+		<xsd:sequence>
+			<xsd:any namespace="##any" processContents="skip" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="OrderKeyType">
+		<xsd:sequence>
+			<xsd:any namespace="##any" processContents="skip" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FindOrderRequestType">
+		<xsd:sequence>
+			<xsd:element name="ViewBy" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>                		Use the specified set of views to filter order data in the result set. For each order in the result set, do the following                        1. Check each view in the provided sequence to determine if the workgroup has view permissions for the order result. This view refers to the workgroup view association on the orderDefinition.                        2. When a view permission is available, apply the view to the order result</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="View" type="osm:EntityNameType" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>                    				Specifies a view that will be used    				to retrieve order data details. The                    				system will use the first view                    				specified that is valid for each                    				returned order. If no view is valid                    				for a given order then no order data                    				details are returned.</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="RemarkFilter" type="osm:RemarkFilter" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>                    				Controls how remarks and attachments                    				are returned.</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="AmendmentFilter" type="osm:AmendmentFilterType" maxOccurs="1" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>                    				Controls how amendment related                    				information for the order is                    				returned.</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="LifecycleEventFilter" type="osm:OrderLifecycleEventFilterType" maxOccurs="1"
+							 minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>                    				Controls how lifecycle event related                    				information for the order is                    				returned.</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="SelectBy" maxOccurs="1" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>                        Specify the selector criteria to choose which orders should be returned in the result set. Selector criteria can be wildcarded.                		An order is only returned in the result set if all SelectBy criteria are met.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+                    <xsd:annotation>
+                    	<xsd:documentation>Specifies a set of criteria used to filter the result set of orders returned by the FindOrder operation.</xsd:documentation>
+                    </xsd:annotation>
+					<xsd:sequence>
+						<xsd:element name="OrderId" type="osm:OrderIdType" minOccurs="0"/>
+						<xsd:element name="OrderState" type="osm:OrderStateType" minOccurs="0"/>
+						<xsd:element name="TargetOrderState" type="osm:OrderStateType" minOccurs="0"/>
+						<xsd:element name="Reference" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="Cartridge" type="osm:CartridgeType" minOccurs="0"/>
+						<xsd:element name="OrderType" type="osm:EntityNameType" minOccurs="0"/>
+						<xsd:element name="OrderSource" type="osm:EntityNameType" minOccurs="0"/>
+						<xsd:element name="CreatedDate" type="osm:DateRangeType" minOccurs="0"/>
+						<xsd:element name="CompletedDate" type="osm:DateRangeType" minOccurs="0"/>
+						<xsd:element name="ExpectedStartDate" type="osm:DateRangeType" minOccurs="0"/>
+						<xsd:element name="ExpectedOrderCompletionDate" type="osm:DateRangeType" minOccurs="0"/>
+						<xsd:element name="RequestedDeliveryDate" type="osm:DateRangeType" minOccurs="0"/>
+						<xsd:element name="ExpectedDuration" type="osm:DurationRangeType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Filter by a range of expected duration.</xsd:documentation>
+							</xsd:annotation></xsd:element>
+						<xsd:element name="Priority" type="osm:PriorityType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Filter by order priority.</xsd:documentation>
+							</xsd:annotation></xsd:element>
+						<xsd:element name="Field" minOccurs="0" maxOccurs="unbounded">
+                            <xsd:annotation>
+                            	<xsd:documentation>Fixed or flex header fields specified as filter criteria. 
+</xsd:documentation>
+                            </xsd:annotation>
+							<xsd:complexType>
+                                <xsd:annotation>
+                                	<xsd:documentation>Allows orders to be retrieved by fixed or flex header values.</xsd:documentation>
+                                </xsd:annotation>
+								<xsd:sequence>
+									<xsd:element name="Cartridge" type="osm:CartridgeType" minOccurs="0"/>
+									<xsd:element name="Path" type="xsd:normalizedString">
+										<xsd:annotation>
+											<xsd:documentation>Specifies that path that indicates the field that is being used as a filter.
+
+Flex header fiels are specified by their mnemonic path as defined in the flex header field within Design Studio.
+
+Fixed header fields are a standard set of built-in fields that are supported for filters. These are:
+CompletedDate. CreatedDate, ExpectedOrderCompletionDate, ExpectedStartDate, ExpectedDuration,OrderId, OrderKey, OrderSource, OrderState, OrderType, Priority, Reference, RequestedDeliveryDate and TargetOrderState.</xsd:documentation>
+										</xsd:annotation></xsd:element>
+									<xsd:choice>
+										<xsd:element name="EqualTo" type="xsd:string">
+											<xsd:annotation>
+												<xsd:documentation>If an order has a value for the specified field equal to the provided value then the filter criteria is satisfied. 
+
+The EqualTo value may include wildcard characters (*, ?) for many (but not all) data types. Use of wildcards automatically makes this element behave consistent with a 'like" operation.
+</xsd:documentation>
+											</xsd:annotation></xsd:element>
+										<xsd:sequence>
+											<xsd:element name="From" type="xsd:string">
+												<xsd:annotation>
+													<xsd:documentation>If an order has a value for the specified field within the provide range of the From and To values then the filter criteria is satisfied.
+
+Most but not all header fields support range operations.</xsd:documentation>
+												</xsd:annotation></xsd:element>
+											<xsd:element name="To" type="xsd:string"/>
+										</xsd:sequence>
+									</xsd:choice>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="MaxOrders" type="xsd:positiveInteger" maxOccurs="1" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>The maximum number of orders matching the SelectBy parameters that will be returned on the response.</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="OrderBy" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Sort the set of results by the following sequence of data fields. The sort order is applied in the sequence specified in the FindOrder request.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="OrderField" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="SortBy" minOccurs="0">
+										<xsd:simpleType>
+											<xsd:restriction base="xsd:string">
+												<xsd:enumeration value="Ascending"/>
+												<xsd:enumeration value="Descending"/>
+											</xsd:restriction>
+										</xsd:simpleType>
+									</xsd:element>
+									<xsd:element name="Header">
+										<xsd:simpleType>
+											<xsd:restriction base="xsd:string">
+												<xsd:enumeration value="CompletedDate"/>
+												<xsd:enumeration value="CreatedDate"/>
+												<xsd:enumeration value="ExpectedOrderCompletionDate"/>
+												<xsd:enumeration value="ExpectedStartDate"/>
+												<xsd:enumeration value="ExpectedDuration"/>
+												<xsd:enumeration value="OrderId"/>
+												<xsd:enumeration value="OrderKey"/>
+												<xsd:enumeration value="OrderSource"/>
+												<xsd:enumeration value="OrderState"/>
+												<xsd:enumeration value="OrderType"/>
+												<xsd:enumeration value="Priority"/>
+												<xsd:enumeration value="Reference"/>
+												<xsd:enumeration value="RequestedDeliveryDate"/>
+												<xsd:enumeration value="TargetOrderState"/>
+											</xsd:restriction>
+										</xsd:simpleType>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="SortType">
+		<xsd:restriction base="xsd:normalizedString">
+			<xsd:enumeration value="Descending"/>
+			<xsd:enumeration value="Ascending"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:group name="QueryFixedHeaderGroup">
+		<xsd:sequence/>
+	</xsd:group>
+	<xsd:complexType name="DateRangeType">
+		<xsd:annotation>
+			<xsd:documentation>Specifies a date range.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="FromDate" type="xsd:dateTime" maxOccurs="1" minOccurs="0"/>
+			<xsd:element name="ToDate" type="xsd:dateTime" maxOccurs="1" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="DurationRangeType">
+		<xsd:annotation>
+			<xsd:documentation>Specifies a duration range.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="FromDuration" type="xsd:duration" maxOccurs="1" minOccurs="0"/>
+			<xsd:element name="ToDuration" type="xsd:duration" maxOccurs="1" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:attributeGroup name="CartridgeAttributeGroup"/>
+	<xsd:group name="gFromTo">
+		<xsd:sequence>
+			<xsd:element name="From" type="xsd:string"/>
+			<xsd:element name="To" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:group>
+	<xsd:complexType name="FindOrderResponseType">
+		<xsd:annotation>
+			<xsd:documentation>Results that satisfy the selector conditions from a FindOrder request.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Order" type="osm:GetOrderResponseType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="OrderStatesType">
+		<xsd:sequence>
+			<xsd:element name="OrderState" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="OrderState" type="osm:OrderStateType">
+							<xsd:annotation>
+								<xsd:documentation>State of the order</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="TransitionStartDate" type="xsd:dateTime">
+							<xsd:annotation>
+								<xsd:documentation>Time at which the state was entered</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="TransitionCompletedDate" type="xsd:dateTime" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Time at which the state was exited</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="ActualDuration" type="xsd:duration" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Period of time spent in this state</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="User" type="xsd:normalizedString">
+							<xsd:annotation>
+								<xsd:documentation>User which initiated transaction that caused transition to this state</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="Reason" type="xsd:normalizedString" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>User provided reason for requesting transition to this state</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AmendmentsType">
+		<xsd:sequence>
+			<xsd:element name="AmendedOrderSummary" type="osm:OrderSummaryType" maxOccurs="1" minOccurs="1"/>
+			<xsd:element name="Amendment" type="osm:AmendmentDetailType" maxOccurs="unbounded" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AmendmentDetailType">
+		<xsd:sequence>
+			<xsd:element name="AmendmentOrderId" type="osm:OrderIdType" maxOccurs="1" minOccurs="1"/>
+			<xsd:element name="Version" type="xsd:long" maxOccurs="1" minOccurs="0"/>
+			<xsd:element name="Status" type="osm:AmendmentStatusType" maxOccurs="1" minOccurs="1"/>
+			<xsd:element name="Received" type="xsd:dateTime" maxOccurs="1" minOccurs="1"/>
+			<xsd:element name="CompensationStarted" type="xsd:dateTime" maxOccurs="1" minOccurs="0"/>
+			<xsd:element name="CompensationCompleted" type="xsd:dateTime" maxOccurs="1" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AmendmentFilterType">
+		<xsd:sequence>
+			<xsd:element name="LevelOfDetail" type="osm:AmendmentFilterLevelOfDetailType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="AmendmentFilterLevelOfDetailType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="AmendedOrderSummary"/>
+			<xsd:enumeration value="AmendmentsSummary"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="OrderLifecycleEventFilterType">
+		<xsd:sequence>
+			<xsd:element name="RetrieveLifecycleEvents" type="xsd:boolean" maxOccurs="1" minOccurs="0" default="false">
+				<xsd:annotation>
+					<xsd:documentation>						Set to true if order lifecycle event details should be returned.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="OrderLifecycleEvents">
+		<xsd:sequence>
+			<xsd:element name="LifecycleEvent" type="osm:OrderLifecycleEventType" maxOccurs="unbounded" minOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="OrderLifecycleEventType">
+		<xsd:sequence>
+			<xsd:element name="OrderState" type="osm:OrderStateType" maxOccurs="1" minOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>The state of the order.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Entered" type="xsd:dateTime" maxOccurs="1" minOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>The time when the order entered the specified state.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Exited" type="xsd:dateTime" maxOccurs="1" minOccurs="0" nillable="false">
+				<xsd:annotation>
+					<xsd:documentation>The time when the order exited the specified state. If the value is not provided, then the order did not exit the state which indicated the order is still in this state.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Duration" type="xsd:duration" maxOccurs="1" minOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>The duration the order was in this stae (Exited - Entered) or if Exited is not set then it is (currentTime - Entered). </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="User" type="xsd:normalizedString" maxOccurs="1" minOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>The user that initiated the transaction causing the order to enter the specified state.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Reason" type="xsd:normalizedString" maxOccurs="1" minOccurs="0" nillable="false">
+				<xsd:annotation>
+					<xsd:documentation>The reason for the order entering the state.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ValidationType">
+		<xsd:sequence>
+			<xsd:element name="Message" type="osm:ValidationMessageType" maxOccurs="unbounded" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ValidationMessageType">
+		<xsd:sequence>
+			<xsd:element name="Severity" type="osm:SeverityType" maxOccurs="1" minOccurs="1"/>
+			<xsd:element name="Location" type="osm:ValidationMessageLocationType" maxOccurs="1" minOccurs="0"/>
+			<xsd:element name="Description" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="SeverityType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="VALID"/>
+			<xsd:enumeration value="WARNING"/>
+			<xsd:enumeration value="ERROR"/>
+			<xsd:enumeration value="CRITICAL"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="ValidationMessageLocationType">
+		<xsd:sequence>
+			<xsd:element name="Line" type="xsd:int" maxOccurs="1" minOccurs="0"/>
+			<xsd:element name="Column" type="xsd:int" maxOccurs="1" minOccurs="0"/>
+			<xsd:element name="DocumentUrl" type="xsd:anyURI" maxOccurs="1" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="ValidationResult" type="osm:ValidationType"/>
+</xsd:schema>

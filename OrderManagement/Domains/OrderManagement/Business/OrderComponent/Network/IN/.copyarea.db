@@ -1,0 +1,14 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\Business\OrderComponent\Network\IN
+2
+a
+1b:DeleteMultipleVPNAccount_v1|2|0|0|0|65b878a3a2f4464d8b28cfb41f41de43|0
+19:UpdateVPNAccountMSISDN_v1|2|0|0|0|b15a3b593acd4d92a2e739cef99c2016|0
+16:AddWhiteListProfile_v1|2|0|0|0|b5854f0502b04f219855cd396fcba60d|0
+18:AddMultipleVPNAccount_v1|2|0|0|0|098c07fb9c2e41838996fb466d5a4265|0
+13:UpdateVPNAccount_v1|2|0|0|0|daf02f9dbedd42f2a97f23614c12be1e|0
+16:AddBlackListProfile_v1|2|0|0|0|e11f8bd8f85c4dd18e51c6f28004eb0e|0
+19:UpdateVPNBarringStatus_v1|2|0|0|0|3a1c6b4e3316495e92b99c8a4213f6e8|0
+e:AddVPNGroup_v1|2|0|0|0|53bdca62bb464fb4aa13045c39c14b13|0
+11:DeleteVPNGroup_v1|2|0|0|0|1e43e0711fc9457f92b37872424fecdd|0
+7:.folder|1|162d7aed324|17b|66f881a5|e33b25c7385f4d5f96252e005115e4d6|0

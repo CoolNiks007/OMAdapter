@@ -1,0 +1,7 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\BusinessResources\Connections\OSM\JMS
+2
+3
+23:JNDI Configuration.sharedjndiconfig|1|162d7aee369|275|1d1bd552|b260fd76cc8241bfb1be8fe5cc82e31e|0
+1f:OSM JMS Connection.sharedjmscon|1|162d7aee379|5b1|61fdd7e3|ac0a2378f3db413399a2fdd81c0a2b11|0
+7:.folder|1|162d7aee32b|17c|e64981f8|17803ebb7d764ded84c7a7cf8c5c0df2|0

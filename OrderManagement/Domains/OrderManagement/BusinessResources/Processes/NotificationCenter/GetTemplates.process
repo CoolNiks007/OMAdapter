@@ -1,0 +1,925 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd"/>
+    <pd:name>Domains/OrderManagement/BusinessResources/Processes/NotificationCenter/GetTemplates.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="TemplateIdentificator">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="Products">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="Product" minOccurs="0" maxOccurs="unbounded">
+                                    <xsd:complexType>
+                                        <xsd:sequence>
+                                            <xsd:element name="Action" type="xsd:string"/>
+                                            <xsd:element name="MNPCode" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="OrderTypeCode" type="xsd:string"/>
+                                            <xsd:element name="ProductCatalogId" type="xsd:string"/>
+                                            <xsd:element name="ActionType" type="xsd:string"/>
+                                            <xsd:element name="CustomerType" type="xsd:string"/>
+                                            <xsd:element name="ActionReason" type="xsd:string"/>
+                                            <xsd:element name="DunningSMSFlag" type="xsd:string"/>
+                                            <xsd:element name="Flag" type="xsd:string"/>
+                                            <xsd:element name="SVBFlag" type="xsd:string"/>
+                                            <xsd:element name="IncludeFlag" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="ComponentSubType" type="xsd:string"/>
+                                            <xsd:element name="ComponentGroup" type="xsd:string"/>
+                                            <xsd:element name="ComponentType" type="xsd:string"/>
+                                        </xsd:sequence>
+                                    </xsd:complexType>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="SiebelOrder">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:any processContents="skip"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="Scenario" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>32</pd:startX>
+    <pd:startY>195</pd:startY>
+    <pd:returnBindings>
+        <ListOfTemplates>
+            <xsl:variable name="Order" select="$Start/TemplateIdentificator/SiebelOrder/*"/>
+            <xsl:for-each select="$ListOfTemplates/ListOfTemplates/Template">
+                <xsl:variable name="ProductCatalogId" select="ProductCatalogId"/>
+                <xsl:if test="string-length(ConditionEval) = 0 or tib:evaluate(ConditionEval)[1]">
+                    <Template>
+                        <Id>
+                            <xsl:value-of select="Id"/>
+                        </Id>
+                        <xsl:if test="SVBFlag">
+                            <SVBFlag>
+                                <xsl:value-of select="SVBFlag"/>
+                            </SVBFlag>
+                        </xsl:if>
+                        <xsl:if test="ProductCatalogId">
+                            <ProductCatalogId>
+                                <xsl:value-of select="ProductCatalogId"/>
+                            </ProductCatalogId>
+                        </xsl:if>
+                        <Channel>
+                            <xsl:value-of select="Channel"/>
+                        </Channel>
+                        <xsl:if test="DestinationEval">
+                            <DestinationEval>
+                                <xsl:value-of select="DestinationEval"/>
+                            </DestinationEval>
+                        </xsl:if>
+                        <xsl:if test="TypeId">
+                            <TypeId>
+                                <xsl:value-of select="TypeId"/>
+                            </TypeId>
+                        </xsl:if>
+                        <xsl:for-each select="ListOfTokens">
+                            <ListOfTokens>
+                                <xsl:for-each select="Token">
+                                    <Token>
+                                        <Name>
+                                            <xsl:value-of select="Name"/>
+                                        </Name>
+                                        <Xpath>
+                                            <xsl:value-of select="Xpath"/>
+                                        </Xpath>
+                                    </Token>
+                                </xsl:for-each>
+                            </ListOfTokens>
+                        </xsl:for-each>
+                    </Template>
+                </xsl:if>
+            </xsl:for-each>
+        </ListOfTemplates>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="ListOfTemplates">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="Template" minOccurs="0" maxOccurs="unbounded">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="Id" type="xsd:string"/>
+                                <xsd:element name="SVBFlag" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="ProductCatalogId" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="Channel" type="xsd:string"/>
+                                <xsd:element name="DestinationEval" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="TypeId" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="ListOfTokens" minOccurs="0">
+                                    <xsd:complexType>
+                                        <xsd:sequence>
+                                            <xsd:element name="Token" minOccurs="0" maxOccurs="unbounded">
+                                                <xsd:complexType>
+                                                    <xsd:sequence>
+                                                        <xsd:element name="Name" type="xsd:string"/>
+                                                        <xsd:element name="Xpath" type="xsd:string"/>
+                                                    </xsd:sequence>
+                                                </xsd:complexType>
+                                            </xsd:element>
+                                        </xsd:sequence>
+                                    </xsd:complexType>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>1243</pd:endX>
+    <pd:endY>199</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <ListOfTemplates>
+            <xsd:element name="ListOfTemplates">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Template" minOccurs="0" maxOccurs="unbounded">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="Id" type="xsd:string"/>
+                                    <xsd:element name="ConfigId" type="xsd:string"/>
+                                    <xsd:element name="SVBFlag" type="xsd:string" minOccurs="0"/>
+                                    <xsd:element name="ProductCatalogId" type="xsd:string" minOccurs="0"/>
+                                    <xsd:element name="Channel" type="xsd:string"/>
+                                    <xsd:element name="ConditionEval" type="xsd:string" minOccurs="0"/>
+                                    <xsd:element name="DestinationEval" type="xsd:string" minOccurs="0"/>
+                                    <xsd:element name="TypeId" type="xsd:string" minOccurs="0"/>
+                                    <xsd:element name="ListOfTokens" minOccurs="0">
+                                        <xsd:complexType>
+                                            <xsd:sequence>
+                                                <xsd:element name="Token" minOccurs="0" maxOccurs="unbounded">
+                                                    <xsd:complexType>
+                                                        <xsd:sequence>
+                                                            <xsd:element name="Name" type="xsd:string"/>
+                                                            <xsd:element name="Xpath" type="xsd:string"/>
+                                                        </xsd:sequence>
+                                                    </xsd:complexType>
+                                                </xsd:element>
+                                            </xsd:sequence>
+                                        </xsd:complexType>
+                                    </xsd:element>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </ListOfTemplates>
+    </pd:processVariables>
+    <pd:targetNamespace>http://vodafone.com.tr/1420476932630</pd:targetNamespace>
+    <pd:group name="Get TemplateIds">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>312</pd:x>
+        <pd:y>93</pd:y>
+        <pd:width>254</pd:width>
+        <pd:height>187</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>$ProductsAfterPreFilter/ProductsAfterPreFilter/Product</pd:over>
+            <pd:iterationElementSlot>product</pd:iterationElementSlot>
+            <pd:indexSlot>i</pd:indexSlot>
+            <pd:outSlot>GetTemplates</pd:outSlot>
+            <pd:activityOutputName>GetTemplates Query</pd:activityOutputName>
+            <pd:accumulateOutput>true</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>GetTemplates Query</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>GetTemplates Query</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="GetTemplates Query">
+            <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+            <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+            <pd:x>444</pd:x>
+            <pd:y>192</pd:y>
+            <config>
+                <timeout>10</timeout>
+                <commit>false</commit>
+                <maxRows>100</maxRows>
+                <emptyStrAsNil>false</emptyStrAsNil>
+                <jdbcSharedConfig>/Domains/OrderManagement/CommonResources/Connections/JDBC/TO2F Database Connection.sharedjdbc</jdbcSharedConfig>
+                <statement>select ? as OriginalProduct, nt.eai_template_id , nt.id, nt.SVB_FLAG, nt.PRODUCTCATALOGID, nt.CHANNEL, nt.CONDITION_EVAL,nt.DESTINATION_EVAL,nt.TYPE_ID
+      FROM oa_notification_template nt 
+      WHERE (NT.ACTION  = ? or(NT.ACTION IS NULL))
+      and (NT.INCLUDEFLAG = ? or (? IS NULL and NT.INCLUDEFLAG IS NULL))
+      and (NT.MNPCODE = ? or (? IS NULL and NT.MNPCODE IS NULL))
+      and (NT.ORDERTYPECODE = ? or (? IS NULL and NT.ORDERTYPECODE IS NULL) or (NT.ORDERTYPECODE IS NULL))
+      and ((NT.PRODUCTCATALOGID = ?) or 
+	  (
+	  (NT.COMPONENTGROUP = ? OR NT.COMPONENTGROUP IS NULL ) AND
+	  (NT.COMPONENTTYPE = ? OR NT.COMPONENTTYPE IS NULL ) AND
+	  (NT.COMPONENTSUBTYPE = ? OR NT.COMPONENTSUBTYPE IS NULL ) AND
+	  (NT.PRODUCTCATALOGID IS NULL)
+	  ))
+      and (NT.ACTIONTYPE = ? or (? IS NULL and NT.ACTIONTYPE IS NULL) or (NT.ACTIONTYPE IS NULL))
+      and (NT.CUSTOMERTYPE = ? or (? IS NULL and NT.CUSTOMERTYPE IS NULL))
+      and (NT.ACTIONREASON = ? or (NT.ACTIONREASON  IS NULL))
+      and (NT.DUNNING_SMS_FLAG = ? or (? IS NULL))
+      and (NT.FLAGS = ? or (? IS NULL and NT.FLAGS IS NULL ))
+      and (NT.SVB_FLAG = ? or (NT.SVB_FLAG IS NULL))
+	  and not(NT.DESTINATION_EVAL IS NULL and nvl(?,'Not Disconnect') = 'Disconnect')</statement>
+                <wizardData/>
+                <Prepared_Param_DataType>
+                    <parameter>
+                        <parameterName>ProductCatalogIdOriginal</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>ACTION</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>INCLUDEFLAG</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>INCLUDEFLAGnull</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>MNPCODE</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>MNPCODEnull</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>ORDERTYPECODE</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>ORDERTYPECODEnull</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>PRODUCTCATALOGID</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>COMPGROUP</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>COMPTYPE</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>COMPSUBTYPE</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>ACTIONTYPE</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>ACTIONTYPEnull</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>CUSTOMERTYPE</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>CUSTOMERTYPEnull</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>ACTIONREASON</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>DUNNING_SMS_FLAG</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>DUNNING_SMS_FLAGnull</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>FLAGS</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>FLAGSNull</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>SVB_FLAG</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                    <parameter>
+                        <parameterName>ORDERTYPECODE2</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                </Prepared_Param_DataType>
+                <oraObjects/>
+                <oraTables/>
+                <QueryOutputCachedSchemaColumns>ORIGINALPRODUCT</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+                <QueryOutputCachedSchemaColumns>EAI_TEMPLATE_ID</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+                <QueryOutputCachedSchemaColumns>ID</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+                <QueryOutputCachedSchemaColumns>SVB_FLAG</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+                <QueryOutputCachedSchemaColumns>PRODUCTCATALOGID</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+                <QueryOutputCachedSchemaColumns>CHANNEL</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+                <QueryOutputCachedSchemaColumns>CONDITION_EVAL</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+                <QueryOutputCachedSchemaColumns>DESTINATION_EVAL</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+                <QueryOutputCachedSchemaColumns>TYPE_ID</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            </config>
+            <pd:inputBindings>
+                <jdbcQueryActivityInput>
+                    <ProductCatalogIdOriginal>
+                        <xsl:value-of select="$product/Product/ProductCatalogId"/>
+                    </ProductCatalogIdOriginal>
+                    <ACTION>
+                        <xsl:value-of select="$product/Product/Action"/>
+                    </ACTION>
+                    <INCLUDEFLAG>
+                        <xsl:choose>
+                            <xsl:when test="exists($product/Product/IncludeFlag)">
+                                <xsl:value-of select="$product/Product/IncludeFlag"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </INCLUDEFLAG>
+                    <INCLUDEFLAGnull>
+                        <xsl:choose>
+                            <xsl:when test="exists($product/Product/IncludeFlag)">
+                                <xsl:value-of select="$product/Product/IncludeFlag"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </INCLUDEFLAGnull>
+                    <MNPCODE>
+                        <xsl:choose>
+                            <xsl:when test="exists($product/Product/MNPCode)">
+                                <xsl:value-of select="$product/Product/MNPCode"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </MNPCODE>
+                    <MNPCODEnull>
+                        <xsl:choose>
+                            <xsl:when test="exists($product/Product/MNPCode)">
+                                <xsl:value-of select="$product/Product/MNPCode"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </MNPCODEnull>
+                    <ORDERTYPECODE>
+                        <xsl:value-of select="$product/Product/OrderTypeCode"/>
+                    </ORDERTYPECODE>
+                    <ORDERTYPECODEnull>
+                        <xsl:value-of select="$product/Product/OrderTypeCode"/>
+                    </ORDERTYPECODEnull>
+                    <PRODUCTCATALOGID>
+                        <xsl:value-of select="$product/Product/ProductCatalogId"/>
+                    </PRODUCTCATALOGID>
+                    <COMPGROUP>
+                        <xsl:value-of select="$product/Product/ComponentGroup"/>
+                    </COMPGROUP>
+                    <COMPTYPE>
+                        <xsl:value-of select="$product/Product/ComponentType"/>
+                    </COMPTYPE>
+                    <COMPSUBTYPE>
+                        <xsl:value-of select="$product/Product/ComponentSubType"/>
+                    </COMPSUBTYPE>
+                    <ACTIONTYPE>
+                        <xsl:value-of select="$product/Product/ActionType"/>
+                    </ACTIONTYPE>
+                    <ACTIONTYPEnull>
+                        <xsl:value-of select="$product/Product/ActionType"/>
+                    </ACTIONTYPEnull>
+                    <CUSTOMERTYPE>
+                        <xsl:value-of select="$product/Product/CustomerType"/>
+                    </CUSTOMERTYPE>
+                    <CUSTOMERTYPEnull>
+                        <xsl:value-of select="$product/Product/CustomerType"/>
+                    </CUSTOMERTYPEnull>
+                    <ACTIONREASON>
+                        <xsl:value-of select="$product/Product/ActionReason"/>
+                    </ACTIONREASON>
+                    <DUNNING_SMS_FLAG>
+                        <xsl:value-of select="$product/Product/DunningSMSFlag"/>
+                    </DUNNING_SMS_FLAG>
+                    <DUNNING_SMS_FLAGnull>
+                        <xsl:value-of select="$product/Product/DunningSMSFlag"/>
+                    </DUNNING_SMS_FLAGnull>
+                    <FLAGS>
+                        <xsl:value-of select="$product/Product/Flag"/>
+                    </FLAGS>
+                    <FLAGSNull>
+                        <xsl:value-of select="$product/Product/Flag"/>
+                    </FLAGSNull>
+                    <SVB_FLAG>
+                        <xsl:value-of select="$product/Product/SVBFlag"/>
+                    </SVB_FLAG>
+                    <ORDERTYPECODE2>
+                        <xsl:value-of select="$product/Product/OrderTypeCode"/>
+                    </ORDERTYPECODE2>
+                </jdbcQueryActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:activity name="AssignTemplates">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>650</pd:x>
+        <pd:y>199</pd:y>
+        <config>
+            <variableName>ListOfTemplates</variableName>
+        </config>
+        <pd:inputBindings>
+            <ListOfTemplates>
+                <xsl:for-each select="$GetTemplates/AccumulatedOutput/resultSet/Record">
+                    <Template>
+                        <Id>
+                            <xsl:value-of select="EAI_TEMPLATE_ID"/>
+                        </Id>
+                        <ConfigId>
+                            <xsl:value-of select="ID"/>
+                        </ConfigId>
+                        <xsl:if test="SVB_FLAG">
+                            <SVBFlag>
+                                <xsl:value-of select="SVB_FLAG"/>
+                            </SVBFlag>
+                        </xsl:if>
+                        <xsl:choose>
+                            <xsl:when test="contains(ORIGINALPRODUCT, '-')">
+                                <ProductCatalogId>
+                                    <xsl:value-of select="substring-before(ORIGINALPRODUCT, '-')"/>
+                                </ProductCatalogId>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:if test="ORIGINALPRODUCT">
+                                    <ProductCatalogId>
+                                        <xsl:value-of select="ORIGINALPRODUCT"/>
+                                    </ProductCatalogId>
+                                </xsl:if>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <Channel>
+                            <xsl:value-of select="CHANNEL"/>
+                        </Channel>
+                        <xsl:if test="CONDITION_EVAL">
+                            <ConditionEval>
+                                <xsl:value-of select="CONDITION_EVAL"/>
+                            </ConditionEval>
+                        </xsl:if>
+                        <xsl:if test="DESTINATION_EVAL">
+                            <DestinationEval>
+                                <xsl:value-of select="DESTINATION_EVAL"/>
+                            </DestinationEval>
+                        </xsl:if>
+                        <xsl:if test="TYPE_ID">
+                            <TypeId>
+                                <xsl:value-of select="TYPE_ID"/>
+                            </TypeId>
+                        </xsl:if>
+                    </Template>
+                </xsl:for-each>
+            </ListOfTemplates>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:group name="Get Tokens">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>743</pd:x>
+        <pd:y>104</pd:y>
+        <pd:width>201</pd:width>
+        <pd:height>172</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>$ListOfTemplates/ListOfTemplates/Template</pd:over>
+            <pd:iterationElementSlot>TemplateElement</pd:iterationElementSlot>
+            <pd:indexSlot>f</pd:indexSlot>
+            <pd:outSlot>GetTokens</pd:outSlot>
+            <pd:activityOutputName>GetTokens Query</pd:activityOutputName>
+            <pd:accumulateOutput>true</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>GetTokens Query</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>GetTokens Query</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="GetTokens Query">
+            <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+            <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+            <pd:x>844</pd:x>
+            <pd:y>199</pd:y>
+            <config>
+                <timeout>10</timeout>
+                <commit>false</commit>
+                <maxRows>100</maxRows>
+                <emptyStrAsNil>false</emptyStrAsNil>
+                <statement>select no.TEMPLATE_ID, nt.value , nt.XPATH 
+from oa_notification_orch no, oa_notification_token nt
+where nt.ID = no.TOKEN_ID
+and no.TEMPLATE_ID = ?</statement>
+                <jdbcSharedConfig>/Domains/OrderManagement/CommonResources/Connections/JDBC/TO2F Database Connection.sharedjdbc</jdbcSharedConfig>
+                <Prepared_Param_DataType>
+                    <parameter>
+                        <parameterName>TemplateID</parameterName>
+                        <dataType>VARCHAR</dataType>
+                    </parameter>
+                </Prepared_Param_DataType>
+                <oraObjects/>
+                <oraTables/>
+                <QueryOutputCachedSchemaColumns>TEMPLATE_ID</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+                <QueryOutputCachedSchemaColumns>VALUE</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+                <QueryOutputCachedSchemaColumns>XPATH</QueryOutputCachedSchemaColumns>
+                <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+                <QueryOutputCachedSchemaDataTypesName>VARCHAR2</QueryOutputCachedSchemaDataTypesName>
+                <QueryOutputCachedSchemaStatus>OptionalElement</QueryOutputCachedSchemaStatus>
+            </config>
+            <pd:inputBindings>
+                <jdbcQueryActivityInput>
+                    <TemplateID>
+                        <xsl:value-of select="$TemplateElement/Template/ConfigId"/>
+                    </TemplateID>
+                </jdbcQueryActivityInput>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:activity name="AssignTemplatesWithTokens">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>1113</pd:x>
+        <pd:y>197</pd:y>
+        <config>
+            <variableName>ListOfTemplates</variableName>
+        </config>
+        <pd:inputBindings>
+            <ListOfTemplates>
+                <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$GetTemplates/AccumulatedOutput/resultSet/Record/EAI_TEMPLATE_ID">
+                    <Template>
+                        <Id>
+                            <xsl:value-of select="."/>
+                        </Id>
+                        <xsl:variable name="var" select="../ID"/>
+                        <ConfigId>
+                            <xsl:value-of select="../ID"/>
+                        </ConfigId>
+                        <xsl:if test="../SVB_FLAG">
+                            <SVBFlag>
+                                <xsl:value-of select="../SVB_FLAG"/>
+                            </SVBFlag>
+                        </xsl:if>
+                        <xsl:choose>
+                            <xsl:when test="contains(../ORIGINALPRODUCT, '-')">
+                                <ProductCatalogId>
+                                    <xsl:value-of select="substring-before(../ORIGINALPRODUCT, '-')"/>
+                                </ProductCatalogId>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:if test="../ORIGINALPRODUCT">
+                                    <ProductCatalogId>
+                                        <xsl:value-of select="../ORIGINALPRODUCT"/>
+                                    </ProductCatalogId>
+                                </xsl:if>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <Channel>
+                            <xsl:value-of select="../CHANNEL"/>
+                        </Channel>
+                        <xsl:if test="../CONDITION_EVAL">
+                            <ConditionEval>
+                                <xsl:value-of select="../CONDITION_EVAL"/>
+                            </ConditionEval>
+                        </xsl:if>
+                        <xsl:if test="../DESTINATION_EVAL">
+                            <DestinationEval>
+                                <xsl:value-of select="../DESTINATION_EVAL"/>
+                            </DestinationEval>
+                        </xsl:if>
+                        <TypeId>
+                            <xsl:value-of select="../TYPE_ID"/>
+                        </TypeId>
+                        <ListOfTokens>
+                            <xsl:for-each select="$GetTokens/AccumulatedOutput/resultSet[Record/TEMPLATE_ID = $var][1]/Record">
+                                <Token>
+                                    <Name>
+                                        <xsl:value-of select="VALUE"/>
+                                    </Name>
+                                    <Xpath>
+                                        <xsl:value-of select="XPATH"/>
+                                    </Xpath>
+                                </Token>
+                            </xsl:for-each>
+                        </ListOfTokens>
+                    </Template>
+                </xsl:for-each>
+            </ListOfTemplates>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetPreConditionFilter">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>135</pd:x>
+        <pd:y>335</pd:y>
+        <config>
+            <processName>/Domains/OrderManagement/BusinessResources/Processes/NotificationCenter/GetPreConditionFilter.process</processName>
+        </config>
+        <pd:inputBindings>
+            <TemplateIdentificator>
+                <xsl:for-each select="$Start/TemplateIdentificator/Products/Product[CustomerType = '101' and string-length(MNPCode)=0 and not(ComponentType=&quot;GROUP_CHILD&quot;)]">
+                    <Products>
+                        <Product>
+                            <ProductCatalogId>
+                                <xsl:value-of select="ProductCatalogId"/>
+                            </ProductCatalogId>
+                        </Product>
+                    </Products>
+                </xsl:for-each>
+                <Scenario>
+                    <xsl:value-of select="$Start/TemplateIdentificator/Scenario"/>
+                </Scenario>
+                <SiebelOrder>
+                    <xsl:copy-of select="$Start/TemplateIdentificator/SiebelOrder/*"/>
+                </SiebelOrder>
+            </TemplateIdentificator>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="ProductsAfterPreFilter">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>229</pd:x>
+        <pd:y>194</pd:y>
+        <config>
+            <element>
+                <xsd:element name="ProductsAfterPreFilter">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="Product" minOccurs="0" maxOccurs="unbounded">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="Action" type="xsd:string"/>
+                                        <xsd:element name="MNPCode" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="OrderTypeCode" type="xsd:string"/>
+                                        <xsd:element name="ProductCatalogId" type="xsd:string"/>
+                                        <xsd:element name="ActionType" type="xsd:string"/>
+                                        <xsd:element name="CustomerType" type="xsd:string"/>
+                                        <xsd:element name="ActionReason" type="xsd:string"/>
+                                        <xsd:element name="DunningSMSFlag" type="xsd:string"/>
+                                        <xsd:element name="Flag" type="xsd:string"/>
+                                        <xsd:element name="SVBFlag" type="xsd:string"/>
+                                        <xsd:element name="IncludeFlag" type="xsd:string" minOccurs="0"/>
+                                        <xsd:element name="ComponentSubType" type="xsd:string"/>
+                                        <xsd:element name="ComponentGroup" type="xsd:string"/>
+                                        <xsd:element name="ComponentType" type="xsd:string"/>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </element>
+        </config>
+        <pd:inputBindings>
+            <ProductsAfterPreFilter>
+                <xsl:for-each select="$Start/TemplateIdentificator/Products/Product[CustomerType = '102' or string-length(MNPCode)>0 or ComponentType=&quot;GROUP_CHILD&quot;]">
+                    <Product>
+                        <Action>
+                            <xsl:value-of select="Action"/>
+                        </Action>
+                        <xsl:if test="MNPCode">
+                            <MNPCode>
+                                <xsl:value-of select="MNPCode"/>
+                            </MNPCode>
+                        </xsl:if>
+                        <OrderTypeCode>
+                            <xsl:value-of select="OrderTypeCode"/>
+                        </OrderTypeCode>
+                        <ProductCatalogId>
+                            <xsl:value-of select="ProductCatalogId"/>
+                        </ProductCatalogId>
+                        <ActionType>
+                            <xsl:value-of select="ActionType"/>
+                        </ActionType>
+                        <CustomerType>
+                            <xsl:value-of select="CustomerType"/>
+                        </CustomerType>
+                        <ActionReason>
+                            <xsl:value-of select="ActionReason"/>
+                        </ActionReason>
+                        <DunningSMSFlag>
+                            <xsl:value-of select="DunningSMSFlag"/>
+                        </DunningSMSFlag>
+                        <Flag>
+                            <xsl:value-of select="Flag"/>
+                        </Flag>
+                        <SVBFlag>
+                            <xsl:value-of select="SVBFlag"/>
+                        </SVBFlag>
+                        <xsl:if test="IncludeFlag">
+                            <IncludeFlag>
+                                <xsl:value-of select="IncludeFlag"/>
+                            </IncludeFlag>
+                        </xsl:if>
+                        <ComponentSubType>
+                            <xsl:value-of select="ComponentSubType"/>
+                        </ComponentSubType>
+                        <ComponentGroup>
+                            <xsl:value-of select="ComponentGroup"/>
+                        </ComponentGroup>
+                        <ComponentType>
+                            <xsl:value-of select="ComponentType"/>
+                        </ComponentType>
+                    </Product>
+                </xsl:for-each>
+                <xsl:for-each select="$GetPreConditionFilter/ListOfProducts/Product/ProductCatalogId">
+                    <xsl:variable name="Product" select="$Start/TemplateIdentificator/Products/Product[ProductCatalogId =tib:tokenize(current(), '-')[1] or (string-length(ProductCatalogId) = 0 and  string-length(current())=0) ]"/>
+                    <Product>
+                        <Action>
+                            <xsl:value-of select="$Product/Action"/>
+                        </Action>
+                        <xsl:if test="$Product/MNPCode">
+                            <MNPCode>
+                                <xsl:value-of select="$Product/MNPCode"/>
+                            </MNPCode>
+                        </xsl:if>
+                        <OrderTypeCode>
+                            <xsl:value-of select="$Product/OrderTypeCode"/>
+                        </OrderTypeCode>
+                        <ProductCatalogId>
+                            <xsl:value-of select="."/>
+                        </ProductCatalogId>
+                        <ActionType>
+                            <xsl:value-of select="$Product/ActionType"/>
+                        </ActionType>
+                        <CustomerType>
+                            <xsl:value-of select="$Product/CustomerType"/>
+                        </CustomerType>
+                        <ActionReason>
+                            <xsl:value-of select="$Product/ActionReason"/>
+                        </ActionReason>
+                        <DunningSMSFlag>
+                            <xsl:value-of select="$Product/DunningSMSFlag"/>
+                        </DunningSMSFlag>
+                        <Flag>
+                            <xsl:value-of select="$Product/Flag"/>
+                        </Flag>
+                        <SVBFlag>
+                            <xsl:value-of select="$Product/SVBFlag"/>
+                        </SVBFlag>
+                        <xsl:if test="$Product/IncludeFlag">
+                            <IncludeFlag>
+                                <xsl:value-of select="$Product/IncludeFlag"/>
+                            </IncludeFlag>
+                        </xsl:if>
+                        <ComponentSubType>
+                            <xsl:value-of select="$Product/ComponentSubType"/>
+                        </ComponentSubType>
+                        <ComponentGroup>
+                            <xsl:value-of select="$Product/ComponentGroup"/>
+                        </ComponentGroup>
+                        <ComponentType>
+                            <xsl:value-of select="$Product/ComponentType"/>
+                        </ComponentType>
+                    </Product>
+                </xsl:for-each>
+            </ProductsAfterPreFilter>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Get TemplateIds</pd:from>
+        <pd:to>AssignTemplates</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignTemplates</pd:from>
+        <pd:to>Get Tokens</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get Tokens</pd:from>
+        <pd:to>AssignTemplatesWithTokens</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AssignTemplatesWithTokens</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>GetPreConditionFilter</pd:to>
+        <pd:xpathDescription>Exist EBU Products excepts Groups</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>exists($Start/TemplateIdentificator/Products/Product[CustomerType = '101' and string-length(MNPCode)=0])</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetPreConditionFilter</pd:from>
+        <pd:to>ProductsAfterPreFilter</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>ProductsAfterPreFilter</pd:to>
+        <pd:xpathDescription>No EBU products except Groups</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ProductsAfterPreFilter</pd:from>
+        <pd:to>Get TemplateIds</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

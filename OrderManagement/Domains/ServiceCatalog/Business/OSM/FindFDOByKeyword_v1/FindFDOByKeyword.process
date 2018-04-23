@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://vodafone.com.tr/EAI/Common/Header" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://xmlns.oracle.com/communications/ordermanagement" xmlns:ns4="http://vodafone.com.tr/ServiceCatalog/Business/OSM/FindFDOByKeyword/v1" xmlns:ns="http://vodafone.com.tr/ServiceCatalog/Business/OSM/FindOrder/v1" xmlns:ns3="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx2="http://vodafone.com.tr/EAI/Common/ResponseEAI" xmlns:ns5="http://vodafone.com.tr/ServiceCatalog/Business/OSM/FindOrders/v1" xmlns:pfx="http://vodafone.com.tr/EAI/Common/RequestEAI">
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/RequestEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/RequestEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/ResponseEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/ResponseEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/FindOrders/v1" schemaLocation="/Domains/ServiceCatalog/Business/OSM/FindOrders_v1/Schemas/FindOrders.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/FindFDOByKeyword/v1" schemaLocation="/Domains/ServiceCatalog/Business/OSM/FindFDOByKeyword_v1/Schemas/FindFDOByKeyword.xsd"/>
+    <xsd:import namespace="http://xmlns.oracle.com/communications/ordermanagement" schemaLocation="/Domains/OrderManagement/TechnicalResources/Schemas/OSM/OrderManagementWS.xsd"/>
+    <pd:name>Domains/ServiceCatalog/Business/OSM/FindFDOByKeyword_v1/FindFDOByKeyword.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Input">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx:RequestEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>42</pd:startX>
+    <pd:startY>109</pd:startY>
+    <pd:returnCoercions>
+        <pd:coercion xpath="$Find-Orders/Output/pfx2:ResponseEAI/pfx2:Body/*" element="ns1:FindOrderResponse"/>
+    </pd:returnCoercions>
+    <pd:returnBindings>
+        <Output>
+            <pfx2:ResponseEAI>
+                <xsl:copy-of select="$Find-Orders/Output/pfx2:ResponseEAI/pfx2:Header"/>
+                <xsl:copy-of select="$Find-Orders/Output/pfx2:ResponseEAI/pfx2:ResponseCodes"/>
+                <pfx2:Body>
+                    <ns4:Response>
+                        <ns4:OrderId>
+                            <xsl:value-of select="$Find-Orders/Output/pfx2:ResponseEAI/pfx2:Body/ns1:FindOrderResponse/ns1:Order[1]/ns1:OrderSummary/ns1:Id"/>
+                        </ns4:OrderId>
+                    </ns4:Response>
+                </pfx2:Body>
+            </pfx2:ResponseEAI>
+        </Output>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="Output">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx2:ResponseEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>756</pd:endX>
+    <pd:endY>113</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://vodafone.com.tr/1399384871715</pd:targetNamespace>
+    <pd:activity name="Find Orders">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>399</pd:x>
+        <pd:y>111</pd:y>
+        <config>
+            <processName>/GlobalCommonResources/Processes/Common/ProcessDispatcher.process</processName>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Start/Input/pfx:RequestEAI/pfx:Body/*" element="ns4:Request"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <Input>
+                <pfx:RequestEAI>
+                    <pfx:Header>
+                        <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:RequestId">
+                            <ns2:RequestId>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:RequestId"/>
+                            </ns2:RequestId>
+                        </xsl:if>
+                        <ns2:SourceSystem>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:SourceSystem"/>
+                        </ns2:SourceSystem>
+                        <ns2:ReplyExpected>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:ReplyExpected"/>
+                        </ns2:ReplyExpected>
+                        <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:QoS">
+                            <ns2:QoS>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:QoS"/>
+                            </ns2:QoS>
+                        </xsl:if>
+                        <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:Schedule">
+                            <ns2:Schedule>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:Schedule"/>
+                            </ns2:Schedule>
+                        </xsl:if>
+                        <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:CorrelationId">
+                            <ns2:CorrelationId>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:CorrelationId"/>
+                            </ns2:CorrelationId>
+                        </xsl:if>
+                        <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:Priority">
+                            <ns2:Priority>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:Priority"/>
+                            </ns2:Priority>
+                        </xsl:if>
+                        <ns2:Credentials>
+                            <ns2:ApplicationId>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:Credentials[1]/ns2:ApplicationId"/>
+                            </ns2:ApplicationId>
+                            <ns2:User>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:Credentials[1]/ns2:User"/>
+                            </ns2:User>
+                        </ns2:Credentials>
+                        <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:ProxySystem">
+                            <ns2:ProxySystem>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:ProxySystem"/>
+                            </ns2:ProxySystem>
+                        </xsl:if>
+                        <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:ForceSimulate">
+                            <ns2:ForceSimulate>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:ForceSimulate"/>
+                            </ns2:ForceSimulate>
+                        </xsl:if>
+                        <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:Attributes"/>
+                        <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:BusinessInterface"/>
+                        <ns2:TechnicalInterface>
+                            <ns2:Domain>
+                                <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/Domains/OrderManagement/Name"/>
+                            </ns2:Domain>
+                            <ns2:Interface>
+                                <xsl:value-of select="'FindOrders'"/>
+                            </ns2:Interface>
+                            <ns2:Version>
+                                <xsl:value-of select="1"/>
+                            </ns2:Version>
+                            <ns2:MethodCall>
+                                <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/Constants/Channel/Inline"/>
+                            </ns2:MethodCall>
+                        </ns2:TechnicalInterface>
+                        <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:TargetSystem">
+                            <ns2:TargetSystem>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:TargetSystem"/>
+                            </ns2:TargetSystem>
+                        </xsl:if>
+                        <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:CreationTimestamp">
+                            <ns2:CreationTimestamp>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:CreationTimestamp"/>
+                            </ns2:CreationTimestamp>
+                        </xsl:if>
+                        <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:TimeOut">
+                            <ns2:TimeOut>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:TimeOut"/>
+                            </ns2:TimeOut>
+                        </xsl:if>
+                        <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:Tries">
+                            <ns2:Tries>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:Tries"/>
+                            </ns2:Tries>
+                        </xsl:if>
+                        <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:MaxTries">
+                            <ns2:MaxTries>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:MaxTries"/>
+                            </ns2:MaxTries>
+                        </xsl:if>
+                        <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:Repub">
+                            <ns2:Repub>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:Repub"/>
+                            </ns2:Repub>
+                        </xsl:if>
+                        <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:RepubTime">
+                            <ns2:RepubTime>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:RepubTime"/>
+                            </ns2:RepubTime>
+                        </xsl:if>
+                        <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:History"/>
+                        <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns2:Transport"/>
+                    </pfx:Header>
+                    <pfx:Body>
+                        <ns1:FindOrder>
+                            <ns1:ViewBy>
+                                <ns1:View>
+                                    <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/Domains/OrderManagement/OSM/OSMView"/>
+                                </ns1:View>
+                                <ns1:AmendmentFilter>
+                                    <ns1:LevelOfDetail>
+                                        <xsl:value-of select="'AmendmentsSummary'"/>
+                                    </ns1:LevelOfDetail>
+                                </ns1:AmendmentFilter>
+                                <ns1:LifecycleEventFilter>
+                                    <ns1:RetrieveLifecycleEvents>
+                                        <xsl:value-of select="false()"/>
+                                    </ns1:RetrieveLifecycleEvents>
+                                </ns1:LifecycleEventFilter>
+                            </ns1:ViewBy>
+                            <ns1:SelectBy>
+                                <ns1:OrderState>
+                                    <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/Domains/OrderManagement/OSM/OSMOrderState"/>
+                                </ns1:OrderState>
+                                <!--Future Order validation-->
+                                <ns1:Field>
+                                    <ns1:Path>
+                                        <xsl:value-of select="'/FutureOrder'"/>
+                                    </ns1:Path>
+                                    <ns1:EqualTo>
+                                        <xsl:value-of select="'Y'"/>
+                                    </ns1:EqualTo>
+                                </ns1:Field>
+                                <!--Order Keyword 'ADAPTIVE' validation-->
+                                <ns1:Field>
+                                    <ns1:Path>
+                                        <xsl:value-of select="'/OrderScopeKeyword'"/>
+                                    </ns1:Path>
+                                    <ns1:EqualTo>
+                                        <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns4:Request/ns4:Keyword"/>
+                                    </ns1:EqualTo>
+                                </ns1:Field>
+                                <!--Subscriber MSISDN validation-->
+                                <ns1:Field>
+                                    <ns1:Path>
+                                        <xsl:value-of select="'/ServiceId'"/>
+                                    </ns1:Path>
+                                    <ns1:EqualTo>
+                                        <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns4:Request/ns4:MSISDN"/>
+                                    </ns1:EqualTo>
+                                </ns1:Field>
+                            </ns1:SelectBy>
+                            <ns1:OrderBy>
+                                <ns1:OrderField>
+                                    <ns1:SortBy>
+                                        <xsl:value-of select="'Descending'"/>
+                                    </ns1:SortBy>
+                                    <ns1:Header>
+                                        <xsl:value-of select="'CreatedDate'"/>
+                                    </ns1:Header>
+                                </ns1:OrderField>
+                            </ns1:OrderBy>
+                        </ns1:FindOrder>
+                    </pfx:Body>
+                </pfx:RequestEAI>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Find Orders</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Find Orders</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

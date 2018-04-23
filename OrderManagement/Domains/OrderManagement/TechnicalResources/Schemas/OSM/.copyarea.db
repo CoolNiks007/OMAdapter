@@ -1,0 +1,9 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\TechnicalResources\Schemas\OSM
+2
+5
+a:swaref.xsd|1|162d7af0413|fda|2c6f3149|5365b77842774056b2e0883fac615ac4|0
+2a:oasis-200401-wss-wssecurity-secext-1.0.xsd|1|162d7af03e4|2bae|33b903af|53ef6e78ae1040699ddeab333f3b3a9d|0
+2b:oasis-200401-wss-wssecurity-utility-1.0.xsd|1|162d7af03f3|18db|90c259e6|205630cae60943018b49e02c67de70f6|0
+7:.folder|1|162d7af02bb|17c|ea4b81fd|1524fb4892f94832b4322427a95be55a|0
+15:OrderManagementWS.xsd|1|162d7af03f3|10d9c|55fe61e5|e47b54e59b21416eafa42c57f8f1e30f|0

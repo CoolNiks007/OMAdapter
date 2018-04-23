@@ -1,0 +1,10 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\BusinessResources\Transformations
+2
+6
+17:AddBlockerProducts.xslt|1|162d7aef045|4e7|d8139f04|948ff1ededa6431299dedd4932287ed7|0
+10:CreateChild.xslt|1|162d7aef054|f63|3f9a8f2|2babcca33d4d4506a1375dde82e3e8c8|0
+24:TransformSiebelToCanonicalOrder.xslt|1|162d7aef064|bdd|1147cd49|6a5b6d7f4ba849d9975c43b6c368e558|0
+d:AddChild.xslt|1|162d7aef054|dc7|421c2e62|89a88e0a2cd24ecca1cc4cd1dd9a5b81|0
+10:PortINOrder.xslt|1|162d7aef054|b51|18260674|dafec2ef76fd45ab8f9ddcd7ee74bccd|0
+7:.folder|1|162d7aeef89|188|2d808758|da15e24c686246b39d5ed52eff79500a|0

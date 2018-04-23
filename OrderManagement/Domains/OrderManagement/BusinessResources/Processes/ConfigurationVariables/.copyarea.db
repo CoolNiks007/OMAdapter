@@ -1,0 +1,10 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\BusinessResources\Processes\ConfigurationVariables
+2
+6
+5:Duman|2|0|0|0|0246670a6edb4044ae9253f78b017245|0
+d:CDRDispatcher|2|0|0|0|4c7cf4e1719f4b7aa60408b70ac70257|0
+8:Starters|2|0|0|0|b0b334d14c6547649ddd6cfc9a4f3f7c|0
+22:LoadConfigurationVariables.process|1|162d7aee5e9|2a83|f624803|32b7a37ecafe42b0ad5c5a4d6bdb6c4a|0
+3:PRF|2|0|0|0|ce18f3d0a2c448b5b8f65f742a37133a|0
+7:.folder|1|162d7aee5d9|18f|240f89ff|3cf8c28eebd7483f8cdfaea38b00abb6|0

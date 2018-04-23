@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx="http://vodafone.com.tr/EAI/Common/ResponseCodes">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://vodafone.com.tr/EAI/Common/ResponseCodes" schemaLocation="/GlobalCommonResources/Schemas/Common/ResponseCodes.xsd"/>
+    <pd:name>Domains/OrderManagement/BusinessResources/Processes/ConfigurationVariables/CDRDispatcher/LoadCDRRoamingProducts.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>127</pd:startX>
+    <pd:startY>63</pd:startY>
+    <pd:returnBindings>
+        <xsl:choose>
+            <xsl:when test="count($Load-CDR-Roaming-Products/resultSet/Record)>1">
+                <pfx:ResponseHeader>
+                    <pfx:ResponseCode>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/Success"/>
+                    </pfx:ResponseCode>
+                </pfx:ResponseHeader>
+            </xsl:when>
+            <xsl:otherwise>
+                <pfx:ResponseHeader>
+                    <pfx:ResponseCode>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/InternalError"/>
+                    </pfx:ResponseCode>
+                </pfx:ResponseHeader>
+            </xsl:otherwise>
+        </xsl:choose>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx:ResponseHeader"/>
+    <pd:endX>513</pd:endX>
+    <pd:endY>64</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1503904013861</pd:targetNamespace>
+    <pd:activity name="Load CDR Roaming Products">
+        <pd:type>com.tibco.plugin.jdbc.JDBCQueryActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCQueryActivity</pd:resourceType>
+        <pd:x>261</pd:x>
+        <pd:y>68</pd:y>
+        <config>
+            <timeout>60</timeout>
+            <commit>false</commit>
+            <maxRows>0</maxRows>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <jdbcSharedConfig>/Domains/OrderManagement/CommonResources/Connections/JDBC/TO2F Database Connection.sharedjdbc</jdbcSharedConfig>
+            <statement>select *from oa_cdr_roaming_products</statement>
+            <oraObjects/>
+            <oraTables/>
+            <QueryOutputCachedSchemaColumns>PRODUCT_CATALOG_ID</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+            <QueryOutputCachedSchemaColumns>BUNDLE_ID</QueryOutputCachedSchemaColumns>
+            <QueryOutputCachedSchemaDataTypes>12</QueryOutputCachedSchemaDataTypes>
+            <QueryOutputCachedSchemaDataTypesName>varchar2</QueryOutputCachedSchemaDataTypesName>
+            <QueryOutputCachedSchemaStatus>RequiredElement</QueryOutputCachedSchemaStatus>
+        </config>
+        <pd:inputBindings>
+            <jdbcQueryActivityInput/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Set CDR Roaming Products">
+        <pd:type>com.tibco.pe.core.SetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.setSharedVariable</pd:resourceType>
+        <pd:x>395</pd:x>
+        <pd:y>67</pd:y>
+        <config>
+            <variableConfig>/Domains/OrderManagement/BusinessResources/SharedVariables/CDRDispatcher/CDR Roaming Products.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings>
+            <ListOfCDRRoamingProducts>
+                <xsl:for-each select="$Load-CDR-Roaming-Products/resultSet/Record">
+                    <CDRRoamingProducts>
+                        <ProductCatalogId>
+                            <xsl:value-of select="PRODUCT_CATALOG_ID"/>
+                        </ProductCatalogId>
+                        <BundleId>
+                            <xsl:value-of select="BUNDLE_ID"/>
+                        </BundleId>
+                    </CDRRoamingProducts>
+                </xsl:for-each>
+            </ListOfCDRRoamingProducts>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Load CDR Roaming Products</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Load CDR Roaming Products</pd:from>
+        <pd:to>Set CDR Roaming Products</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Set CDR Roaming Products</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

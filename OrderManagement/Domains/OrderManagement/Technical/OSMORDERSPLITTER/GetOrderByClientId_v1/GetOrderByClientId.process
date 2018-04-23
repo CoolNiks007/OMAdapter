@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://vodafone.com.tr/EAI/Common/Header" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns9="http://vodafone.com.tr/ServiceCatalog/Business/Shared/CreateOrder/v1" xmlns:ns5="http://schemas.tibco.com/bw/plugins/http/5.0/httpExceptions" xmlns:ns6="http://www.tibco.com/pe/EngineTypes" xmlns:ns10="http://vodafone.com.tr/ServiceCatalog/Business/OSM/CreateChildOrder/v1" xmlns:ns7="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/TechnicalResources/Schemas/Shared/SharedCreateOrder.xsd" xmlns:pfx="http://com.telco.to2f.services/" xmlns:ns8="http://vodafone.com.tr/ServiceCatalog/Business/OSM/CreateMasterOrder/v1" xmlns:ns2="http://xmlns.tibco.com/encodings/mime" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns4="http://schemas.tibco.com/bw/pe/plugin/5.0/exceptions" xmlns:ns3="http://vodafone.com.tr/EAI/Common/ResponseCodes" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:pfx4="http://xmlns.oracle.com/communications/ordermanagement" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://vodafone.com.tr/EAI/Common/ResponseEAI" xmlns:pfx2="http://vodafone.com.tr/EAI/Common/RequestEAI" xmlns:pfx7="http://vodafone.com.tr/OrderManagement/Technical/Shared/CreateOrder/v1" xmlns:pfx6="http://com.telco.ba.services/">
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/RequestEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/RequestEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/ResponseEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/ResponseEAI.xsd"/>
+    <xsd:import namespace="http://xmlns.oracle.com/communications/ordermanagement" schemaLocation="/Domains/OrderManagement/TechnicalResources/Schemas/OSM/OrderManagementWS.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/ResponseCodes" schemaLocation="/GlobalCommonResources/Schemas/Common/ResponseCodes.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/Shared/CreateOrder/v1" schemaLocation="/Domains/OrderManagement/TechnicalResources/Schemas/Shared/SharedCreateOrder.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/CreateMasterOrder/v1" schemaLocation="/Domains/ServiceCatalog/Business/OSM/CreateMasterOrder_v1/Schemas/CreateMasterOrder.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/CreateChildOrder/v1" schemaLocation="/Domains/ServiceCatalog/Business/OSM/CreateChildOrder_v1/Schemas/CreateChildOrder.xsd"/>
+    <xsd:import namespace="http://com.telco.ba.services/" schemaLocation="/Domains/OrderManagement/TechnicalResources/WSDL/Splitter/SplitterWS.wsdl"/>
+    <wsdl:import namespace="http://com.telco.ba.services/" location="/Domains/OrderManagement/TechnicalResources/WSDL/Splitter/SplitterWS.wsdl"/>
+    <wsdl:import namespace="http://com.telco.to2f.services/"/>
+    <pd:name>Domains/OrderManagement/Technical/OSMORDERSPLITTER/GetOrderByClientId_v1/GetOrderByClientId.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Input">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx2:RequestEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>150</pd:startX>
+    <pd:startY>63</pd:startY>
+    <pd:returnBindings>
+        <Output>
+            <pfx3:ResponseEAI>
+                <pfx3:Header>
+                    <xsl:copy-of select="$Start/Input/pfx2:RequestEAI/pfx2:Header/ancestor-or-self::*/namespace::node()"/>
+                    <xsl:copy-of select="$Start/Input/pfx2:RequestEAI/pfx2:Header/@*"/>
+                    <xsl:copy-of select="$Start/Input/pfx2:RequestEAI/pfx2:Header/node()"/>
+                </pfx3:Header>
+                <xsl:choose>
+                    <xsl:when test="string-length($ResponseCodes/ResponseCodes) > 0">
+                        <pfx3:ResponseCodes>
+                            <xsl:copy-of select="$ResponseCodes/ResponseCodes/ancestor-or-self::*/namespace::node()"/>
+                            <xsl:copy-of select="$ResponseCodes/ResponseCodes/@*"/>
+                            <xsl:copy-of select="$ResponseCodes/ResponseCodes/node()"/>
+                        </pfx3:ResponseCodes>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <pfx3:ResponseCodes>
+                            <ns3:ResponseCode>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/Success"/>
+                            </ns3:ResponseCode>
+                            <ns3:ResponseMsg>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/SuccessDescription"/>
+                            </ns3:ResponseMsg>
+                        </pfx3:ResponseCodes>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <pfx3:Body>
+                    <xsl:copy-of select="$SOAPRequestReply/outputMessage/pfx6:GetOrderByClientIdResponse"/>
+                </pfx3:Body>
+            </pfx3:ResponseEAI>
+        </Output>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="Output">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx3:ResponseEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>656</pd:endX>
+    <pd:endY>63</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <ResponseCodes>
+            <xsd:element name="ResponseCodes" type="ns3:ResponseCodes"/>
+        </ResponseCodes>
+    </pd:processVariables>
+    <pd:targetNamespace>http://vodafone.com.tr/1398779396804</pd:targetNamespace>
+    <pd:activity name="Assign BAException">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>518</pd:x>
+        <pd:y>185</pd:y>
+        <config>
+            <variableName>ResponseCodes</variableName>
+        </config>
+        <pd:inputBindings>
+            <xsl:choose>
+                <xsl:when test="contains($Catch-BAException/BAException/faultstring,'Empty Decomposition')">
+                    <ResponseCodes>
+                        <ns3:ResponseCode>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/TargetSystemError"/>
+                        </ns3:ResponseCode>
+                        <ns3:ResponseMsg>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/TargetSystemErrorDescription"/>
+                        </ns3:ResponseMsg>
+                        <ns3:ErrorCode>
+                            <xsl:value-of select="-1"/>
+                        </ns3:ErrorCode>
+                        <ns3:ErrorDescription>
+                            <xsl:value-of select="'Empty Decomposition Error'"/>
+                        </ns3:ErrorDescription>
+                    </ResponseCodes>
+                </xsl:when>
+                <xsl:otherwise>
+                    <ResponseCodes>
+                        <ns3:ResponseCode>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/TargetSystemError"/>
+                        </ns3:ResponseCode>
+                        <ns3:ResponseMsg>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/TargetSystemErrorDescription"/>
+                        </ns3:ResponseMsg>
+                        <ns3:ErrorCode>
+                            <xsl:value-of select="$Catch-BAException/BAException/faultcode"/>
+                        </ns3:ErrorCode>
+                        <ns3:ErrorDescription>
+                            <xsl:value-of select="$Catch-BAException/BAException/faultstring"/>
+                        </ns3:ErrorDescription>
+                    </ResponseCodes>
+                </xsl:otherwise>
+            </xsl:choose>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Assign Catch HttpServerException">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>530</pd:x>
+        <pd:y>549</pd:y>
+        <config>
+            <variableName>ResponseCodes</variableName>
+        </config>
+        <pd:inputBindings>
+            <ResponseCodes>
+                <ns3:ResponseCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/TargetSystemError"/>
+                </ns3:ResponseCode>
+                <ns3:ResponseMsg>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/TargetSystemErrorDescription"/>
+                </ns3:ResponseMsg>
+                <xsl:if test="$Catch-HttpServerException/ns5:HttpServerException/msgCode">
+                    <ns3:ErrorCode>
+                        <xsl:value-of select="$Catch-HttpServerException/ns5:HttpServerException/msgCode"/>
+                    </ns3:ErrorCode>
+                </xsl:if>
+                <ns3:ErrorDescription>
+                    <xsl:value-of select="$Catch-HttpServerException/ns5:HttpServerException/msg"/>
+                </ns3:ErrorDescription>
+            </ResponseCodes>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Assign Default">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>537</pd:x>
+        <pd:y>799</pd:y>
+        <config>
+            <variableName>ResponseCodes</variableName>
+        </config>
+        <pd:inputBindings>
+            <ResponseCodes>
+                <ns3:ResponseCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/TargetSystemError"/>
+                </ns3:ResponseCode>
+                <ns3:ResponseMsg>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/TargetSystemErrorDescription"/>
+                </ns3:ResponseMsg>
+                <ns3:ErrorCode>
+                    <xsl:value-of select="$Catch-Default/defaultFaultElement/faultcode"/>
+                </ns3:ErrorCode>
+                <ns3:ErrorDescription>
+                    <xsl:value-of select="$Catch-Default/defaultFaultElement/faultstring"/>
+                </ns3:ErrorDescription>
+            </ResponseCodes>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Assign HttpClientException">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>530</pd:x>
+        <pd:y>675</pd:y>
+        <config>
+            <variableName>ResponseCodes</variableName>
+        </config>
+        <pd:inputBindings>
+            <ResponseCodes>
+                <ns3:ResponseCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/TargetSystemError"/>
+                </ns3:ResponseCode>
+                <ns3:ResponseMsg>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/TargetSystemErrorDescription"/>
+                </ns3:ResponseMsg>
+                <xsl:if test="$Catch-HttpClientException/ns5:HttpClientException/msgCode">
+                    <ns3:ErrorCode>
+                        <xsl:value-of select="$Catch-HttpClientException/ns5:HttpClientException/msgCode"/>
+                    </ns3:ErrorCode>
+                </xsl:if>
+                <ns3:ErrorDescription>
+                    <xsl:value-of select="$Catch-HttpClientException/ns5:HttpClientException/msg"/>
+                </ns3:ErrorDescription>
+            </ResponseCodes>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Assign HttpException">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>527</pd:x>
+        <pd:y>427</pd:y>
+        <config>
+            <variableName>ResponseCodes</variableName>
+        </config>
+        <pd:inputBindings>
+            <ResponseCodes>
+                <ns3:ResponseCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/TargetSystemError"/>
+                </ns3:ResponseCode>
+                <ns3:ResponseMsg>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/TargetSystemErrorDescription"/>
+                </ns3:ResponseMsg>
+                <ns3:ErrorCode>
+                    <xsl:value-of select="$Catch-HttpException/ns5:HttpCommunicationException/msgCode"/>
+                </ns3:ErrorCode>
+                <ns3:ErrorDescription>
+                    <xsl:value-of select="$Catch-HttpException/ns5:HttpCommunicationException/msg"/>
+                </ns3:ErrorDescription>
+            </ResponseCodes>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Assign Timeout">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>520</pd:x>
+        <pd:y>303</pd:y>
+        <config>
+            <variableName>ResponseCodes</variableName>
+        </config>
+        <pd:inputBindings>
+            <ResponseCodes>
+                <ns3:ResponseCode>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/TargetSystemError"/>
+                </ns3:ResponseCode>
+                <ns3:ResponseMsg>
+                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/TargetSystemErrorDescription"/>
+                </ns3:ResponseMsg>
+                <ns3:ErrorCode>
+                    <xsl:value-of select="$Catch-Timeout/ns4:ActivityTimedOutException/msgCode"/>
+                </ns3:ErrorCode>
+                <ns3:ErrorDescription>
+                    <xsl:value-of select="$Catch-Timeout/ns4:ActivityTimedOutException/msg"/>
+                </ns3:ErrorDescription>
+            </ResponseCodes>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch BAException">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>342</pd:x>
+        <pd:y>186</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=BAException</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Catch Default">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>347</pd:x>
+        <pd:y>800</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=defaultFaultElement</fault>
+            <catchAll>false</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Catch HttpClientException">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>349</pd:x>
+        <pd:y>664</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=HttpClientException namespace=http://schemas.tibco.com/bw/plugins/http/5.0/httpExceptions</fault>
+            <catchAll>false</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Catch HttpException">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>346</pd:x>
+        <pd:y>417</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=HttpCommunicationException namespace=http://schemas.tibco.com/bw/plugins/http/5.0/httpExceptions</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Catch HttpServerException">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>345</pd:x>
+        <pd:y>541</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=HttpServerException namespace=http://schemas.tibco.com/bw/plugins/http/5.0/httpExceptions</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Catch Timeout">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>345</pd:x>
+        <pd:y>305</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=ActivityTimedOutException namespace=http://schemas.tibco.com/bw/pe/plugin/5.0/exceptions</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="SOAPRequestReply">
+        <pd:type>com.tibco.plugin.soap.SOAPSendReceiveActivity</pd:type>
+        <pd:resourceType>ae.activities.SOAPSendReceiveUI</pd:resourceType>
+        <pd:x>421</pd:x>
+        <pd:y>63</pd:y>
+        <config>
+            <timeout>%%Domains/OrderManagement/OSMORDERSPLITTER/Timeout%%</timeout>
+            <soapAttachmentStyle>SwA</soapAttachmentStyle>
+            <timeoutType>MilliSeconds</timeoutType>
+            <service>pfx6:SplitterService</service>
+            <servicePort>SplitterServicePort</servicePort>
+            <operation>GetOrderByClientId</operation>
+            <soapAction>GetOrderByClientIdAction</soapAction>
+            <endpointURL>http://%%Domains/OrderManagement/OSMORDERSPLITTER/Domain%%:%%Domains/OrderManagement/OSMORDERSPLITTER/Port%%/SplitterService</endpointURL>
+            <authScheme>NONE</authScheme>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Start/Input/pfx2:RequestEAI/pfx2:Body/*" type="pfx6:GetOrderByClientId"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <inputMessage>
+                <headers>
+                    <Header.serviceHeader>
+                        <pfx6:serviceHeader>
+                            <clientSystem>
+                                <xsl:value-of select="$Start/Input/pfx2:RequestEAI/pfx2:Header/ns:SourceSystem"/>
+                            </clientSystem>
+                            <integrationId>
+                                <xsl:value-of select="$Start/Input/pfx2:RequestEAI/pfx2:Header/ns:RequestId"/>
+                            </integrationId>
+                            <language>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/OSMORDERSPLITTER/Language"/>
+                            </language>
+                            <username>
+                                <xsl:value-of select="$Start/Input/pfx2:RequestEAI/pfx2:Header/ns:Credentials[1]/ns:User"/>
+                            </username>
+                        </pfx6:serviceHeader>
+                    </Header.serviceHeader>
+                </headers>
+                <pfx6:GetOrderByClientId>
+                    <xsl:if test="$Start/Input/pfx2:RequestEAI/pfx2:Body/*/ClientId">
+                        <ClientId>
+                            <xsl:value-of select="$Start/Input/pfx2:RequestEAI/pfx2:Body/*/ClientId"/>
+                        </ClientId>
+                    </xsl:if>
+                </pfx6:GetOrderByClientId>
+            </inputMessage>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Catch BAException</pd:from>
+        <pd:to>Assign BAException</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign BAException</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch Timeout</pd:from>
+        <pd:to>Assign Timeout</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign Timeout</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch HttpException</pd:from>
+        <pd:to>Assign HttpException</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign HttpException</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>SOAPRequestReply</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SOAPRequestReply</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch HttpServerException</pd:from>
+        <pd:to>Assign Catch HttpServerException</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign Catch HttpServerException</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch HttpClientException</pd:from>
+        <pd:to>Assign HttpClientException</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign HttpClientException</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch Default</pd:from>
+        <pd:to>Assign Default</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign Default</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

@@ -1,0 +1,7 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\ServiceCatalog\Business\OSM\GetMasterOrderDetails_v1\Starters
+2
+3
+32:JMSGetMasterOrdersDetailsGuaranteedStarter.process|1|162d7af1226|946c|e9cfce96|8cdefaacce2a4d53ae3b234a6b1db23b|0
+30:JMSGetMasterOrdersDetailsReliableStarter.process|1|162d7af1236|8110|d8ff0845|fc4315e5da2644588b0d8983ad5b623a|0
+7:.folder|1|162d7af11b9|181|dd98466|a502757e03e747d1976a2bcb11be0839|0

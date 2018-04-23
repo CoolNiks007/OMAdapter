@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:ns="http://vodafone.com.tr/ServiceCatalog/Business/BillingAdapterServices" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns71="http://vodafone.com.tr/ServiceCatalog/Business/Billing/CreateAccount/v1" xmlns:ns61="http://vodafone.com.tr/ServiceCatalog/Business/Billing/GetDocs/v1" xmlns:pfx5="http://vodafone.com.tr/ServiceCatalog/Business/PMSServices" xmlns:pfx4="http://vodafone.com.tr/ServiceCatalog/Business/SiebelServices" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://vodafone.com.tr/ServiceCatalog/Business/CCSServices" xmlns:pfx2="http://vodafone.com.tr/EAI/Logging" xmlns:pfx7="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagementServices" xmlns:pfx6="http://vodafone.com.tr/ServiceCatalog/Business/OSMServices" xmlns:ns16="http://vodafone.com.tr/ServiceCatalog/Business/CampaignManagement/QueueCampaign/v1" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns14="http://vodafone.com.tr/ServiceCatalog/Business/CampaignManagement/CampaignManagement/v1" xmlns:ns15="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagement/RegisterCampaign/v1" xmlns:ns9="http://vodafone.com.tr/ServiceCatalog/Business/AccountManagement/ManageRentalDiscount/v1" xmlns:ns81="http://vodafone.com.tr/ServiceCatalog/Business/AccountManagement/CreateAccountAdjust/v1" xmlns:ns12="http://vodafone.com.tr/ServiceCatalog/Business/CampaignManagement/RegisterCampaigns/v1" xmlns:ns5="http://vodafone.com.tr/ServiceCatalog/Business/PaymentInquiries/GetTotalPaidInvoiceAmount/v1" xmlns:ns13="http://vodafone.com.tr/ServiceCatalog/Business/CampaignManagement/RegisterCampaign/v1" xmlns:ns6="http://vodafone.com.tr/ServiceCatalog/Business/PaymentInquiries/GetTotalUnbilledAmount/v1" xmlns:ns7="http://vodafone.com.tr/ServiceCatalog/Business/PaymentInquiries/ValidateEligibilityForCampaign/v1" xmlns:ns10="http://vodafone.com.tr/ServiceCatalog/Business/CampaignManagement/ValidateEligibilityForCampaign/v1" xmlns:pfx="http://vodafone.com.tr/EAI/Common/ResponseCodes" xmlns:ns8="http://vodafone.com.tr/ServiceCatalog/Business/Billing/ModifyAccountBillToAddress/v1" xmlns:ns11="http://vodafone.com.tr/ServiceCatalog/Business/CampaignManagement/UpdateRecord/v1" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns1="http://www.tibco.com/pe/EngineTypes" xmlns:ns4="http://vodafone.com.tr/ServiceCatalog/ServiceReply" xmlns:ns3="http://vodafone.com.tr/EAI/Common/Header" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx21="http://vodafone.com.tr/ServiceCatalog/Business/DOC1Services">
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/PaymentInquiries/GetTotalPaidInvoiceAmount/v1" schemaLocation="/Domains/ServiceCatalog/Business/PaymentInquiries/GetTotalPaidInvoiceAmount_v1/Schemas/GetTotalPaidInvoiceAmount.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/PaymentInquiries/GetTotalUnbilledAmount/v1" schemaLocation="/Domains/ServiceCatalog/Business/PaymentInquiries/GetTotalUnbilledAmount_v1/Schemas/GetTotalUnbilledAmount.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/PaymentInquiries/ValidateEligibilityForCampaign/v1" schemaLocation="/Domains/ServiceCatalog/Business/PaymentInquiries/ValidateEligibilityForCampaign_v1/Schemas/ValidateEligibilityForCampaign.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/CampaignManagement/ValidateEligibilityForCampaign/v1" schemaLocation="/Domains/ServiceCatalog/Business/CampaignManagement/ValidateEligibilityForCampaign_v1/Schemas/ValidateEligibilityForCampaign.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/CampaignManagement/RegisterCampaign/v1" schemaLocation="/Domains/ServiceCatalog/Business/CampaignManagement/RegisterCampaign_v1/Schemas/RegisterCampaign.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/CampaignManagement/CampaignManagement/v1" schemaLocation="/Domains/CustomerCare/Technical/Siebel/RegisterCampaign_v1/Schema/QueueCampaign.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagement/RegisterCampaign/v1" schemaLocation="/Domains/ServiceCatalog/Business/OrderManagement/RegisterCampaign_v1/Schemas/RegisterCampaign.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/CampaignManagement/QueueCampaign/v1" schemaLocation="/Domains/OrderManagement/Technical/RegisterCampaign_v1/Schema/QueueCampaign.xsd"/>
+    <wsdl:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/BillingAdapterServices" location="/Domains/ServiceCatalog/BusinessResources/WSDL/BillingAdapterServices.wsdl"/>
+    <wsdl:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/CCSServices" location="/Domains/ServiceCatalog/BusinessResources/WSDL/CCSServices.wsdl"/>
+    <wsdl:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/SiebelServices"/>
+    <wsdl:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/SiebelServices" location="/Domains/ServiceCatalog/BusinessResources/WSDL/SiebelServices.wsdl"/>
+    <wsdl:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/PMSServices" location="/Domains/ServiceCatalog/BusinessResources/WSDL/PMSServices.wsdl"/>
+    <wsdl:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSMServices" location="/Domains/ServiceCatalog/BusinessResources/WSDL/OSMServices.wsdl"/>
+    <wsdl:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagementServices" location="/Domains/ServiceCatalog/BusinessResources/WSDL/OrderManagementServices.wsdl"/>
+    <pd:name>Domains/ServiceCatalog/Business/OrderManagement/RegisterCampaign_v1/SOAPInterface/RegisterCampaign.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType wsMsgRef="pfx7:RegisterCampaignRequest_v1"/>
+    <pd:startX>151</pd:startX>
+    <pd:startY>62</pd:startY>
+    <pd:returnBindings>
+        <xsl:copy-of select="$RegisterCampaignResponse/pfx7:RegisterCampaignResponse_v1"/>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType wsMsgRef="pfx7:RegisterCampaignResponse_v1"/>
+    <pd:endX>783</pd:endX>
+    <pd:endY>61</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <RegisterCampaignResponse wsMsgRef="pfx7:RegisterCampaignResponse_v1"/>
+    </pd:processVariables>
+    <pd:targetNamespace>http://vodafone.com.tr/139991543423</pd:targetNamespace>
+    <pd:activity name="Assign Error">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>471</pd:x>
+        <pd:y>210</pd:y>
+        <config>
+            <variableName>RegisterCampaignResponse</variableName>
+        </config>
+        <pd:inputBindings>
+            <pfx7:RegisterCampaignResponse_v1>
+                <Header>
+                    <pfx:ResponseCode>
+                        <xsl:value-of select="$RegisterCampaignResponse/pfx7:RegisterCampaignResponse_v1/Header/pfx:ResponseCode"/>
+                    </pfx:ResponseCode>
+                    <pfx:ResponseMsg>
+                        <xsl:value-of select="$RegisterCampaignResponse/pfx7:RegisterCampaignResponse_v1/Header/pfx:ResponseMsg"/>
+                    </pfx:ResponseMsg>
+                    <pfx:ErrorCode>
+                        <xsl:value-of select="$RegisterCampaignResponse/pfx7:RegisterCampaignResponse_v1/Header/pfx:ErrorCode"/>
+                    </pfx:ErrorCode>
+                    <pfx:ErrorDescription>
+                        <xsl:value-of select="$RegisterCampaignResponse/pfx7:RegisterCampaignResponse_v1/Header/pfx:ErrorDescription"/>
+                    </pfx:ErrorDescription>
+                </Header>
+                <Body>
+                    <ns15:Response/>
+                </Body>
+            </pfx7:RegisterCampaignResponse_v1>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Assign Response">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>471</pd:x>
+        <pd:y>60</pd:y>
+        <config>
+            <variableName>RegisterCampaignResponse</variableName>
+        </config>
+        <pd:inputBindings>
+            <pfx7:RegisterCampaignResponse_v1>
+                <Header>
+                    <pfx:ResponseCode>
+                        <xsl:value-of select="$RegisterCampaign/Output/ns4:ServiceReply/ns4:Header/pfx:ResponseCode"/>
+                    </pfx:ResponseCode>
+                    <xsl:if test="$RegisterCampaign/Output/ns4:ServiceReply/ns4:Header/pfx:ResponseMsg">
+                        <pfx:ResponseMsg>
+                            <xsl:value-of select="$RegisterCampaign/Output/ns4:ServiceReply/ns4:Header/pfx:ResponseMsg"/>
+                        </pfx:ResponseMsg>
+                    </xsl:if>
+                    <xsl:if test="$RegisterCampaign/Output/ns4:ServiceReply/ns4:Header/pfx:ErrorCode">
+                        <pfx:ErrorCode>
+                            <xsl:value-of select="$RegisterCampaign/Output/ns4:ServiceReply/ns4:Header/pfx:ErrorCode"/>
+                        </pfx:ErrorCode>
+                    </xsl:if>
+                    <xsl:if test="$RegisterCampaign/Output/ns4:ServiceReply/ns4:Header/pfx:ErrorDescription">
+                        <pfx:ErrorDescription>
+                            <xsl:value-of select="$RegisterCampaign/Output/ns4:ServiceReply/ns4:Header/pfx:ErrorDescription"/>
+                        </pfx:ErrorDescription>
+                    </xsl:if>
+                </Header>
+                <Body>
+                    <ns15:Response/>
+                </Body>
+            </pfx7:RegisterCampaignResponse_v1>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>306</pd:x>
+        <pd:y>210</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Logger [END]">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>638</pd:x>
+        <pd:y>60</pd:y>
+        <config>
+            <processName>/GlobalCommonResources/Processes/Logging/Logger.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <pfx2:LogMessage>
+                    <pfx2:Source>
+                        <xsl:value-of select="$RegisterCampaign/Output/Header/ns3:SourceSystem"/>
+                    </pfx2:Source>
+                    <pfx2:Process>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns1:ProcessContext/ProcessId)"/>
+                    </pfx2:Process>
+                    <pfx2:Service>
+                        <xsl:value-of select="$RegisterCampaign/Output/Header/ns3:BusinessInterface/ns3:Service"/>
+                    </pfx2:Service>
+                    <pfx2:Operation>
+                        <xsl:value-of select="$RegisterCampaign/Output/Header/ns3:BusinessInterface/ns3:Operation"/>
+                    </pfx2:Operation>
+                    <pfx2:MsgId>
+                        <xsl:value-of select="$RegisterCampaign/Output/Header/ns3:RequestId"/>
+                    </pfx2:MsgId>
+                    <pfx2:Type>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Logging/Roles/AuditRoleName"/>
+                    </pfx2:Type>
+                    <pfx2:Task>
+                        <xsl:value-of select="&quot;END SERVICE&quot;"/>
+                    </pfx2:Task>
+                    <pfx2:Description>
+                        <xsl:value-of select="$RegisterCampaignResponse/pfx7:RegisterCampaignResponse_v1/Header/pfx:ErrorDescription"/>
+                    </pfx2:Description>
+                    <pfx2:ErrorCode>
+                        <xsl:value-of select="$RegisterCampaignResponse/pfx7:RegisterCampaignResponse_v1/Header/pfx:ErrorCode"/>
+                    </pfx2:ErrorCode>
+                    <pfx2:ResponseCode>
+                        <xsl:value-of select="$RegisterCampaignResponse/pfx7:RegisterCampaignResponse_v1/Header/pfx:ResponseCode"/>
+                    </pfx2:ResponseCode>
+                    <pfx2:MessageBody>
+                        <xsl:value-of select="tib:render-xml($RegisterCampaignResponse/pfx7:RegisterCampaignResponse_v1)"/>
+                    </pfx2:MessageBody>
+                    <pfx2:CorrelationId>
+                        <xsl:value-of select="$RegisterCampaign/Output/Header/ns3:CorrelationId"/>
+                    </pfx2:CorrelationId>
+                    <pfx2:UserName>
+                        <xsl:value-of select="$RegisterCampaign/Output/Header/ns3:Credentials[1]/ns3:User"/>
+                    </pfx2:UserName>
+                    <pfx2:Version>
+                        <xsl:value-of select="$RegisterCampaign/Output/Header/ns3:BusinessInterface/ns3:Version"/>
+                    </pfx2:Version>
+                </pfx2:LogMessage>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Logger [Error]">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>648</pd:x>
+        <pd:y>210</pd:y>
+        <config>
+            <processName>/GlobalCommonResources/Processes/Logging/Logger.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <pfx2:LogMessage>
+                    <pfx2:Source>
+                        <xsl:value-of select="$Catch/exceptiondata//*[local-name(.)='SourceSystem']/text()"/>
+                    </pfx2:Source>
+                    <pfx2:Process>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns1:ProcessContext/ProcessId)"/>
+                    </pfx2:Process>
+                    <pfx2:Service>
+                        <xsl:value-of select="tib:tokenize(namespace-uri($Catch/exceptiondata/*/Body/*), &quot;/&quot;)[5]"/>
+                    </pfx2:Service>
+                    <pfx2:Operation>
+                        <xsl:value-of select="tib:tokenize(namespace-uri($Catch/exceptiondata/*/Body/*), &quot;/&quot;)[6]"/>
+                    </pfx2:Operation>
+                    <pfx2:MsgId>
+                        <xsl:value-of select="$Catch/exceptiondata//*[local-name(.)='RequestId']/text()"/>
+                    </pfx2:MsgId>
+                    <pfx2:Type>
+                        <xsl:value-of select="$_globalVariables/ns2:GlobalVariables/Logging/Roles/ErrorRoleName"/>
+                    </pfx2:Type>
+                    <pfx2:Task>
+                        <xsl:value-of select="&quot;ERROR&quot;"/>
+                    </pfx2:Task>
+                    <pfx2:Description>
+                        <xsl:value-of select="$RegisterCampaignResponse/pfx7:RegisterCampaignResponse_v1/Header/pfx:ErrorDescription"/>
+                    </pfx2:Description>
+                    <pfx2:ErrorDump>
+                        <xsl:value-of select="concat(tib:left(normalize-space($_error/ns1:ErrorReport/StackTrace), 2000), &quot;&#xA;&quot;, &quot;Exception Data: &quot;, normalize-space(tib:render-xml($Catch/exceptiondata)))"/>
+                    </pfx2:ErrorDump>
+                    <pfx2:ErrorCode>
+                        <xsl:value-of select="$RegisterCampaignResponse/pfx7:RegisterCampaignResponse_v1/Header/pfx:ErrorCode"/>
+                    </pfx2:ErrorCode>
+                    <pfx2:ResponseCode>
+                        <xsl:value-of select="$RegisterCampaignResponse/pfx7:RegisterCampaignResponse_v1/Header/pfx:ResponseCode"/>
+                    </pfx2:ResponseCode>
+                    <pfx2:UserName>
+                        <xsl:value-of select="$Catch/exceptiondata//*[local-name(.)='User']/text()"/>
+                    </pfx2:UserName>
+                    <pfx2:Version>
+                        <xsl:value-of select="substring-after(tib:tokenize(namespace-uri($Catch/exceptiondata/*/Body/*), &quot;/&quot;)[7], 'v')"/>
+                    </pfx2:Version>
+                </pfx2:LogMessage>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="RegisterCampaign">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>311</pd:x>
+        <pd:y>59</pd:y>
+        <config>
+            <processName>/Domains/ServiceCatalog/BusinessResources/Processes/SoapProcessDispatcher.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <xsl:copy-of select="$Start/pfx7:RegisterCampaignRequest_v1"/>
+                <Tranport>
+                    <xsl:if test="tib:tokenize(namespace-uri($Start/*/Body/*), &quot;/&quot;)[6]">
+                        <SOAPAction>
+                            <xsl:value-of select="tib:tokenize(namespace-uri($Start/*/Body/*), &quot;/&quot;)[6]"/>
+                        </SOAPAction>
+                    </xsl:if>
+                </Tranport>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>RegisterCampaign</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>RegisterCampaign</pd:from>
+        <pd:to>Assign Response</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign Response</pd:from>
+        <pd:to>Logger [END]</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Logger [END]</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>Assign Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign Error</pd:from>
+        <pd:to>Logger [Error]</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Logger [Error]</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

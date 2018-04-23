@@ -1,0 +1,9 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\BusinessResources\Processes\NotificationCenter
+2
+5
+17:GetTemplates_v2.process|1|162d7aee8e5|c253|c52e0e72|bf5ba04e43c74c28bca737b648a91b96|0
+1d:GetPreConditionFilter.process|1|162d7aee8d5|27e9|a8645d80|85b39157ddf545c99f3614bcf2204eb0|0
+14:GetTemplates.process|1|162d7aee8e5|bf6c|b57513cb|8fc4d4b4419a49d39a6ecfd89634d700|0
+1e:ValidateXpathTemplates.process|1|162d7aee914|2965|fced674c|74ee31625db84b6ead9baf39d481bce9|0
+7:.folder|1|162d7aee8d5|18b|bfd08856|7d9506348ca0461aa724d56648b14be6|0

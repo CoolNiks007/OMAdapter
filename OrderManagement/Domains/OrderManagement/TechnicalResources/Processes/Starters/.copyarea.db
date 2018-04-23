@@ -1,0 +1,7 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\TechnicalResources\Processes\Starters
+2
+3
+1f:JMSQueueReliableStarter.process|1|162d7af01a3|3e8f|b9ed9884|50e1ba58fb434bb6a3ea81b1e5d7febb|0
+7:.folder|1|162d7af0183|181|dd98466|6df48ca900da405da462084d60b4aa66|0
+21:JMSQueueGuaranteedStarter.process|1|162d7af0183|5282|54e34a9b|63e96954b80643119342dface7fb7a83|0

@@ -1,0 +1,45 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>JMSProviderURL</name>
+			<value>t3://10.255.34.132:7001</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1416592631700</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>MaxSession</name>
+			<value>10</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1416592633588</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>MessageSelector</name>
+			<value>CreatedBySystem &lt;> 'TO2F'</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1428501680052</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Password</name>
+			<value>#!lm3Ygp5DoS/8N4RI2hOd8f+A4FbmXkXfbvDULraeN08=</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>Password</type>
+			<modTime>1416592635267</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>User</name>
+			<value>celfocus1</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1416592636827</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

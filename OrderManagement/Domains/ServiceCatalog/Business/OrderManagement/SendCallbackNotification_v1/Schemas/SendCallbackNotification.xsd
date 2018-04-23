@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagement/SendCallbackNotification/v1"
+	 xmlns:serviceReply="http://vodafone.com.tr/ServiceCatalog/ServiceReply"
+	 targetNamespace="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagement/SendCallbackNotification/v1"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:import namespace="http://vodafone.com.tr/ServiceCatalog/ServiceReply" schemaLocation="../../../../BusinessResources/Schemas/ServiceReply.xsd"/>
+	<xs:complexType name="Request">
+		<xs:sequence>
+			<xs:element name="CallbackQueue" type="xs:string" minOccurs="0"/>
+			<xs:element name="CorrelationId" type="xs:string" minOccurs="0"/>
+			<xs:element name="errorCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="errorMessage" type="xs:string" minOccurs="0"/>
+			<xs:element ref="serviceReply:ServiceReply" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SendCallbackNotificationRequest">
+		<xs:sequence>
+			<xs:element ref="Request"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Request" type="Request"/>
+	<xs:complexType name="SendCallbackNotificationResponse">
+		<xs:sequence>
+			<xs:element ref="Response"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Response" type="Response"/>
+	<xs:complexType name="Response"/>
+	<xs:element name="SendCallbackNotificationResponse" type="SendCallbackNotificationResponse"/>
+	<xs:element name="SendCallbackNotificationRequest" type="SendCallbackNotificationRequest"/>
+</xs:schema>

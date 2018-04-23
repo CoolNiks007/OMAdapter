@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://vodafone.com.tr/OrderManagement/Business/Siebel/SyncAccountBillingCycle/v1"
+	 targetNamespace="http://vodafone.com.tr/OrderManagement/Business/Siebel/SyncAccountBillingCycle/v1"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:complexType name="Request">
+		<xs:sequence>
+			<xs:element name="BillingAccount">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="CustomerId" type="xs:string"/>
+						<xs:element name="AccountID" type="xs:string"/>
+						<xs:element name="BillingFrequency" type="xs:string"/>
+						<xs:element name="BillPeriod" type="xs:string"/>
+						<xs:element name="ChangeBillCycleID" type="xs:string"/>
+						<xs:element name="OrderDueDate" type="xs:string"/>
+						<xs:element name="BillCycleDueDate" type="xs:string"/>
+						<xs:element name="BillAccountType" type="xs:string"/>
+						<xs:element name="BillType" type="xs:string"/>
+						<xs:element name="ActionProfile" type="xs:string" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Request" type="Request"/>
+	<xs:element name="Response" type="Response"/>
+	<xs:complexType name="Response">
+		<xs:sequence>
+			<xs:element name="MasterOrderId" type="xs:string" minOccurs="0"/>
+			<xs:element name="MasterOrderStatus" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="SyncAccountBillingCycleRequest" type="SyncAccountBillingCycleRequest"/>
+	<xs:element name="SyncAccountBillingCycleResponse" type="SyncAccountBillingCycleResponse"/>
+	<xs:complexType name="SyncAccountBillingCycleRequest">
+		<xs:sequence>
+			<xs:element ref="Request"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SyncAccountBillingCycleResponse">
+		<xs:sequence>
+			<xs:element ref="Response" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

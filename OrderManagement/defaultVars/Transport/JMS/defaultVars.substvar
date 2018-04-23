@@ -1,0 +1,45 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>JmsProviderUrl</name>
+			<value>tcp://10.255.34.131:7222</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1416592662461</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>JmsSslProviderUrl</name>
+			<value>ssl://10.255.34.131:7243</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1416592663463</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>MaxSessions</name>
+			<value>10</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1416592664906</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Password</name>
+			<value>#!DLD5p17DoRF3pDq2RdjkRw==</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>Password</type>
+			<modTime>1416592666327</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Username</name>
+			<value>admin</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1416592667750</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

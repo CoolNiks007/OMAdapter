@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:eai="java://com.telco.eai.EAIFunctions" xmlns:pfx="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd"/>
+    <pd:name>Domains/OrderManagement/BusinessResources/Processes/NotificationCenter/GetPreConditionFilter.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="TemplateIdentificator">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="Products" minOccurs="0" maxOccurs="unbounded">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="Product" maxOccurs="unbounded">
+                                    <xsd:complexType>
+                                        <xsd:sequence>
+                                            <xsd:element name="ProductCatalogId" type="xsd:string"/>
+                                        </xsd:sequence>
+                                    </xsd:complexType>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="Scenario" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="SiebelOrder" minOccurs="0">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:any processContents="skip"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>75</pd:startX>
+    <pd:startY>156</pd:startY>
+    <pd:returnCoercions>
+        <pd:coercion xpath="$Start/TemplateIdentificator/SiebelOrder/*" type="pfx:Order"/>
+    </pd:returnCoercions>
+    <pd:returnBindings>
+        <xsl:variable name="Order" select="$Start/TemplateIdentificator/SiebelOrder/*"/>
+        <ListOfProducts>
+            <xsl:for-each select="$ListOfProducts/ListOfProductsFilter/Product">
+                <Product>
+                    <ProductCatalogId>
+                        <xsl:value-of select="ProductCatalogId"/>
+                    </ProductCatalogId>
+                </Product>
+            </xsl:for-each>
+        </ListOfProducts>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="ListOfProducts">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="Product" minOccurs="0" maxOccurs="unbounded">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="ProductCatalogId" type="xsd:string"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>868</pd:endX>
+    <pd:endY>154</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <Expression>
+            <xsd:element name="ListOfExpression">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Expression" minOccurs="0" maxOccurs="unbounded">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="InExpression" type="xsd:string"/>
+                                    <xsd:element name="LikeExpression" type="xsd:string"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </Expression>
+        <ListOfProducts>
+            <xsd:element name="ListOfProductsFilter">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="Product" minOccurs="0" maxOccurs="unbounded">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="ProductCatalogId" type="xsd:string" minOccurs="0"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </ListOfProducts>
+    </pd:processVariables>
+    <pd:targetNamespace>http://vodafone.com.tr/1420476932631</pd:targetNamespace>
+    <pd:activity name="Assign Products [EBU]">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>683</pd:x>
+        <pd:y>163</pd:y>
+        <config>
+            <variableName>ListOfProducts</variableName>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Start/TemplateIdentificator/SiebelOrder/*" type="pfx:Order"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <xsl:variable name="Order" select="$Start/TemplateIdentificator/SiebelOrder/*"/>
+            <ListOfProductsFilter>
+                <xsl:for-each select="$SQL-Direct/jdbcGeneralActivityOutput/unknownResultset/row">
+                    <xsl:variable name="CurrentProdId" select="current()/column[name='PRODUCTCATALOGID']/value"/>
+                    <xsl:if test="tib:evaluate(current()/column[name='CONDITION']/value)">
+                        <Product>
+                            <xsl:if test="current()/column[name='PRODUCTCATALOGID']/value">
+                                <ProductCatalogId>
+                                    <xsl:value-of select="current()/column[name='PRODUCTCATALOGID']/value"/>
+                                </ProductCatalogId>
+                            </xsl:if>
+                        </Product>
+                    </xsl:if>
+                </xsl:for-each>
+            </ListOfProductsFilter>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Pre Statement">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>346</pd:x>
+        <pd:y>156</pd:y>
+        <config>
+            <variableName>Expression</variableName>
+        </config>
+        <pd:inputBindings>
+            <ListOfExpression>
+                <xsl:for-each select="$Start/TemplateIdentificator/Products/Product">
+                    <Expression>
+                        <InExpression>
+                            <xsl:value-of select="concat(&quot;'&quot;,current()/ProductCatalogId,&quot;'&quot;)"/>
+                        </InExpression>
+                        <LikeExpression>
+                            <xsl:value-of select="concat(&quot;PRODUCTCATALOGID like ('&quot;,current()/ProductCatalogId,&quot;-%')&quot;)"/>
+                        </LikeExpression>
+                    </Expression>
+                </xsl:for-each>
+            </ListOfExpression>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SQL Direct">
+        <pd:type>com.tibco.plugin.jdbc.JDBCGeneralActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCGeneralActivity</pd:resourceType>
+        <pd:x>513</pd:x>
+        <pd:y>156</pd:y>
+        <config>
+            <timeout>100</timeout>
+            <commit>false</commit>
+            <maxRows>100</maxRows>
+            <jdbcSharedConfig>/Domains/OrderManagement/CommonResources/Connections/JDBC/TO2F Database Connection.sharedjdbc</jdbcSharedConfig>
+        </config>
+        <pd:inputBindings>
+            <jdbcGeneralActivityInput>
+                <statement>
+                    <xsl:value-of select="concat(&quot;SELECT * FROM OA_NOTIFICATION_PREFILTER WHERE (PRODUCTCATALOGID is null or PRODUCTCATALOGID IN (&quot;,&#xA;&#x9;tib:concat-sequence-format($Expression/ListOfExpression/Expression/InExpression,','),&quot;) or &quot;, tib:concat-sequence-format($Expression/ListOfExpression/Expression/LikeExpression,&quot; or &quot;),&#xA;&#x9;&quot;) AND SCENARIO='&quot;,$Start/TemplateIdentificator/Scenario,&quot;'&quot;)"/>
+                </statement>
+                <maxRows>
+                    <xsl:value-of select="-1"/>
+                </maxRows>
+            </jdbcGeneralActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Pre Statement</pd:to>
+        <pd:xpathDescription/>
+        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Pre Statement</pd:from>
+        <pd:to>SQL Direct</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign Products [EBU]</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SQL Direct</pd:from>
+        <pd:to>Assign Products [EBU]</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

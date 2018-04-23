@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:ns="http://vodafone.com.tr/EAI/Common/Header" xmlns:ns25="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagement/RegisterCampaign/v1" xmlns:ns26="http://vodafone.com.tr/OrderManagement/Technical/EAI/RegisterCampaign//v1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns27="http://vodafone.com.tr/OrderManagement/Technical/EAI/QueueCampaign//v1" xmlns:ns21="http://vodafone.com.tr/ServiceCatalog/Business/CampaignManagement/RegisterCampaign/v1" xmlns:ns22="http://vodafone.com.tr/CustomerCare/Domains/CustomerCare/Technical/Schemas/ICCB/GetTempCustomersData/v1" xmlns:ns23="http://vodafone.com.tr/ServiceCatalog/Business/CampaignManagement/CampaignManagement/v1" xmlns:ns24="http://vodafone.com.tr/ServiceCatalog/Business/CampaignManagement/QueueCampaign/v1" xmlns:ns20="http://vodafone.com.tr/ServiceCatalog/Business/CampaignManagement/RegisterCampaigns/v1" xmlns:pfx4="http://vodafone.com.tr/ServiceCatalog/Business/CustomerCare/BurnIMEI/v1" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://vodafone.com.tr/ServiceCatalog/Business/ICCBServices" xmlns:pfx2="http://vodafone.com.tr/EAI/Common/ResponseEAI" xmlns:ns16="http://vodafone.com.tr/CustomerCare/Domains/CustomerCare/Technical/Schemas/ICCB/GetCreditCardBlackList/v1" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns17="http://vodafone.com.tr/CustomerCare/Domains/CustomerCare/Technical/Schemas/ICCB/GetCepAranBlackList/v1" xmlns:ns14="http://vodafone.com.tr/ServiceCatalog/Business/CustomerCare/GetCreditCardBlackList/v1" xmlns:ns15="http://vodafone.com.tr/CustomerCare/Domains/CustomerCare/Technical/Schemas/ICCB/GetCepAranBlackList.xsd" xmlns:ns18="http://vodafone.com.tr/CustomerCare/Domains/CustomerCare/Technical/Schemas/ICCB/GetBlackGreyList/v1" xmlns:ns19="http://vodafone.com.tr/ServiceCatalog/Business/CampaignManagement/UpdateRecord/v1" xmlns:ns9="http://vodafone.com.tr/ServiceCatalog/Business/CustomerCare/GetTempCustomersData/v1" xmlns:ns5="http://vodafone.com.tr/CustomerCare/Domains/CustomerCare/Technical/Schemas/ICCB/CreditCardGetTempCustomersData_v1.xsd" xmlns:ns12="http://vodafone.com.tr/CustomerCare/Domains/CustomerCare/Technical/Schemas/ICCB/GetBlackGreyList.xsd" xmlns:ns13="http://vodafone.com.tr/CustomerCare/Domains/CustomerCare/Technical/Schemas/ICCB/GetCreditCardBlackList.xsd" xmlns:ns6="http://vodafone.com.tr/ServiceCatalog/Business/CustomerCare/BlackListInquiry/v1" xmlns:ns10="http://vodafone.com.tr/CustomerCare/Domains/CustomerCare/Technical/Schemas/ICCB/GetBlackGreyList_v1.xsd" xmlns:ns7="http://vodafone.com.tr/CustomerCare/Domains/CustomerCare/Technical/Schemas/ICCB/CepAranGetTempCustomersData_v1.xsd" xmlns:pfx="http://vodafone.com.tr/EAI/Common/RequestEAI" xmlns:ns8="http://vodafone.com.tr/CustomerCare/Domains/CustomerCare/Technical/Schemas/ICCB/GetTempCustomersData_v1.xsd" xmlns:ns11="http://vodafone.com.tr/CustomerCare/Domains/CustomerCare/Technical/Schemas/ICCB/CreditCardGetTempCustomersData.xsd" xmlns:ns2="http://siebel.com/CustomUI" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns4="http://vodafone.com.tr/EAI/Common/ResponseCodes" xmlns:ns3="http://vodafone.com.tr/CustomerCare/Domains/CustomerCare/Technical/Schemas/ICCB/CreditCardBlackListInquiry_v1.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/RequestEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/RequestEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/CustomerCare/Domains/CustomerCare/Technical/Schemas/ICCB/GetTempCustomersData_v1.xsd" schemaLocation="/Domains/CustomerCare/TechnicalResources/Schemas/ICCB/GetTempCustomersData_v1.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/CustomerCare/Domains/CustomerCare/Technical/Schemas/ICCB/GetTempCustomersData_v1.xsd" schemaLocation="/Domains/CustomerCare/TechnicalResources/Schemas/ICCB/GetTempCustomersData_v1.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/CustomerCare/Domains/CustomerCare/Technical/Schemas/ICCB/CepAranGetTempCustomersData_v1.xsd" schemaLocation="/Domains/CustomerCare/TechnicalResources/Schemas/ICCB/CepAranGetTempCustomersData_v1.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/CustomerCare/Domains/CustomerCare/Technical/Schemas/ICCB/CreditCardGetTempCustomersData_v1.xsd" schemaLocation="/Domains/CustomerCare/TechnicalResources/Schemas/ICCB/CreditCardGetTempCustomersData_v1.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/ResponseEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/ResponseEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/CustomerCare/CreditCardGetTempCustomersData/v1" schemaLocation="/Domains/ServiceCatalog/Business/CustomerCare/CreditCardGetTempCustomersData_v1/Schemas/CreditCardGetTempCustomersData.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/CustomerCare/Domains/CustomerCare/Technical/Schemas/ICCB/CreditCardBlackListInquiry_v1.xsd" schemaLocation="/Domains/CustomerCare/TechnicalResources/Schemas/ICCB/CreditCardBlackListInquiry_v1.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/CustomerCare/GetCreditCardBlackList/v1" schemaLocation="/Domains/ServiceCatalog/Business/CustomerCare/GetCreditCardBlackList_v1/Schemas/GetCreditCardBlackList.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/CustomerCare/Domains/CustomerCare/Technical/Schemas/ICCB/GetCreditCardBlackList/v1" schemaLocation="/Domains/CustomerCare/TechnicalResources/Schemas/ICCB/GetCreditCardBlackList.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/CustomerCare/Domains/CustomerCare/Technical/Schemas/ICCB/GetCepAranBlackList/v1" schemaLocation="/Domains/CustomerCare/TechnicalResources/Schemas/ICCB/GetCepAranBlackList.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/CustomerCare/Domains/CustomerCare/Technical/Schemas/ICCB/GetBlackGreyList/v1" schemaLocation="/Domains/CustomerCare/TechnicalResources/Schemas/ICCB/GetBlackGreyList.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/CustomerCare/BurnIMEI/v1" schemaLocation="/Domains/ServiceCatalog/Business/CustomerCare/BurnIMEI_v1/Schemas/BurnIMEI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/CustomerCare/GetTempCustomersData/v1" schemaLocation="/Domains/ServiceCatalog/Business/CustomerCare/GetTempCustomersData_v1/Schemas/GetTempCustomersData.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/CustomerCare/Domains/CustomerCare/Technical/Schemas/ICCB/GetTempCustomersData/v1" schemaLocation="/Domains/CustomerCare/Technical/ICCB/GetTempCustomersData_v1/Schemas/GetTempCustomersData.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/CampaignManagement/UpdateRecord/v1" schemaLocation="/Domains/ServiceCatalog/Business/CampaignManagement/UpdateRecord_v1/Schemas/UpdateRecord.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/CampaignManagement/RegisterCampaigns/v1" schemaLocation="/Domains/ServiceCatalog/Business/CampaignManagement/RegisterCampaigns_v1/Schemas/RegisterCampaigns.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/CampaignManagement/RegisterCampaign/v1" schemaLocation="/Domains/ServiceCatalog/Business/CampaignManagement/RegisterCampaign_v1/Schemas/RegisterCampaign.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/CampaignManagement/QueueCampaign/v1" schemaLocation="/Domains/CustomerCare/Technical/Siebel/RegisterCampaign_v1/Schema/QueueCampaign.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagement/RegisterCampaign/v1" schemaLocation="/Domains/ServiceCatalog/Business/OrderManagement/RegisterCampaign_v1/Schemas/RegisterCampaign.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/OrderManagement/Technical/EAI/QueueCampaign//v1" schemaLocation="/Domains/OrderManagement/Technical/EAI/QueueCampaign_v1/Schema/QueueCampaign.xsd"/>
+    <pd:name>Domains/ServiceCatalog/Business/OrderManagement/RegisterCampaign_v1/RegisterCampaign.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Input">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx:RequestEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>119</pd:startX>
+    <pd:startY>92</pd:startY>
+    <pd:returnBindings>
+        <Output>
+            <pfx2:ResponseEAI>
+                <xsl:copy-of select="$RegisterCampaign/Output/pfx2:ResponseEAI/pfx2:Header"/>
+                <xsl:copy-of select="$RegisterCampaign/Output/pfx2:ResponseEAI/pfx2:ResponseCodes"/>
+                <pfx2:Body/>
+            </pfx2:ResponseEAI>
+        </Output>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="Output">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx2:ResponseEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>381</pd:endX>
+    <pd:endY>92</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://vodafone.com.tr/11256010108456343242</pd:targetNamespace>
+    <pd:activity name="RegisterCampaign">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>249</pd:x>
+        <pd:y>92</pd:y>
+        <config>
+            <processName>/GlobalCommonResources/Processes/Common/ProcessDispatcher.process</processName>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Start/Input/pfx:RequestEAI/pfx:Body/*" element="ns25:Request"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <Input>
+                <pfx:RequestEAI>
+                    <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$Start/Input/pfx:RequestEAI/pfx:Header">
+                        <pfx:Header>
+                            <xsl:if test="ns:RequestId">
+                                <ns:RequestId>
+                                    <xsl:value-of select="ns:RequestId"/>
+                                </ns:RequestId>
+                            </xsl:if>
+                            <ns:SourceSystem>
+                                <xsl:value-of select="ns:SourceSystem"/>
+                            </ns:SourceSystem>
+                            <ns:ReplyExpected>
+                                <xsl:value-of select="ns:ReplyExpected"/>
+                            </ns:ReplyExpected>
+                            <xsl:if test="ns:QoS">
+                                <ns:QoS>
+                                    <xsl:value-of select="ns:QoS"/>
+                                </ns:QoS>
+                            </xsl:if>
+                            <xsl:if test="ns:Schedule">
+                                <ns:Schedule>
+                                    <xsl:value-of select="ns:Schedule"/>
+                                </ns:Schedule>
+                            </xsl:if>
+                            <xsl:if test="ns:CorrelationId">
+                                <ns:CorrelationId>
+                                    <xsl:value-of select="ns:CorrelationId"/>
+                                </ns:CorrelationId>
+                            </xsl:if>
+                            <xsl:if test="ns:Priority">
+                                <ns:Priority>
+                                    <xsl:value-of select="ns:Priority"/>
+                                </ns:Priority>
+                            </xsl:if>
+                            <xsl:copy-of select="ns:Credentials"/>
+                            <xsl:if test="ns:ProxySystem">
+                                <ns:ProxySystem>
+                                    <xsl:value-of select="ns:ProxySystem"/>
+                                </ns:ProxySystem>
+                            </xsl:if>
+                            <xsl:if test="ns:ForceSimulate">
+                                <ns:ForceSimulate>
+                                    <xsl:value-of select="ns:ForceSimulate"/>
+                                </ns:ForceSimulate>
+                            </xsl:if>
+                            <xsl:copy-of select="ns:Attributes"/>
+                            <xsl:copy-of select="ns:BusinessInterface"/>
+                            <ns:TechnicalInterface>
+                                <ns:Domain>
+                                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/Name"/>
+                                </ns:Domain>
+                                <ns:Interface>
+                                    <xsl:value-of select="'QueueCampaign'"/>
+                                </ns:Interface>
+                                <ns:Version>
+                                    <xsl:value-of select="1"/>
+                                </ns:Version>
+                                <ns:MethodCall>
+                                    <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Constants/Channel/Inline"/>
+                                </ns:MethodCall>
+                            </ns:TechnicalInterface>
+                            <ns:TargetSystem>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Domains/EAI/Name"/>
+                            </ns:TargetSystem>
+                            <xsl:if test="ns:CreationTimestamp">
+                                <ns:CreationTimestamp>
+                                    <xsl:value-of select="ns:CreationTimestamp"/>
+                                </ns:CreationTimestamp>
+                            </xsl:if>
+                            <xsl:if test="ns:TimeOut">
+                                <ns:TimeOut>
+                                    <xsl:value-of select="ns:TimeOut"/>
+                                </ns:TimeOut>
+                            </xsl:if>
+                            <xsl:if test="ns:Tries">
+                                <ns:Tries>
+                                    <xsl:value-of select="ns:Tries"/>
+                                </ns:Tries>
+                            </xsl:if>
+                            <xsl:if test="ns:MaxTries">
+                                <ns:MaxTries>
+                                    <xsl:value-of select="ns:MaxTries"/>
+                                </ns:MaxTries>
+                            </xsl:if>
+                            <xsl:if test="ns:Repub">
+                                <ns:Repub>
+                                    <xsl:value-of select="ns:Repub"/>
+                                </ns:Repub>
+                            </xsl:if>
+                            <xsl:if test="ns:RepubTime">
+                                <ns:RepubTime>
+                                    <xsl:value-of select="ns:RepubTime"/>
+                                </ns:RepubTime>
+                            </xsl:if>
+                            <xsl:copy-of select="ns:History"/>
+                            <xsl:copy-of select="ns:Transport"/>
+                        </pfx:Header>
+                    </xsl:for-each>
+                    <pfx:Body>
+                        <ns27:Request>
+                            <ns27:PI_EVENT_SOURCE_TYPE>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns25:Request/ns25:EventSourceType"/>
+                            </ns27:PI_EVENT_SOURCE_TYPE>
+                            <ns27:PI_EVENT_SOURCE>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns25:Request/ns25:EventSource"/>
+                            </ns27:PI_EVENT_SOURCE>
+                            <ns27:PI_CAMP_ID>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns25:Request/ns25:CampId"/>
+                            </ns27:PI_CAMP_ID>
+                            <ns27:PI_CHANNEL_TYPE>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns25:Request/ns25:ChannelType"/>
+                            </ns27:PI_CHANNEL_TYPE>
+                            <ns27:PI_CAMP_CON_ID>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns25:Request/ns25:CampConId"/>
+                            </ns27:PI_CAMP_CON_ID>
+                            <xsl:choose>
+                                <xsl:when test="string-length($Start/Input/pfx:RequestEAI/pfx:Body/ns25:Request/ns25:ResponseDate)>0">
+                                    <ns27:PI_RESPONSE_DATE>
+                                        <xsl:value-of select="tib:format-dateTime(&quot;yyyy-MM-dd'T'HH:mm:ss&quot;, $Start/Input/pfx:RequestEAI/pfx:Body/ns25:Request/ns25:ResponseDate)"/>
+                                    </ns27:PI_RESPONSE_DATE>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <ns27:PI_RESPONSE_DATE>
+                                        <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns25:Request/ns25:ResponseDate"/>
+                                    </ns27:PI_RESPONSE_DATE>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            <ns27:PI_RESPONSE_TYPE>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns25:Request/ns25:ResponseType"/>
+                            </ns27:PI_RESPONSE_TYPE>
+                            <ns27:PI_REJECTION_REASON>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns25:Request/ns25:RejectionReason"/>
+                            </ns27:PI_REJECTION_REASON>
+                            <ns27:PI_KEYWORD>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns25:Request/ns25:Keyword"/>
+                            </ns27:PI_KEYWORD>
+                            <ns27:PI_PRODUCT_ID>
+                                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns25:Request/ns25:ProductId"/>
+                            </ns27:PI_PRODUCT_ID>
+                        </ns27:Request>
+                    </pfx:Body>
+                </pfx:RequestEAI>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>RegisterCampaign</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>RegisterCampaign</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

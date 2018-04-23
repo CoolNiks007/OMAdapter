@@ -1,0 +1,7 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\CommonResources\Connections\JDBC
+2
+3
+22:EAI Database Connection.sharedjdbc|1|162d7aef093|2a7|bb6db81|28768c4e51cc4bdda6fcc29348707b5a|0
+23:TO2F Database Connection.sharedjdbc|1|162d7aef093|2a4|c53bda1a|4b56e2d1dfc74767ab291e177865ac77|0
+7:.folder|1|162d7aef093|17d|44b48221|5601c0b90c4f4debb6c52287ff199f5d|0

@@ -1,0 +1,21 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\ServiceCatalog\Business\OSM
+2
+11
+19:DecomposeForValidation_v1|2|0|0|0|3d831862cfea4d98bbe7ac5e7b154ea7|0
+18:GetMasterOrderDetails_v1|2|0|0|0|0fb23fd345c64349a4f72887d0dfc999|0
+14:CreateChildOrders_v1|2|0|0|0|16b407cc22654bbdb46de73f5be94bf0|0
+10:ResubmitOrder_v1|2|0|0|0|5cc0dc69101d4e9cacf36ed73249d431|0
+15:GetValidationOrder_v1|2|0|0|0|9a575768edfe41858a6741fee8dca27f|0
+e:CreateOrder_v1|2|0|0|0|03c395f2a0074bbc9d7cfd525de1fd8e|0
+13:CreateChildOrder_v1|2|0|0|0|debface5b66846dcbdc899ba905b94bd|0
+b:GetOrder_v1|2|0|0|0|3d7086883a7e467cb7c7a563208f8fdb|0
+e:CancelOrder_v1|2|0|0|0|d80d995d70864636b46bd6414dc11fd6|0
+13:FindFDOByKeyword_v1|2|0|0|0|b9205f988bda4411bfabe56ad05c0961|0
+14:SubmitFutureOrder_v1|2|0|0|0|9769c708e9bc448293403a119ac8030b|0
+11:GetMasterOrder_v1|2|0|0|0|5871aa7d2d4540968d3e215a87c9cb9b|0
+d:FindOrders_v1|2|0|0|0|5ec299ea7e1a43e2807daa7a4c3f6351|0
+13:CloseMasterOrder_v1|2|0|0|0|3665ddedd58746d8b40df4bb47777b44|0
+15:IsOrderCancellable_v1|2|0|0|0|492684f7a06348958d4dffe06089df2c|0
+7:.folder|1|162d7af08c4|17c|ea4b81fd|ada202eefd1b44499b5a9fa5190e2d93|0
+14:CreateMasterOrder_v1|2|0|0|0|d38a47a152ca465b858156a60d60a8a0|0

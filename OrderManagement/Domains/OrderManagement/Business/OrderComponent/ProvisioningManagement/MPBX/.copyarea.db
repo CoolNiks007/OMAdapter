@@ -1,0 +1,13 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\Business\OrderComponent\ProvisioningManagement\MPBX
+2
+9
+16:AddMobilePBXService_v1|2|0|0|0|e994c3b6ff9844d2a4cc62a07679abf3|0
+13:UpdateSubscriber_v1|2|0|0|0|2af1120fee2b4ae69cecfce0bf0bfcb9|0
+19:AddMobilePBXSubscriber_v1|2|0|0|0|2a4c084009e34c9198ee903e6edcf742|0
+19:DeleteAgentFromService_v1|2|0|0|0|783b403b007a4240877bae4a5d63f69c|0
+e:DeleteAgent_v1|2|0|0|0|ea70d0eca704403d85671da79184b5ce|0
+14:AddMobilePBXAgent_v1|2|0|0|0|ad7a15756dbf4bc0aa0dbd4ab7138758|0
+10:DeleteService_v1|2|0|0|0|47459988ccc5472eae3f90c18edac2f2|0
+1d:AddMobilePBXAgentToService_v1|2|0|0|0|4838c6c31ad64b3fa910f57ef39887db|0
+7:.folder|1|162d7aedb6d|17d|613d8245|4859856f59414a4cb358d0cbcf31742a|0

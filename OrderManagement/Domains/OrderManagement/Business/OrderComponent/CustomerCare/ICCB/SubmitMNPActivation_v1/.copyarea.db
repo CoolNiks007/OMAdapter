@@ -1,0 +1,7 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\Business\OrderComponent\CustomerCare\ICCB\SubmitMNPActivation_v1
+2
+3
+1b:SubmitMNPActivation.process|1|162d7aec4e1|b41a|46616de|dcab92e26a3d432c8f3d768c7db2c83e|0
+24:SubmitMNPActivation_Response.process|1|162d7aec5ac|7111|b152ef31|249ea83d87ab42ab83af236ff4ec33c2|0
+7:.folder|1|162d7aec4d2|18f|bf7f8985|db68f29f48c244759182c61eb9a97906|0

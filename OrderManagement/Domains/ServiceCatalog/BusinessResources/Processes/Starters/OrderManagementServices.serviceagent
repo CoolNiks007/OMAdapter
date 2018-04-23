@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceResource xmlns:wsdl="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagementServices">
+    <ns0:import xmlns:ns0="http://schemas.xmlsoap.org/wsdl/" namespace="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagementServices" location="/Domains/ServiceCatalog/BusinessResources/WSDL/OrderManagementServices.wsdl"/>
+    <config>
+        <class>com.tibco.bw.service.serviceAgent.ServiceServiceAgent</class>
+        <implType>bw</implType>
+        <groups>
+            <row isDefault="true" groupName="Default"/>
+        </groups>
+        <serviceChange>Sat Jul 18 14:15:20 BST 2015</serviceChange>
+        <name>OrderManagementServices</name>
+        <resourceType>service.definition</resourceType>
+        <wsdl namespace="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagementServices" embedWsdlComponents="true" embedSchemaComponents="true" embedJndiProperties="false"/>
+        <interfaceImpl>
+            <tab>
+                <tabName>OrderManagementServicesPortType</tabName>
+                <tabType>bw</tabType>
+                <config>
+                    <wsdlDetail location="/Domains/ServiceCatalog/BusinessResources/WSDL/OrderManagementServices.wsdl" portType="OrderManagementServicesPortType" ns="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagementServices"/>
+                    <detail>
+                        <tab>
+                            <tabName>service.definition.impl.tab.label</tabName>
+                            <tabType>impl</tabType>
+                            <config>
+                                <operations>
+                                    <row opName="RegisterCampaign_v1" opImpl="/Domains/ServiceCatalog/Business/OrderManagement/RegisterCampaign_v1/SOAPInterface/RegisterCampaign.process"/>
+                                    <row opName="SendCallbackNotification_v1" opImpl="/Domains/ServiceCatalog/Business/OrderManagement/SendCallbackNotification_v1/SOAPInterface/SOAPInterface.process"/>
+                                </operations>
+                            </config>
+                        </tab>
+                        <tab>
+                            <tabName>service.definition.ep.tab.label</tabName>
+                            <tabType>ep</tabType>
+                            <config>
+                                <epBindings>
+                                    <row epName="HTTP" epType="soap">
+                                        <config>
+                                            <epDetail>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.transport.tab.label</tabName>
+                                                    <tabType>transport</tabType>
+                                                    <config>
+                                                        <sharedChannel>/Domains/ServiceCatalog/BusinessResources/Connections/HTTP/HTTP SOAP Connection.sharedhttp</sharedChannel>
+                                                        <transport>
+                                                            <config>
+                                                                <useBasicAuthentication>false</useBasicAuthentication>
+                                                                <httpURI>/ServiceCatalog/OrderManagementServices</httpURI>
+                                                            </config>
+                                                        </transport>
+                                                    </config>
+                                                </tab>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.details.tab.label</tabName>
+                                                    <tabType>details</tabType>
+                                                    <config>
+                                                        <operationStyle>rpc</operationStyle>
+                                                        <soapVersion>SOAP 1.1</soapVersion>
+                                                        <soap>
+                                                            <operation name="RegisterCampaign_v1">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>RegisterCampaign_v1</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="SendCallbackNotification_v1">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>SendCallbackNotification_v1</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                        </soap>
+                                                    </config>
+                                                </tab>
+                                            </epDetail>
+                                        </config>
+                                    </row>
+                                </epBindings>
+                            </config>
+                        </tab>
+                    </detail>
+                </config>
+            </tab>
+        </interfaceImpl>
+    </config>
+</serviceResource>

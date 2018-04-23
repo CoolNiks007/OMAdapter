@@ -1,0 +1,7 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\ServiceCatalog\Business\OSM\ResubmitOrder_v1\Starters
+2
+3
+29:JMSResubmitOrderGuaranteedStarter.process|1|162d7af1716|9453|1fb4c518|e12a8cc8f1c74c30aca9ab0414c2d929|0
+27:JMSResubmitOrderReliableStarter.process|1|162d7af1725|80f7|3193fea8|3658d841d2cb4550aeea454abccf9506|0
+7:.folder|1|162d7af1716|181|dd98466|2ba94ff658ad4e85aa70329ec1c6da7e|0

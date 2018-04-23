@@ -1,0 +1,974 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Copyright 2007, Oracle. All rights reserved.
+-->
+<wsdl:definitions xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:prov="http://xmlns.oracle.com/communications/ordermanagement" xmlns:ns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsi="http://ws-i.org/profiles/basic/1.1/xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" name="OrderManagementService" targetNamespace="http://xmlns.oracle.com/communications/ordermanagement">
+    <wsdl:import namespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" location="../../Schemas/OSM/oasis-200401-wss-wssecurity-secext-1.0.xsd"/>
+    <wsp:UsingPolicy xmlns:n1="http://schemas.xmlsoap.org/wsdl/" n1:Required="true"/>
+    <wsp:Policy xmlns:wssp="http://www.bea.com/wls90/security/policy" wsu:Id="Auth.xml">
+        <wssp:Identity>
+            <wssp:SupportedTokens>
+                <wssp:SecurityToken TokenType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#UsernameToken">
+                    <wssp:UsePassword Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText"/>
+                </wssp:SecurityToken>
+            </wssp:SupportedTokens>
+        </wssp:Identity>
+    </wsp:Policy>
+    <wsdl:types>
+        <xsd:schema>
+            <xsd:import namespace="http://xmlns.oracle.com/communications/ordermanagement" schemaLocation="../../Schemas/OSM/OrderManagementWS.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="CreateOrderBySpecificationRequest">
+        <wsdl:part name="CreateOrderBySpecificationRequest" element="prov:CreateOrderBySpecification">
+		</wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="CreateOrderBySpecificationResponse">
+        <wsdl:part name="CreateOrderBySpecificationResponse" element="prov:CreateOrderBySpecificationResponse">
+		</wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="SuspendOrderRequest">
+        <wsdl:part name="SuspendOrderRequest" element="prov:SuspendOrder">
+		</wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="SuspendOrderResponse">
+        <wsdl:part name="SuspendOrderResponse" element="prov:SuspendOrderResponse">
+		</wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="ResumeOrderRequest">
+        <wsdl:part name="ResumeOrderRequest" element="prov:ResumeOrder">
+		</wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="ResumeOrderResponse">
+        <wsdl:part name="ResumeOrderResponse" element="prov:ResumeOrderResponse">
+		</wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="CancelOrderRequest">
+        <wsdl:part name="CancelOrderRequest" element="prov:CancelOrder">
+		</wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="CancelOrderResponse">
+        <wsdl:part name="CancelOrderResponse" element="prov:CancelOrderResponse">
+		</wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="UpdateOrderRequest">
+        <wsdl:part name="UpdateOrderRequest" element="prov:UpdateOrder">
+		</wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="UpdateOrderResponse">
+        <wsdl:part name="UpdateOrderResponse" element="prov:UpdateOrderResponse">
+		</wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="SuspendOrder_faultMsg">
+        <wsdl:part name="OrderNotFoundFault" element="prov:OrderNotFoundFault">
+		</wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="SuspendOrder_faultMsg1">
+        <wsdl:part name="TransactionNotAllowedFault" element="prov:OrderTransactionNotAllowedFault">
+		</wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="ResumeOrder_faultMsg">
+        <wsdl:part name="OrderNotFoundFault" element="prov:OrderNotFoundFault">
+		</wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="ResumeOrder_faultMsg1">
+        <wsdl:part name="TransactionNotAllowedFault" element="prov:OrderTransactionNotAllowedFault">
+		</wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="CancelOrder_faultMsg">
+        <wsdl:part name="OrderNotFoundFault" element="prov:OrderNotFoundFault">
+		</wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="CancelOrder_faultMsg1">
+        <wsdl:part name="TransactionNotAllowedFault" element="prov:OrderTransactionNotAllowedFault">
+		</wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="FindOrder_faultMsg1">
+        <xsd:annotation>
+            <xsd:documentation>
+				This message is thrown when user does not have the privilege for accessing Queries.
+			    </xsd:documentation>
+        </xsd:annotation>
+        <wsdl:part name="NotAuthorizedFault" element="prov:NotAuthorizedFault">
+		</wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="FindOrder_faultMsg2">
+        <xsd:annotation>
+            <xsd:documentation>
+				This is the generic Fault used for throwing error message during find order operation.
+			    </xsd:documentation>
+        </xsd:annotation>
+        <wsdl:part name="InvalidFindOrderFault" element="prov:InvalidFindOrderFault">
+		</wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="CreateOrder_faultMsg">
+        <wsdl:part name="InvalidOrderSpecificationFault" element="prov:InvalidOrderSpecificationFault">
+		</wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="CreateOrder_faultMsg1">
+        <wsdl:part name="TransactionNotAllowedFault" element="prov:OrderTransactionNotAllowedFault">
+		</wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="GetOrderRequest">
+        <wsdl:part name="GetOrderRequest" element="prov:GetOrder"/>
+    </wsdl:message>
+    <wsdl:message name="GetOrderResponse">
+        <wsdl:part name="GetOrderResponse" element="prov:GetOrderResponse">
+		</wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="GetOrder_faultMsg">
+        <wsdl:part name="OrderNotFoundFault" element="prov:OrderNotFoundFault">
+		</wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="GetOrder_faultMsg1">
+        <wsdl:part name="InvalidViewFault" element="prov:InvalidViewFault">
+		</wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="CreateOrder_faultMsg3">
+        <wsdl:part name="InvalidOrderDataFault" element="prov:InvalidOrderDataFault">
+		</wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="UpdateOrder_faultMsg">
+        <wsdl:part name="OrderNotFoundFault" element="prov:OrderNotFoundFault">
+		</wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="UpdateOrder_faultMsg2">
+        <wsdl:part name="TransactionNotAllowedFault" element="prov:OrderTransactionNotAllowedFault">
+		</wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="UpdateOrder_faultMsg3">
+        <wsdl:part name="InvalidOrderDataFault" element="prov:InvalidOrderDataFault">
+		</wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="UpdateOrder_faultMsg4">
+        <wsdl:part name="InvalidViewFault" element="prov:InvalidViewFault">
+		</wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="CreateOrderRequest">
+        <wsdl:part name="CreateOrderRequest" element="prov:CreateOrder">
+		</wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="CreateOrderResponse">
+        <wsdl:part name="CreateOrderResponse" element="prov:CreateOrderResponse">
+		</wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="CreateOrder_faultMsg2">
+        <wsdl:part name="InvalidOrderSpecificationFault" element="prov:InvalidOrderSpecificationFault">
+		</wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="FindOrderRequest">
+        <xsd:annotation>
+            <xsd:documentation>
+				This is to query order related data.
+			    </xsd:documentation>
+        </xsd:annotation>
+        <wsdl:part name="FindOrderRequest" element="prov:FindOrder"/>
+    </wsdl:message>
+    <wsdl:message name="FindOrderResponse">
+        <xsd:annotation>
+            <xsd:documentation>
+				This is to generate order header information and data elements of orders.
+			    </xsd:documentation>
+        </xsd:annotation>
+        <wsdl:part name="FindOrderResponse" element="prov:FindOrderResponse"/>
+    </wsdl:message>
+    <wsdl:message name="FailOrderRequest">
+        <wsdl:part name="FailOrderRequest" element="prov:FailOrder">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="FailOrderResponse">
+        <wsdl:part name="FailOrderResponse" element="prov:FailOrderResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="FailOrder_faultMsg">
+        <wsdl:part name="OrderNotFoundFault" element="prov:OrderNotFoundFault">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="FailOrder_faultMsg1">
+        <wsdl:part name="TransactionNotAllowedFault" element="prov:OrderTransactionNotAllowedFault">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="AbortOrderRequest">
+        <wsdl:part name="AbortOrderRequest" element="prov:AbortOrder">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="AbortOrderResponse">
+        <wsdl:part name="AbortOrderResponse" element="prov:AbortOrderResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="AbortOrder_faultMsg">
+        <wsdl:part name="OrderNotFoundFault" element="prov:OrderNotFoundFault">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="AbortOrder_faultMsg1">
+        <wsdl:part name="TransactionNotAllowedFault" element="prov:OrderTransactionNotAllowedFault">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="ResolveFailureRequest">
+        <wsdl:part name="ResolveFailureRequest" element="prov:ResolveFailure">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="ResolveFailureResponse">
+        <wsdl:part name="ResolveFailureResponse" element="prov:ResolveFailureResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="ResolveFailure_faultMsg">
+        <wsdl:part name="OrderNotFoundFault" element="prov:OrderNotFoundFault">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="ResolveFailure_faultMsg1">
+        <wsdl:part name="TransactionNotAllowedFault" element="prov:OrderTransactionNotAllowedFault">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="Security">
+        <wsdl:part name="SecPart" element="ns:Security"/>
+    </wsdl:message>
+    <wsdl:portType name="OrderManagementWSPort">
+        <wsdl:operation name="CreateOrderBySpecification">
+            <wsdl:documentation>
+				This operation creates a new order. The content of the
+				order detail that is provided on the request must
+				conform to the order specification referenced on the
+				request.
+
+				Preconditions: 1. The order specification is defined in
+				metadata and has been deployed to the target
+				OrderManagement server. 2. The user performing the
+				transaction is a member of at least one workgroup that
+				has been granted permission on the creation task for the
+				referenced order specification.
+
+				Outcome: The order is created and processing begins. If
+				the newly created order is matched against an existing
+				order (based on the key defined on the order's
+				specification), then this new order is an amendment on
+				an existing order, and information regarding the amended
+				order and status of the amendment is returned. If the
+				newly created order is not an amendment, the order can
+				be immediately transitioned to the
+				open.running.in_progress state by specifying
+				StartOrder=true.
+
+				Alternate Outcome with start order set to false: The
+				order is created but processing does not begin. The
+				order is in the open.not_running.not_started state. The
+				order can be further updated and started via the
+				UpdateOrder operation.
+			</wsdl:documentation>
+            <wsdl:input name="CreateOrderBySpecificationRequest" message="prov:CreateOrderBySpecificationRequest"/>
+            <wsdl:output name="CreateOrderBySpecificationReply" message="prov:CreateOrderBySpecificationResponse"/>
+            <wsdl:fault name="InvalidOrderSpecificationFault" message="prov:CreateOrder_faultMsg"/>
+            <wsdl:fault name="TransactionNotAllowedFault" message="prov:CreateOrder_faultMsg1"/>
+            <wsdl:fault name="InvalidOrderDataFault" message="prov:CreateOrder_faultMsg3"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetOrder">
+            <wsdl:documentation>
+				This operation retrieves an order. A summary of the
+				order is returned, along with the detailed order data
+				based on a specified order view template.
+
+				Preconditions: 1. The specified order exists. 2. The
+				user performing the transaction is a member of one or
+				more workgroups that has been assigned the specified
+				view for the order definition in question.
+
+				Outcome: The order summary and detail are returned.
+			</wsdl:documentation>
+            <wsdl:input message="prov:GetOrderRequest"/>
+            <wsdl:output message="prov:GetOrderResponse"/>
+            <wsdl:fault name="OrderNotFoundFault" message="prov:GetOrder_faultMsg">
+			</wsdl:fault>
+            <wsdl:fault name="InvalidViewFault" message="prov:GetOrder_faultMsg1">
+			</wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="SuspendOrder">
+            <wsdl:documentation>
+				This operation suspends an order thereby preventing work
+				items associated with the order from being processed. A
+				suspended order must be resumed before its associated
+				work items can once again be processed.
+
+				Authorization for this transaction is controlled by the
+				order lifecycle policy associated with the order's
+				specification. See the SUSPEND_ORDER transaction in the
+				orderStatePolicy.xsd. The user performing the
+				transaction must be a member of one or more of the
+				workgroups associated with the SUSPEND_ORDER transaction
+				referenced in precondition .
+
+				Outcome: The order is successfully transitioned to the
+				open.not_running.suspended state. Users are restricted
+				from processing work items associated with the suspended
+				order.
+
+				Alternate Outcome with Grace Period: The order enters
+				into a grace period that allows all work items that are
+				currently accepted to be processed. During the grace
+				period, the current order state remains
+				open.running.in_progress and the target state is set to
+				open.not_running.suspended. The order will complete the
+				transition to the open.not_running.suspend state when
+				all accepted work items for the order are completed or
+				the grace period expires, whichever comes first. New
+				work items cannot be accepted during the grace period.
+				The grace period may be configured on the order state
+				policy and/or specified on this call.
+			</wsdl:documentation>
+            <wsdl:input message="prov:SuspendOrderRequest"/>
+            <wsdl:output message="prov:SuspendOrderResponse"/>
+            <wsdl:fault name="OrderNotFoundFault" message="prov:SuspendOrder_faultMsg">
+			</wsdl:fault>
+            <wsdl:fault name="TransactionNotAllowedFault" message="prov:SuspendOrder_faultMsg1">
+			</wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="ResumeOrder">
+            <wsdl:documentation>
+				This operation resumes an order that is currently
+				suspended or cancelled so that work items associated
+				with the order are allowed to be processed.
+
+				Authorization for this transaction is controlled by the
+				order lifecycle policy associated with the order's
+				specification. See the RESUME_ORDER transaction in the
+				orderStatePolicy.xsd. The user performing the
+				transaction must be a member of one or more of the
+				workgroups associated with the RESUME_ORDER transaction
+				referenced in precondition. Outcome: The order is
+				successfully transitioned to the
+				open.running.in_progress state. Authorized users may
+				process work items associated with the specified order.
+			</wsdl:documentation>
+            <wsdl:input message="prov:ResumeOrderRequest"/>
+            <wsdl:output message="prov:ResumeOrderResponse"/>
+            <wsdl:fault name="OrderNotFoundFault" message="prov:ResumeOrder_faultMsg">
+			</wsdl:fault>
+            <wsdl:fault name="TransactionNotAllowedFault" message="prov:ResumeOrder_faultMsg1">
+			</wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="CancelOrder">
+            <wsdl:documentation>
+				This operation cancels an order. All outstanding work
+				items associated with the order are deleted, and all
+				completed work items associated with the order are
+				compensated (undone). A cancelled order can be resumed
+				which will restart the processing of that order from the
+				beginning.
+
+				Authorization for this transaction is controlled by the
+				order lifecycle policy associated with the order's
+				specification. See the CANCEL_ORDER transaction in the
+				orderStatePolicy.xsd. The user performing the
+				transaction must be a member of one or more of the
+				workgroups associated with the CANCEL_ORDER transaction
+				referenced in precondition. Outcome: The order is
+				successfully transitioned to the
+				open.running.compensating.cancelling state. Incomplete
+				work items associated with the order are deleted.
+				Completed work items associated with the specified order
+				are compensated. Once compensation completes, the order
+				is transitioned to open.not_running.cancelled.
+
+				Alternate Outcome with Grace Period: The order enters
+				into a grace period that allows all work items that are
+				currently accepted to be processed. During the grace
+				period, the current order state remains at its current
+				value (open.running.in_progress or
+				open.not_running.suspended) and the target order state
+				is set to open.running.compensating.cancelling. The
+				order will complete the transition to the
+				open.running.compensating.cancelling state when all
+				accepted work items for the order are completed or the
+				grace period expires, whichever comes first. New work
+				items cannot be accepted during the grace period. The
+				grace period may be configured on the order lifecycle
+				policy and/or specified on this call.
+			</wsdl:documentation>
+            <wsdl:input message="prov:CancelOrderRequest"/>
+            <wsdl:output message="prov:CancelOrderResponse"/>
+            <wsdl:fault name="OrderNotFoundFault" message="prov:CancelOrder_faultMsg">
+			</wsdl:fault>
+            <wsdl:fault name="TransactionNotAllowedFault" message="prov:CancelOrder_faultMsg1">
+			</wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="UpdateOrder">
+            <wsdl:documentation>
+				This operation allows order data to be updated, and
+				allows orders that have been created but not started (in
+				the open.not_running.not_started state) to be started.
+
+				Authorization for this transaction is controlled by the
+				order lifecycle policy associated with the order's
+				specification. See the UPDATE_ORDER transaction in the
+				orderStatePolicy.xsd. The user performing the
+				transaction must be a member of one or more of the
+				workgroups associated with the UPDATE_ORDER transaction
+				referenced in precondition. Outcome: The order's data is
+				updated with the new values provided on this call. The
+				order can be further updated or started by additional
+				calls to the UpdateOrder operation.
+			</wsdl:documentation>
+            <wsdl:input message="prov:UpdateOrderRequest"/>
+            <wsdl:output message="prov:UpdateOrderResponse"/>
+            <wsdl:fault name="OrderNotFoundFault" message="prov:UpdateOrder_faultMsg">
+			</wsdl:fault>
+            <wsdl:fault name="TransactionNotAllowedFault" message="prov:UpdateOrder_faultMsg2">
+			</wsdl:fault>
+            <wsdl:fault name="InvalidOrderDataFault" message="prov:UpdateOrder_faultMsg3">
+			</wsdl:fault>
+            <wsdl:fault name="InvalidViewFault" message="prov:UpdateOrder_faultMsg4">
+			</wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="CreateOrder">
+            <wsdl:input message="prov:CreateOrderRequest"/>
+            <wsdl:output message="prov:CreateOrderResponse"/>
+            <wsdl:fault name="InvalidOrderSpecificationFault" message="prov:CreateOrder_faultMsg">
+			</wsdl:fault>
+            <wsdl:fault name="TransactionNotAllowedFault" message="prov:CreateOrder_faultMsg1">
+			</wsdl:fault>
+            <wsdl:fault name="InvalidOrderDataFault" message="prov:CreateOrder_faultMsg3">
+			</wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="FindOrder">
+            <wsdl:documentation>
+				This operation allows to find/query the order header information and data elements of orders.
+			</wsdl:documentation>
+            <wsdl:input message="prov:FindOrderRequest"/>
+            <wsdl:output message="prov:FindOrderResponse"/>
+            <wsdl:fault name="NotAuthorizedFault" message="prov:FindOrder_faultMsg1">
+			</wsdl:fault>
+            <wsdl:fault name="InvalidFindOrderFault" message="prov:FindOrder_faultMsg2">
+			</wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="FailOrder">
+            <wsdl:documentation>
+                This operation fails an order. A failure must be 
+                resolved before the order can proceed any further.
+
+                Authorization for this transaction is controlled by the
+                order lifecycle policy associated with the order's
+                specification. See the FAIL_ORDER transaction in the
+                orderStatePolicy.xsd. The user performing the
+                transaction must be a member of one or more of the
+                workgroups associated with the FAIL_ORDER transaction
+                referenced in precondition .
+
+                Outcome: The order is successfully transitioned to the
+                open.not_running.failed state. Users are restricted
+                from processing work items associated with the failed
+                order.
+
+                Alternate Outcome with Grace Period: The order enters
+                into a grace period that allows all work items that are
+                currently accepted to be processed. During the grace
+                period, the current order state remains
+                open.running.in_progress and the target state is set to
+                open.not_running.failed. The order will complete the
+                transition to the open.not_running.failed state when
+                all accepted work items for the order are completed or
+                the grace period expires, whichever comes first. New
+                work items cannot be accepted during the grace period.
+                The grace period may be configured on the order state
+                policy and/or specified on this call.
+            </wsdl:documentation>
+            <wsdl:input message="prov:FailOrderRequest"/>
+            <wsdl:output message="prov:FailOrderResponse"/>
+            <wsdl:fault name="OrderNotFoundFault" message="prov:FailOrder_faultMsg">
+            </wsdl:fault>
+            <wsdl:fault name="TransactionNotAllowedFault" message="prov:FailOrder_faultMsg1">
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="AbortOrder">
+            <wsdl:documentation>
+                This operation aborts an order thereby aborting work
+                items associated with the order.
+
+                Authorization for this transaction is controlled by the
+                order lifecycle policy associated with the order's
+                specification. See the ABORT_ORDER transaction in the
+                orderStatePolicy.xsd. The user performing the
+                transaction must be a member of one or more of the
+                workgroups associated with the ABORT_ORDER transaction
+                referenced in precondition .
+
+                Outcome: The order is successfully transitioned to the
+                closed.aborted state. Users are restricted from processing 
+                the aborted order.
+            </wsdl:documentation>
+            <wsdl:input message="prov:AbortOrderRequest"/>
+            <wsdl:output message="prov:AbortOrderResponse"/>
+            <wsdl:fault name="OrderNotFoundFault" message="prov:AbortOrder_faultMsg">
+            </wsdl:fault>
+            <wsdl:fault name="TransactionNotAllowedFault" message="prov:AbortOrder_faultMsg1">
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="ResolveFailure">
+            <wsdl:documentation>
+                This operation transits an order that is currently failed 
+                back to its state prior to entering the current failed 
+                state.
+
+                Authorization for this transaction is controlled by the
+                order lifecycle policy associated with the order's
+                specification. See the MANAGE_ORDER_FALLOUT transaction in the
+                orderStatePolicy.xsd. The user performing the
+                transaction must be a member of one or more of the
+                workgroups associated with the MANAGE_ORDER_FALLOUT transaction
+                referenced in precondition. 
+
+                Outcome: The order is successfully transitioned to the
+                its previous state.
+            </wsdl:documentation>
+            <wsdl:input message="prov:ResolveFailureRequest"/>
+            <wsdl:output message="prov:ResolveFailureResponse"/>
+            <wsdl:fault name="OrderNotFoundFault" message="prov:ResolveFailure_faultMsg">
+            </wsdl:fault>
+            <wsdl:fault name="TransactionNotAllowedFault" message="prov:ResolveFailure_faultMsg1">
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="OrderManagementWebServicePortBindingHttp" type="prov:OrderManagementWSPort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="CreateOrderBySpecification">
+            <soap:operation soapAction="http://xmlns.oracle.com/communications/ordermanagement/CreateOrderBySpecification"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <soap:header message="Security" part="SecPart" use="literal"/>
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="#Auth.xml"/>
+                </wsp:Policy>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="InvalidOrderSpecificationFault">
+                <soap:fault use="literal" name="InvalidOrderSpecificationFault"/>
+            </wsdl:fault>
+            <wsdl:fault name="TransactionNotAllowedFault">
+                <soap:fault use="literal" name="TransactionNotAllowedFault"/>
+            </wsdl:fault>
+            <wsdl:fault name="InvalidOrderDataFault">
+                <soap:fault use="literal" name="InvalidOrderDataFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="GetOrder">
+            <soap:operation soapAction="http://xmlns.oracle.com/communications/ordermanagement/GetOrder"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <soap:header message="Security" part="SecPart" use="literal"/>
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="#Auth.xml"/>
+                </wsp:Policy>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="OrderNotFoundFault">
+                <soap:fault use="literal" name="OrderNotFoundFault"/>
+            </wsdl:fault>
+            <wsdl:fault name="InvalidViewFault">
+                <soap:fault use="literal" name="InvalidViewFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="SuspendOrder">
+            <soap:operation soapAction="http://xmlns.oracle.com/communications/ordermanagement/SuspendOrder"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <soap:header message="Security" part="SecPart" use="literal"/>
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="#Auth.xml"/>
+                </wsp:Policy>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="OrderNotFoundFault">
+                <soap:fault use="literal" name="OrderNotFoundFault"/>
+            </wsdl:fault>
+            <wsdl:fault name="TransactionNotAllowedFault">
+                <soap:fault use="literal" name="TransactionNotAllowedFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="ResumeOrder">
+            <soap:operation soapAction="http://xmlns.oracle.com/communications/ordermanagement/ResumeOrder"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <soap:header message="Security" part="SecPart" use="literal"/>
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="#Auth.xml"/>
+                </wsp:Policy>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="OrderNotFoundFault">
+                <soap:fault use="literal" name="OrderNotFoundFault"/>
+            </wsdl:fault>
+            <wsdl:fault name="TransactionNotAllowedFault">
+                <soap:fault use="literal" name="TransactionNotAllowedFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="CancelOrder">
+            <soap:operation soapAction="http://xmlns.oracle.com/communications/ordermanagement/CancelOrder"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <soap:header message="Security" part="SecPart" use="literal"/>
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="#Auth.xml"/>
+                </wsp:Policy>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="OrderNotFoundFault">
+                <soap:fault use="literal" name="OrderNotFoundFault"/>
+            </wsdl:fault>
+            <wsdl:fault name="TransactionNotAllowedFault">
+                <soap:fault use="literal" name="TransactionNotAllowedFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="UpdateOrder">
+            <soap:operation soapAction="http://xmlns.oracle.com/communications/ordermanagement/UpdateOrder"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <soap:header message="Security" part="SecPart" use="literal"/>
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="#Auth.xml"/>
+                </wsp:Policy>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="OrderNotFoundFault">
+                <soap:fault use="literal" name="OrderNotFoundFault"/>
+            </wsdl:fault>
+            <wsdl:fault name="TransactionNotAllowedFault">
+                <soap:fault use="literal" name="TransactionNotAllowedFault"/>
+            </wsdl:fault>
+            <wsdl:fault name="InvalidOrderDataFault">
+                <soap:fault use="literal" name="InvalidOrderDataFault"/>
+            </wsdl:fault>
+            <wsdl:fault name="InvalidViewFault">
+                <soap:fault use="literal" name="InvalidViewFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="CreateOrder">
+            <soap:operation soapAction="http://xmlns.oracle.com/communications/ordermanagement/CreateOrder"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <soap:header message="Security" part="SecPart" use="literal"/>
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="#Auth.xml"/>
+                </wsp:Policy>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="InvalidOrderSpecificationFault">
+                <soap:fault use="literal" name="InvalidOrderSpecificationFault"/>
+            </wsdl:fault>
+            <wsdl:fault name="TransactionNotAllowedFault">
+                <soap:fault use="literal" name="TransactionNotAllowedFault"/>
+            </wsdl:fault>
+            <wsdl:fault name="InvalidOrderDataFault">
+                <soap:fault use="literal" name="InvalidOrderDataFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="FindOrder">
+            <soap:operation soapAction="http://xmlns.oracle.com/communications/ordermanagement/FindOrder"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <soap:header message="Security" part="SecPart" use="literal"/>
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="#Auth.xml"/>
+                </wsp:Policy>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="NotAuthorizedFault">
+                <soap:fault use="literal" name="NotAuthorizedFault"/>
+            </wsdl:fault>
+            <wsdl:fault name="InvalidFindOrderFault">
+                <soap:fault use="literal" name="InvalidFindOrderFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="FailOrder">
+            <soap:operation soapAction="http://xmlns.oracle.com/communications/ordermanagement/FailOrder"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <soap:header message="Security" part="SecPart" use="literal"/>
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="#Auth.xml"/>
+                </wsp:Policy>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="OrderNotFoundFault">
+                <soap:fault use="literal" name="OrderNotFoundFault"/>
+            </wsdl:fault>
+            <wsdl:fault name="TransactionNotAllowedFault">
+                <soap:fault use="literal" name="TransactionNotAllowedFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="AbortOrder">
+            <soap:operation soapAction="http://xmlns.oracle.com/communications/ordermanagement/AbortOrder"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <soap:header message="Security" part="SecPart" use="literal"/>
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="#Auth.xml"/>
+                </wsp:Policy>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="OrderNotFoundFault">
+                <soap:fault use="literal" name="OrderNotFoundFault"/>
+            </wsdl:fault>
+            <wsdl:fault name="TransactionNotAllowedFault">
+                <soap:fault use="literal" name="TransactionNotAllowedFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="ResolveFailure">
+            <soap:operation soapAction="http://xmlns.oracle.com/communications/ordermanagement/ResolveFailure"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <soap:header message="Security" part="SecPart" use="literal"/>
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="#Auth.xml"/>
+                </wsp:Policy>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="OrderNotFoundFault">
+                <soap:fault use="literal" name="OrderNotFoundFault"/>
+            </wsdl:fault>
+            <wsdl:fault name="TransactionNotAllowedFault">
+                <soap:fault use="literal" name="TransactionNotAllowedFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="OrderManagementService">
+        <wsdl:documentation>
+
+			Copyright 2007, Oracle. All rights reserved.
+
+		</wsdl:documentation>
+        <wsdl:port name="OrderManagementWebServicePort" binding="prov:OrderManagementWebServicePortBindingHttp">
+            <soap:address location="http://localhost:7001/OrderManagement/wsapi"/>
+        </wsdl:port>
+        <wsdl:port name="OrderManagementWebServiceJMSPort" binding="prov:OrderManagementWebServicePortBindingJms">
+            <soap:address location="jms://localhost:7001/OrderManagement/wsapi?URI=oracle/communications/ordermanagement/WebServiceQueue"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:binding name="OrderManagementWebServicePortBindingJms" type="prov:OrderManagementWSPort">
+        <soap:binding style="document" transport="http://www.openuri.org/2002/04/soap/jms/"/>
+        <wsdl:operation name="CreateOrderBySpecification">
+            <soap:operation soapAction="http://xmlns.oracle.com/communications/ordermanagement/CreateOrderBySpecification"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="#Auth.xml"/>
+                </wsp:Policy>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="InvalidOrderSpecificationFault">
+                <soap:fault use="literal" name="InvalidOrderSpecificationFault"/>
+            </wsdl:fault>
+            <wsdl:fault name="TransactionNotAllowedFault">
+                <soap:fault use="literal" name="TransactionNotAllowedFault"/>
+            </wsdl:fault>
+            <wsdl:fault name="InvalidOrderDataFault">
+                <soap:fault use="literal" name="InvalidOrderDataFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="GetOrder">
+            <soap:operation soapAction="http://xmlns.oracle.com/communications/ordermanagement/GetOrder"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="#Auth.xml"/>
+                </wsp:Policy>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="OrderNotFoundFault">
+                <soap:fault use="literal" name="OrderNotFoundFault"/>
+            </wsdl:fault>
+            <wsdl:fault name="InvalidViewFault">
+                <soap:fault use="literal" name="InvalidViewFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="SuspendOrder">
+            <soap:operation soapAction="http://xmlns.oracle.com/communications/ordermanagement/SuspendOrder"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="#Auth.xml"/>
+                </wsp:Policy>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="OrderNotFoundFault">
+                <soap:fault use="literal" name="OrderNotFoundFault"/>
+            </wsdl:fault>
+            <wsdl:fault name="TransactionNotAllowedFault">
+                <soap:fault use="literal" name="TransactionNotAllowedFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="ResumeOrder">
+            <soap:operation soapAction="http://xmlns.oracle.com/communications/ordermanagement/ResumeOrder"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="#Auth.xml"/>
+                </wsp:Policy>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="OrderNotFoundFault">
+                <soap:fault use="literal" name="OrderNotFoundFault"/>
+            </wsdl:fault>
+            <wsdl:fault name="TransactionNotAllowedFault">
+                <soap:fault use="literal" name="TransactionNotAllowedFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="CancelOrder">
+            <soap:operation soapAction="http://xmlns.oracle.com/communications/ordermanagement/CancelOrder"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="#Auth.xml"/>
+                </wsp:Policy>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="OrderNotFoundFault">
+                <soap:fault use="literal" name="OrderNotFoundFault"/>
+            </wsdl:fault>
+            <wsdl:fault name="TransactionNotAllowedFault">
+                <soap:fault use="literal" name="TransactionNotAllowedFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="UpdateOrder">
+            <soap:operation soapAction="http://xmlns.oracle.com/communications/ordermanagement/UpdateOrder"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="#Auth.xml"/>
+                </wsp:Policy>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="OrderNotFoundFault">
+                <soap:fault use="literal" name="OrderNotFoundFault"/>
+            </wsdl:fault>
+            <wsdl:fault name="TransactionNotAllowedFault">
+                <soap:fault use="literal" name="TransactionNotAllowedFault"/>
+            </wsdl:fault>
+            <wsdl:fault name="InvalidOrderDataFault">
+                <soap:fault use="literal" name="InvalidOrderDataFault"/>
+            </wsdl:fault>
+            <wsdl:fault name="InvalidViewFault">
+                <soap:fault use="literal" name="InvalidViewFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="CreateOrder">
+            <soap:operation soapAction="http://xmlns.oracle.com/communications/ordermanagement/CreateOrder"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <soap:header message="Security" part="SecPart" use="literal"/>
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="#Auth.xml"/>
+                </wsp:Policy>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="InvalidOrderSpecificationFault">
+                <soap:fault use="literal" name="InvalidOrderSpecificationFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="FindOrder">
+            <soap:operation soapAction="http://xmlns.oracle.com/communications/ordermanagement/FindOrder"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="#Auth.xml"/>
+                </wsp:Policy>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="NotAuthorizedFault">
+                <soap:fault use="literal" name="NotAuthorizedFault"/>
+            </wsdl:fault>
+            <wsdl:fault name="InvalidFindOrderFault">
+                <soap:fault use="literal" name="InvalidFindOrderFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="FailOrder">
+            <soap:operation soapAction="http://xmlns.oracle.com/communications/ordermanagement/FailOrder"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="#Auth.xml"/>
+                </wsp:Policy>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="OrderNotFoundFault">
+                <soap:fault use="literal" name="OrderNotFoundFault"/>
+            </wsdl:fault>
+            <wsdl:fault name="TransactionNotAllowedFault">
+                <soap:fault use="literal" name="TransactionNotAllowedFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="AbortOrder">
+            <soap:operation soapAction="http://xmlns.oracle.com/communications/ordermanagement/AbortOrder"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="#Auth.xml"/>
+                </wsp:Policy>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="OrderNotFoundFault">
+                <soap:fault use="literal" name="OrderNotFoundFault"/>
+            </wsdl:fault>
+            <wsdl:fault name="TransactionNotAllowedFault">
+                <soap:fault use="literal" name="TransactionNotAllowedFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="ResolveFailure">
+            <soap:operation soapAction="http://xmlns.oracle.com/communications/ordermanagement/ResolveFailure"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <wsp:Policy>
+                    <wsp:PolicyReference URI="#Auth.xml"/>
+                </wsp:Policy>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="OrderNotFoundFault">
+                <soap:fault use="literal" name="OrderNotFoundFault"/>
+            </wsdl:fault>
+            <wsdl:fault name="TransactionNotAllowedFault">
+                <soap:fault use="literal" name="TransactionNotAllowedFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+</wsdl:definitions>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://vodafone.com.tr/OrderManagement/Domains/OrderManagement/CommonResources/Schemas/OrderManagement/Schema.xsd"
+	 targetNamespace="http://vodafone.com.tr/OrderManagement/Domains/OrderManagement/CommonResources/Schemas/OrderManagement/Schema.xsd"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="OrderManagementRoute">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="OSM" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="OrderComponentName" type="xs:string"/>
+							<xs:element name="ScenarioName" type="xs:string" minOccurs="0"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="OSMAdapter" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Domain" type="xs:string" minOccurs="0"/>
+							<xs:element name="TargetSystem" type="xs:string"/>
+							<xs:element name="Operation" type="xs:string" minOccurs="0"/>
+							<xs:element name="Version" type="xs:int" minOccurs="0"/>
+							<xs:element name="ResponseService" type="xs:string" minOccurs="0"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ServiceCatalog" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Domain" type="xs:string" minOccurs="0"/>
+							<xs:element name="Service" type="xs:string" minOccurs="0"/>
+							<xs:element name="Operation" type="xs:string" minOccurs="0"/>
+							<xs:element name="Version" type="xs:int" minOccurs="0"/>
+							<xs:element name="Target" type="xs:string" minOccurs="0"/>
+							<xs:element name="Queue" type="xs:string" minOccurs="0"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

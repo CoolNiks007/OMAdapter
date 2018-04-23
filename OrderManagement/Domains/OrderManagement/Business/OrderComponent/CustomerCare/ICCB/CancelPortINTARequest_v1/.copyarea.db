@@ -1,0 +1,7 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\Business\OrderComponent\CustomerCare\ICCB\CancelPortINTARequest_v1
+2
+3
+1d:CancelPortINTARequest.process|1|162d7aebfb3|7b2d|a2509000|5929d84408dc461a964cf247b17c3617|0
+26:CancelPortINTARequest_Response.process|1|162d7aebfb3|a84c|cb8f52be|ecd1275f57a448ebbd757963a2e46ab2|0
+7:.folder|1|162d7aebfa4|191|b93c8a14|902fa882f8bc43908bb63f6d3f7d0d96|0

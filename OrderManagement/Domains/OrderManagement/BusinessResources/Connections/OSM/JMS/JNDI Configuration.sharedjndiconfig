@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource>
+    <name>JNDI Configuration</name>
+    <resourceType>ae.shared.JNDISharedConfiguration</resourceType>
+    <config>
+        <ValidateJndiSecurityContext>false</ValidateJndiSecurityContext>
+        <ContextFactory>weblogic.jndi.WLInitialContextFactory</ContextFactory>
+        <ProviderUrl>%%Domains/OrderManagement/OSM/JMS/JMSProviderURL%%</ProviderUrl>
+        <SecurityPrincipal>%%Domains/OrderManagement/OSM/JMS/User%%</SecurityPrincipal>
+        <SecurityCredentials>%%Domains/OrderManagement/OSM/JMS/Password%%</SecurityCredentials>
+    </config>
+</BWSharedResource>

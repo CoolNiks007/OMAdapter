@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceResource>
+    <config>
+        <class>com.tibco.bw.service.serviceAgent.ServiceServiceAgent</class>
+        <implType>bw</implType>
+        <groups>
+            <row isDefault="true" groupName="Default"/>
+        </groups>
+        <serviceChange>Fri Jun 19 15:23:52 BST 2015</serviceChange>
+        <name>SiebelAdapterOMServices</name>
+        <resourceType>service.definition</resourceType>
+        <wsdl namespace="http://vodafone.com.tr/OrderManagement/Business/SiebelAdapterOMServices" embedWsdlComponents="true" embedSchemaComponents="true" embedJndiProperties="false"/>
+        <interfaceImpl>
+            <tab>
+                <tabName>SiebelAdapterOMServicesPortType</tabName>
+                <tabType>bw</tabType>
+                <config>
+                    <wsdlDetail location="/Domains/OrderManagement/BusinessResources/WSDL/OrderManagement/SiebelAdapterOMServices.wsdl" portType="SiebelAdapterOMServicesPortType" ns="http://vodafone.com.tr/OrderManagement/Business/SiebelAdapterOMServices"/>
+                    <detail>
+                        <tab>
+                            <tabName>service.definition.impl.tab.label</tabName>
+                            <tabType>impl</tabType>
+                            <config>
+                                <operations>
+                                    <row opName="SyncAccountData_v1" opImpl="/Domains/OrderManagement/Business/Siebel/SyncAccountData_v1/SyncAccountData.process"/>
+                                    <row opName="SyncAccountBillingCycle_v1" opImpl="/Domains/OrderManagement/Business/Siebel/SyncAccountBillingCycle_v1/SyncAccountBillingCycle.process"/>
+                                    <row opName="RegisterCampaign_v1" opImpl="/Domains/OrderManagement/Business/Siebel/RegisterCampaign_v1/RegisterCampaign.process"/>
+                                    <row opName="ManageComplaint_v1" opImpl="/Domains/OrderManagement/Business/Siebel/ManageComplaint_v1/ManageComplaint.process"/>
+                                    <row opName="PrintInvoiceCopy_v1" opImpl="/Domains/OrderManagement/Business/Siebel/PrintInvoiceCopy_v1/PrintInvoiceCopy.process"/>
+                                </operations>
+                            </config>
+                        </tab>
+                        <tab>
+                            <tabName>service.definition.ep.tab.label</tabName>
+                            <tabType>ep</tabType>
+                            <config>
+                                <epBindings>
+                                    <row epName="HTTP" epType="soap">
+                                        <config>
+                                            <epDetail>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.transport.tab.label</tabName>
+                                                    <tabType>transport</tabType>
+                                                    <config>
+                                                        <sharedChannel>/Domains/ServiceCatalog/BusinessResources/Connections/HTTP/HTTP SOAP Connection.sharedhttp</sharedChannel>
+                                                        <transport>
+                                                            <config>
+                                                                <useBasicAuthentication>false</useBasicAuthentication>
+                                                                <httpURI>OrderManagement/SiebelAdapterOMServices</httpURI>
+                                                            </config>
+                                                        </transport>
+                                                    </config>
+                                                </tab>
+                                                <tab>
+                                                    <tabName>soap.service.transport.ui.details.tab.label</tabName>
+                                                    <tabType>details</tabType>
+                                                    <config>
+                                                        <operationStyle>rpc</operationStyle>
+                                                        <soapVersion>SOAP 1.1</soapVersion>
+                                                        <soap>
+                                                            <operation name="SyncAccountData_v1">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>SyncAccountData_v1</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="SyncAccountBillingCycle_v1">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>SyncAccountBillingCycle_v1</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="RegisterCampaign_v1">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>RegisterCampaign_v1</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="ManageComplaint_v1">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>ManageComplaint_v1</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                            <operation name="PrintInvoiceCopy_v1">
+                                                                <general>
+                                                                    <config>
+                                                                        <soapAction>PrintInvoiceCopy_v1</soapAction>
+                                                                        <operationStyle/>
+                                                                        <soapUse>literal</soapUse>
+                                                                        <inputNamespace/>
+                                                                        <outputNamespace/>
+                                                                        <faultNamespace/>
+                                                                        <portAddressPrefix/>
+                                                                    </config>
+                                                                </general>
+                                                            </operation>
+                                                        </soap>
+                                                    </config>
+                                                </tab>
+                                            </epDetail>
+                                        </config>
+                                    </row>
+                                </epBindings>
+                            </config>
+                        </tab>
+                    </detail>
+                </config>
+            </tab>
+        </interfaceImpl>
+    </config>
+</serviceResource>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentRequestInput/v1" xmlns:ns3="http://vodafone.com.tr/EAI/Common/Header" xmlns:pfx5="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" xmlns:pfx2="http://vodafone.com.tr/ServiceCatalog/Business/MobilePBX/DeleteMobilePBXService/v1" xmlns:ns12="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:pfx="http://vodafone.com.tr/EAI/Common/RequestEAI">
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" schemaLocation="/Domains/ServiceCatalog/BusinessResources/Schemas/ServiceRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/RequestEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/RequestEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentRequestInput/v1" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OrderComponent/OrderComponentRequestInput.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/MobilePBX/DeleteMobilePBXService/v1" schemaLocation="/Domains/ServiceCatalog/Business/MobilePBX/DeleteMobilePBXService_v1/Schemas/DeleteMobilePBXService.xsd"/>
+    <pd:name>Domains/OrderManagement/Business/OrderComponent/ProvisioningManagement/MPBX/DeleteService_v1/DeleteService.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Input">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx:RequestEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>27</pd:startX>
+    <pd:startY>79</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>591</pd:endX>
+    <pd:endY>79</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://vodafone.com.tr/1411648488633</pd:targetNamespace>
+    <pd:activity name="Map Data">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>316</pd:x>
+        <pd:y>79</pd:y>
+        <config>
+            <element>
+                <xsd:element name="MapRequests">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element ref="pfx2:Request" minOccurs="0" maxOccurs="unbounded"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </element>
+        </config>
+        <pd:inputBindings>
+            <MapRequests>
+                <xsl:choose>
+                    <xsl:when test="exists($Parse-XML/RootItem[ProductCatalogId = $_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/OrderComponent/Constants/ProductCatalogId/SIM] )">
+                        <xsl:for-each select="$Parse-XML/RootItem[ProductCatalogId = $_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/OrderComponent/Constants/ProductCatalogId/SIM]/ListOfChildItem/ChildItem[ProductCatalogId= $_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/OrderComponent/Constants/ProductCatalogId/MPBXService and Action = 'Deleted']">
+                            <pfx2:Request>
+                                <pfx2:AccessNumber>
+                                    <xsl:value-of select="ListOfChildItemAttribute/ChildItemAttribute[Name = 'Access Number']/Value"/>
+                                </pfx2:AccessNumber>
+                                <pfx2:PrimeNumber>
+                                    <xsl:value-of select="ListOfChildItemAttribute/ChildItemAttribute[Name = 'Prime Number']/Value"/>
+                                </pfx2:PrimeNumber>
+                            </pfx2:Request>
+                        </xsl:for-each>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:for-each select="$Parse-XML/RootItem[ProductCatalogId =$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/OrderComponent/Constants/ProductCatalogId/MPBXGroup]/ListOfChildItem/ChildItem[ProductCatalogId = $_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/OrderComponent/Constants/ProductCatalogId/AccessNumber and Action = 'Deleted']/ ListOfChildItemAttribute/ChildItemAttribute[Name = 'Access Number']/Value">
+                            <pfx2:Request>
+                                <pfx2:AccessNumber>
+                                    <xsl:value-of select="."/>
+                                </pfx2:AccessNumber>
+                                <xsl:if test="$Parse-XML/RootItem[ProductCatalogId =$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/OrderComponent/Constants/ProductCatalogId/MPBXGroup]/ListOfRootItemAttribute/RootItemAttribute[Name = 'Prime Number']/Value">
+                                    <pfx2:PrimeNumber>
+                                        <xsl:value-of select="$Parse-XML/RootItem[ProductCatalogId =$_globalVariables/ns1:GlobalVariables/Domains/OrderManagement/OrderComponent/Constants/ProductCatalogId/MPBXGroup]/ListOfRootItemAttribute/RootItemAttribute[Name = 'Prime Number']/Value"/>
+                                    </pfx2:PrimeNumber>
+                                </xsl:if>
+                            </pfx2:Request>
+                        </xsl:for-each>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </MapRequests>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="OrderComponentIterator">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>458</pd:x>
+        <pd:y>79</pd:y>
+        <config>
+            <processName>/Domains/OrderManagement/BusinessResources/Processes/OrderComponent/OrderComponentIterator.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <RequestDestination>
+                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:ServiceCatalogQueue"/>
+                </RequestDestination>
+                <ListOfRequests>
+                    <xsl:copy-of select="$Map-Data/MapRequests/pfx2:Request"/>
+                </ListOfRequests>
+                <pfx:RequestEAI>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header"/>
+                    <pfx:Body>
+                        <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request"/>
+                    </pfx:Body>
+                </pfx:RequestEAI>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Parse XML">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>170</pd:x>
+        <pd:y>79</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>false</validateOutput>
+            <term>
+                <xsd:element name="RootItem" type="pfx3:RootItem"/>
+            </term>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Start/Input/pfx:RequestEAI/pfx:Body/*" element="ns:Request" cardinality=""/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns:Request/ns:OrderComponentDetails/ns:XMLMessage/*[1]"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Parse XML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse XML</pd:from>
+        <pd:to>Map Data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map Data</pd:from>
+        <pd:to>OrderComponentIterator</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>OrderComponentIterator</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

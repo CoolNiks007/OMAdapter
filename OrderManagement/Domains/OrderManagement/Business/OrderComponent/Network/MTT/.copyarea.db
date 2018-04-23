@@ -1,0 +1,12 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\Business\OrderComponent\Network\MTT
+2
+8
+16:DeleteLocateCompany_v1|2|0|0|0|9d420153bf7647aab23c4cc626f89e04|0
+15:ChangeMobileMSISDN_v1|2|0|0|0|0f29d37539334ed2adc8c739bf279636|0
+15:DeleteLocateMobile_v1|2|0|0|0|291b4496de394db8abfd60c122a62108|0
+15:UpdateLocateMobile_v1|2|0|0|0|156fa57a3a6a4215baf6c7c46bb537c3|0
+16:InsertLocateCompany_v1|2|0|0|0|83497226b0a6426bb7621a8ed8ef21c4|0
+16:UpdateLocateCompany_v1|2|0|0|0|12c0c41697e04f87910219546c93e9da|0
+15:InsertLocateMobile_v1|2|0|0|0|49b381d1159548e78fe3db54a3f4bcbf|0
+7:.folder|1|162d7aed739|17c|ef048203|c6d7c367950b4be39cf86157b937dad5|0

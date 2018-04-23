@@ -1,0 +1,10 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\Business\OrderComponent\CustomerCare\PMS
+2
+6
+10:LoadPromotion_v1|2|0|0|0|adc9a229a4d34a999c9d72fc480fc003|0
+15:SubscribePromotion_v1|2|0|0|0|eb59ef9981b242c181efa5d14df1d066|0
+10:ManageVoucher_v1|2|0|0|0|ab9f58ece89f4e9799ced3f0d9f58903|0
+13:NotifyCompletion_v1|2|0|0|0|113e6607cf0b4956b973594b108d261e|0
+7:.folder|1|162d7aeca00|17c|eb1181fe|b5c08e9fe65840f3b8157e94b1bba9ed|0
+17:UnsubscribePromotion_v1|2|0|0|0|83a7c5df6ba14e6cb6adb4d605058f88|0

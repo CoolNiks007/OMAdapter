@@ -1,0 +1,7 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\Business\OrderComponent\Billing\CCS\CreateAccountAdjust_v1
+2
+3
+1b:CreateAccountAdjust.process|1|162d7aeb383|4439|96672bd5|0b10a4c38c3341878e3984dac6947c04|0
+24:CreateAccountAdjust_Response.process|1|162d7aeb393|306a|b8997708|33ac734701834c38b2c11f2a2242f3b9|0
+7:.folder|1|162d7aeb374|18f|d57a89a0|656aef34257a4d75b79997236c1264d3|0

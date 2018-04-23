@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002">
+    <identity>
+        <objectType>usernamePassword</objectType>
+        <name>OSM Identity</name>
+        <designer>
+            <lockedProperties/>
+            <fixedChildren/>
+            <resourceDescriptions/>
+        </designer>
+        <username>%%Domains/OrderManagement/OSM/User%%</username>
+        <password>%%Domains/OrderManagement/OSM/Password%%</password>
+    </identity>
+</Repository:repository>

@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentRequestInput/v1" xmlns:pfx="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="urn:com:metasolv:oms:xmlapi:1" xmlns:ns1="http://vodafone.com.tr/EAI/Common/Header" xmlns:ns3="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentResponseInput/v1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://vodafone.com.tr/ServiceCatalog/ServiceReply" xmlns:pfx4="http://vodafone.com.tr/EAI/Common/RequestEAI" xmlns:pfx3="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx2="http://vodafone.com.tr/EAI/Common/ResponseCodes" xmlns:pfx7="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/Portability/PortIN.xsd" xmlns:pfx6="http://vodafone.com.tr/EAI/Common/ResponseEAI">
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/RequestEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/RequestEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentRequestInput/v1" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OrderComponent/OrderComponentRequestInput.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/ResponseEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/ResponseEAI.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/Portability/PortIN.xsd" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/Portability/PortIN.xsd"/>
+    <xsd:import namespace="urn:com:metasolv:oms:xmlapi:1" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OSM/OSM_OperationResponse.xsd"/>
+    <pd:name>Domains/OrderManagement/Business/OrderComponent/CustomerCare/ICCB/TADisconnectResponse_v1/TADisconnectResponse.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Input">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx4:RequestEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>43</pd:startX>
+    <pd:startY>107</pd:startY>
+    <pd:returnBindings>
+        <Output>
+            <pfx6:ResponseEAI>
+                <pfx6:Header>
+                    <xsl:copy-of select="$Start/Input/pfx4:RequestEAI/pfx4:Header/ancestor-or-self::*/namespace::node()"/>
+                    <xsl:copy-of select="$Start/Input/pfx4:RequestEAI/pfx4:Header/@*"/>
+                    <xsl:copy-of select="$Start/Input/pfx4:RequestEAI/pfx4:Header/node()"/>
+                </pfx6:Header>
+                <pfx6:ResponseCodes>
+                    <pfx2:ResponseCode>
+                        <xsl:value-of select="$_globalVariables/pfx3:GlobalVariables/ErrorCodes/Success"/>
+                    </pfx2:ResponseCode>
+                </pfx6:ResponseCodes>
+            </pfx6:ResponseEAI>
+        </Output>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="Output">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx6:ResponseEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>723</pd:endX>
+    <pd:endY>174</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://vodafone.com.tr/1426107985061</pd:targetNamespace>
+    <pd:activity name="Parse XML">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>157</pd:x>
+        <pd:y>107</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>false</validateOutput>
+            <term ref="pfx:Order"/>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Start/Input/pfx4:RequestEAI/pfx4:Body/*" element="ns:Request"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$Start/Input/pfx4:RequestEAI/pfx4:Body/ns:Request/ns:OrderComponentDetails/ns:XMLMessage/*[1]"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="UpsertAsyncControl">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>546</pd:x>
+        <pd:y>38</pd:y>
+        <config>
+            <processName>/GlobalCommonResources/Processes/AsyncControl/UpsertAsyncControl.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <TargetCorrelationId>
+                    <xsl:value-of select="concat($Parse-XML/Order/OrderPortId, '-','MNPInDeactivationAck')"/>
+                </TargetCorrelationId>
+                <MsgId>
+                    <xsl:value-of select="$Start/Input/pfx4:RequestEAI/pfx4:Header/ns1:RequestId"/>
+                </MsgId>
+                <Source>
+                    <xsl:value-of select="$Start/Input/pfx4:RequestEAI/pfx4:Header/ns1:SourceSystem"/>
+                </Source>
+                <Target>
+                    <xsl:value-of select="$Start/Input/pfx4:RequestEAI/pfx4:Header/ns1:TargetSystem"/>
+                </Target>
+                <MessageBody>
+                    <Header>
+                        <xsl:copy-of select="$Start/Input/pfx4:RequestEAI/pfx4:Header/ancestor-or-self::*/namespace::node()"/>
+                        <xsl:copy-of select="$Start/Input/pfx4:RequestEAI/pfx4:Header/@*"/>
+                        <xsl:copy-of select="$Start/Input/pfx4:RequestEAI/pfx4:Header/node()"/>
+                    </Header>
+                </MessageBody>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetGlobalData">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>284</pd:x>
+        <pd:y>106</pd:y>
+        <config>
+            <processName>/Domains/OrderManagement/BusinessResources/Processes/TO2FGlobalData/GetGlobalData.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <xsl:if test="$Start/Input/pfx4:RequestEAI/pfx4:Body/ns:Request/ns:OrderComponentDetails/ns:MasterOrderId">
+                    <MasterOrderId>
+                        <xsl:value-of select="$Start/Input/pfx4:RequestEAI/pfx4:Body/ns:Request/ns:OrderComponentDetails/ns:MasterOrderId"/>
+                    </MasterOrderId>
+                </xsl:if>
+                <xsl:if test="$Start/Input/pfx4:RequestEAI/pfx4:Body/ns:Request/ns:OrderComponentDetails/ns:OrderId">
+                    <OrderId>
+                        <xsl:value-of select="$Start/Input/pfx4:RequestEAI/pfx4:Body/ns:Request/ns:OrderComponentDetails/ns:OrderId"/>
+                    </OrderId>
+                </xsl:if>
+                <Key>
+                    <xsl:value-of select="concat($Parse-XML/Order/OrderPortId, &quot;-&quot;,&quot;PortIN&quot;)"/>
+                </Key>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="ParseGlobalDataListMSISDN">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>409</pd:x>
+        <pd:y>108</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>false</validateOutput>
+            <term ref="pfx7:ListOfPortINMSISDN"/>
+        </config>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$GetGlobalData/Output/ListOfGlobalData/GlobalData[1]/Value"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Complete Order Component">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>548</pd:x>
+        <pd:y>185</pd:y>
+        <config>
+            <processName>/Domains/OrderManagement/BusinessResources/Processes/OrderComponent/OrderComponentResponse.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <ns3:Request>
+                    <ns3:OcDetails>
+                        <ns3:Id>
+                            <xsl:value-of select="$Start/Input/pfx4:RequestEAI/pfx4:Body/ns:Request/ns:OrderComponentDetails/ns:Id"/>
+                        </ns3:Id>
+                        <ns3:Name>
+                            <xsl:value-of select="$Start/Input/pfx4:RequestEAI/pfx4:Body/ns:Request/ns:OrderComponentDetails/ns:Name"/>
+                        </ns3:Name>
+                        <ns3:Scenario>
+                            <xsl:value-of select="$Start/Input/pfx4:RequestEAI/pfx4:Body/ns:Request/ns:OrderComponentDetails/ns:Scenario"/>
+                        </ns3:Scenario>
+                        <ns3:OrderId>
+                            <xsl:value-of select="$Start/Input/pfx4:RequestEAI/pfx4:Body/ns:Request/ns:OrderComponentDetails/ns:OrderId"/>
+                        </ns3:OrderId>
+                        <ns3:CorrelationID>
+                            <xsl:value-of select="$Start/Input/pfx4:RequestEAI/pfx4:Body/ns:Request/ns:OrderComponentDetails/ns:CorrelationID"/>
+                        </ns3:CorrelationID>
+                        <ns3:Cartridge>
+                            <ns3:Name>
+                                <xsl:value-of select="$Start/Input/pfx4:RequestEAI/pfx4:Body/ns:Request/ns:OrderComponentDetails/ns:Cartridge/ns:Name"/>
+                            </ns3:Name>
+                            <ns3:Version>
+                                <xsl:value-of select="$Start/Input/pfx4:RequestEAI/pfx4:Body/ns:Request/ns:OrderComponentDetails/ns:Cartridge/ns:Version"/>
+                            </ns3:Version>
+                            <ns3:Source>
+                                <xsl:value-of select="$Start/Input/pfx4:RequestEAI/pfx4:Body/ns:Request/ns:OrderComponentDetails/ns:Cartridge/ns:Source"/>
+                            </ns3:Source>
+                        </ns3:Cartridge>
+                    </ns3:OcDetails>
+                    <ns3:ServiceReply>
+                        <pfx5:Header>
+                            <pfx2:ResponseCode>
+                                <xsl:value-of select="0"/>
+                            </pfx2:ResponseCode>
+                        </pfx5:Header>
+                        <pfx5:Body>
+                            <ns2:TelcoOperationResponse>
+                                <Id>
+                                    <xsl:value-of select="$Start/Input/pfx4:RequestEAI/pfx4:Body/ns:Request/ns:OrderComponentDetails/ns:Id"/>
+                                </Id>
+                                <Name>
+                                    <xsl:value-of select="$Start/Input/pfx4:RequestEAI/pfx4:Body/ns:Request/ns:OrderComponentDetails/ns:Name"/>
+                                </Name>
+                                <OrderId>
+                                    <xsl:value-of select="$Start/Input/pfx4:RequestEAI/pfx4:Body/ns:Request/ns:OrderComponentDetails/ns:OrderId"/>
+                                </OrderId>
+                                <StatusCode>
+                                    <xsl:value-of select="0"/>
+                                </StatusCode>
+                                <StatusMessage>
+                                    <xsl:value-of select="'Sucess'"/>
+                                </StatusMessage>
+                            </ns2:TelcoOperationResponse>
+                        </pfx5:Body>
+                    </ns3:ServiceReply>
+                </ns3:Request>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Parse XML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>UpsertAsyncControl</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse XML</pd:from>
+        <pd:to>GetGlobalData</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetGlobalData</pd:from>
+        <pd:to>ParseGlobalDataListMSISDN</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ParseGlobalDataListMSISDN</pd:from>
+        <pd:to>UpsertAsyncControl</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>count($ParseGlobalDataListMSISDN/ListOfPortINMSISDN/PortINMSISDN[Stage = 'ReceivedTAResponse'  and PortINTime !=''] ) &gt; 0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ParseGlobalDataListMSISDN</pd:from>
+        <pd:to>Complete Order Component</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Complete Order Component</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

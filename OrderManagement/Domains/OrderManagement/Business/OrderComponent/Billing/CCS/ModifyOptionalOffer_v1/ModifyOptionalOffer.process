@@ -1,0 +1,1395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns12="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:eai="java://com.telco.eai.EAIFunctions" xmlns:pfx="http://vodafone.com.tr/EAI/Common/RequestEAI" xmlns:ns2="http://vodafone.com.tr/EAI/Common/Header" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentRequestInput/v1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/OSMOrder.xsd" xmlns:pfx4="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" xmlns:pfx2="http://vodafone.com.tr/ServiceCatalog/Business/CustomerManagement/ModifyOptionalOffer/v1" xmlns:pfx9="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/PipelineIterator/v1" xmlns:pfx8="http://vodafone.com.tr/ServiceCatalog/Business/VPNManagement/AddMultipleVPNAccount/v1" xmlns:pfx7="http://vodafone.com.tr/ServiceCatalog/Business/CustomerManagement/ModifyOptionalOfferCompositeWA/v1" xmlns:pfx6="http://vodafone.com.tr/ServiceCatalog/Business/SubscriberManagement/ManageGroupMember/v1">
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/RequestEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/RequestEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentRequestInput/v1" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OrderComponent/OrderComponentRequestInput.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" schemaLocation="/Domains/ServiceCatalog/BusinessResources/Schemas/ServiceRequest.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/SubscriberManagement/ManageGroupMember/v1" schemaLocation="/Domains/ServiceCatalog/Business/SubscriberManagement/ManageGroupMember_v1/Schemas/ManageGroupMember.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/CustomerManagement/ModifyOptionalOffer/v1" schemaLocation="/Domains/ServiceCatalog/Business/CustomerManagement/ModifyOptionalOffer_v1/Schemas/ModifyOptionalOffer.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/OSMOrder.xsd" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OSMOrder.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/VPNManagement/AddMultipleVPNAccount/v1" schemaLocation="/Domains/ServiceCatalog/Business/VPNManagement/AddMultipleVPNAccount_v1/Schemas/AddMultipleVPNAccount.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/PipelineIterator/v1" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OrderComponent/PipelineIterator.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/CustomerManagement/ModifyOptionalOfferCompositeWA/v1" schemaLocation="/Domains/ServiceCatalog/Business/CustomerManagement/ModifyOptionalOfferCompositeWA_v1/Schemas/ModifyOptionalOfferCompositeWA.xsd"/>
+    <pd:name>Domains/OrderManagement/Business/OrderComponent/Billing/CCS/ModifyOptionalOffer_v1/ModifyOptionalOffer.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Input">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx:RequestEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>82</pd:startX>
+    <pd:startY>67</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>740</pd:endX>
+    <pd:endY>67</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://vodafone.com.tr/1415270176476</pd:targetNamespace>
+    <pd:activity name="Parse XML">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>211</pd:x>
+        <pd:y>67</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>false</validateOutput>
+            <term ref="pfx5:OSMOrder"/>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Start/Input/pfx:RequestEAI/pfx:Body/*" element="ns1:Request"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:OrderComponentDetails/ns1:XMLMessage/*[1]"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Map-Requests">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>392</pd:x>
+        <pd:y>68</pd:y>
+        <config>
+            <element>
+                <xsd:element name="ListOfRequests">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element ref="pfx7:Request" minOccurs="0" maxOccurs="unbounded"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </element>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Parse-XML/OSMOrder/XMLMessage/*" element="Order"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <ListOfRequests>
+                <xsl:variable name="RootContainer" select="$Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem[ComponentGroup='CAMP CONTAINER']"/>
+                <xsl:variable name="RootMobileLine" select="$Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem[ComponentSubType='MOBILE']"/>
+                <xsl:variable name="RootCampaign" select="$Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem[ComponentGroup='CAMP PROMO' and Action = &quot;New&quot; and not(ComponentType = &quot;PERMANENCY&quot;)] "/>
+                <xsl:variable name="RootCampaignOld" select="$Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem[ComponentGroup='CAMP PROMO' and Action = &quot;Deleted&quot;  and not(ComponentType = &quot;PERMANENCY&quot;)] "/>
+                <xsl:variable name="_isFDO" select="(($Parse-XML/OSMOrder/XMLMessage/Order/OrderFutureDatedFlag = 'Y' and $Parse-XML/OSMOrder/XMLMessage/Order/CutOffDateFlag = 'Y') or $Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem/ActionType = &quot;134&quot;) and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/OrderDueDate)"/>
+                <!--NonCommercialOffer-->
+                <xsl:if test="(count($Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem[ComponentGroup = &quot;CAMP PROMO&quot; and not(ComponentType = &quot;PERMANENCY&quot;) and Action=('New')])>0&#xA;or&#xA;( &#xA;string-length($Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem[ComponentGroup = &quot;CAMP PROMO&quot; and not(ComponentType = &quot;PERMANENCY&quot;) and not(ActionType = &quot;128&quot; and ActionReason = (&quot;1122&quot;,&quot;250&quot;,&quot;252&quot;,&quot;249&quot;,&quot;251&quot;)) and Action=('Deleted')]/OriginalEndDate) > 0 and&#xA;tib:compare-date(tib:parse-date($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/Date,$Parse-XML/OSMOrder/XMLMessage/Order[1]/OrderDueDate) ,tib:parse-date($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/Date,$Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem[ComponentGroup = &quot;CAMP PROMO&quot; and not(ComponentType = &quot;PERMANENCY&quot;) and Action=('Deleted')]/OriginalEndDate)) &lt;0)&#xA;)&#xA;and&#xA;not(&#xA;     (  count($Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem[ComponentGroup = &quot;CAMP PROMO&quot; and not(ComponentType = &quot;PERMANENCY&quot;) and Action=('New','Deleted')])>0&#xA;        and&#xA;        count($Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem[ComponentSubType = &quot;MOBILE&quot;]/ListOfChildItem/ChildItem[not(AgreementNum = &quot;0&quot;) and Action=('Deleted','New') and ComponentGroup !=&quot;TARIFF&quot; and  ComponentType !=&quot;FEE&quot;])>0&#xA;     )&#xA;     or&#xA;     count($Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem/ListOfChildItem/ChildItem[(ComponentGroup = (&quot;ADDON&quot;, &quot;CAPPING&quot;) or ProductCatalogId = &quot;71042&quot;)  and not(AgreementNum = &quot;0&quot;) and Action=('Deleted','New')])>0&#xA;)">
+                    <pfx7:Request>
+                        <pfx7:SubscriberNo>
+                            <xsl:value-of select="$RootMobileLine//ServiceId"/>
+                        </pfx7:SubscriberNo>
+                        <xsl:choose>
+                            <xsl:when test="{--only if FDO (to Cut Off Date) or backdated order---}&#xA;$_isFDO=true()">
+                                <pfx7:OrderDueDate>
+                                    <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/OrderDueDate)"/>
+                                </pfx7:OrderDueDate>
+                            </xsl:when>
+                        </xsl:choose>
+                        <pfx7:Commitment>
+                            <xsl:if test="$RootCampaign/ProductCatalogId">
+                                <pfx7:CampaignOfferId>
+                                    <xsl:value-of select="$RootCampaign/ProductCatalogId"/>
+                                </pfx7:CampaignOfferId>
+                            </xsl:if>
+                            <xsl:if test="$RootCampaignOld/ProductCatalogId">
+                                <pfx7:OldCampaignOfferId>
+                                    <xsl:value-of select="$RootCampaignOld/ProductCatalogId"/>
+                                </pfx7:OldCampaignOfferId>
+                            </xsl:if>
+                            <xsl:if test="$RootCampaign/AgreementNum">
+                                <pfx7:InstanceId>
+                                    <xsl:value-of select="$RootCampaign/AgreementNum"/>
+                                </pfx7:InstanceId>
+                            </xsl:if>
+                            <xsl:if test="$RootCampaign/IntegrationId">
+                                <pfx7:CampaignOfferOrderKey>
+                                    <xsl:value-of select="$RootCampaign/IntegrationId"/>
+                                </pfx7:CampaignOfferOrderKey>
+                            </xsl:if>
+                            <xsl:if test="not($RootCampaignOld/ComponentType = &quot;DISCOUNT&quot;) &#xA;and &#xA;not($RootCampaignOld/ComponentType = &quot;HANDSET PROMO&quot; and ($RootCampaignOld/ApplyPenalty = &quot;Y&quot; or not($RootCampaign/ComponentType = &quot;HANDSET PROMO&quot; and $RootCampaign/Action = &quot;New&quot;)))&#xA;and&#xA;count($RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup =&quot;TARIFF&quot; and Action=('New','Modified')  and (AgreementNum !=0 and  string-length(AgreementNum)>0)])=0">
+                                <!--Do not send if BreakCommitment is generated or if Join in Commitment-->
+                                <xsl:if test="$RootCampaignOld/AgreementNum">
+                                    <pfx7:PreviousInstanceId>
+                                        <xsl:value-of select="$RootCampaignOld/AgreementNum"/>
+                                    </pfx7:PreviousInstanceId>
+                                </xsl:if>
+                            </xsl:if>
+                            <xsl:if test="tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime, $RootCampaign/EndDate)">
+                                <pfx7:EndDate>
+                                    <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$RootCampaign/EndDate)"/>
+                                </pfx7:EndDate>
+                            </xsl:if>
+                            <xsl:if test="$_isFDO=true() and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime, $Parse-XML/OSMOrder/XMLMessage/Order[1]/OrderCreationDate)">
+                                <pfx7:RequestTime>
+                                    <xsl:value-of select="eai:parseDateBySource(&quot;Siebel&quot;,$Parse-XML/OSMOrder/XMLMessage/Order[1]/OrderCreationDate)"/>
+                                </pfx7:RequestTime>
+                            </xsl:if>
+                            <!--SimpleProperty Added (CR51)-->
+                            <pfx7:SimpleProperty>
+                                <pfx7:Id>
+                                    <xsl:value-of select="'Campaignname'"/>
+                                </pfx7:Id>
+                                <pfx7:Value>
+                                    <xsl:value-of select="$RootCampaign/ProductName"/>
+                                </pfx7:Value>
+                            </pfx7:SimpleProperty>
+                            <pfx7:SimpleProperty>
+                                <pfx7:Id>
+                                    <xsl:value-of select="'Campaigncode'"/>
+                                </pfx7:Id>
+                                <pfx7:Value>
+                                    <xsl:value-of select="$RootCampaign/ProductCatalogId"/>
+                                </pfx7:Value>
+                            </pfx7:SimpleProperty>
+                            <pfx7:ValidMode>
+                                <xsl:choose>
+                                    <xsl:when test="($Parse-XML/OSMOrder/XMLMessage/Order/OrderFutureDatedFlag = 'Y' or $Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem/ActionType = &quot;134&quot; )&#xA; and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)">
+                                        <pfx7:Mode>
+                                            <xsl:value-of select="'4050003'"/>
+                                        </pfx7:Mode>
+                                        <xsl:if test="$Parse-XML/OSMOrder/XMLMessage/Order/OrderFutureDatedFlag = 'Y' and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)">
+                                            <pfx7:EffectiveDate>
+                                                <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)"/>
+                                            </pfx7:EffectiveDate>
+                                        </xsl:if>
+                                        <xsl:if test="tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)">
+                                            <pfx7:ExpireDate>
+                                                <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)"/>
+                                            </pfx7:ExpireDate>
+                                        </xsl:if>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <pfx7:Mode>
+                                            <xsl:value-of select="'4050000'"/>
+                                        </pfx7:Mode>
+                                        <xsl:if test="tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)">
+                                            <pfx7:ExpireDate>
+                                                <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)"/>
+                                            </pfx7:ExpireDate>
+                                        </xsl:if>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </pfx7:ValidMode>
+                            <!--In NonCommercialOffer request, commitment should already exist, so OperationType should be 1 - Join In Commitment-->
+                            <pfx7:OperationType>
+                                <xsl:value-of select="1"/>
+                            </pfx7:OperationType>
+                            <xsl:if test="$RootCampaign/AgreementNum">
+                                <pfx7:CommitmentOrderKey>
+                                    <xsl:value-of select="$RootCampaign/AgreementNum"/>
+                                </pfx7:CommitmentOrderKey>
+                            </xsl:if>
+                        </pfx7:Commitment>
+                        <xsl:if test="exists($RootMobileLine/ListOfChildItem/ChildItem/VFTRCBUPayerMSISDN) or string-length($RootMobileLine/ListOfChildItem/ChildItem/VFTRCBUPayerMSISDN) >0">
+                            <xsl:if test="$RootMobileLine/ListOfChildItem/ChildItem/VFTRCBUPayerMSISDN">
+                                <pfx7:ChargeFromSubNo>
+                                    <xsl:value-of select="$RootMobileLine/ListOfChildItem/ChildItem/VFTRCBUPayerMSISDN"/>
+                                </pfx7:ChargeFromSubNo>
+                            </xsl:if>
+                        </xsl:if>
+                    </pfx7:Request>
+                </xsl:if>
+                <!--FEE-->
+                <xsl:if test="{--1º Condition:membership Fee---}&#xA;{-- 2ºCondition: Fee--}&#xA;count($Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem/ListOfChildItem/ChildItem[ComponentType=&quot;FEE&quot; and Action='New'])>0">
+                    <pfx7:Request>
+                        <xsl:choose>
+                            <!--[COSBY] When the FEE comes in the Member Portfolio it should be added to the Leader in CCS-->
+                            <xsl:when test="string-length($Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem/ListOfChildItem[ChildItem[ComponentType=&quot;FEE&quot; and Action='New']]/ChildItem[ComponentGroup = 'SRV' and ComponentType = 'SHARING']/ListOfChildItemAttribute/ChildItemAttribute[Name='Leader MSISDN']/Value)>0">
+                                <pfx7:SubscriberNo>
+                                    <xsl:value-of select="$Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem/ListOfChildItem[ChildItem[ComponentType=&quot;FEE&quot; and Action='New']]/ChildItem[ComponentGroup = 'SRV' and ComponentType = 'SHARING']/ListOfChildItemAttribute/ChildItemAttribute[Name='Leader MSISDN']/Value"/>
+                                </pfx7:SubscriberNo>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <pfx7:SubscriberNo>
+                                    <xsl:value-of select="$RootMobileLine/ServiceId"/>
+                                </pfx7:SubscriberNo>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="{--only if FDO (to Cut Off Date) or backdated order---}&#xA;$_isFDO=true()">
+                                <pfx7:OrderDueDate>
+                                    <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/OrderDueDate)"/>
+                                </pfx7:OrderDueDate>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:for-each select="$Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem/ListOfChildItem/ChildItem[((ComponentType =&quot;SHARING&quot;  and ComponentSubType = &quot;SUBLINE&quot;)  or ComponentType = &quot;FEE&quot; ) and Action = ('New','Deleted')]">
+                            <pfx7:OptionalOffer>
+                                <pfx7:Id>
+                                    <xsl:value-of select="ProductCatalogId"/>
+                                </pfx7:Id>
+                                <xsl:choose>
+                                    <xsl:when test="Action = &quot;Deleted&quot;">
+                                        <pfx7:OperationType>
+                                            <xsl:value-of select="'Delete'"/>
+                                        </pfx7:OperationType>
+                                    </xsl:when>
+                                    <xsl:when test="Action = &quot;New&quot;">
+                                        <pfx7:OperationType>
+                                            <xsl:value-of select="'Add'"/>
+                                        </pfx7:OperationType>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <pfx7:OperationType>
+                                            <xsl:value-of select="'Modify'"/>
+                                        </pfx7:OperationType>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <pfx7:OfferOrderKey>
+                                    <xsl:value-of select="IntegrationId"/>
+                                </pfx7:OfferOrderKey>
+                                <xsl:choose>
+                                    <xsl:when test="contains($_globalVariables/ns:GlobalVariables/Domains/OrderManagement/OrderComponent/ProductClass, concat(&quot;|&quot;,ProductClass, &quot;|&quot;))">
+                                        <pfx7:InstantiableOfferFlag>
+                                            <xsl:value-of select="true()"/>
+                                        </pfx7:InstantiableOfferFlag>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <pfx7:InstantiableOfferFlag>
+                                            <xsl:value-of select="false()"/>
+                                        </pfx7:InstantiableOfferFlag>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <pfx7:ValidMode>
+                                    <xsl:choose>
+                                        <xsl:when test="($Parse-XML/OSMOrder/XMLMessage/Order/OrderFutureDatedFlag = 'Y' or $Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem/ActionType = &quot;134&quot; )&#xA; and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)">
+                                            <pfx7:Mode>
+                                                <xsl:value-of select="'4050003'"/>
+                                            </pfx7:Mode>
+                                            <xsl:if test="$Parse-XML/OSMOrder/XMLMessage/Order/OrderFutureDatedFlag = 'Y' and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)">
+                                                <pfx7:EffectiveDate>
+                                                    <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)"/>
+                                                </pfx7:EffectiveDate>
+                                            </xsl:if>
+                                            <xsl:if test="tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)">
+                                                <pfx7:ExpireDate>
+                                                    <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)"/>
+                                                </pfx7:ExpireDate>
+                                            </xsl:if>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <pfx7:Mode>
+                                                <xsl:value-of select="'4050000'"/>
+                                            </pfx7:Mode>
+                                            <xsl:if test="tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)">
+                                                <pfx7:ExpireDate>
+                                                    <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)"/>
+                                                </pfx7:ExpireDate>
+                                            </xsl:if>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </pfx7:ValidMode>
+                            </pfx7:OptionalOffer>
+                        </xsl:for-each>
+                    </pfx7:Request>
+                </xsl:if>
+                <!--ModifyContratedOptionalOffer-->
+                <xsl:if test="count($Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem[ComponentGroup = &quot;CAMP PROMO&quot; and not(ComponentType = &quot;PERMANENCY&quot;) and Action=('New','Deleted')])>0&#xA;and&#xA;(&#xA;   count($Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem[ComponentSubType = &quot;MOBILE&quot;]/ListOfChildItem/ChildItem[not(AgreementNum = &quot;0&quot;) and Action=('Deleted','New') and ComponentGroup !=&quot;TARIFF&quot; and  ComponentType !=&quot;FEE&quot;])>0&#xA;   or&#xA;   count($Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem/ListOfChildItem/ChildItem[(ComponentGroup = (&quot;ADDON&quot;, &quot;CAPPING&quot;) or ProductCatalogId = &quot;71042&quot;) and not(AgreementNum = &quot;0&quot;) and Action=('Deleted','New')])>0&#xA;)">
+                    <pfx7:Request>
+                        <pfx7:SubscriberNo>
+                            <xsl:value-of select="$RootMobileLine//ServiceId"/>
+                        </pfx7:SubscriberNo>
+                        <xsl:choose>
+                            <xsl:when test="{--only if FDO (to Cut Off Date) or backdated order---}&#xA;$_isFDO=true()">
+                                <pfx7:OrderDueDate>
+                                    <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/OrderDueDate)"/>
+                                </pfx7:OrderDueDate>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:for-each select="$RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup !=&quot;TARIFF&quot; and Action =('New') and AgreementNum !=&quot;0&quot; and ComponentType !=&quot;FEE&quot;]">
+                            <pfx7:OptionalOffer>
+                                <pfx7:Id>
+                                    <xsl:value-of select="ProductCatalogId"/>
+                                </pfx7:Id>
+                                <xsl:choose>
+                                    <xsl:when test="Action = &quot;Deleted&quot;">
+                                        <pfx7:OperationType>
+                                            <xsl:value-of select="'Delete'"/>
+                                        </pfx7:OperationType>
+                                    </xsl:when>
+                                    <xsl:when test="Action = &quot;New&quot;">
+                                        <pfx7:OperationType>
+                                            <xsl:value-of select="'Add'"/>
+                                        </pfx7:OperationType>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <pfx7:OperationType>
+                                            <xsl:value-of select="'Modify'"/>
+                                        </pfx7:OperationType>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <pfx7:OfferOrderKey>
+                                    <xsl:value-of select="IntegrationId"/>
+                                </pfx7:OfferOrderKey>
+                                <xsl:choose>
+                                    <xsl:when test="contains($_globalVariables/ns:GlobalVariables/Domains/OrderManagement/OrderComponent/ProductClass, concat(&quot;|&quot;,ProductClass, &quot;|&quot;))">
+                                        <pfx7:InstantiableOfferFlag>
+                                            <xsl:value-of select="true()"/>
+                                        </pfx7:InstantiableOfferFlag>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <pfx7:InstantiableOfferFlag>
+                                            <xsl:value-of select="false()"/>
+                                        </pfx7:InstantiableOfferFlag>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:choose>
+                                    <xsl:when test="$RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup =&quot;TARIFF&quot;]/Action = 'Deleted'&#xA;and&#xA;$RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup =&quot;TARIFF&quot;]/Action = 'New'">
+                                        <pfx7:ProratingFlag>
+                                            <xsl:value-of select="true()"/>
+                                        </pfx7:ProratingFlag>
+                                    </xsl:when>
+                                    <xsl:when test="string-length(ListOfKeyFeature/KeyFeature[Feature=$_globalVariables/ns:GlobalVariables/Domains/Billing/CCS/Transport/SOAP/Operations/ModifyOptionalOffer/ProrationFlag/ProrationOnDelete]/FeatureValue)>0">
+                                        <xsl:choose>
+                                            <xsl:when test="ListOfKeyFeature/KeyFeature[Feature=$_globalVariables/ns:GlobalVariables/Domains/Billing/CCS/Transport/SOAP/Operations/ModifyOptionalOffer/ProrationFlag/ProrationOnDelete]/FeatureValue = $_globalVariables/ns:GlobalVariables/Domains/CustomerCare/Siebel/Formats/Boolean/True">
+                                                <pfx7:ProratingFlag>
+                                                    <xsl:value-of select="true()"/>
+                                                </pfx7:ProratingFlag>
+                                            </xsl:when>
+                                        </xsl:choose>
+                                    </xsl:when>
+                                </xsl:choose>
+                                <pfx7:ValidMode>
+                                    <xsl:choose>
+                                        <xsl:when test="($Parse-XML/OSMOrder/XMLMessage/Order/OrderFutureDatedFlag = 'Y' or $Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem/ActionType = &quot;134&quot; )&#xA; and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)">
+                                            <pfx7:Mode>
+                                                <xsl:value-of select="'4050003'"/>
+                                            </pfx7:Mode>
+                                            <xsl:if test="$Parse-XML/OSMOrder/XMLMessage/Order/OrderFutureDatedFlag = 'Y' and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)">
+                                                <pfx7:EffectiveDate>
+                                                    <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)"/>
+                                                </pfx7:EffectiveDate>
+                                            </xsl:if>
+                                            <xsl:if test="tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)">
+                                                <pfx7:ExpireDate>
+                                                    <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)"/>
+                                                </pfx7:ExpireDate>
+                                            </xsl:if>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <pfx7:Mode>
+                                                <xsl:value-of select="'4050000'"/>
+                                            </pfx7:Mode>
+                                            <xsl:if test="tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)">
+                                                <pfx7:ExpireDate>
+                                                    <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)"/>
+                                                </pfx7:ExpireDate>
+                                            </xsl:if>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </pfx7:ValidMode>
+                            </pfx7:OptionalOffer>
+                        </xsl:for-each>
+                        <!--Transfer must not send in deleted products-->
+                        <xsl:for-each select="$RootMobileLine[not (ActionType = ('127','128'))]/ListOfChildItem/ChildItem[ComponentGroup !=&quot;TARIFF&quot; and Action =('Deleted') and AgreementNum !=&quot;0&quot; and ComponentType !=&quot;FEE&quot;]">
+                            <pfx7:OptionalOffer>
+                                <pfx7:Id>
+                                    <xsl:value-of select="ProductCatalogId"/>
+                                </pfx7:Id>
+                                <xsl:choose>
+                                    <xsl:when test="Action = &quot;Deleted&quot;">
+                                        <pfx7:OperationType>
+                                            <xsl:value-of select="'Delete'"/>
+                                        </pfx7:OperationType>
+                                    </xsl:when>
+                                    <xsl:when test="Action = &quot;New&quot;">
+                                        <pfx7:OperationType>
+                                            <xsl:value-of select="'Add'"/>
+                                        </pfx7:OperationType>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <pfx7:OperationType>
+                                            <xsl:value-of select="'Modify'"/>
+                                        </pfx7:OperationType>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <pfx7:OfferOrderKey>
+                                    <xsl:value-of select="IntegrationId"/>
+                                </pfx7:OfferOrderKey>
+                                <xsl:choose>
+                                    <xsl:when test="contains($_globalVariables/ns:GlobalVariables/Domains/OrderManagement/OrderComponent/ProductClass, concat(&quot;|&quot;,ProductClass, &quot;|&quot;))">
+                                        <pfx7:InstantiableOfferFlag>
+                                            <xsl:value-of select="true()"/>
+                                        </pfx7:InstantiableOfferFlag>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <pfx7:InstantiableOfferFlag>
+                                            <xsl:value-of select="false()"/>
+                                        </pfx7:InstantiableOfferFlag>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:choose>
+                                    <xsl:when test="$RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup =&quot;TARIFF&quot;]/Action = 'Deleted'&#xA;and&#xA;$RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup =&quot;TARIFF&quot;]/Action = 'New'">
+                                        <pfx7:ProratingFlag>
+                                            <xsl:value-of select="true()"/>
+                                        </pfx7:ProratingFlag>
+                                    </xsl:when>
+                                    <xsl:when test="string-length(ListOfKeyFeature/KeyFeature[Feature=$_globalVariables/ns:GlobalVariables/Domains/Billing/CCS/Transport/SOAP/Operations/ModifyOptionalOffer/ProrationFlag/ProrationOnDelete]/FeatureValue)>0">
+                                        <xsl:choose>
+                                            <xsl:when test="ListOfKeyFeature/KeyFeature[Feature=$_globalVariables/ns:GlobalVariables/Domains/Billing/CCS/Transport/SOAP/Operations/ModifyOptionalOffer/ProrationFlag/ProrationOnDelete]/FeatureValue = $_globalVariables/ns:GlobalVariables/Domains/CustomerCare/Siebel/Formats/Boolean/True">
+                                                <pfx7:ProratingFlag>
+                                                    <xsl:value-of select="true()"/>
+                                                </pfx7:ProratingFlag>
+                                            </xsl:when>
+                                        </xsl:choose>
+                                    </xsl:when>
+                                </xsl:choose>
+                                <pfx7:ValidMode>
+                                    <xsl:choose>
+                                        <xsl:when test="($Parse-XML/OSMOrder/XMLMessage/Order/OrderFutureDatedFlag = 'Y' or $Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem/ActionType = &quot;134&quot; )&#xA; and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)">
+                                            <pfx7:Mode>
+                                                <xsl:value-of select="'4050003'"/>
+                                            </pfx7:Mode>
+                                            <xsl:if test="$Parse-XML/OSMOrder/XMLMessage/Order/OrderFutureDatedFlag = 'Y' and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)">
+                                                <pfx7:EffectiveDate>
+                                                    <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)"/>
+                                                </pfx7:EffectiveDate>
+                                            </xsl:if>
+                                            <xsl:if test="tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)">
+                                                <pfx7:ExpireDate>
+                                                    <xsl:value-of select="eai:parseDateBySource(&quot;Siebel&quot;,current()/EndDate)"/>
+                                                </pfx7:ExpireDate>
+                                            </xsl:if>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <pfx7:Mode>
+                                                <xsl:value-of select="'4050000'"/>
+                                            </pfx7:Mode>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </pfx7:ValidMode>
+                            </pfx7:OptionalOffer>
+                        </xsl:for-each>
+                        <xsl:if test="$Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem[ComponentGroup='CAMP PROMO']/Action = &quot;New&quot; and&#xA;$Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem[ComponentGroup='CAMP PROMO' and Action = &quot;Deleted&quot;]/ApplyPenalty = 'Y'">
+                            <pfx7:HandleChargeFlag>
+                                <xsl:value-of select="1"/>
+                            </pfx7:HandleChargeFlag>
+                        </xsl:if>
+                        <xsl:for-each select="$RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup !=&quot;TARIFF&quot; and Action !='Existing' and string-length(VFTRCBUDiscountType) >0 and AgreementNum !=&quot;0&quot; and ComponentType !=&quot;FEE&quot;]">
+                            <pfx7:Discount>
+                                <pfx7:TargetOfferId>
+                                    <xsl:value-of select="ProductCatalogId"/>
+                                </pfx7:TargetOfferId>
+                                <pfx7:DiscountValue>
+                                    <pfx7:DiscountType>
+                                        <xsl:value-of select="VFTRCBUDiscountType"/>
+                                    </pfx7:DiscountType>
+                                    <pfx7:ProductId>
+                                        <xsl:value-of select="ProductCatalogId"/>
+                                    </pfx7:ProductId>
+                                    <xsl:if test="VFTRCBUDiscountType='0'">
+                                        <xsl:if test="VFTRCBUDiscountAmount">
+                                            <pfx7:Permillage>
+                                                <xsl:value-of select="VFTRCBUDiscountAmount"/>
+                                            </pfx7:Permillage>
+                                        </xsl:if>
+                                    </xsl:if>
+                                    <xsl:if test="VFTRCBUDiscountType='1'">
+                                        <xsl:if test="VFTRCBUDiscountAmount">
+                                            <pfx7:Amount>
+                                                <xsl:value-of select="VFTRCBUDiscountAmount"/>
+                                            </pfx7:Amount>
+                                        </xsl:if>
+                                    </xsl:if>
+                                </pfx7:DiscountValue>
+                                <pfx7:ValidMode>
+                                    <xsl:choose>
+                                        <xsl:when test="($Parse-XML/OSMOrder/XMLMessage/Order/OrderFutureDatedFlag = 'Y' or $Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem/ActionType = &quot;134&quot; )&#xA; and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)">
+                                            <pfx7:Mode>
+                                                <xsl:value-of select="'4050003'"/>
+                                            </pfx7:Mode>
+                                            <xsl:if test="$Parse-XML/OSMOrder/XMLMessage/Order/OrderFutureDatedFlag = 'Y' and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)">
+                                                <pfx7:EffectiveDate>
+                                                    <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)"/>
+                                                </pfx7:EffectiveDate>
+                                            </xsl:if>
+                                            <xsl:if test="tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)">
+                                                <pfx7:ExpireDate>
+                                                    <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)"/>
+                                                </pfx7:ExpireDate>
+                                            </xsl:if>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <pfx7:Mode>
+                                                <xsl:value-of select="'4050000'"/>
+                                            </pfx7:Mode>
+                                            <xsl:if test="tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)">
+                                                <pfx7:ExpireDate>
+                                                    <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)"/>
+                                                </pfx7:ExpireDate>
+                                            </xsl:if>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </pfx7:ValidMode>
+                            </pfx7:Discount>
+                        </xsl:for-each>
+                        <xsl:if test="$RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup !=&quot;TARIFF&quot; and Action = ('New') and AgreementNum = $RootCampaign/AgreementNum and ComponentType !=&quot;FEE&quot;]&#xA;and&#xA;$RootCampaign/AgreementNum !='0'&#xA;and&#xA;string-length(tib:trim($RootCampaign/AgreementNum)) >0&#xA;and&#xA;$RootCampaign/Action = 'New'">
+                            <pfx7:Commitment>
+                                <xsl:if test="$RootCampaign/ProductCatalogId">
+                                    <pfx7:CampaignOfferId>
+                                        <xsl:value-of select="$RootCampaign/ProductCatalogId"/>
+                                    </pfx7:CampaignOfferId>
+                                </xsl:if>
+                                <xsl:if test="$RootCampaignOld/ProductCatalogId">
+                                    <pfx7:OldCampaignOfferId>
+                                        <xsl:value-of select="$RootCampaignOld/ProductCatalogId"/>
+                                    </pfx7:OldCampaignOfferId>
+                                </xsl:if>
+                                <xsl:if test="$RootCampaign/AgreementNum">
+                                    <pfx7:InstanceId>
+                                        <xsl:value-of select="$RootCampaign/AgreementNum"/>
+                                    </pfx7:InstanceId>
+                                </xsl:if>
+                                <xsl:if test="$RootCampaign/IntegrationId">
+                                    <pfx7:CampaignOfferOrderKey>
+                                        <xsl:value-of select="$RootCampaign/IntegrationId"/>
+                                    </pfx7:CampaignOfferOrderKey>
+                                </xsl:if>
+                                <xsl:if test="not($RootCampaignOld/ComponentType = &quot;DISCOUNT&quot;) &#xA;and &#xA;not($RootCampaignOld/ComponentType = &quot;HANDSET PROMO&quot; and ($RootCampaignOld/ApplyPenalty = &quot;Y&quot; or not($RootCampaign/ComponentType = &quot;HANDSET PROMO&quot; and $RootCampaign/Action = &quot;New&quot;)))&#xA;and&#xA;count($RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup =&quot;TARIFF&quot; and Action=('New','Modified')  and (AgreementNum !=0 and  string-length(AgreementNum)>0)])=0">
+                                    <!--Do not send if BreakCommitment is generated or if Join in Commitment-->
+                                    <xsl:if test="$RootCampaignOld/AgreementNum">
+                                        <pfx7:PreviousInstanceId>
+                                            <xsl:value-of select="$RootCampaignOld/AgreementNum"/>
+                                        </pfx7:PreviousInstanceId>
+                                    </xsl:if>
+                                </xsl:if>
+                                <xsl:if test="tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime, $RootCampaign/EndDate)">
+                                    <pfx7:EndDate>
+                                        <xsl:value-of select="eai:parseDateBySource(&quot;Siebel&quot;,$RootCampaign/EndDate)"/>
+                                    </pfx7:EndDate>
+                                </xsl:if>
+                                <xsl:if test="$_isFDO=true() and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime, $Parse-XML/OSMOrder/XMLMessage/Order[1]/OrderCreationDate)">
+                                    <pfx7:RequestTime>
+                                        <xsl:value-of select="eai:parseDateBySource(&quot;Siebel&quot;,$Parse-XML/OSMOrder/XMLMessage/Order[1]/OrderCreationDate)"/>
+                                    </pfx7:RequestTime>
+                                </xsl:if>
+                                <xsl:for-each select="$RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup !=&quot;TARIFF&quot; and Action = ('New') and AgreementNum = $RootCampaign/AgreementNum]">
+                                    <pfx7:TargetOffer>
+                                        <pfx7:TargetOfferId>
+                                            <xsl:value-of select="current()/ProductCatalogId"/>
+                                        </pfx7:TargetOfferId>
+                                        <xsl:if test="string-length(current()/VFTRCBUDiscountAmount) > 0">
+                                            <pfx7:DiscountInfo>
+                                                <pfx7:Value>
+                                                    <xsl:value-of select="current()/VFTRCBUDiscountAmount"/>
+                                                </pfx7:Value>
+                                                <pfx7:Duration>
+                                                    <xsl:value-of select="current()/VFTRCBUDiscountDuration"/>
+                                                </pfx7:Duration>
+                                                <pfx7:Type>
+                                                    <xsl:value-of select="current()/VFTRCBUDiscountType"/>
+                                                </pfx7:Type>
+                                            </pfx7:DiscountInfo>
+                                        </xsl:if>
+                                    </pfx7:TargetOffer>
+                                </xsl:for-each>
+                                <xsl:if test="count($RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup =&quot;TARIFF&quot; and Action = ('New','Modified') and AgreementNum = $RootCampaign/AgreementNum])=0">
+                                    <xsl:for-each select="$RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup !=&quot;TARIFF&quot; and Action = ('Modified') and AgreementNum = $RootCampaign/AgreementNum]">
+                                        <pfx7:TargetOffer>
+                                            <pfx7:TargetOfferId>
+                                                <xsl:value-of select="current()/ProductCatalogId"/>
+                                            </pfx7:TargetOfferId>
+                                            <xsl:if test="string-length(current()/VFTRCBUDiscountAmount) > 0">
+                                                <pfx7:DiscountInfo>
+                                                    <pfx7:Value>
+                                                        <xsl:value-of select="current()/VFTRCBUDiscountAmount"/>
+                                                    </pfx7:Value>
+                                                    <pfx7:Duration>
+                                                        <xsl:value-of select="current()/VFTRCBUDiscountDuration"/>
+                                                    </pfx7:Duration>
+                                                    <pfx7:Type>
+                                                        <xsl:value-of select="current()/VFTRCBUDiscountType"/>
+                                                    </pfx7:Type>
+                                                </pfx7:DiscountInfo>
+                                            </xsl:if>
+                                        </pfx7:TargetOffer>
+                                    </xsl:for-each>
+                                </xsl:if>
+                                <xsl:for-each select="$RootCampaign[ComponentType = 'HANDSET PROMO'][1]">
+                                    <xsl:variable name="_handsetPromo" select="."/>
+                                    <pfx7:Handset>
+                                        <xsl:if test="$RootContainer/ListOfChildItem/ChildItem[ComponentType = 'HANDSET']/ProductCatalogId">
+                                            <pfx7:HandsetType>
+                                                <xsl:value-of select="$RootContainer/ListOfChildItem/ChildItem[ComponentType = 'HANDSET']/ProductCatalogId"/>
+                                            </pfx7:HandsetType>
+                                        </xsl:if>
+                                        <xsl:if test="$_handsetPromo/ListOfKeyFeatureSimple/KeyFeatureSimple[Feature = 'Credit Card Instalments']/FeatureValue">
+                                            <pfx7:AdvancedPaidPeriod>
+                                                <xsl:value-of select="$_handsetPromo/ListOfKeyFeatureSimple/KeyFeatureSimple[Feature = 'Credit Card Instalments']/FeatureValue"/>
+                                            </pfx7:AdvancedPaidPeriod>
+                                        </xsl:if>
+                                        <xsl:if test="string-length($_handsetPromo/ListOfKeyFeatureSimple/KeyFeatureSimple[Feature = 'Credit Card Instalments']/FeatureValue)>0">
+                                            <xsl:if test="$_handsetPromo/MonthlyInstalments">
+                                                <pfx7:AdvancedPaidAmount>
+                                                    <xsl:value-of select="$_handsetPromo/MonthlyInstalments"/>
+                                                </pfx7:AdvancedPaidAmount>
+                                            </xsl:if>
+                                        </xsl:if>
+                                        <xsl:choose>
+                                            <xsl:when test="string-length($_handsetPromo/ListOfKeyFeatureSimple/KeyFeatureSimple[Feature = 'Credit Card Instalments']/FeatureValue)>0">
+                                                <pfx7:InstallmentPeriod>
+                                                    <xsl:value-of select="round($_handsetPromo/Duration - $_handsetPromo/ListOfKeyFeatureSimple/KeyFeatureSimple[Feature = 'Credit Card Instalments']/FeatureValue)"/>
+                                                </pfx7:InstallmentPeriod>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <pfx7:InstallmentPeriod>
+                                                    <xsl:value-of select="$_handsetPromo/Duration"/>
+                                                </pfx7:InstallmentPeriod>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                        <xsl:if test="$_handsetPromo/MonthlyInstalments">
+                                            <pfx7:InstallmentAmount>
+                                                <xsl:value-of select="$_handsetPromo/MonthlyInstalments"/>
+                                            </pfx7:InstallmentAmount>
+                                        </xsl:if>
+                                        <xsl:if test="$_handsetPromo/SubsidyAmount">
+                                            <pfx7:Subsidy>
+                                                <xsl:value-of select="$_handsetPromo/SubsidyAmount"/>
+                                            </pfx7:Subsidy>
+                                        </xsl:if>
+                                    </pfx7:Handset>
+                                </xsl:for-each>
+                                <!--SimpleProperty Added (CR51)-->
+                                <pfx7:SimpleProperty>
+                                    <pfx7:Id>
+                                        <xsl:value-of select="'Campaignname'"/>
+                                    </pfx7:Id>
+                                    <pfx7:Value>
+                                        <xsl:value-of select="$RootCampaign/ProductName"/>
+                                    </pfx7:Value>
+                                </pfx7:SimpleProperty>
+                                <pfx7:SimpleProperty>
+                                    <pfx7:Id>
+                                        <xsl:value-of select="'Campaigncode'"/>
+                                    </pfx7:Id>
+                                    <pfx7:Value>
+                                        <xsl:value-of select="$RootCampaign/ProductCatalogId"/>
+                                    </pfx7:Value>
+                                </pfx7:SimpleProperty>
+                                <pfx7:ValidMode>
+                                    <xsl:choose>
+                                        <xsl:when test="($Parse-XML/OSMOrder/XMLMessage/Order/OrderFutureDatedFlag = 'Y' or $Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem/ActionType = &quot;134&quot; )&#xA; and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)">
+                                            <pfx7:Mode>
+                                                <xsl:value-of select="'4050003'"/>
+                                            </pfx7:Mode>
+                                            <xsl:if test="$Parse-XML/OSMOrder/XMLMessage/Order/OrderFutureDatedFlag = 'Y' and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)">
+                                                <pfx7:EffectiveDate>
+                                                    <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)"/>
+                                                </pfx7:EffectiveDate>
+                                            </xsl:if>
+                                            <xsl:if test="tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)">
+                                                <pfx7:ExpireDate>
+                                                    <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)"/>
+                                                </pfx7:ExpireDate>
+                                            </xsl:if>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <pfx7:Mode>
+                                                <xsl:value-of select="'4050000'"/>
+                                            </pfx7:Mode>
+                                            <xsl:if test="tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)">
+                                                <pfx7:ExpireDate>
+                                                    <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)"/>
+                                                </pfx7:ExpireDate>
+                                            </xsl:if>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </pfx7:ValidMode>
+                                <!--0 - New Commitment   -   1 - Join In Commitment-->
+                                <xsl:choose>
+                                    <xsl:when test="count ($RootCampaign)>0 and &#xA;count($RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup =&quot;TARIFF&quot; and Action=('New','Modified')  and (AgreementNum !=0 and  string-length(AgreementNum)>0)])=0">
+                                        <pfx7:OperationType>
+                                            <xsl:value-of select="0"/>
+                                        </pfx7:OperationType>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <pfx7:OperationType>
+                                            <xsl:value-of select="1"/>
+                                        </pfx7:OperationType>
+                                        <xsl:if test="$RootCampaign/AgreementNum">
+                                            <pfx7:CommitmentOrderKey>
+                                                <xsl:value-of select="$RootCampaign/AgreementNum"/>
+                                            </pfx7:CommitmentOrderKey>
+                                        </xsl:if>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:if test="string-length($RootCampaignOld/OriginalEndDate)>0">
+                                    <pfx7:IgnoreNonCommercials>
+                                        <xsl:value-of select="if (tib:compare-date(tib:parse-date($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/Date,$Parse-XML/OSMOrder/XMLMessage/Order[1]/OrderDueDate) ,tib:parse-date($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/Date,$RootCampaignOld/OriginalEndDate)) >0 ) then &#xA;true()&#xA;else&#xA;false()"/>
+                                    </pfx7:IgnoreNonCommercials>
+                                </xsl:if>
+                            </pfx7:Commitment>
+                        </xsl:if>
+                        <xsl:if test="exists($RootMobileLine/ListOfChildItem/ChildItem/VFTRCBUPayerMSISDN) or string-length($RootMobileLine/ListOfChildItem/ChildItem/VFTRCBUPayerMSISDN) >0">
+                            <xsl:if test="$RootMobileLine/ListOfChildItem/ChildItem/VFTRCBUPayerMSISDN">
+                                <pfx7:ChargeFromSubNo>
+                                    <xsl:value-of select="$RootMobileLine/ListOfChildItem/ChildItem/VFTRCBUPayerMSISDN"/>
+                                </pfx7:ChargeFromSubNo>
+                            </xsl:if>
+                        </xsl:if>
+                    </pfx7:Request>
+                </xsl:if>
+                <!--ModifyOptionalOffer-->
+                <xsl:if test="(count($Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem[ComponentGroup = &quot;CAMP PROMO&quot; and not(ComponentType = &quot;PERMANENCY&quot;) and Action=('New','Deleted')])>0&#xA;and&#xA;count($Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem[ComponentSubType = &quot;MOBILE&quot;]/ListOfChildItem/ChildItem[not(ComponentGroup =('TARIFF', 'ADDON')) and AgreementNum = &quot;0&quot; and Action=('New','Deleted') and not(ComponentType =&quot;SHARING&quot; and ComponentSubType =&quot;SUBLINE&quot;) and ComponentType !=&quot;FEE&quot;])>0&#xA;)&#xA;or&#xA;count($Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem/ListOfChildItem/ChildItem[ProductCatalogId = &quot;71042&quot; and AgreementNum = &quot;0&quot; and Action=('Deleted','New')])>0&#xA;or&#xA;count($Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem/ListOfChildItem/ChildItem[ComponentGroup = (&quot;ADDON&quot;, &quot;CAPPING&quot;) and AgreementNum = &quot;0&quot; and Action=('New')])>0&#xA;or&#xA;(count($Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem/ListOfChildItem/ChildItem[ComponentGroup = (&quot;ADDON&quot;) and AgreementNum = &quot;0&quot; and Action='Deleted' and &#xA;(tib:parse-date($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/Date,OriginalEndDate) > &#xA;tib:parse-date($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/Date,$Parse-XML/OSMOrder/XMLMessage/Order[1]/OrderDueDate))])>0)&#xA;or&#xA;(count($Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem/ListOfChildItem/ChildItem[ComponentGroup = (&quot;ADDON&quot;) and AgreementNum = &quot;0&quot; and Action='Deleted' and string-length(OriginalEndDate)=0])>0)&#xA;or&#xA;count($Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem/ListOfChildItem/ChildItem[ComponentGroup = &quot;CAPPING&quot; and AgreementNum = &quot;0&quot; and Action=('Deleted')])>0&#xA;or&#xA;(count($Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem/ListOfChildItem/ChildItem[(ProductCatalogId = &quot;71042&quot; or ComponentGroup = (&quot;ADDON&quot;, &quot;CAPPING&quot;)) &#xA;and AgreementNum = &quot;0&quot; and Action=('Resume')])>0 and $Parse-XML/OSMOrder/CategoryAction=('CAN_ACT','CAN_LIM','CAN_CLO','CAN_FRO','CAN_TER'))&#xA;or&#xA;count($Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem[ActionType = &quot;Optional_Discount&quot; and ListOfRootItemAttribute/RootItemAttribute[Name = &quot;DiscountFlagProvisioning&quot;]/Value/text() = &quot;Y&quot; and ListOfRootItemAttribute/RootItemAttribute[Name = &quot;MainProductPortfolio&quot;]/Value/text() = &quot;N&quot;])>0">
+                    <pfx7:Request>
+                        <pfx7:SubscriberNo>
+                            <xsl:value-of select="$RootMobileLine/ServiceId"/>
+                        </pfx7:SubscriberNo>
+                        <xsl:choose>
+                            <xsl:when test="{--only if FDO (to Cut Off Date) or backdated order---}&#xA;$_isFDO=true()">
+                                <pfx7:OrderDueDate>
+                                    <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/OrderDueDate)"/>
+                                </pfx7:OrderDueDate>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:for-each select="$RootMobileLine/ListOfChildItem/ChildItem[(ComponentGroup !=&quot;TARIFF&quot; and AgreementNum = &quot;0&quot;) and (((not(ComponentType =&quot;SHARING&quot;) and not(ComponentSubType =&quot;SUBLINE&quot;)) or (ComponentType =&quot;SHARING&quot; and not(ComponentSubType =&quot;SUBLINE&quot;)) or (not(ComponentType =&quot;SHARING&quot;) and ComponentSubType = &quot;SUBLINE&quot;)) and not(ComponentType =&quot;FEE&quot;)) and Action =('New')&#xA;or&#xA;(ComponentGroup !=&quot;TARIFF&quot; and AgreementNum = &quot;0&quot;) and (((not(ComponentType =&quot;SHARING&quot;) and not(ComponentSubType =&quot;SUBLINE&quot;)) or (ComponentType =&quot;SHARING&quot; and not(ComponentSubType =&quot;SUBLINE&quot;)) or (not(ComponentType =&quot;SHARING&quot;) and ComponentSubType = &quot;SUBLINE&quot;)) and not(ComponentType =&quot;FEE&quot;)) and Action =('Resume') and ../../../../../../CategoryAction = ('CAN_ACT','CAN_LIM','CAN_CLO','CAN_FRO','CAN_TER')]">
+                            <pfx7:OptionalOffer>
+                                <pfx7:Id>
+                                    <xsl:value-of select="ProductCatalogId"/>
+                                </pfx7:Id>
+                                <xsl:choose>
+                                    <xsl:when test="Action = &quot;Deleted&quot;">
+                                        <pfx7:OperationType>
+                                            <xsl:value-of select="'Delete'"/>
+                                        </pfx7:OperationType>
+                                    </xsl:when>
+                                    <xsl:when test="Action = (&quot;New&quot;,&quot;Resume&quot;)">
+                                        <pfx7:OperationType>
+                                            <xsl:value-of select="'Add'"/>
+                                        </pfx7:OperationType>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <pfx7:OperationType>
+                                            <xsl:value-of select="'Modify'"/>
+                                        </pfx7:OperationType>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <pfx7:OfferOrderKey>
+                                    <xsl:value-of select="IntegrationId"/>
+                                </pfx7:OfferOrderKey>
+                                <xsl:choose>
+                                    <xsl:when test="contains($_globalVariables/ns:GlobalVariables/Domains/OrderManagement/OrderComponent/ProductClass, concat(&quot;|&quot;,ProductClass, &quot;|&quot;))">
+                                        <pfx7:InstantiableOfferFlag>
+                                            <xsl:value-of select="true()"/>
+                                        </pfx7:InstantiableOfferFlag>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <pfx7:InstantiableOfferFlag>
+                                            <xsl:value-of select="false()"/>
+                                        </pfx7:InstantiableOfferFlag>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:choose>
+                                    <xsl:when test="$RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup =&quot;TARIFF&quot;]/Action = 'Deleted'&#xA;and&#xA;$RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup =&quot;TARIFF&quot;]/Action = 'New'&#xA;and&#xA;$RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup =&quot;ADDON&quot;]/Action = 'Deleted'">
+                                        <pfx7:ProratingFlag>
+                                            <xsl:value-of select="true()"/>
+                                        </pfx7:ProratingFlag>
+                                    </xsl:when>
+                                    <xsl:when test="string-length(ListOfKeyFeature/KeyFeature[Feature=$_globalVariables/ns:GlobalVariables/Domains/Billing/CCS/Transport/SOAP/Operations/ModifyOptionalOffer/ProrationFlag/ProrationOnDelete]/FeatureValue)>0">
+                                        <xsl:choose>
+                                            <xsl:when test="ListOfKeyFeature/KeyFeature[Feature=$_globalVariables/ns:GlobalVariables/Domains/Billing/CCS/Transport/SOAP/Operations/ModifyOptionalOffer/ProrationFlag/ProrationOnDelete]/FeatureValue = $_globalVariables/ns:GlobalVariables/Domains/CustomerCare/Siebel/Formats/Boolean/True">
+                                                <pfx7:ProratingFlag>
+                                                    <xsl:value-of select="true()"/>
+                                                </pfx7:ProratingFlag>
+                                            </xsl:when>
+                                        </xsl:choose>
+                                    </xsl:when>
+                                </xsl:choose>
+                                <pfx7:ValidMode>
+                                    <xsl:choose>
+                                        <xsl:when test="($Parse-XML/OSMOrder/XMLMessage/Order/OrderFutureDatedFlag = 'Y' or $Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem/ActionType = &quot;134&quot; )&#xA; and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)">
+                                            <pfx7:Mode>
+                                                <xsl:value-of select="'4050003'"/>
+                                            </pfx7:Mode>
+                                            <xsl:if test="$Parse-XML/OSMOrder/XMLMessage/Order/OrderFutureDatedFlag = 'Y' and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)">
+                                                <pfx7:EffectiveDate>
+                                                    <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)"/>
+                                                </pfx7:EffectiveDate>
+                                            </xsl:if>
+                                            <xsl:if test="tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)&#xA;and&#xA;not(current()/ComponentGroup='CAPPING')">
+                                                <pfx7:ExpireDate>
+                                                    <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)"/>
+                                                </pfx7:ExpireDate>
+                                            </xsl:if>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <pfx7:Mode>
+                                                <xsl:value-of select="'4050000'"/>
+                                            </pfx7:Mode>
+                                            <xsl:if test="tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate) &#xA;and&#xA;not(current()/ComponentGroup='CAPPING')">
+                                                <pfx7:ExpireDate>
+                                                    <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)"/>
+                                                </pfx7:ExpireDate>
+                                            </xsl:if>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </pfx7:ValidMode>
+                            </pfx7:OptionalOffer>
+                        </xsl:for-each>
+                        <!--Transfer must not send in deleted products-->
+                        <xsl:for-each select="$RootMobileLine[not (ActionType = ('127','128'))]/ListOfChildItem/ChildItem[(ComponentGroup !=&quot;TARIFF&quot; and AgreementNum = &quot;0&quot;)&#xA; and (((not(ComponentType =&quot;SHARING&quot;) and not(ComponentSubType =&quot;SUBLINE&quot;))&#xA;           or (ComponentType =&quot;SHARING&quot; and not(ComponentSubType =&quot;SUBLINE&quot;)) &#xA;           or (not(ComponentType =&quot;SHARING&quot;) and ComponentSubType = &quot;SUBLINE&quot;)) &#xA;           and not(ComponentType =&quot;FEE&quot;)) &#xA;and (Action =('Deleted') and ((tib:parse-date($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/Date,OriginalEndDate) > &#xA;tib:parse-date($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/Date,$Parse-XML/OSMOrder/XMLMessage/Order[1]/OrderDueDate))&#xA;or string-length(OriginalEndDate)=0))]">
+                            <pfx7:OptionalOffer>
+                                <pfx7:Id>
+                                    <xsl:value-of select="ProductCatalogId"/>
+                                </pfx7:Id>
+                                <xsl:choose>
+                                    <xsl:when test="Action = &quot;Deleted&quot;">
+                                        <pfx7:OperationType>
+                                            <xsl:value-of select="'Delete'"/>
+                                        </pfx7:OperationType>
+                                    </xsl:when>
+                                    <xsl:when test="Action = &quot;New&quot;">
+                                        <pfx7:OperationType>
+                                            <xsl:value-of select="'Add'"/>
+                                        </pfx7:OperationType>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <pfx7:OperationType>
+                                            <xsl:value-of select="'Modify'"/>
+                                        </pfx7:OperationType>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <pfx7:OfferOrderKey>
+                                    <xsl:value-of select="IntegrationId"/>
+                                </pfx7:OfferOrderKey>
+                                <xsl:choose>
+                                    <xsl:when test="contains($_globalVariables/ns:GlobalVariables/Domains/OrderManagement/OrderComponent/ProductClass, concat(&quot;|&quot;,ProductClass, &quot;|&quot;))">
+                                        <pfx7:InstantiableOfferFlag>
+                                            <xsl:value-of select="true()"/>
+                                        </pfx7:InstantiableOfferFlag>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <pfx7:InstantiableOfferFlag>
+                                            <xsl:value-of select="false()"/>
+                                        </pfx7:InstantiableOfferFlag>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:choose>
+                                    <xsl:when test="$RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup =&quot;TARIFF&quot;]/Action = 'Deleted'&#xA;and&#xA;$RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup =&quot;TARIFF&quot;]/Action = 'New'&#xA;and&#xA;$RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup =&quot;ADDON&quot;]/Action = 'Deleted'">
+                                        <pfx7:ProratingFlag>
+                                            <xsl:value-of select="true()"/>
+                                        </pfx7:ProratingFlag>
+                                    </xsl:when>
+                                    <xsl:when test="string-length(ListOfKeyFeature/KeyFeature[Feature=$_globalVariables/ns:GlobalVariables/Domains/Billing/CCS/Transport/SOAP/Operations/ModifyOptionalOffer/ProrationFlag/ProrationOnDelete]/FeatureValue)>0">
+                                        <xsl:choose>
+                                            <xsl:when test="ListOfKeyFeature/KeyFeature[Feature=$_globalVariables/ns:GlobalVariables/Domains/Billing/CCS/Transport/SOAP/Operations/ModifyOptionalOffer/ProrationFlag/ProrationOnDelete]/FeatureValue = $_globalVariables/ns:GlobalVariables/Domains/CustomerCare/Siebel/Formats/Boolean/True">
+                                                <pfx7:ProratingFlag>
+                                                    <xsl:value-of select="true()"/>
+                                                </pfx7:ProratingFlag>
+                                            </xsl:when>
+                                        </xsl:choose>
+                                    </xsl:when>
+                                </xsl:choose>
+                                <pfx7:ValidMode>
+                                    <xsl:choose>
+                                        <xsl:when test="($Parse-XML/OSMOrder/XMLMessage/Order/OrderFutureDatedFlag = 'Y' or $Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem/ActionType = &quot;134&quot; )&#xA; and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)">
+                                            <pfx7:Mode>
+                                                <xsl:value-of select="'4050003'"/>
+                                            </pfx7:Mode>
+                                            <xsl:if test="$Parse-XML/OSMOrder/XMLMessage/Order/OrderFutureDatedFlag = 'Y' and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)">
+                                                <pfx7:EffectiveDate>
+                                                    <xsl:value-of select="eai:parseDateBySource(&quot;Siebel&quot;,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)"/>
+                                                </pfx7:EffectiveDate>
+                                                <xsl:if test="tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)&#xA;and&#xA;not(current()/ComponentGroup='CAPPING')">
+                                                    <pfx7:ExpireDate>
+                                                        <xsl:value-of select="eai:parseDateBySource(&quot;Siebel&quot;,current()/EndDate)"/>
+                                                    </pfx7:ExpireDate>
+                                                </xsl:if>
+                                            </xsl:if>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <pfx7:Mode>
+                                                <xsl:value-of select="'4050000'"/>
+                                            </pfx7:Mode>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </pfx7:ValidMode>
+                            </pfx7:OptionalOffer>
+                        </xsl:for-each>
+                        <xsl:for-each select="$RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup !=&quot;TARIFF&quot; and (((ComponentType !=&quot;SHARING&quot; and ComponentSubType !=&quot;SUBLINE&quot;) or (ComponentType =&quot;SHARING&quot; and ComponentSubType !=&quot;SUBLINE&quot;) or (ComponentType !=&quot;SHARING&quot; and ComponentSubType = &quot;SUBLINE&quot;)) and ComponentType !=&quot;FEE&quot;) and Action !='Existing' and string-length(VFTRCBUDiscountType) >0  and AgreementNum = &quot;0&quot;]">
+                            <pfx7:Discount>
+                                <pfx7:TargetOfferId>
+                                    <xsl:value-of select="ProductCatalogId"/>
+                                </pfx7:TargetOfferId>
+                                <pfx7:DiscountValue>
+                                    <pfx7:DiscountType>
+                                        <xsl:value-of select="VFTRCBUDiscountType"/>
+                                    </pfx7:DiscountType>
+                                    <pfx7:ProductId>
+                                        <xsl:value-of select="ProductCatalogId"/>
+                                    </pfx7:ProductId>
+                                    <xsl:if test="VFTRCBUDiscountType='0'">
+                                        <xsl:if test="VFTRCBUDiscountAmount">
+                                            <pfx7:Permillage>
+                                                <xsl:value-of select="VFTRCBUDiscountAmount"/>
+                                            </pfx7:Permillage>
+                                        </xsl:if>
+                                    </xsl:if>
+                                    <xsl:if test="VFTRCBUDiscountType='1'">
+                                        <xsl:if test="VFTRCBUDiscountAmount">
+                                            <pfx7:Amount>
+                                                <xsl:value-of select="VFTRCBUDiscountAmount"/>
+                                            </pfx7:Amount>
+                                        </xsl:if>
+                                    </xsl:if>
+                                </pfx7:DiscountValue>
+                                <pfx7:ValidMode>
+                                    <xsl:choose>
+                                        <xsl:when test="($Parse-XML/OSMOrder/XMLMessage/Order/OrderFutureDatedFlag = 'Y' or $Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem/ActionType = &quot;134&quot; )&#xA; and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)">
+                                            <pfx7:Mode>
+                                                <xsl:value-of select="'4050003'"/>
+                                            </pfx7:Mode>
+                                            <xsl:if test="$Parse-XML/OSMOrder/XMLMessage/Order/OrderFutureDatedFlag = 'Y' and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)">
+                                                <pfx7:EffectiveDate>
+                                                    <xsl:value-of select="eai:parseDateBySource(&quot;Siebel&quot;,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)"/>
+                                                </pfx7:EffectiveDate>
+                                            </xsl:if>
+                                            <xsl:if test="tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)">
+                                                <pfx7:ExpireDate>
+                                                    <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)"/>
+                                                </pfx7:ExpireDate>
+                                            </xsl:if>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <pfx7:Mode>
+                                                <xsl:value-of select="'4050000'"/>
+                                            </pfx7:Mode>
+                                            <xsl:if test="tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)">
+                                                <pfx7:ExpireDate>
+                                                    <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)"/>
+                                                </pfx7:ExpireDate>
+                                            </xsl:if>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </pfx7:ValidMode>
+                            </pfx7:Discount>
+                        </xsl:for-each>
+                        <xsl:if test="exists($RootMobileLine/ListOfChildItem/ChildItem/VFTRCBUPayerMSISDN) or string-length($RootMobileLine/ListOfChildItem/ChildItem/VFTRCBUPayerMSISDN)>0">
+                            <pfx7:ChargeFromSubNo>
+                                <xsl:value-of select="$RootMobileLine/ListOfChildItem/ChildItem/VFTRCBUPayerMSISDN"/>
+                            </pfx7:ChargeFromSubNo>
+                        </xsl:if>
+                    </pfx7:Request>
+                </xsl:if>
+                <!--ModifyContratedOptionalOffer Without RootCampaign-->
+                <xsl:if test="count($Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem[ComponentGroup = &quot;CAMP PROMO&quot; and not(ComponentType = &quot;PERMANENCY&quot;) and Action=('New','Deleted')])=0&#xA;and&#xA;(count($Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem[ComponentSubType = &quot;MOBILE&quot;]/ListOfChildItem/ChildItem[not(AgreementNum = &quot;0&quot;) and Action=('New','Modified') and ComponentGroup !=&quot;TARIFF&quot; and ComponentType !=&quot;FEE&quot;])>0&#xA;or&#xA;((count($Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem[ComponentSubType = &quot;MOBILE&quot;]/ListOfChildItem/ChildItem[&#xA;&#x9;&#x9;not(AgreementNum = &quot;0&quot;) and Action=('Deleted') and ComponentGroup = (&quot;ADDON&quot;) and &#xA;&#x9;&#x9;((tib:parse-date($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/Date,OriginalEndDate) > &#xA;&#x9;&#x9;tib:parse-date($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/Date,$Parse-XML/OSMOrder/XMLMessage/Order[1]/OrderDueDate))&#xA;&#x9;&#x9;or&#xA;&#x9;&#x9;string-length(OriginalEndDate)=0)])>0)&#xA;or&#xA;(count($Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem[ComponentSubType = &quot;MOBILE&quot;]/ListOfChildItem/ChildItem[&#xA;&#x9;&#x9;not(AgreementNum = &quot;0&quot;) and Action=('Deleted') and ComponentGroup !=(&quot;TARIFF&quot;,&quot;ADDON&quot;) and &#xA;&#x9;&#x9;(tib:parse-date($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/Date,EndDate) > &#xA;&#x9;&#x9;tib:parse-date($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/Date,$Parse-XML/OSMOrder/XMLMessage/Order[1]/OrderDueDate))])>0)))">
+                    <pfx7:Request>
+                        <pfx7:SubscriberNo>
+                            <xsl:value-of select="$RootMobileLine//ServiceId"/>
+                        </pfx7:SubscriberNo>
+                        <xsl:choose>
+                            <xsl:when test="{--only if FDO (to Cut Off Date) or backdated order---}&#xA;$_isFDO=true()">
+                                <pfx7:OrderDueDate>
+                                    <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/OrderDueDate)"/>
+                                </pfx7:OrderDueDate>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:for-each select="$RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup !=&quot;TARIFF&quot; and Action =('New','Modified') and AgreementNum !=&quot;0&quot; and ComponentType !=&quot;FEE&quot;]">
+                            <pfx7:OptionalOffer>
+                                <pfx7:Id>
+                                    <xsl:value-of select="ProductCatalogId"/>
+                                </pfx7:Id>
+                                <xsl:choose>
+                                    <xsl:when test="Action = &quot;Deleted&quot;">
+                                        <pfx7:OperationType>
+                                            <xsl:value-of select="'Delete'"/>
+                                        </pfx7:OperationType>
+                                    </xsl:when>
+                                    <xsl:when test="Action = &quot;New&quot;">
+                                        <pfx7:OperationType>
+                                            <xsl:value-of select="'Add'"/>
+                                        </pfx7:OperationType>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <pfx7:OperationType>
+                                            <xsl:value-of select="'Modify'"/>
+                                        </pfx7:OperationType>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <pfx7:OfferOrderKey>
+                                    <xsl:value-of select="IntegrationId"/>
+                                </pfx7:OfferOrderKey>
+                                <xsl:choose>
+                                    <xsl:when test="contains($_globalVariables/ns:GlobalVariables/Domains/OrderManagement/OrderComponent/ProductClass, concat(&quot;|&quot;,ProductClass, &quot;|&quot;))">
+                                        <pfx7:InstantiableOfferFlag>
+                                            <xsl:value-of select="true()"/>
+                                        </pfx7:InstantiableOfferFlag>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <pfx7:InstantiableOfferFlag>
+                                            <xsl:value-of select="false()"/>
+                                        </pfx7:InstantiableOfferFlag>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:choose>
+                                    <xsl:when test="$RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup =&quot;TARIFF&quot;]/Action = 'Deleted'&#xA;and&#xA;$RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup =&quot;TARIFF&quot;]/Action = 'New'">
+                                        <pfx7:ProratingFlag>
+                                            <xsl:value-of select="true()"/>
+                                        </pfx7:ProratingFlag>
+                                    </xsl:when>
+                                    <xsl:when test="string-length(ListOfKeyFeature/KeyFeature[Feature=$_globalVariables/ns:GlobalVariables/Domains/Billing/CCS/Transport/SOAP/Operations/ModifyOptionalOffer/ProrationFlag/ProrationOnDelete]/FeatureValue)>0">
+                                        <xsl:choose>
+                                            <xsl:when test="ListOfKeyFeature/KeyFeature[Feature=$_globalVariables/ns:GlobalVariables/Domains/Billing/CCS/Transport/SOAP/Operations/ModifyOptionalOffer/ProrationFlag/ProrationOnDelete]/FeatureValue = $_globalVariables/ns:GlobalVariables/Domains/CustomerCare/Siebel/Formats/Boolean/True">
+                                                <pfx7:ProratingFlag>
+                                                    <xsl:value-of select="true()"/>
+                                                </pfx7:ProratingFlag>
+                                            </xsl:when>
+                                        </xsl:choose>
+                                    </xsl:when>
+                                </xsl:choose>
+                                <pfx7:ValidMode>
+                                    <xsl:choose>
+                                        <xsl:when test="($Parse-XML/OSMOrder/XMLMessage/Order/OrderFutureDatedFlag = 'Y' or $Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem/ActionType = &quot;134&quot; )&#xA; and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)">
+                                            <pfx7:Mode>
+                                                <xsl:value-of select="'4050003'"/>
+                                            </pfx7:Mode>
+                                            <xsl:if test="$Parse-XML/OSMOrder/XMLMessage/Order/OrderFutureDatedFlag = 'Y' and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)">
+                                                <pfx7:EffectiveDate>
+                                                    <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)"/>
+                                                </pfx7:EffectiveDate>
+                                            </xsl:if>
+                                            <xsl:if test="tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)">
+                                                <pfx7:ExpireDate>
+                                                    <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)"/>
+                                                </pfx7:ExpireDate>
+                                            </xsl:if>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <pfx7:Mode>
+                                                <xsl:value-of select="'4050000'"/>
+                                            </pfx7:Mode>
+                                            <xsl:if test="tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)">
+                                                <pfx7:ExpireDate>
+                                                    <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)"/>
+                                                </pfx7:ExpireDate>
+                                            </xsl:if>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </pfx7:ValidMode>
+                            </pfx7:OptionalOffer>
+                        </xsl:for-each>
+                        <!--Transfer must not send in deleted products-->
+                        <xsl:for-each select="$RootMobileLine[not(ActionType = ('127','128'))]/ListOfChildItem/ChildItem[not(AgreementNum = &quot;0&quot;) and Action=('Deleted') and ComponentGroup = (&quot;ADDON&quot;) and&#xA;&#x9;&#x9;((tib:parse-date($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/Date,OriginalEndDate) > &#xA;&#x9;&#x9;tib:parse-date($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/Date,$Parse-XML/OSMOrder/XMLMessage/Order[1]/OrderDueDate)) or string-length(OriginalEndDate)=0)&#xA;&#x9;&#x9;or&#xA;&#x9;&#x9;not(AgreementNum = &quot;0&quot;) and Action=('Deleted') and ComponentGroup !=(&quot;TARIFF&quot;,&quot;ADDON&quot;) and  &#xA;&#x9;&#x9;(tib:parse-date($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/Date,EndDate) > &#xA;&#x9;&#x9;tib:parse-date($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/Date,$Parse-XML/OSMOrder/XMLMessage/Order[1]/OrderDueDate))]">
+                            <pfx7:OptionalOffer>
+                                <pfx7:Id>
+                                    <xsl:value-of select="ProductCatalogId"/>
+                                </pfx7:Id>
+                                <xsl:choose>
+                                    <xsl:when test="Action = &quot;Deleted&quot;">
+                                        <pfx7:OperationType>
+                                            <xsl:value-of select="'Delete'"/>
+                                        </pfx7:OperationType>
+                                    </xsl:when>
+                                    <xsl:when test="Action = &quot;New&quot;">
+                                        <pfx7:OperationType>
+                                            <xsl:value-of select="'Add'"/>
+                                        </pfx7:OperationType>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <pfx7:OperationType>
+                                            <xsl:value-of select="'Modify'"/>
+                                        </pfx7:OperationType>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <pfx7:OfferOrderKey>
+                                    <xsl:value-of select="IntegrationId"/>
+                                </pfx7:OfferOrderKey>
+                                <xsl:choose>
+                                    <xsl:when test="contains($_globalVariables/ns:GlobalVariables/Domains/OrderManagement/OrderComponent/ProductClass, concat(&quot;|&quot;,ProductClass, &quot;|&quot;))">
+                                        <pfx7:InstantiableOfferFlag>
+                                            <xsl:value-of select="true()"/>
+                                        </pfx7:InstantiableOfferFlag>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <pfx7:InstantiableOfferFlag>
+                                            <xsl:value-of select="false()"/>
+                                        </pfx7:InstantiableOfferFlag>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:choose>
+                                    <xsl:when test="$RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup =&quot;TARIFF&quot;]/Action = 'Deleted'&#xA;and&#xA;$RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup =&quot;TARIFF&quot;]/Action = 'New'">
+                                        <pfx7:ProratingFlag>
+                                            <xsl:value-of select="true()"/>
+                                        </pfx7:ProratingFlag>
+                                    </xsl:when>
+                                    <xsl:when test="string-length(ListOfKeyFeature/KeyFeature[Feature=$_globalVariables/ns:GlobalVariables/Domains/Billing/CCS/Transport/SOAP/Operations/ModifyOptionalOffer/ProrationFlag/ProrationOnDelete]/FeatureValue)>0">
+                                        <xsl:choose>
+                                            <xsl:when test="ListOfKeyFeature/KeyFeature[Feature=$_globalVariables/ns:GlobalVariables/Domains/Billing/CCS/Transport/SOAP/Operations/ModifyOptionalOffer/ProrationFlag/ProrationOnDelete]/FeatureValue = $_globalVariables/ns:GlobalVariables/Domains/CustomerCare/Siebel/Formats/Boolean/True">
+                                                <pfx7:ProratingFlag>
+                                                    <xsl:value-of select="true()"/>
+                                                </pfx7:ProratingFlag>
+                                            </xsl:when>
+                                        </xsl:choose>
+                                    </xsl:when>
+                                </xsl:choose>
+                                <pfx7:ValidMode>
+                                    <xsl:choose>
+                                        <xsl:when test="($Parse-XML/OSMOrder/XMLMessage/Order/OrderFutureDatedFlag = 'Y' or $Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem/ActionType = &quot;134&quot; )&#xA; and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)">
+                                            <pfx7:Mode>
+                                                <xsl:value-of select="'4050003'"/>
+                                            </pfx7:Mode>
+                                            <xsl:if test="$Parse-XML/OSMOrder/XMLMessage/Order/OrderFutureDatedFlag = 'Y' and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)">
+                                                <pfx7:EffectiveDate>
+                                                    <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)"/>
+                                                </pfx7:EffectiveDate>
+                                            </xsl:if>
+                                            <xsl:if test="tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)">
+                                                <pfx7:ExpireDate>
+                                                    <xsl:value-of select="eai:parseDateBySource(&quot;Siebel&quot;,current()/EndDate)"/>
+                                                </pfx7:ExpireDate>
+                                            </xsl:if>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <pfx7:Mode>
+                                                <xsl:value-of select="'4050000'"/>
+                                            </pfx7:Mode>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </pfx7:ValidMode>
+                            </pfx7:OptionalOffer>
+                        </xsl:for-each>
+                        <xsl:for-each select="$RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup !=&quot;TARIFF&quot; and Action !='Existing' and string-length(VFTRCBUDiscountType) >0 and AgreementNum !=&quot;0&quot; and ComponentType !=&quot;FEE&quot;]">
+                            <pfx7:Discount>
+                                <pfx7:TargetOfferId>
+                                    <xsl:value-of select="ProductCatalogId"/>
+                                </pfx7:TargetOfferId>
+                                <pfx7:DiscountValue>
+                                    <pfx7:DiscountType>
+                                        <xsl:value-of select="VFTRCBUDiscountType"/>
+                                    </pfx7:DiscountType>
+                                    <pfx7:ProductId>
+                                        <xsl:value-of select="ProductCatalogId"/>
+                                    </pfx7:ProductId>
+                                    <xsl:if test="VFTRCBUDiscountType='0'">
+                                        <xsl:if test="VFTRCBUDiscountAmount">
+                                            <pfx7:Permillage>
+                                                <xsl:value-of select="VFTRCBUDiscountAmount"/>
+                                            </pfx7:Permillage>
+                                        </xsl:if>
+                                    </xsl:if>
+                                    <xsl:if test="VFTRCBUDiscountType='1'">
+                                        <xsl:if test="VFTRCBUDiscountAmount">
+                                            <pfx7:Amount>
+                                                <xsl:value-of select="VFTRCBUDiscountAmount"/>
+                                            </pfx7:Amount>
+                                        </xsl:if>
+                                    </xsl:if>
+                                </pfx7:DiscountValue>
+                                <pfx7:ValidMode>
+                                    <xsl:choose>
+                                        <xsl:when test="($Parse-XML/OSMOrder/XMLMessage/Order/OrderFutureDatedFlag = 'Y' or $Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem/ActionType = &quot;134&quot; )&#xA; and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)">
+                                            <pfx7:Mode>
+                                                <xsl:value-of select="'4050003'"/>
+                                            </pfx7:Mode>
+                                            <xsl:if test="$Parse-XML/OSMOrder/XMLMessage/Order/OrderFutureDatedFlag = 'Y' and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)">
+                                                <pfx7:EffectiveDate>
+                                                    <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)"/>
+                                                </pfx7:EffectiveDate>
+                                            </xsl:if>
+                                            <xsl:if test="tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)">
+                                                <pfx7:ExpireDate>
+                                                    <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)"/>
+                                                </pfx7:ExpireDate>
+                                            </xsl:if>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <pfx7:Mode>
+                                                <xsl:value-of select="'4050000'"/>
+                                            </pfx7:Mode>
+                                            <xsl:if test="tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)">
+                                                <pfx7:ExpireDate>
+                                                    <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)"/>
+                                                </pfx7:ExpireDate>
+                                            </xsl:if>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </pfx7:ValidMode>
+                            </pfx7:Discount>
+                        </xsl:for-each>
+                        <xsl:choose>
+                            <xsl:when test="$RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup !=&quot;TARIFF&quot; and Action = ('New','Modified','Deleted') and AgreementNum !='0' and ComponentType !=&quot;FEE&quot;]">
+                                <pfx7:Commitment>
+                                    <pfx7:CampaignOfferId>
+                                        <xsl:value-of select="$RootMobileLine/VFTRCBUBPPartNumber"/>
+                                    </pfx7:CampaignOfferId>
+                                    <pfx7:InstanceId>
+                                        <xsl:value-of select="$RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup !=&quot;TARIFF&quot; and Action = ('New','Modified','Deleted') and AgreementNum !='0' and ComponentType !=&quot;FEE&quot;][1]/AgreementNum"/>
+                                    </pfx7:InstanceId>
+                                    <xsl:if test="$_isFDO=true() and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime, $Parse-XML/OSMOrder/XMLMessage/Order[1]/OrderCreationDate)">
+                                        <pfx7:RequestTime>
+                                            <xsl:value-of select="eai:parseDateBySource(&quot;Siebel&quot;,$Parse-XML/OSMOrder/XMLMessage/Order[1]/OrderCreationDate)"/>
+                                        </pfx7:RequestTime>
+                                    </xsl:if>
+                                    <xsl:for-each select="$RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup !=&quot;TARIFF&quot;  and Action = ('New') and AgreementNum !='0' and ComponentType !=&quot;FEE&quot;]">
+                                        <pfx7:TargetOffer>
+                                            <pfx7:TargetOfferId>
+                                                <xsl:value-of select="current()/ProductCatalogId"/>
+                                            </pfx7:TargetOfferId>
+                                            <xsl:if test="string-length(current()/VFTRCBUDiscountAmount) > 0">
+                                                <pfx7:DiscountInfo>
+                                                    <pfx7:Value>
+                                                        <xsl:value-of select="current()/VFTRCBUDiscountAmount"/>
+                                                    </pfx7:Value>
+                                                    <pfx7:Duration>
+                                                        <xsl:value-of select="current()/VFTRCBUDiscountDuration"/>
+                                                    </pfx7:Duration>
+                                                    <pfx7:Type>
+                                                        <xsl:value-of select="current()/VFTRCBUDiscountType"/>
+                                                    </pfx7:Type>
+                                                </pfx7:DiscountInfo>
+                                            </xsl:if>
+                                        </pfx7:TargetOffer>
+                                    </xsl:for-each>
+                                    <xsl:for-each select="$RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup !=&quot;TARIFF&quot;  and Action = ('Deleted') and AgreementNum !='0' and ComponentType !=&quot;FEE&quot;]">
+                                        <pfx7:TargetOffer>
+                                            <pfx7:TargetOfferId>
+                                                <xsl:value-of select="current()/ProductCatalogId"/>
+                                            </pfx7:TargetOfferId>
+                                        </pfx7:TargetOffer>
+                                    </xsl:for-each>
+                                    <xsl:if test="count($RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup =&quot;TARIFF&quot;  and Action = ('New','Modified') and AgreementNum !='0']) = 0">
+                                        <xsl:for-each select="$RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup !=&quot;TARIFF&quot;  and Action = ('Modified') and AgreementNum !='0' and ComponentType !=&quot;FEE&quot;]">
+                                            <pfx7:TargetOffer>
+                                                <pfx7:TargetOfferId>
+                                                    <xsl:value-of select="current()/ProductCatalogId"/>
+                                                </pfx7:TargetOfferId>
+                                                <xsl:if test="string-length(current()/VFTRCBUDiscountAmount) > 0">
+                                                    <pfx7:DiscountInfo>
+                                                        <pfx7:Value>
+                                                            <xsl:value-of select="current()/VFTRCBUDiscountAmount"/>
+                                                        </pfx7:Value>
+                                                        <pfx7:Duration>
+                                                            <xsl:value-of select="current()/VFTRCBUDiscountDuration"/>
+                                                        </pfx7:Duration>
+                                                        <pfx7:Type>
+                                                            <xsl:value-of select="current()/VFTRCBUDiscountType"/>
+                                                        </pfx7:Type>
+                                                    </pfx7:DiscountInfo>
+                                                </xsl:if>
+                                            </pfx7:TargetOffer>
+                                        </xsl:for-each>
+                                    </xsl:if>
+                                    <!--SimpleProperty Added (CR51)-->
+                                    <pfx7:SimpleProperty>
+                                        <pfx7:Id>
+                                            <xsl:value-of select="'Campaignname'"/>
+                                        </pfx7:Id>
+                                        <pfx7:Value>
+                                            <xsl:value-of select="$RootMobileLine/ProdPromName"/>
+                                        </pfx7:Value>
+                                    </pfx7:SimpleProperty>
+                                    <pfx7:SimpleProperty>
+                                        <pfx7:Id>
+                                            <xsl:value-of select="'Campaigncode'"/>
+                                        </pfx7:Id>
+                                        <pfx7:Value>
+                                            <xsl:value-of select="$RootMobileLine/VFTRCBUBPPartNumber"/>
+                                        </pfx7:Value>
+                                    </pfx7:SimpleProperty>
+                                    <pfx7:ValidMode>
+                                        <xsl:choose>
+                                            <xsl:when test="($Parse-XML/OSMOrder/XMLMessage/Order/OrderFutureDatedFlag = 'Y' or $Parse-XML/OSMOrder/XMLMessage/Order/ListOfRootItem/RootItem/ActionType = &quot;134&quot; )&#xA; and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)">
+                                                <pfx7:Mode>
+                                                    <xsl:value-of select="'4050003'"/>
+                                                </pfx7:Mode>
+                                                <xsl:if test="$Parse-XML/OSMOrder/XMLMessage/Order/OrderFutureDatedFlag = 'Y' and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)">
+                                                    <pfx7:EffectiveDate>
+                                                        <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/OSMOrder/XMLMessage/Order[1]/ListOfRootItem/RootItem[1]/DueDate)"/>
+                                                    </pfx7:EffectiveDate>
+                                                </xsl:if>
+                                                <xsl:if test="tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)">
+                                                    <pfx7:ExpireDate>
+                                                        <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)"/>
+                                                    </pfx7:ExpireDate>
+                                                </xsl:if>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <pfx7:Mode>
+                                                    <xsl:value-of select="'4050000'"/>
+                                                </pfx7:Mode>
+                                                <xsl:if test="tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)">
+                                                    <pfx7:ExpireDate>
+                                                        <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,current()/EndDate)"/>
+                                                    </pfx7:ExpireDate>
+                                                </xsl:if>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </pfx7:ValidMode>
+                                    <xsl:if test="$RootMobileLine/ListOfChildItem/ChildItem[ComponentGroup !=&quot;TARIFF&quot; and Action = ('New','Modified') and AgreementNum !='0' and ComponentType !=&quot;FEE&quot;]">
+                                        <pfx7:OperationType>
+                                            <xsl:value-of select="1"/>
+                                        </pfx7:OperationType>
+                                    </xsl:if>
+                                    <pfx7:IgnoreNonCommercials>
+                                        <xsl:value-of select="true()"/>
+                                    </pfx7:IgnoreNonCommercials>
+                                </pfx7:Commitment>
+                            </xsl:when>
+                        </xsl:choose>
+                        <xsl:if test="exists($RootMobileLine/ListOfChildItem/ChildItem/VFTRCBUPayerMSISDN) or string-length($RootMobileLine/ListOfChildItem/ChildItem/VFTRCBUPayerMSISDN) >0">
+                            <xsl:if test="$RootMobileLine/ListOfChildItem/ChildItem/VFTRCBUPayerMSISDN">
+                                <pfx7:ChargeFromSubNo>
+                                    <xsl:value-of select="$RootMobileLine/ListOfChildItem/ChildItem/VFTRCBUPayerMSISDN"/>
+                                </pfx7:ChargeFromSubNo>
+                            </xsl:if>
+                        </xsl:if>
+                    </pfx7:Request>
+                </xsl:if>
+            </ListOfRequests>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="OrderComponentIterator">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>555</pd:x>
+        <pd:y>66</pd:y>
+        <config>
+            <processName>/Domains/OrderManagement/BusinessResources/Processes/OrderComponent/OrderComponentIterator.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <RequestDestination>
+                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:ServiceCatalogQueue"/>
+                </RequestDestination>
+                <xsl:copy-of select="$Map-Requests/ListOfRequests"/>
+                <pfx:RequestEAI>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header"/>
+                    <pfx:Body>
+                        <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request"/>
+                    </pfx:Body>
+                </pfx:RequestEAI>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Parse XML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse XML</pd:from>
+        <pd:to>Map-Requests</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map-Requests</pd:from>
+        <pd:to>OrderComponentIterator</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>OrderComponentIterator</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

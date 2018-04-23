@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns="http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <pd:name>Domains/OrderManagement/BusinessResources/Processes/TO2FGlobalData/GetGlobalData.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Input">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="MasterOrderId" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="OrderId" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="Key" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>142</pd:startX>
+    <pd:startY>84</pd:startY>
+    <pd:returnBindings>
+        <xsl:choose>
+            <xsl:when test="string-length($GetGlobalData/resultSet/outputSet/RESULTCODE)>0">
+                <Output>
+                    <ErrorCode>
+                        <xsl:value-of select="$GetGlobalData/resultSet/outputSet/RESULTCODE"/>
+                    </ErrorCode>
+                    <ErrorMessage>
+                        <xsl:value-of select="$GetGlobalData/resultSet/outputSet/RESULTMSG"/>
+                    </ErrorMessage>
+                    <xsl:if test="$GetGlobalData/resultSet/outputSet/RESULTCODE='0'">
+                        <ListOfGlobalData>
+                            <xsl:for-each select="$Parse-XML/Resultsets/ResultSet1/Record1">
+                                <GlobalData>
+                                    <MasterOrderId>
+                                        <xsl:value-of select="MASTERORDERID"/>
+                                    </MasterOrderId>
+                                    <OrderId>
+                                        <xsl:value-of select="ORDERID"/>
+                                    </OrderId>
+                                    <Key>
+                                        <xsl:value-of select="KEY"/>
+                                    </Key>
+                                    <Value>
+                                        <xsl:value-of select="VALUE"/>
+                                    </Value>
+                                </GlobalData>
+                            </xsl:for-each>
+                        </ListOfGlobalData>
+                    </xsl:if>
+                </Output>
+            </xsl:when>
+            <xsl:otherwise>
+                <Output>
+                    <ErrorCode>
+                        <xsl:value-of select="$ErrorVar/Error/ErrorCode"/>
+                    </ErrorCode>
+                    <ErrorMessage>
+                        <xsl:value-of select="$ErrorVar/Error/ErrorMsg"/>
+                    </ErrorMessage>
+                </Output>
+            </xsl:otherwise>
+        </xsl:choose>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="Output">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="ErrorCode" type="xsd:string"/>
+                    <xsd:element name="ErrorMessage" type="xsd:string"/>
+                    <xsd:element name="ListOfGlobalData" minOccurs="0">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="GlobalData" minOccurs="0" maxOccurs="unbounded">
+                                    <xsd:complexType>
+                                        <xsd:sequence>
+                                            <xsd:element name="MasterOrderId" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="OrderId" type="xsd:string"/>
+                                            <xsd:element name="Key" type="xsd:string"/>
+                                            <xsd:element name="Value" type="xsd:string"/>
+                                        </xsd:sequence>
+                                    </xsd:complexType>
+                                </xsd:element>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>563</pd:endX>
+    <pd:endY>82</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <ErrorVar>
+            <xsd:element name="Error">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ErrorCode" type="xsd:string"/>
+                        <xsd:element name="ErrorMsg" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </ErrorVar>
+    </pd:processVariables>
+    <pd:targetNamespace>http://vodafone.com.tr/1427131687849</pd:targetNamespace>
+    <pd:activity name="GetGlobalData">
+        <pd:type>com.tibco.plugin.jdbc.JDBCCallActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCCallActivity</pd:resourceType>
+        <pd:x>291</pd:x>
+        <pd:y>84</pd:y>
+        <config>
+            <timeout>%%Database/TO2F/LoginTimeout%%</timeout>
+            <maxRows>100</maxRows>
+            <emptyStrAsNil>true</emptyStrAsNil>
+            <jdbcSharedConfig>/Domains/OrderManagement/CommonResources/Connections/JDBC/TO2F Database Connection.sharedjdbc</jdbcSharedConfig>
+            <catalog>GLOBALDATA_PKG</catalog>
+            <ProcedureName>GET_GLOBALDATA</ProcedureName>
+            <useSchema>true</useSchema>
+            <oraObjects/>
+            <oraTables/>
+            <ConfigurationError>output schema is null</ConfigurationError>
+            <parameterTypes>
+                <parameter>
+                    <colName>IN_MASTERORDERID</colName>
+                    <colType>1</colType>
+                    <dataType>12</dataType>
+                    <typeName>VARCHAR2</typeName>
+                </parameter>
+                <parameter>
+                    <colName>IN_ORDERID</colName>
+                    <colType>1</colType>
+                    <dataType>12</dataType>
+                    <typeName>VARCHAR2</typeName>
+                </parameter>
+                <parameter>
+                    <colName>IN_KEY</colName>
+                    <colType>1</colType>
+                    <dataType>12</dataType>
+                    <typeName>VARCHAR2</typeName>
+                </parameter>
+                <parameter>
+                    <colName>RESULT</colName>
+                    <colType>3</colType>
+                    <dataType>-10</dataType>
+                    <typeName>REF CURSOR</typeName>
+                </parameter>
+                <parameter>
+                    <colName>RESULTCODE</colName>
+                    <colType>4</colType>
+                    <dataType>12</dataType>
+                    <typeName>VARCHAR2</typeName>
+                </parameter>
+                <parameter>
+                    <colName>RESULTMSG</colName>
+                    <colType>4</colType>
+                    <dataType>12</dataType>
+                    <typeName>VARCHAR2</typeName>
+                </parameter>
+            </parameterTypes>
+        </config>
+        <pd:inputBindings>
+            <inputs>
+                <inputSet>
+                    <IN_MASTERORDERID>
+                        <xsl:choose>
+                            <xsl:when test="exists($Start/Input/MasterOrderId)">
+                                <xsl:value-of select="$Start/Input/MasterOrderId"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </IN_MASTERORDERID>
+                    <IN_ORDERID>
+                        <xsl:choose>
+                            <xsl:when test="exists($Start/Input/OrderId)">
+                                <xsl:value-of select="$Start/Input/OrderId"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </IN_ORDERID>
+                    <IN_KEY>
+                        <xsl:value-of select="$Start/Input/Key"/>
+                    </IN_KEY>
+                </inputSet>
+            </inputs>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Assign - Error">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>427</pd:x>
+        <pd:y>207</pd:y>
+        <config>
+            <variableName>ErrorVar</variableName>
+        </config>
+        <pd:inputBindings>
+            <xsl:choose>
+                <xsl:when test="string-length($_error_GetGlobalData/ActivityErrors/ns:JDBCDriverLoadingException/msg)>0">
+                    <Error>
+                        <ErrorCode>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/TransportError"/>
+                        </ErrorCode>
+                        <ErrorMsg>
+                            <xsl:value-of select="$_error_GetGlobalData/ActivityErrors/ns:JDBCDriverLoadingException/msg"/>
+                        </ErrorMsg>
+                    </Error>
+                </xsl:when>
+                <xsl:when test="string-length($_error_GetGlobalData/ActivityErrors/ns:JDBCConnectionNotFoundException/msg)>0">
+                    <Error>
+                        <ErrorCode>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/TransportError"/>
+                        </ErrorCode>
+                        <ErrorMsg>
+                            <xsl:value-of select="$_error_GetGlobalData/ActivityErrors/ns:JDBCConnectionNotFoundException/msg"/>
+                        </ErrorMsg>
+                    </Error>
+                </xsl:when>
+                <xsl:when test="string-length($_error_GetGlobalData/ActivityErrors/ns:InvalidTimeZoneException/msg)>0">
+                    <Error>
+                        <ErrorCode>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/TransportError"/>
+                        </ErrorCode>
+                        <ErrorMsg>
+                            <xsl:value-of select="$_error_GetGlobalData/ActivityErrors/ns:InvalidTimeZoneException/msg"/>
+                        </ErrorMsg>
+                    </Error>
+                </xsl:when>
+                <xsl:when test="string-length($_error_GetGlobalData/ActivityErrors/ns:JDBCSQLException/msg)>0">
+                    <Error>
+                        <ErrorCode>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/TargetSystemError"/>
+                        </ErrorCode>
+                        <ErrorMsg>
+                            <xsl:value-of select="$_error_GetGlobalData/ActivityErrors/ns:JDBCSQLException/msg"/>
+                        </ErrorMsg>
+                    </Error>
+                </xsl:when>
+                <xsl:when test="string-length($_error_GetGlobalData/ActivityErrors/ns:JDBCTimedOutException/msg)>0">
+                    <Error>
+                        <ErrorCode>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/Timeout"/>
+                        </ErrorCode>
+                        <ErrorMsg>
+                            <xsl:value-of select="$_error_GetGlobalData/ActivityErrors/ns:JDBCTimedOutException/msg"/>
+                        </ErrorMsg>
+                    </Error>
+                </xsl:when>
+                <xsl:when test="$_error_GetGlobalData/ActivityErrors/ns:LoginTimedOutException/msgCode">
+                    <Error>
+                        <ErrorCode>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/Timeout"/>
+                        </ErrorCode>
+                        <ErrorMsg>
+                            <xsl:value-of select="$_error_GetGlobalData/ActivityErrors/ns:LoginTimedOutException/msg"/>
+                        </ErrorMsg>
+                    </Error>
+                </xsl:when>
+                <xsl:otherwise>
+                    <Error>
+                        <ErrorCode>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/TargetSystemError"/>
+                        </ErrorCode>
+                        <ErrorMsg>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/TargetSystemErrorDescription"/>
+                        </ErrorMsg>
+                    </Error>
+                </xsl:otherwise>
+            </xsl:choose>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Parse XML">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>467</pd:x>
+        <pd:y>83</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>false</validateOutput>
+            <term>
+                <xsd:element name="Resultsets">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="ResultSet1">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="Record1" minOccurs="0" maxOccurs="unbounded">
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="MASTERORDERID" type="xsd:string"/>
+                                                    <xsd:element name="ORDERID" type="xsd:string"/>
+                                                    <xsd:element name="KEY" type="xsd:string"/>
+                                                    <xsd:element name="VALUE" type="xsd:string"/>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </term>
+        </config>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$GetGlobalData/resultSet/UnresolvedResultsets"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Assign - Error</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-65536</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>GetGlobalData</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetGlobalData</pd:from>
+        <pd:to>Assign - Error</pd:to>
+        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-65536</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetGlobalData</pd:from>
+        <pd:to>Parse XML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse XML</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

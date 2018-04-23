@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:ns2="http://vodafone.com.tr/EAI/Common/Header" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns4="http://vodafone.com.tr/OrderManagement/Business/Siebel/SyncAccountBillingCycle/v1" xmlns:ns="http://vodafone.com.tr/OrderManagement/Business/Siebel/SyncAccountData/v1" xmlns:ns3="http://vodafone.com.tr/EAI/Common/ResponseCodes" xmlns:tns="http://vodafone.com.tr/OrderManagement/Business/SiebelAdapterOMServices" xmlns:ns9="http://vodafone.com.tr/OrderManagement/Business/Siebel/PrintInvoiceCopy/v1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns5="http://vodafone.com.tr/ServiceCatalog/Business/OSM/RegisterCampaigns/v1" xmlns:ns6="http://vodafone.com.tr/Campaigns/Business/Siebel/RegisterCampaign/v1" xmlns:ns7="http://vodafone.com.tr/OrderManagement/Business/Siebel/RegisterCampaign/v1" xmlns:ns8="http://vodafone.com.tr/OrderManagement/Business/Siebel/ManageComplaint/v1" targetNamespace="http://vodafone.com.tr/OrderManagement/Business/SiebelAdapterOMServices">
+    <import namespace="http://vodafone.com.tr/OrderManagement/Business/Siebel/SyncAccountData/v1" location="../../../Business/Siebel/SyncAccountData_v1/Schemas/SyncAccountData.xsd"/>
+    <import namespace="http://vodafone.com.tr/OrderManagement/Business/Siebel/SyncAccountBillingCycle/v1" location="../../../Business/Siebel/SyncAccountBillingCycle_v1/Schemas/SyncAccountBillingCycle.xsd"/>
+    <import namespace="http://vodafone.com.tr/OrderManagement/Business/Siebel/RegisterCampaign/v1" location="../../../Business/Siebel/RegisterCampaign_v1/Schemas/RegisterCampaign.xsd"/>
+    <import namespace="http://vodafone.com.tr/OrderManagement/Business/Siebel/ManageComplaint/v1" location="../../../Business/Siebel/ManageComplaint_v1/Schemas/ManageComplaint.xsd"/>
+    <import namespace="http://vodafone.com.tr/EAI/Common/Header" location="../../../../../GlobalCommonResources/Schemas/Common/Header.xsd"/>
+    <import namespace="http://vodafone.com.tr/OrderManagement/Business/Siebel/PrintInvoiceCopy/v1" location="../../../Business/Siebel/PrintInvoiceCopy_v1/Schemas/PrintInvoiceCopy.xsd"/>
+    <import namespace="http://vodafone.com.tr/EAI/Common/ResponseCodes" location="../../../../../GlobalCommonResources/Schemas/Common/ResponseCodes.xsd"/>
+    <message name="SyncAccountDataRequest_v1">
+        <part name="Header" type="ns2:Header"/>
+        <part name="Body" type="ns:SyncAccountDataRequest"/>
+    </message>
+    <message name="SyncAccountDataResponse_v1">
+        <part name="Header" type="ns3:ResponseHeader"/>
+        <part name="Body" type="ns:SyncAccountDataResponse"/>
+    </message>
+    <message name="SyncAccountBillingCycleRequest_v1">
+        <part name="Header" type="ns2:Header"/>
+        <part name="Body" type="ns4:SyncAccountBillingCycleRequest"/>
+    </message>
+    <message name="SyncAccountBillingCycleResponse_v1">
+        <part name="Header" type="ns3:ResponseHeader"/>
+        <part name="Body" type="ns4:SyncAccountBillingCycleResponse"/>
+    </message>
+    <message name="RegisterCampaignRequest_v1">
+        <part name="Header" type="ns2:Header"/>
+        <part name="Body" type="ns7:RegisterCampaignRequest"/>
+    </message>
+    <message name="RegisterCampaignResponse_v1">
+        <part name="Header" type="ns3:ResponseCodes"/>
+        <part name="Body" type="ns7:RegisterCampaignResponse"/>
+    </message>
+    <message name="ManageComplaintRequest_v1">
+        <part name="Header" type="ns2:Header"/>
+        <part name="Body" type="ns8:ManageComplaintRequest"/>
+    </message>
+    <message name="ManageComplaintResponse_v1">
+        <part name="Header" type="ns3:ResponseHeader"/>
+    </message>
+    <message name="PrintInvoiceCopyRequest_v1">
+        <part name="Header" type="ns2:Header"/>
+        <part name="Body" type="ns9:PrintInvoiceCopyRequest"/>
+    </message>
+    <message name="PrintInvoiceCopyResponse_v1">
+        <part name="Header" type="ns3:ResponseHeader"/>
+    </message>
+    <portType name="SiebelAdapterOMServicesPortType">
+        <operation name="SyncAccountData_v1">
+            <input message="tns:SyncAccountDataRequest_v1"/>
+            <output message="tns:SyncAccountDataResponse_v1"/>
+        </operation>
+        <operation name="SyncAccountBillingCycle_v1">
+            <input message="tns:SyncAccountBillingCycleRequest_v1"/>
+            <output message="tns:SyncAccountBillingCycleResponse_v1"/>
+        </operation>
+        <operation name="RegisterCampaign_v1">
+            <input message="tns:RegisterCampaignRequest_v1"/>
+            <output message="tns:RegisterCampaignResponse_v1"/>
+        </operation>
+        <operation name="ManageComplaint_v1">
+            <input message="tns:ManageComplaintRequest_v1"/>
+            <output message="tns:ManageComplaintResponse_v1"/>
+        </operation>
+        <operation name="PrintInvoiceCopy_v1">
+            <input message="tns:PrintInvoiceCopyRequest_v1"/>
+            <output message="tns:PrintInvoiceCopyResponse_v1"/>
+        </operation>
+    </portType>
+</definitions>

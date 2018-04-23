@@ -1,0 +1,45 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>Action</name>
+			<value>Modified</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1415288615403</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>ItemId</name>
+			<value>1234</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1412270093534</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>ProductName</name>
+			<value>TechnicalOrder</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1412270093823</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>ProductType</name>
+			<value>TechnicalOrder</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1412270094136</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>RootItemId</name>
+			<value>12345</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1412270094435</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

@@ -1,0 +1,37 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>Location</name>
+			<value>ServiceCatalog</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1412270102580</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Name</name>
+			<value>ServiceCatalog</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1412270102932</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>RequestIdReplyRequired</name>
+			<value>no value</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1412270103278</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>URI</name>
+			<value>SERVICECATALOG</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1412270104937</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

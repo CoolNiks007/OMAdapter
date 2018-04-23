@@ -1,0 +1,9 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\AESchemas\ae\ADB
+2
+5
+14:adbmetadata.aeschema|1|162d7ae949e|7b6a|1586651b|e24fb61f626e4959b0bd5dd1606982ed|0
+22:ADB_REGISTER_CAMPAIGN-PUB.aeschema|1|162d7ae94dd|33e5|f4485ddb|c7dc855199214016a82d7f9f2cc851da|0
+22:ADB_REGISTER_CAMPAIGN-SUB.aeschema|1|162d7ae952b|2029|eccc86d1|258d68596151497ea7ddad881965c566|0
+f:scalar.aeschema|1|162d7ae9598|2c8|b733ea06|69a6fb2b20c344099b8461d48786686a|0
+7:.folder|1|162d7ae948f|17c|ca9081d5|9365cb183b2d4874bfcd8697a0791896|0

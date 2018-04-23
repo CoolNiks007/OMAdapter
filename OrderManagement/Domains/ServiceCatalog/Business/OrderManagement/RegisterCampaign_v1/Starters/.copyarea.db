@@ -1,0 +1,8 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\ServiceCatalog\Business\OrderManagement\RegisterCampaign_v1\Starters
+2
+4
+2c:JMSRegisterCampaignGuaranteedStarter.process|1|162d7af0809|a333|5a253fee|dee8f36dda3642f3bd60bfacb0861b1a|0
+22:ADBRegisterCampaignStarter.process|1|162d7af07f9|5396|cb4c541f|824dc61fc4d542fba32a566956fe831a|0
+7:.folder|1|162d7af07f9|181|dd98466|8fdf35aee8b24e7f8c42affc37304df6|0
+2a:JMSRegisterCampaignReliableStarter.process|1|162d7af0809|8112|387908da|eda52bbacbe84f51a53a88d6c7da09c3|0

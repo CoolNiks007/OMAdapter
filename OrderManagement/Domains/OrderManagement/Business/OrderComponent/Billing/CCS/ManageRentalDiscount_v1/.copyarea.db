@@ -1,0 +1,7 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\Business\OrderComponent\Billing\CCS\ManageRentalDiscount_v1
+2
+3
+25:ManageRentalDiscount_Response.process|1|162d7aeb529|3a74|3bc4741e|4aaa153bf9394c97a58e8363ebf12d5d|0
+1c:ManageRentalDiscount.process|1|162d7aeb519|5b2f|4dae7bb5|6bd52b3c48b04e5ba897417db18f7910|0
+7:.folder|1|162d7aeb519|190|70c58a0c|a94ae3051f904ed7ae4a00702249b249|0

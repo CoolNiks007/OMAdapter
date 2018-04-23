@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="urn:com:metasolv:oms:xmlapi:1"
+	 targetNamespace="urn:com:metasolv:oms:xmlapi:1"
+	 elementFormDefault="unqualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="TelcoOperationResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Id" type="xs:string"/>
+				<xs:element name="Name" type="xs:string"/>
+				<xs:element name="OrderId" type="xs:string"/>
+				<xs:element name="StatusCode" type="xs:string"/>
+				<xs:element name="StatusMessage" type="xs:string"/>
+				<xs:element name="PipelineItem" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="OperationName" type="xs:string"/>
+							<xs:element name="OperationId" type="xs:string"/>
+							<xs:element name="PipelineMessage" type="xs:string"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

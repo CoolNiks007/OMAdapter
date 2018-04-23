@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions">
+    <pd:name>Domains/OrderManagement/BusinessResources/Processes/ProductManagement/GetAttributesByProductCategory.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Input">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="ProductCategory" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>141</pd:startX>
+    <pd:startY>74</pd:startY>
+    <pd:returnBindings>
+        <Output>
+            <xsl:for-each select="$_globalVariables/ns:GlobalVariables/Domains/OrderManagement/ProductManagement/EBUProductCategory&#xA;/*[local-name()=$Start/Input/ProductCategory]">
+                <xsl:variable name="_attribute" select="tib:tokenize(current(), '|')"/>
+                <ProductCategory>
+                    <Name>
+                        <xsl:value-of select="local-name()"/>
+                    </Name>
+                    <xsl:for-each select="$_attribute">
+                        <Attribute>
+                            <xsl:value-of select="."/>
+                        </Attribute>
+                    </xsl:for-each>
+                </ProductCategory>
+            </xsl:for-each>
+        </Output>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="Output">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="ProductCategory" minOccurs="0" maxOccurs="unbounded">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="Name" type="xsd:string"/>
+                                <xsd:element name="Attribute" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>427</pd:endX>
+    <pd:endY>77</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://vodafone.com.tr/1441319995723</pd:targetNamespace>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

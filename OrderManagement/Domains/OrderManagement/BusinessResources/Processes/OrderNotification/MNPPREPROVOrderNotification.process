@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:ns2="http://vodafone.com.tr/EAI/Common/ResponseCodes" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://vodafone.com.tr/EAI/Common/Header" xmlns:ns3="http://www.tibco.com/pe/DeployedVarsType" xmlns:pfx5="http://vodafone.com.tr/ServiceCatalog/ServiceReply" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx4="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" xmlns:pfx3="http://vodafone.com.tr/ServiceCatalog/Business/OSM/GetMasterOrder/v1" xmlns:pfx2="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/OSM/OSM_TopicNotification.xsd" xmlns:pfx="http://vodafone.com.tr/EAI/Common/RequestEAI" xmlns:pfx6="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagement/UpdateOrderStatus/v1">
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/RequestEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/RequestEAI.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/OSM/OSM_TopicNotification.xsd" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OSM/OSM_TopicNotification.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" schemaLocation="/Domains/ServiceCatalog/BusinessResources/Schemas/ServiceRequest.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/ServiceReply" schemaLocation="/Domains/ServiceCatalog/BusinessResources/Schemas/ServiceReply.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/GetMasterOrder/v1" schemaLocation="/Domains/ServiceCatalog/Business/OSM/GetMasterOrder_v1/Schemas/GetMasterOrder.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagement/UpdateOrderStatus/v1" schemaLocation="/Domains/ServiceCatalog/Business/OrderManagement/UpdateOrderStatus_v1/Schemas/UpdateOrderStatus.xsd"/>
+    <pd:name>Domains/OrderManagement/BusinessResources/Processes/OrderNotification/MNPPREPROVOrderNotification.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Input">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx:RequestEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>137</pd:startX>
+    <pd:startY>199</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>1765</pd:endX>
+    <pd:endY>200</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://vodafone.com.tr/1424700891731</pd:targetNamespace>
+    <pd:activity name="Map Data">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>272</pd:x>
+        <pd:y>201</pd:y>
+        <config>
+            <element ref="pfx2:TelcoOrderStatusNotification"/>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Start/Input/pfx:RequestEAI/pfx:Body/*" element="pfx2:TelcoOrderStatusNotification"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Decision">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>392</pd:x>
+        <pd:y>198</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Map GetMasterOrder Request">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>582</pd:x>
+        <pd:y>51</pd:y>
+        <config>
+            <element ref="pfx3:GetMasterOrderRequest"/>
+        </config>
+        <pd:inputBindings>
+            <pfx3:GetMasterOrderRequest>
+                <pfx3:Request>
+                    <pfx3:OrderId>
+                        <xsl:value-of select="$Map-Data/TelcoOrderStatusNotification/MasterOrderId"/>
+                    </pfx3:OrderId>
+                </pfx3:Request>
+            </pfx3:GetMasterOrderRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Map Send Siebel Notification">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>590</pd:x>
+        <pd:y>328</pd:y>
+        <config>
+            <element ref="pfx6:UpdateOrderStatusRequest"/>
+        </config>
+        <pd:inputBindings>
+            <pfx6:UpdateOrderStatusRequest>
+                <pfx6:Request>
+                    <pfx6:OMLastNotification>
+                        <xsl:value-of select="false()"/>
+                    </pfx6:OMLastNotification>
+                    <pfx6:OMSplittedOrder>
+                        <xsl:value-of select="true()"/>
+                    </pfx6:OMSplittedOrder>
+                    <pfx6:OrderErrorDescription>
+                        <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/StateMessage"/>
+                    </pfx6:OrderErrorDescription>
+                    <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/Reference">
+                        <pfx6:OrderNumber>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/Reference"/>
+                        </pfx6:OrderNumber>
+                    </xsl:if>
+                    <xsl:if test="$Map-Data/TelcoOrderStatusNotification/Id">
+                        <pfx6:OrderOMPublicId>
+                            <xsl:value-of select="$Map-Data/TelcoOrderStatusNotification/Id"/>
+                        </pfx6:OrderOMPublicId>
+                    </xsl:if>
+                    <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/State">
+                        <pfx6:Notification>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/State"/>
+                        </pfx6:Notification>
+                    </xsl:if>
+                    <pfx6:ListOfRootItem>
+                        <xsl:for-each select="$Map-Data/TelcoOrderStatusNotification/ListOfRootId/RootId">
+                            <pfx6:RootItem>
+                                <pfx6:Id>
+                                    <xsl:value-of select="."/>
+                                </pfx6:Id>
+                            </pfx6:RootItem>
+                        </xsl:for-each>
+                    </pfx6:ListOfRootItem>
+                </pfx6:Request>
+            </pfx6:UpdateOrderStatusRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetMasterOrder">
+        <pd:type>com.tibco.plugin.jms.JMSQueueRequestReplyActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueRequestReplyActivity</pd:resourceType>
+        <pd:x>748</pd:x>
+        <pd:y>42</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>VFTR.OrderManagement.ServiceCatalog.OSM.Business.G.Request.GetMasterOrder_v1</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/GlobalCommonResources/Connections/JMS/JMS EAI Connection.sharedjmscon</ConnectionReference>
+            <InDataxsdString ref="pfx4:ServiceRequest"/>
+            <OutDataxsdString ref="pfx5:ServiceReply"/>
+        </config>
+        <pd:inputBindings>
+            <ns1:ActivityInput>
+                <Body>
+                    <pfx4:ServiceRequest>
+                        <xsl:for-each select="$Start/Input/pfx:RequestEAI/pfx:Header">
+                            <pfx4:Header>
+                                <xsl:if test="ns:RequestId">
+                                    <ns:RequestId>
+                                        <xsl:value-of select="ns:RequestId"/>
+                                    </ns:RequestId>
+                                </xsl:if>
+                                <ns:SourceSystem>
+                                    <xsl:value-of select="ns:SourceSystem"/>
+                                </ns:SourceSystem>
+                                <ns:ReplyExpected>
+                                    <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/Constants/Reply/Now"/>
+                                </ns:ReplyExpected>
+                                <xsl:if test="ns:QoS">
+                                    <ns:QoS>
+                                        <xsl:value-of select="ns:QoS"/>
+                                    </ns:QoS>
+                                </xsl:if>
+                                <xsl:if test="ns:Schedule">
+                                    <ns:Schedule>
+                                        <xsl:value-of select="ns:Schedule"/>
+                                    </ns:Schedule>
+                                </xsl:if>
+                                <xsl:if test="ns:CorrelationId">
+                                    <ns:CorrelationId>
+                                        <xsl:value-of select="ns:CorrelationId"/>
+                                    </ns:CorrelationId>
+                                </xsl:if>
+                                <xsl:if test="ns:Priority">
+                                    <ns:Priority>
+                                        <xsl:value-of select="ns:Priority"/>
+                                    </ns:Priority>
+                                </xsl:if>
+                                <xsl:for-each select="ns:Credentials">
+                                    <ns:Credentials>
+                                        <ns:ApplicationId>
+                                            <xsl:value-of select="ns:ApplicationId"/>
+                                        </ns:ApplicationId>
+                                        <ns:User>
+                                            <xsl:value-of select="ns:User"/>
+                                        </ns:User>
+                                        <xsl:if test="ns:Password">
+                                            <ns:Password>
+                                                <xsl:value-of select="ns:Password"/>
+                                            </ns:Password>
+                                        </xsl:if>
+                                    </ns:Credentials>
+                                </xsl:for-each>
+                                <xsl:if test="ns:ProxySystem">
+                                    <ns:ProxySystem>
+                                        <xsl:value-of select="ns:ProxySystem"/>
+                                    </ns:ProxySystem>
+                                </xsl:if>
+                                <xsl:if test="ns:ForceSimulate">
+                                    <ns:ForceSimulate>
+                                        <xsl:value-of select="ns:ForceSimulate"/>
+                                    </ns:ForceSimulate>
+                                </xsl:if>
+                                <xsl:for-each select="ns:Attributes">
+                                    <ns:Attributes>
+                                        <xsl:for-each select="ns:Attribute">
+                                            <ns:Attribute>
+                                                <ns:Name>
+                                                    <xsl:value-of select="ns:Name"/>
+                                                </ns:Name>
+                                                <ns:Value>
+                                                    <xsl:value-of select="ns:Value"/>
+                                                </ns:Value>
+                                            </ns:Attribute>
+                                        </xsl:for-each>
+                                    </ns:Attributes>
+                                </xsl:for-each>
+                            </pfx4:Header>
+                        </xsl:for-each>
+                        <pfx4:Body>
+                            <xsl:copy-of select="$Map-GetMasterOrder-Request/pfx3:GetMasterOrderRequest/pfx3:Request"/>
+                        </pfx4:Body>
+                    </pfx4:ServiceRequest>
+                </Body>
+            </ns1:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Map GetMasterOrder Response">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>885</pd:x>
+        <pd:y>49</pd:y>
+        <config>
+            <element ref="pfx3:Response"/>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$GetMasterOrder/ns1:ActivityOutput/Body/pfx5:ServiceReply/pfx5:Body/*" element="pfx3:Response"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <xsl:copy-of select="$GetMasterOrder/ns1:ActivityOutput/Body/pfx5:ServiceReply/pfx5:Body/pfx3:Response"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Null">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>1039</pd:x>
+        <pd:y>42</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Map CreatePreProvisioningOrders Response">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>1407</pd:x>
+        <pd:y>51</pd:y>
+        <config>
+            <element ref="pfx5:ServiceReply"/>
+        </config>
+        <pd:inputBindings>
+            <pfx5:ServiceReply>
+                <pfx5:Header>
+                    <ns2:ResponseCode>
+                        <xsl:value-of select="$GetAsyncControl/Output/ResponseCodes/ns2:ResponseCode"/>
+                    </ns2:ResponseCode>
+                    <xsl:if test="$GetAsyncControl/Output/ResponseCodes/ns2:ResponseMsg">
+                        <ns2:ResponseMsg>
+                            <xsl:value-of select="$GetAsyncControl/Output/ResponseCodes/ns2:ResponseMsg"/>
+                        </ns2:ResponseMsg>
+                    </xsl:if>
+                    <xsl:if test="$GetAsyncControl/Output/ResponseCodes/ns2:ErrorCode">
+                        <ns2:ErrorCode>
+                            <xsl:value-of select="$GetAsyncControl/Output/ResponseCodes/ns2:ErrorCode"/>
+                        </ns2:ErrorCode>
+                    </xsl:if>
+                    <xsl:if test="$GetAsyncControl/Output/ResponseCodes/ns2:ErrorDescription">
+                        <ns2:ErrorDescription>
+                            <xsl:value-of select="$GetAsyncControl/Output/ResponseCodes/ns2:ErrorDescription"/>
+                        </ns2:ErrorDescription>
+                    </xsl:if>
+                    <xsl:for-each select="$GetAsyncControl/Output/MessageBody/Header/ns:Attributes">
+                        <ns2:Attributes>
+                            <xsl:for-each select="ns:Attribute">
+                                <ns2:Attribute>
+                                    <ns2:Name>
+                                        <xsl:value-of select="ns:Name"/>
+                                    </ns2:Name>
+                                    <ns2:Value>
+                                        <xsl:value-of select="ns:Value"/>
+                                    </ns2:Value>
+                                </ns2:Attribute>
+                            </xsl:for-each>
+                        </ns2:Attributes>
+                    </xsl:for-each>
+                </pfx5:Header>
+            </pfx5:ServiceReply>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetAsyncControl">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>1282</pd:x>
+        <pd:y>44</pd:y>
+        <config>
+            <processName>/GlobalCommonResources/Processes/AsyncControl/GetAsyncControl.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <TargetCorrelationId>
+                    <xsl:value-of select="concat($Map-Data/TelcoOrderStatusNotification/MasterOrderId, '-','CreatePreProvisioningOrders')"/>
+                </TargetCorrelationId>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Send CreatePreProvisioning Response">
+        <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+        <pd:x>1575</pd:x>
+        <pd:y>52</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%Constants/Company%%.%%Constants/ProjectName%%.%%Domains/OrderManagement/Name%%.%%Domains/OrderManagement/OrderComponent/Name%%.%%Constants/Layer/Business%%.%%Constants/QOS/Guarantee%%.%%Constants/RequestType/Reply%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/GlobalCommonResources/Connections/JMS/JMS EAI Connection.sharedjmscon</ConnectionReference>
+            <InDataxsdString ref="pfx5:ServiceReply"/>
+        </config>
+        <pd:inputBindings>
+            <ns1:ActivityInput>
+                <Body>
+                    <xsl:copy-of select="$Map-CreatePreProvisioningOrders-Response/pfx5:ServiceReply"/>
+                </Body>
+            </ns1:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="JMS Queue Sender">
+        <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+        <pd:x>745</pd:x>
+        <pd:y>321</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%Domains/OrderManagement/OrderNotification/SiebelNotificationQueue%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/GlobalCommonResources/Connections/JMS/JMS EAI Connection.sharedjmscon</ConnectionReference>
+            <InDataxsdString ref="pfx4:ServiceRequest"/>
+        </config>
+        <pd:inputBindings>
+            <ns1:ActivityInput>
+                <Body>
+                    <pfx4:ServiceRequest>
+                        <xsl:for-each select="$Start/Input/pfx:RequestEAI/pfx:Header">
+                            <pfx4:Header>
+                                <xsl:if test="ns:RequestId">
+                                    <ns:RequestId>
+                                        <xsl:value-of select="ns:RequestId"/>
+                                    </ns:RequestId>
+                                </xsl:if>
+                                <ns:SourceSystem>
+                                    <xsl:value-of select="ns:SourceSystem"/>
+                                </ns:SourceSystem>
+                                <ns:ReplyExpected>
+                                    <xsl:value-of select="ns:ReplyExpected"/>
+                                </ns:ReplyExpected>
+                                <xsl:if test="ns:QoS">
+                                    <ns:QoS>
+                                        <xsl:value-of select="ns:QoS"/>
+                                    </ns:QoS>
+                                </xsl:if>
+                                <xsl:if test="ns:Schedule">
+                                    <ns:Schedule>
+                                        <xsl:value-of select="ns:Schedule"/>
+                                    </ns:Schedule>
+                                </xsl:if>
+                                <xsl:if test="ns:CorrelationId">
+                                    <ns:CorrelationId>
+                                        <xsl:value-of select="ns:CorrelationId"/>
+                                    </ns:CorrelationId>
+                                </xsl:if>
+                                <xsl:if test="ns:Priority">
+                                    <ns:Priority>
+                                        <xsl:value-of select="ns:Priority"/>
+                                    </ns:Priority>
+                                </xsl:if>
+                                <xsl:for-each select="ns:Credentials">
+                                    <ns:Credentials>
+                                        <ns:ApplicationId>
+                                            <xsl:value-of select="ns:ApplicationId"/>
+                                        </ns:ApplicationId>
+                                        <ns:User>
+                                            <xsl:value-of select="ns:User"/>
+                                        </ns:User>
+                                        <xsl:if test="ns:Password">
+                                            <ns:Password>
+                                                <xsl:value-of select="ns:Password"/>
+                                            </ns:Password>
+                                        </xsl:if>
+                                    </ns:Credentials>
+                                </xsl:for-each>
+                                <xsl:if test="ns:ProxySystem">
+                                    <ns:ProxySystem>
+                                        <xsl:value-of select="ns:ProxySystem"/>
+                                    </ns:ProxySystem>
+                                </xsl:if>
+                                <xsl:if test="ns:ForceSimulate">
+                                    <ns:ForceSimulate>
+                                        <xsl:value-of select="ns:ForceSimulate"/>
+                                    </ns:ForceSimulate>
+                                </xsl:if>
+                                <xsl:for-each select="ns:Attributes">
+                                    <ns:Attributes>
+                                        <xsl:for-each select="ns:Attribute">
+                                            <ns:Attribute>
+                                                <ns:Name>
+                                                    <xsl:value-of select="ns:Name"/>
+                                                </ns:Name>
+                                                <ns:Value>
+                                                    <xsl:value-of select="ns:Value"/>
+                                                </ns:Value>
+                                            </ns:Attribute>
+                                        </xsl:for-each>
+                                    </ns:Attributes>
+                                </xsl:for-each>
+                            </pfx4:Header>
+                        </xsl:for-each>
+                        <pfx4:Body>
+                            <xsl:copy-of select="$Map-Send-Siebel-Notification/pfx6:UpdateOrderStatusRequest/pfx6:Request"/>
+                        </pfx4:Body>
+                    </pfx4:ServiceRequest>
+                </Body>
+            </ns1:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="RemoveAsyncControl">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>1693</pd:x>
+        <pd:y>52</pd:y>
+        <config>
+            <processName>/GlobalCommonResources/Processes/AsyncControl/RemoveAsyncControl.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <TargetCorrelationId>
+                    <xsl:value-of select="concat($Map-Data/TelcoOrderStatusNotification/MasterOrderId, '-','CreatePreProvisioningOrders')"/>
+                </TargetCorrelationId>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Map Data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map Data</pd:from>
+        <pd:to>Decision</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Decision</pd:from>
+        <pd:to>Map GetMasterOrder Request</pd:to>
+        <pd:xpathDescription>Completed</pd:xpathDescription>
+        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$Map-Data/TelcoOrderStatusNotification/State = 'COMPLETED'</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Decision</pd:from>
+        <pd:to>Map Send Siebel Notification</pd:to>
+        <pd:xpathDescription>Failed</pd:xpathDescription>
+        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$Map-Data/TelcoOrderStatusNotification/State = 'FAILED'</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Decision</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map GetMasterOrder Request</pd:from>
+        <pd:to>GetMasterOrder</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetMasterOrder</pd:from>
+        <pd:to>Map GetMasterOrder Response</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map GetMasterOrder Response</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Curved</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>GetAsyncControl</pd:to>
+        <pd:xpathDescription>Last PreProvisioningOrder</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>count($Map-GetMasterOrder-Response/pfx3:Response/pfx3:ChildOrderList/pfx3:ChildOrder[not(pfx3:Status='COMPLETED')]) = 1</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetAsyncControl</pd:from>
+        <pd:to>Map CreatePreProvisioningOrders Response</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map CreatePreProvisioningOrders Response</pd:from>
+        <pd:to>Send CreatePreProvisioning Response</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Send CreatePreProvisioning Response</pd:from>
+        <pd:to>RemoveAsyncControl</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map Send Siebel Notification</pd:from>
+        <pd:to>JMS Queue Sender</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>JMS Queue Sender</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>RemoveAsyncControl</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

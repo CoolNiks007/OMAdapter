@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns:wsi="http://ws-i.org/profiles/basic/1.1/xs"
+	 xmlns:om="http://vodafone.com.tr/OrderManagement/Technical/Shared/GetMasterOrder/v1"
+	 targetNamespace="http://vodafone.com.tr/OrderManagement/Technical/Shared/GetMasterOrder/v1"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="GetMasterOrderRequest" type="om:GetMasterOrderRequest"/>
+	<xs:element name="GetMasterOrderResponse" type="om:GetMasterOrderResponse"/>
+	<xs:complexType name="GetMasterOrderRequest">
+		<xs:sequence>
+			<xs:element ref="om:Request"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GetMasterOrderResponse">
+		<xs:sequence>
+			<xs:element ref="om:Response" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Response" type="om:Response"/>
+	<xs:complexType name="Response">
+		<xs:sequence>
+			<xs:element name="OrderId" type="xs:string"/>
+			<xs:element name="Status" type="xs:string"/>
+			<xs:element name="ChildOrderList">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ChildOrder" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="OrderId" type="xs:string"/>
+									<xs:element name="Status" type="xs:string"/>
+									<xs:element name="ErrorMessage" type="xs:string"/>
+									<xs:element name="CreationDate" type="xs:string"/>
+									<xs:element name="RootId" type="xs:string"/>
+									<xs:element name="ServiceId" type="xs:string"/>
+									<xs:element name="IsCancellableAlone" type="xs:string"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Request" type="om:Request"/>
+	<xs:complexType name="Request">
+		<xs:sequence>
+			<xs:element name="OrderId" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,7 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\Business\OrderComponent\Billing\CCS\ModifyOptionalOffer_v1
+2
+3
+1b:ModifyOptionalOffer.process|1|162d7aeb5e4|1eb31|9f3890c7|31b476c15802493b9f084be5ca3dde8b|0
+24:ModifyOptionalOffer_Response.process|1|162d7aeb5f3|4719|e65c5143|eb7c0d8961c1425fb82d5889481493ba|0
+7:.folder|1|162d7aeb5e4|18f|e7fb89b4|c25f1fceb59a457782b8bcd487d17e52|0

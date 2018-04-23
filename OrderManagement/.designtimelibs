@@ -1,0 +1,23 @@
+#Design time libraries
+#Format: #=File Alias=Description
+#Fri Apr 20 15:25:24 IST 2018
+19=UserManagement.projlib\=
+18=SMSAdapter.projlib\=
+17=SMSCenterResources.projlib\=
+16=ResourceManagement.projlib\=
+15=ReferenceData.projlib\=
+14=ProvisioningManagement.projlib\=
+13=OrderManagement.projlib\=
+12=NotificationCenterTL.projlib\=
+11=NotificationCenterResources.projlib\=
+10=NetworkResources.projlib\=
+9=Network.projlib\=
+8=InventoryManagement.projlib\=
+7=CustomerCareTL.projlib\=
+6=External.projlib\=
+5=CustomerCare.projlib\=
+4=Composite.projlib\=
+3=Common.projlib\=
+2=Campaigns.projlib\=
+1=Billing.projlib\=
+0=ServiceCatalog.projlib\=

@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://com.telco.ba.services/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="SplitterService" targetNamespace="http://com.telco.ba.services/">
+  <wsdl:types>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://com.telco.ba.services/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://com.telco.ba.services/">
+      <xs:element name="CancelOrder" type="tns:CancelOrder"></xs:element>
+      <xs:element name="CancelOrderResponse" type="tns:CancelOrderResponse"></xs:element>
+      <xs:element name="CloseMasterOrder" type="tns:CloseMasterOrder"></xs:element>
+      <xs:element name="CloseMasterOrderResponse" type="tns:CloseMasterOrderResponse"></xs:element>
+      <xs:element name="CreateChildOrder" type="tns:CreateChildOrder"></xs:element>
+      <xs:element name="CreateChildOrderResponse" type="tns:CreateChildOrderResponse"></xs:element>
+      <xs:element name="CreateChildOrders" type="tns:CreateChildOrders"></xs:element>
+      <xs:element name="CreateChildOrdersResponse" type="tns:CreateChildOrdersResponse"></xs:element>
+      <xs:element name="CreateMasterOrder" type="tns:CreateMasterOrder"></xs:element>
+      <xs:element name="CreateMasterOrderResponse" type="tns:CreateMasterOrderResponse"></xs:element>
+      <xs:element name="CreateOrder" type="tns:CreateOrder"></xs:element>
+      <xs:element name="CreateOrderResponse" type="tns:CreateOrderResponse"></xs:element>
+      <xs:element name="GetMasterOrder" type="tns:GetMasterOrder"></xs:element>
+      <xs:element name="GetMasterOrderResponse" type="tns:GetMasterOrderResponse"></xs:element>
+      <xs:element name="GetOrderByClientId" type="tns:GetOrderByClientId"></xs:element>
+      <xs:element name="GetOrderByClientIdResponse" type="tns:GetOrderByClientIdResponse"></xs:element>
+      <xs:element name="IsOrderCancellable" type="tns:IsOrderCancellable"></xs:element>
+      <xs:element name="IsOrderCancellableResponse" type="tns:IsOrderCancellableResponse"></xs:element>
+      <xs:element name="IsSplitOrder" type="tns:IsSplitOrder"></xs:element>
+      <xs:element name="IsSplitOrderResponse" type="tns:IsSplitOrderResponse"></xs:element>
+      <xs:element name="ResubmitOrder" type="tns:ResubmitOrder"></xs:element>
+      <xs:element name="ResubmitOrderResponse" type="tns:ResubmitOrderResponse"></xs:element>
+      <xs:element name="UpdateNotification" type="tns:UpdateNotification"></xs:element>
+      <xs:element name="UpdateNotificationResponse" type="tns:UpdateNotificationResponse"></xs:element>
+      <xs:element name="orderInfoResponse" type="tns:orderInfoResponse"></xs:element>
+      <xs:element name="serviceResponseHeader" type="tns:ResponseHeader"></xs:element>
+      <xs:complexType name="CreateChildOrder">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ParentOrderId" type="xs:string"></xs:element>
+          <xs:element minOccurs="0" name="OrderXML" type="xs:string"></xs:element>
+          <xs:element minOccurs="0" name="RootId" type="xs:string"></xs:element>
+          <xs:element minOccurs="0" name="AccountId" type="xs:string"></xs:element>
+          <xs:element minOccurs="0" name="SubscriberId" type="xs:string"></xs:element>
+          <xs:element minOccurs="0" name="CreationWeight" type="xs:string"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ServiceHeader">
+        <xs:sequence>
+          <xs:element name="clientSystem" type="xs:string"></xs:element>
+          <xs:element name="integrationId" type="xs:string"></xs:element>
+          <xs:element name="language" type="xs:string"></xs:element>
+          <xs:element minOccurs="0" name="logLevel" type="xs:string"></xs:element>
+          <xs:element minOccurs="0" name="sourceDetailId" type="xs:string"></xs:element>
+          <xs:element minOccurs="0" name="sourceIntegrationId" type="xs:string"></xs:element>
+          <xs:element name="username" type="xs:string"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="CreateChildOrderResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Response" type="tns:createOrderResponse"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="createOrderResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="OrderId" type="xs:string"></xs:element>
+          <xs:element minOccurs="0" name="State" type="xs:string"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ResponseHeader">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="errorCode" type="xs:string"></xs:element>
+          <xs:element minOccurs="0" name="errorDescription" type="xs:string"></xs:element>
+          <xs:element minOccurs="0" name="listOfLog" type="tns:listOfLog"></xs:element>
+          <xs:element minOccurs="0" name="statusCode" type="xs:string"></xs:element>
+          <xs:element minOccurs="0" name="statusDescription" type="xs:string"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="listOfLog">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="log" nillable="true" type="xs:string"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="CancelOrder">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="OrderId" type="xs:string"></xs:element>
+          <xs:element minOccurs="0" name="RootId" type="xs:string"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="CancelOrderResponse">
+        <xs:sequence></xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="UpdateNotification">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="OrderId" type="xs:string"></xs:element>
+          <xs:element minOccurs="0" name="State" type="xs:string"></xs:element>
+          <xs:element minOccurs="0" name="ErrorMessage" type="xs:string"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="UpdateNotificationResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Response" type="xs:string"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="CreateMasterOrder">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CreatedBy" type="xs:string"></xs:element>
+          <xs:element minOccurs="0" name="CreatedBySystem" type="xs:string"></xs:element>
+          <xs:element minOccurs="0" name="ClientOrderId" type="xs:string"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="CreateMasterOrderResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Response" type="tns:createOrderResponse"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="CreateChildOrders">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ParentOrderId" type="xs:string"></xs:element>
+          <xs:element minOccurs="0" name="OrderXML" type="xs:string"></xs:element>
+          <xs:element minOccurs="0" name="CreatedBySystem" type="xs:string"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="CreateChildOrdersResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Response" type="tns:createOrderResponse"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetMasterOrder">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="OrderId" type="xs:string"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetMasterOrderResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="OrderInfoResponse" type="tns:orderInfoResponse"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="orderInfoResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="OrderId" type="xs:string"></xs:element>
+          <xs:element minOccurs="0" name="ChildOrderList">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="ChildOrder" type="tns:orderChild"></xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element minOccurs="0" name="Status" type="xs:string"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="orderChild">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CreationDate" type="xs:dateTime"></xs:element>
+          <xs:element minOccurs="0" name="ErrorMessage" type="xs:string"></xs:element>
+          <xs:element minOccurs="0" name="OrderId" type="xs:string"></xs:element>
+          <xs:element minOccurs="0" name="IsCancellableAlone" type="xs:string"></xs:element>
+          <xs:element minOccurs="0" name="RootId" type="xs:string"></xs:element>
+          <xs:element minOccurs="0" name="ServiceId" type="xs:string"></xs:element>
+          <xs:element minOccurs="0" name="Status" type="xs:string"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ResubmitOrder">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="OrderId" type="xs:string"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ResubmitOrderResponse">
+        <xs:sequence></xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="IsOrderCancellable">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="OrderId" type="xs:string"></xs:element>
+          <xs:element minOccurs="0" name="RootId" type="xs:string"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="IsOrderCancellableResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Response" type="xs:string"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetOrderByClientId">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ClientId" type="xs:string"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetOrderByClientIdResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Response" type="tns:createOrderResponse"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="CreateOrder">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="OrderMessage" type="xs:string"></xs:element>
+          <xs:element minOccurs="0" name="CreatedBy" type="xs:string"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="CreateOrderResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Response" type="tns:createOrderResponse"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="IsSplitOrder">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="OrderId" type="xs:string"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="IsSplitOrderResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Response" type="xs:string"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="CloseMasterOrder">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="OrderId" type="xs:string"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="CloseMasterOrderResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Response" type="xs:string"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="BAException" type="tns:BAException"></xs:element>
+      <xs:complexType name="BAException">
+        <xs:sequence>
+          <xs:element name="code" nillable="true" type="xs:string"></xs:element>
+          <xs:element name="language" nillable="true" type="xs:string"></xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="serviceHeader" nillable="true" type="tns:ServiceHeader"></xs:element>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="GetOrderByClientId">
+    <wsdl:part element="tns:GetOrderByClientId" name="parameters"></wsdl:part>
+    <wsdl:part element="tns:serviceHeader" name="serviceHeader"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="BAException">
+    <wsdl:part element="tns:BAException" name="BAException"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="CreateOrder">
+    <wsdl:part element="tns:CreateOrder" name="parameters"></wsdl:part>
+    <wsdl:part element="tns:serviceHeader" name="serviceHeader"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetMasterOrder">
+    <wsdl:part element="tns:GetMasterOrder" name="parameters"></wsdl:part>
+    <wsdl:part element="tns:serviceHeader" name="serviceHeader"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="CancelOrderResponse">
+    <wsdl:part element="tns:CancelOrderResponse" name="result"></wsdl:part>
+    <wsdl:part element="tns:serviceResponseHeader" name="serviceResponseHeader"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="UpdateNotification">
+    <wsdl:part element="tns:UpdateNotification" name="parameters"></wsdl:part>
+    <wsdl:part element="tns:serviceHeader" name="serviceHeader"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="UpdateNotificationResponse">
+    <wsdl:part element="tns:UpdateNotificationResponse" name="result"></wsdl:part>
+    <wsdl:part element="tns:serviceResponseHeader" name="serviceResponseHeader"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ResubmitOrderResponse">
+    <wsdl:part element="tns:ResubmitOrderResponse" name="result"></wsdl:part>
+    <wsdl:part element="tns:serviceResponseHeader" name="serviceResponseHeader"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="CloseMasterOrderResponse">
+    <wsdl:part element="tns:CloseMasterOrderResponse" name="result"></wsdl:part>
+    <wsdl:part element="tns:serviceResponseHeader" name="serviceResponseHeader"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetOrderByClientIdResponse">
+    <wsdl:part element="tns:GetOrderByClientIdResponse" name="result"></wsdl:part>
+    <wsdl:part element="tns:serviceResponseHeader" name="serviceResponseHeader"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IsOrderCancellable">
+    <wsdl:part element="tns:IsOrderCancellable" name="parameters"></wsdl:part>
+    <wsdl:part element="tns:serviceHeader" name="serviceHeader"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="CreateChildOrdersResponse">
+    <wsdl:part element="tns:CreateChildOrdersResponse" name="result"></wsdl:part>
+    <wsdl:part element="tns:serviceResponseHeader" name="serviceResponseHeader"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="CancelOrder">
+    <wsdl:part element="tns:CancelOrder" name="parameters"></wsdl:part>
+    <wsdl:part element="tns:serviceHeader" name="serviceHeader"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IsSplitOrderResponse">
+    <wsdl:part element="tns:IsSplitOrderResponse" name="result"></wsdl:part>
+    <wsdl:part element="tns:serviceResponseHeader" name="serviceResponseHeader"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="CreateChildOrder">
+    <wsdl:part element="tns:CreateChildOrder" name="parameters"></wsdl:part>
+    <wsdl:part element="tns:serviceHeader" name="serviceHeader"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IsOrderCancellableResponse">
+    <wsdl:part element="tns:IsOrderCancellableResponse" name="result"></wsdl:part>
+    <wsdl:part element="tns:serviceResponseHeader" name="serviceResponseHeader"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="CreateChildOrderResponse">
+    <wsdl:part element="tns:CreateChildOrderResponse" name="result"></wsdl:part>
+    <wsdl:part element="tns:serviceResponseHeader" name="serviceResponseHeader"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="CloseMasterOrder">
+    <wsdl:part element="tns:CloseMasterOrder" name="parameters"></wsdl:part>
+    <wsdl:part element="tns:serviceHeader" name="serviceHeader"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="IsSplitOrder">
+    <wsdl:part element="tns:IsSplitOrder" name="parameters"></wsdl:part>
+    <wsdl:part element="tns:serviceHeader" name="serviceHeader"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="CreateMasterOrder">
+    <wsdl:part element="tns:CreateMasterOrder" name="parameters"></wsdl:part>
+    <wsdl:part element="tns:serviceHeader" name="serviceHeader"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="CreateMasterOrderResponse">
+    <wsdl:part element="tns:CreateMasterOrderResponse" name="result"></wsdl:part>
+    <wsdl:part element="tns:serviceResponseHeader" name="serviceResponseHeader"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="CreateOrderResponse">
+    <wsdl:part element="tns:CreateOrderResponse" name="result"></wsdl:part>
+    <wsdl:part element="tns:serviceResponseHeader" name="serviceResponseHeader"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ResubmitOrder">
+    <wsdl:part element="tns:ResubmitOrder" name="parameters"></wsdl:part>
+    <wsdl:part element="tns:serviceHeader" name="serviceHeader"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetMasterOrderResponse">
+    <wsdl:part element="tns:GetMasterOrderResponse" name="result"></wsdl:part>
+    <wsdl:part element="tns:serviceResponseHeader" name="serviceResponseHeader"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="CreateChildOrders">
+    <wsdl:part element="tns:CreateChildOrders" name="parameters"></wsdl:part>
+    <wsdl:part element="tns:serviceHeader" name="serviceHeader"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="SplitterService">
+    <wsdl:operation name="CreateChildOrder">
+      <wsdl:input message="tns:CreateChildOrder" name="CreateChildOrder"></wsdl:input>
+      <wsdl:output message="tns:CreateChildOrderResponse" name="CreateChildOrderResponse"></wsdl:output>
+      <wsdl:fault message="tns:BAException" name="BAException"></wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CancelOrder">
+      <wsdl:input message="tns:CancelOrder" name="CancelOrder"></wsdl:input>
+      <wsdl:output message="tns:CancelOrderResponse" name="CancelOrderResponse"></wsdl:output>
+      <wsdl:fault message="tns:BAException" name="BAException"></wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateNotification">
+      <wsdl:input message="tns:UpdateNotification" name="UpdateNotification"></wsdl:input>
+      <wsdl:output message="tns:UpdateNotificationResponse" name="UpdateNotificationResponse"></wsdl:output>
+      <wsdl:fault message="tns:BAException" name="BAException"></wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CreateMasterOrder">
+      <wsdl:input message="tns:CreateMasterOrder" name="CreateMasterOrder"></wsdl:input>
+      <wsdl:output message="tns:CreateMasterOrderResponse" name="CreateMasterOrderResponse"></wsdl:output>
+      <wsdl:fault message="tns:BAException" name="BAException"></wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CreateChildOrders">
+      <wsdl:input message="tns:CreateChildOrders" name="CreateChildOrders"></wsdl:input>
+      <wsdl:output message="tns:CreateChildOrdersResponse" name="CreateChildOrdersResponse"></wsdl:output>
+      <wsdl:fault message="tns:BAException" name="BAException"></wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetMasterOrder">
+      <wsdl:input message="tns:GetMasterOrder" name="GetMasterOrder"></wsdl:input>
+      <wsdl:output message="tns:GetMasterOrderResponse" name="GetMasterOrderResponse"></wsdl:output>
+      <wsdl:fault message="tns:BAException" name="BAException"></wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ResubmitOrder">
+      <wsdl:input message="tns:ResubmitOrder" name="ResubmitOrder"></wsdl:input>
+      <wsdl:output message="tns:ResubmitOrderResponse" name="ResubmitOrderResponse"></wsdl:output>
+      <wsdl:fault message="tns:BAException" name="BAException"></wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="IsOrderCancellable">
+      <wsdl:input message="tns:IsOrderCancellable" name="IsOrderCancellable"></wsdl:input>
+      <wsdl:output message="tns:IsOrderCancellableResponse" name="IsOrderCancellableResponse"></wsdl:output>
+      <wsdl:fault message="tns:BAException" name="BAException"></wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderByClientId">
+      <wsdl:input message="tns:GetOrderByClientId" name="GetOrderByClientId"></wsdl:input>
+      <wsdl:output message="tns:GetOrderByClientIdResponse" name="GetOrderByClientIdResponse"></wsdl:output>
+      <wsdl:fault message="tns:BAException" name="BAException"></wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrder">
+      <wsdl:input message="tns:CreateOrder" name="CreateOrder"></wsdl:input>
+      <wsdl:output message="tns:CreateOrderResponse" name="CreateOrderResponse"></wsdl:output>
+      <wsdl:fault message="tns:BAException" name="BAException"></wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="IsSplitOrder">
+      <wsdl:input message="tns:IsSplitOrder" name="IsSplitOrder"></wsdl:input>
+      <wsdl:output message="tns:IsSplitOrderResponse" name="IsSplitOrderResponse"></wsdl:output>
+      <wsdl:fault message="tns:BAException" name="BAException"></wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CloseMasterOrder">
+      <wsdl:input message="tns:CloseMasterOrder" name="CloseMasterOrder"></wsdl:input>
+      <wsdl:output message="tns:CloseMasterOrderResponse" name="CloseMasterOrderResponse"></wsdl:output>
+      <wsdl:fault message="tns:BAException" name="BAException"></wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SplitterServiceSoapBinding" type="tns:SplitterService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"></soap:binding>
+    <wsdl:operation name="CreateChildOrder">
+      <soap:operation soapAction="CreateChildOrderAction" style="document"></soap:operation>
+      <wsdl:input name="CreateChildOrder">
+        <soap:header message="tns:CreateChildOrder" part="serviceHeader" use="literal"></soap:header>
+        <soap:body parts="parameters" use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="CreateChildOrderResponse">
+        <soap:header message="tns:CreateChildOrderResponse" part="serviceResponseHeader" use="literal"></soap:header>
+        <soap:body parts="result" use="literal"></soap:body>
+      </wsdl:output>
+      <wsdl:fault name="BAException">
+        <soap:fault name="BAException" use="literal"></soap:fault>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CancelOrder">
+      <soap:operation soapAction="CancelOrderAction" style="document"></soap:operation>
+      <wsdl:input name="CancelOrder">
+        <soap:header message="tns:CancelOrder" part="serviceHeader" use="literal"></soap:header>
+        <soap:body parts="parameters" use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="CancelOrderResponse">
+        <soap:header message="tns:CancelOrderResponse" part="serviceResponseHeader" use="literal"></soap:header>
+        <soap:body parts="result" use="literal"></soap:body>
+      </wsdl:output>
+      <wsdl:fault name="BAException">
+        <soap:fault name="BAException" use="literal"></soap:fault>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateNotification">
+      <soap:operation soapAction="UpdateNotificationAction" style="document"></soap:operation>
+      <wsdl:input name="UpdateNotification">
+        <soap:header message="tns:UpdateNotification" part="serviceHeader" use="literal"></soap:header>
+        <soap:body parts="parameters" use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="UpdateNotificationResponse">
+        <soap:header message="tns:UpdateNotificationResponse" part="serviceResponseHeader" use="literal"></soap:header>
+        <soap:body parts="result" use="literal"></soap:body>
+      </wsdl:output>
+      <wsdl:fault name="BAException">
+        <soap:fault name="BAException" use="literal"></soap:fault>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CreateMasterOrder">
+      <soap:operation soapAction="CreateMasterOrderAction" style="document"></soap:operation>
+      <wsdl:input name="CreateMasterOrder">
+        <soap:header message="tns:CreateMasterOrder" part="serviceHeader" use="literal"></soap:header>
+        <soap:body parts="parameters" use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="CreateMasterOrderResponse">
+        <soap:header message="tns:CreateMasterOrderResponse" part="serviceResponseHeader" use="literal"></soap:header>
+        <soap:body parts="result" use="literal"></soap:body>
+      </wsdl:output>
+      <wsdl:fault name="BAException">
+        <soap:fault name="BAException" use="literal"></soap:fault>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CreateChildOrders">
+      <soap:operation soapAction="CreateChildOrdersAction" style="document"></soap:operation>
+      <wsdl:input name="CreateChildOrders">
+        <soap:header message="tns:CreateChildOrders" part="serviceHeader" use="literal"></soap:header>
+        <soap:body parts="parameters" use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="CreateChildOrdersResponse">
+        <soap:header message="tns:CreateChildOrdersResponse" part="serviceResponseHeader" use="literal"></soap:header>
+        <soap:body parts="result" use="literal"></soap:body>
+      </wsdl:output>
+      <wsdl:fault name="BAException">
+        <soap:fault name="BAException" use="literal"></soap:fault>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetMasterOrder">
+      <soap:operation soapAction="GetMasterOrderAction" style="document"></soap:operation>
+      <wsdl:input name="GetMasterOrder">
+        <soap:header message="tns:GetMasterOrder" part="serviceHeader" use="literal"></soap:header>
+        <soap:body parts="parameters" use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="GetMasterOrderResponse">
+        <soap:header message="tns:GetMasterOrderResponse" part="serviceResponseHeader" use="literal"></soap:header>
+        <soap:body parts="result" use="literal"></soap:body>
+      </wsdl:output>
+      <wsdl:fault name="BAException">
+        <soap:fault name="BAException" use="literal"></soap:fault>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderByClientId">
+      <soap:operation soapAction="GetOrderByClientIdAction" style="document"></soap:operation>
+      <wsdl:input name="GetOrderByClientId">
+        <soap:header message="tns:GetOrderByClientId" part="serviceHeader" use="literal"></soap:header>
+        <soap:body parts="parameters" use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="GetOrderByClientIdResponse">
+        <soap:header message="tns:GetOrderByClientIdResponse" part="serviceResponseHeader" use="literal"></soap:header>
+        <soap:body parts="result" use="literal"></soap:body>
+      </wsdl:output>
+      <wsdl:fault name="BAException">
+        <soap:fault name="BAException" use="literal"></soap:fault>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="IsOrderCancellable">
+      <soap:operation soapAction="IsOrderCancellableAction" style="document"></soap:operation>
+      <wsdl:input name="IsOrderCancellable">
+        <soap:header message="tns:IsOrderCancellable" part="serviceHeader" use="literal"></soap:header>
+        <soap:body parts="parameters" use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="IsOrderCancellableResponse">
+        <soap:header message="tns:IsOrderCancellableResponse" part="serviceResponseHeader" use="literal"></soap:header>
+        <soap:body parts="result" use="literal"></soap:body>
+      </wsdl:output>
+      <wsdl:fault name="BAException">
+        <soap:fault name="BAException" use="literal"></soap:fault>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ResubmitOrder">
+      <soap:operation soapAction="ResubmitOrderAction" style="document"></soap:operation>
+      <wsdl:input name="ResubmitOrder">
+        <soap:header message="tns:ResubmitOrder" part="serviceHeader" use="literal"></soap:header>
+        <soap:body parts="parameters" use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="ResubmitOrderResponse">
+        <soap:header message="tns:ResubmitOrderResponse" part="serviceResponseHeader" use="literal"></soap:header>
+        <soap:body parts="result" use="literal"></soap:body>
+      </wsdl:output>
+      <wsdl:fault name="BAException">
+        <soap:fault name="BAException" use="literal"></soap:fault>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrder">
+      <soap:operation soapAction="CreateOrderAction" style="document"></soap:operation>
+      <wsdl:input name="CreateOrder">
+        <soap:header message="tns:CreateOrder" part="serviceHeader" use="literal"></soap:header>
+        <soap:body parts="parameters" use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="CreateOrderResponse">
+        <soap:header message="tns:CreateOrderResponse" part="serviceResponseHeader" use="literal"></soap:header>
+        <soap:body parts="result" use="literal"></soap:body>
+      </wsdl:output>
+      <wsdl:fault name="BAException">
+        <soap:fault name="BAException" use="literal"></soap:fault>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="IsSplitOrder">
+      <soap:operation soapAction="IsSplitOrderAction" style="document"></soap:operation>
+      <wsdl:input name="IsSplitOrder">
+        <soap:header message="tns:IsSplitOrder" part="serviceHeader" use="literal"></soap:header>
+        <soap:body parts="parameters" use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="IsSplitOrderResponse">
+        <soap:header message="tns:IsSplitOrderResponse" part="serviceResponseHeader" use="literal"></soap:header>
+        <soap:body parts="result" use="literal"></soap:body>
+      </wsdl:output>
+      <wsdl:fault name="BAException">
+        <soap:fault name="BAException" use="literal"></soap:fault>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CloseMasterOrder">
+      <soap:operation soapAction="CloseMasterOrderAction" style="document"></soap:operation>
+      <wsdl:input name="CloseMasterOrder">
+        <soap:header message="tns:CloseMasterOrder" part="serviceHeader" use="literal"></soap:header>
+        <soap:body parts="parameters" use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="CloseMasterOrderResponse">
+        <soap:header message="tns:CloseMasterOrderResponse" part="serviceResponseHeader" use="literal"></soap:header>
+        <soap:body parts="result" use="literal"></soap:body>
+      </wsdl:output>
+      <wsdl:fault name="BAException">
+        <soap:fault name="BAException" use="literal"></soap:fault>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SplitterService">
+    <wsdl:port binding="tns:SplitterServiceSoapBinding" name="SplitterServicePort">
+      <soap:address location="http://10.255.34.132:8081/SplitterService"></soap:address>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

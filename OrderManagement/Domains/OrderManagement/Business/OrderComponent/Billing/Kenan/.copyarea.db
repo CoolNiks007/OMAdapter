@@ -1,0 +1,26 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\Business\OrderComponent\Billing\Kenan
+2
+16
+1c:ModifyCustomerGeneralData_v1|2|0|0|0|d2eade4106674b35964ccb3d0666d2b7|0
+11:DeleteProducts_v1|2|0|0|0|0a9581b225ef4a14afc5dfe5e5339efc|0
+11:ModifyProducts_v1|2|0|0|0|65900e58853a4ed18e4061bcf8dcc97e|0
+17:ModifySubscriberData_v1|2|0|0|0|2683e43d840f4870a42141678b438c59|0
+19:ManageSharedDataBundle_v1|2|0|0|0|40a0e0881dc947639795245464853b5e|0
+13:ResumeSubscriber_v1|2|0|0|0|84e6b9d93ec943909a05238ed17000bd|0
+15:TransferSubscriber_v1|2|0|0|0|508b36df52df404193414b99190abbaf|0
+12:ResponseHandler_v1|2|0|0|0|4df019d900494c2082646c801796845c|0
+11:ManageProducts_v1|2|0|0|0|78412a62401e4ee0b4a327c3376125e0|0
+f:AddCampaigns_v1|2|0|0|0|fea8aac804a94291846e98b0fd5f5aa4|0
+11:CreateCustomer_v1|2|0|0|0|e2d4021ae8b04ce392ff78709ea018e2|0
+10:CreateAccount_v1|2|0|0|0|c06495419fc04784adab7fad3db25827|0
+1d:ModifyAccountBillToAddress_v1|2|0|0|0|3e7705bdd4ef49fab160bbd8701f65ce|0
+12:AdvancedPayment_v1|2|0|0|0|6105e5286ea84b5eb6bffff1e61b1d25|0
+d:AddProduct_v1|2|0|0|0|6637d4599b2e434289946a3ae1e5a577|0
+12:DeleteCampaigns_v1|2|0|0|0|90dedb413bdb4e94871a7779d880d1aa|0
+1e:ModifyAccountBillingProfile_v1|2|0|0|0|3f9341ee70ac4e1cafd1e536b643ceb2|0
+1c:ModifyAccountBillToPerson_v1|2|0|0|0|94dfba0cfaaa4b01a95681428a87fd21|0
+13:CreateSubscriber_v1|2|0|0|0|480edd6bc2034e7885ebf80c10b27d18|0
+13:DeleteSubscriber_v1|2|0|0|0|c29c6fb0baf643f6a77cf3fb93050423|0
+14:SuspendSubscriber_v1|2|0|0|0|1a52ed3e8c3f4389b6b2743097d41e55|0
+7:.folder|1|162d7aeb8b1|17e|2ff282fb|4092c4d782d348948ff8c4c2d45c5dc5|0

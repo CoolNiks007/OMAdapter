@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns33="urn:com:metasolv:oms:xmlapi:1" xmlns:ns5="http://vodafone.com.tr/ServiceCatalog/Business/SubscriberManagement/ManageCUGMember/v1" xmlns:ns12="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentResponseInput/v1" xmlns:pfx="http://vodafone.com.tr/EAI/Common/RequestEAI" xmlns:ns2="http://vodafone.com.tr/EAI/Common/ResponseCodes" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentRequestInput/v1" xmlns:ns4="http://vodafone.com.tr/ServiceCatalog/Business/SubscriberInquiries/GetCUGMembers/v1" xmlns:ns3="http://vodafone.com.tr/EAI/Common/Header" xmlns:pfx5="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx4="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" xmlns:pfx2="http://vodafone.com.tr/EAI/Common/ResponseEAI" xmlns:pfx8="http://vodafone.com.tr/ServiceCatalog/ServiceReply">
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/RequestEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/RequestEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/ResponseEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/ResponseEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentRequestInput/v1" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OrderComponent/OrderComponentRequestInput.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/ServiceReply" schemaLocation="/Domains/ServiceCatalog/BusinessResources/Schemas/ServiceReply.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" schemaLocation="/Domains/ServiceCatalog/BusinessResources/Schemas/ServiceRequest.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/SubscriberManagement/ManageCUGMember/v1" schemaLocation="/Domains/ServiceCatalog/Business/SubscriberManagement/ManageCUGMember_v1/Schemas/ManageCUGMember.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/SubscriberInquiries/GetCUGMembers/v1" schemaLocation="/Domains/ServiceCatalog/Business/SubscriberInquiries/GetCUGMembers_v1/Schemas/GetCUGMembers.xsd"/>
+    <pd:name>Domains/OrderManagement/Business/OrderComponent/Billing/CCS/DeleteMembersFromGroups_v1/DeleteMembersFromGroups.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Input">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx:RequestEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>56</pd:startX>
+    <pd:startY>170</pd:startY>
+    <pd:returnBindings>
+        <Output>
+            <pfx2:ResponseEAI>
+                <pfx2:Header>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ancestor-or-self::*/namespace::node()"/>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/@*"/>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/node()"/>
+                </pfx2:Header>
+                <pfx2:ResponseCodes>
+                    <ns2:ResponseCode>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/Success"/>
+                    </ns2:ResponseCode>
+                </pfx2:ResponseCodes>
+            </pfx2:ResponseEAI>
+        </Output>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="Output">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx2:ResponseEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>994</pd:endX>
+    <pd:endY>61</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <Variable0/>
+    </pd:processVariables>
+    <pd:targetNamespace>http://vodafone.com.tr/1414142592775</pd:targetNamespace>
+    <pd:activity name="coercion">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>421</pd:x>
+        <pd:y>173</pd:y>
+        <config>
+            <element>
+                <xsd:element name="group">
+                    <xsd:complexType>
+                        <xsd:sequence/>
+                    </xsd:complexType>
+                </xsd:element>
+            </element>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$GetCUGMembers/pfx5:ActivityOutput/Body/pfx8:ServiceReply/pfx8:Body/*" element="ns4:Response"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <group/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Fail-Order-Component">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>288</pd:x>
+        <pd:y>494</pd:y>
+        <config>
+            <processName>/Domains/OrderManagement/BusinessResources/Processes/OrderComponent/OrderComponentResponse.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <ns12:Request>
+                    <ns12:OcDetails>
+                        <ns12:Id>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:OrderComponentDetails/ns1:Id"/>
+                        </ns12:Id>
+                        <ns12:Name>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:OrderComponentDetails/ns1:Name"/>
+                        </ns12:Name>
+                        <ns12:Scenario>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:OrderComponentDetails/ns1:Scenario"/>
+                        </ns12:Scenario>
+                        <ns12:OrderId>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:OrderComponentDetails/ns1:OrderId"/>
+                        </ns12:OrderId>
+                        <ns12:CorrelationID>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:OrderComponentDetails/ns1:CorrelationID"/>
+                        </ns12:CorrelationID>
+                        <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:OrderComponentDetails/ns1:Cartridge">
+                            <ns12:Cartridge>
+                                <ns12:Name>
+                                    <xsl:value-of select="ns1:Name"/>
+                                </ns12:Name>
+                                <ns12:Version>
+                                    <xsl:value-of select="ns1:Version"/>
+                                </ns12:Version>
+                                <ns12:Source>
+                                    <xsl:value-of select="ns1:Source"/>
+                                </ns12:Source>
+                            </ns12:Cartridge>
+                        </xsl:for-each>
+                    </ns12:OcDetails>
+                    <ns12:ServiceReply>
+                        <xsl:copy-of select="$GetCUGMembers/pfx5:ActivityOutput/Body/pfx8:ServiceReply/pfx8:Header"/>
+                        <pfx8:Body>
+                            <ns33:TelcoOperationResponse>
+                                <Id>
+                                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:OrderComponentDetails/ns1:Id"/>
+                                </Id>
+                                <Name>
+                                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:OrderComponentDetails/ns1:Name"/>
+                                </Name>
+                                <OrderId>
+                                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:OrderComponentDetails/ns1:OrderId"/>
+                                </OrderId>
+                                <StatusCode>
+                                    <xsl:value-of select="$GetCUGMembers/pfx5:ActivityOutput/Body/pfx8:ServiceReply/pfx8:Header/ns2:ResponseCode"/>
+                                </StatusCode>
+                                <StatusMessage>
+                                    <xsl:value-of select="tib:left(concat($GetCUGMembers/pfx5:ActivityOutput/Body/pfx8:ServiceReply/pfx8:Header/ns2:ResponseMsg, ': ', $GetCUGMembers/pfx5:ActivityOutput/Body/pfx8:ServiceReply/pfx8:Header/ns2:ErrorDescription),1000)"/>
+                                </StatusMessage>
+                            </ns33:TelcoOperationResponse>
+                        </pfx8:Body>
+                    </ns12:ServiceReply>
+                </ns12:Request>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetCUGMembers">
+        <pd:type>com.tibco.plugin.jms.JMSQueueRequestReplyActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueRequestReplyActivity</pd:resourceType>
+        <pd:x>288</pd:x>
+        <pd:y>172</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>VFTR.Billing.ServiceCatalog.CCS.Business.R.Request.GetCUGMembers_v1</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/GlobalCommonResources/Connections/JMS/JMS EAI Connection.sharedjmscon</ConnectionReference>
+            <InDataxsdString ref="pfx3:ServiceRequest"/>
+            <OutDataxsdString ref="pfx8:ServiceReply"/>
+        </config>
+        <pd:inputBindings>
+            <pfx5:ActivityInput>
+                <JMSExpiration>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Domains/OrderManagement/OrderComponent/OCSyncRequestJMSMsgExpiration"/>
+                </JMSExpiration>
+                <requestTimeout>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Domains/OrderManagement/OrderComponent/OCSyncRequestTimeout"/>
+                </requestTimeout>
+                <Body>
+                    <pfx3:ServiceRequest>
+                        <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$Start/Input/pfx:RequestEAI/pfx:Header">
+                            <pfx3:Header>
+                                <xsl:if test="ns3:RequestId">
+                                    <ns3:RequestId>
+                                        <xsl:value-of select="ns3:RequestId"/>
+                                    </ns3:RequestId>
+                                </xsl:if>
+                                <ns3:SourceSystem>
+                                    <xsl:value-of select="ns3:SourceSystem"/>
+                                </ns3:SourceSystem>
+                                <ns3:ReplyExpected>
+                                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Constants/Reply/Now"/>
+                                </ns3:ReplyExpected>
+                                <ns3:QoS>
+                                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Constants/QOS/Reliable"/>
+                                </ns3:QoS>
+                                <xsl:if test="ns3:Schedule">
+                                    <ns3:Schedule>
+                                        <xsl:value-of select="ns3:Schedule"/>
+                                    </ns3:Schedule>
+                                </xsl:if>
+                                <xsl:if test="ns3:CorrelationId">
+                                    <ns3:CorrelationId>
+                                        <xsl:value-of select="ns3:CorrelationId"/>
+                                    </ns3:CorrelationId>
+                                </xsl:if>
+                                <xsl:if test="ns3:Priority">
+                                    <ns3:Priority>
+                                        <xsl:value-of select="ns3:Priority"/>
+                                    </ns3:Priority>
+                                </xsl:if>
+                                <xsl:for-each select="ns3:Credentials">
+                                    <ns3:Credentials>
+                                        <ns3:ApplicationId>
+                                            <xsl:value-of select="ns3:ApplicationId"/>
+                                        </ns3:ApplicationId>
+                                        <ns3:User>
+                                            <xsl:value-of select="ns3:User"/>
+                                        </ns3:User>
+                                        <xsl:if test="ns3:Password">
+                                            <ns3:Password>
+                                                <xsl:value-of select="ns3:Password"/>
+                                            </ns3:Password>
+                                        </xsl:if>
+                                    </ns3:Credentials>
+                                </xsl:for-each>
+                                <xsl:if test="ns3:ProxySystem">
+                                    <ns3:ProxySystem>
+                                        <xsl:value-of select="ns3:ProxySystem"/>
+                                    </ns3:ProxySystem>
+                                </xsl:if>
+                                <xsl:if test="ns3:ForceSimulate">
+                                    <ns3:ForceSimulate>
+                                        <xsl:value-of select="ns3:ForceSimulate"/>
+                                    </ns3:ForceSimulate>
+                                </xsl:if>
+                                <xsl:for-each select="ns3:Attributes">
+                                    <ns3:Attributes>
+                                        <xsl:for-each select="ns3:Attribute">
+                                            <ns3:Attribute>
+                                                <ns3:Name>
+                                                    <xsl:value-of select="ns3:Name"/>
+                                                </ns3:Name>
+                                                <ns3:Value>
+                                                    <xsl:value-of select="ns3:Value"/>
+                                                </ns3:Value>
+                                            </ns3:Attribute>
+                                        </xsl:for-each>
+                                    </ns3:Attributes>
+                                </xsl:for-each>
+                            </pfx3:Header>
+                        </xsl:for-each>
+                        <pfx3:Body>
+                            <ns4:Request>
+                                <xsl:choose>
+                                    <xsl:when test="$Parse-XML/RootItem/ListOfChildItem/ChildItem[ComponentGroup = 'TARIFF' ]/ListOfKeyFeature/KeyFeature[Feature = 'Sharable Bundle']/FeatureValue = 'Y'">
+                                        <ns4:CugId>
+                                            <xsl:value-of select="$Parse-XML/RootItem/ListOfChildItem/ChildItem[ComponentGroup = 'TARIFF'  and ListOfKeyFeature/KeyFeature[Feature = 'Sharable Bundle']/FeatureValue = 'Y']/ListOfChildItemAttribute/ChildItemAttribute[Name = &quot;Group ID&quot;]/Value"/>
+                                        </ns4:CugId>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <ns4:CugId>
+                                            <xsl:value-of select="$Parse-XML/RootItem[ProductCatalogId = '3300']/ListOfRootItemAttribute/RootItemAttribute[Name = &quot;Group ID&quot;]/Value"/>
+                                        </ns4:CugId>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </ns4:Request>
+                        </pfx3:Body>
+                    </pfx3:ServiceRequest>
+                </Body>
+            </pfx5:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="OrderComponentIterator">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>743</pd:x>
+        <pd:y>286</pd:y>
+        <config>
+            <processName>/Domains/OrderManagement/BusinessResources/Processes/OrderComponent/OrderComponentIterator.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <RequestDestination>
+                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:ServiceCatalogQueue"/>
+                </RequestDestination>
+                <ListOfRequests>
+                    <xsl:for-each select="$GetCUGMembers/pfx5:ActivityOutput/Body/pfx8:ServiceReply/pfx8:Body/ns4:Response/ns4:ListOfMembers/ns4:MSISDN">
+                        <xsl:variable name="_subscriber" select="."/>
+                        <xsl:for-each select="(&#xA;$Parse-XML/RootItem/ListOfChildItem/ChildItem[ComponentGroup = 'TARIFF'][ListOfKeyFeature/KeyFeature[Feature = 'Sharable Bundle']/FeatureValue = 'Y']/ListOfChildItemAttribute/ChildItemAttribute |&#xA;$Parse-XML/RootItem[ProductCatalogId = '3300']/ListOfRootItemAttribute/RootItemAttribute&#xA;)[Name = 'Parent Group ID']/Value">
+                            <xsl:variable name="_cugId" select="."/>
+                            <ns5:Request>
+                                <ns5:CugId>
+                                    <xsl:value-of select="$_cugId"/>
+                                </ns5:CugId>
+                                <ns5:SubscriberNo>
+                                    <xsl:value-of select="$_subscriber"/>
+                                </ns5:SubscriberNo>
+                                <ns5:OperationType>
+                                    <xsl:value-of select="'Delete'"/>
+                                </ns5:OperationType>
+                            </ns5:Request>
+                        </xsl:for-each>
+                        <xsl:for-each select="(&#xA;$Parse-XML/RootItem/ListOfChildItem/ChildItem[ComponentGroup = 'TARIFF'][ListOfKeyFeature/KeyFeature[Feature = 'Sharable Bundle']/FeatureValue = 'Y']/ListOfChildItemAttribute/ChildItemAttribute |&#xA;$Parse-XML/RootItem[ProductCatalogId = '3300']/ListOfRootItemAttribute/RootItemAttribute&#xA;)[Name = 'Group ID']/Value">
+                            <xsl:variable name="_cugId" select="."/>
+                            <ns5:Request>
+                                <ns5:CugId>
+                                    <xsl:value-of select="$_cugId"/>
+                                </ns5:CugId>
+                                <ns5:SubscriberNo>
+                                    <xsl:value-of select="$_subscriber"/>
+                                </ns5:SubscriberNo>
+                                <ns5:OperationType>
+                                    <xsl:value-of select="'Delete'"/>
+                                </ns5:OperationType>
+                            </ns5:Request>
+                        </xsl:for-each>
+                    </xsl:for-each>
+                </ListOfRequests>
+                <pfx:RequestEAI>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header"/>
+                </pfx:RequestEAI>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="OrderComponentResponse_SuccessNoMSISDN">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>743</pd:x>
+        <pd:y>61</pd:y>
+        <config>
+            <processName>/Domains/OrderManagement/BusinessResources/Processes/OrderComponent/OrderComponentResponse.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <ns12:Request>
+                    <ns12:OcDetails>
+                        <ns12:Id>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:OrderComponentDetails/ns1:Id"/>
+                        </ns12:Id>
+                        <ns12:Name>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:OrderComponentDetails/ns1:Name"/>
+                        </ns12:Name>
+                        <ns12:Scenario>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:OrderComponentDetails/ns1:Scenario"/>
+                        </ns12:Scenario>
+                        <ns12:OrderId>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:OrderComponentDetails/ns1:OrderId"/>
+                        </ns12:OrderId>
+                        <ns12:CorrelationID>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:OrderComponentDetails/ns1:CorrelationID"/>
+                        </ns12:CorrelationID>
+                        <xsl:for-each select="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:OrderComponentDetails/ns1:Cartridge">
+                            <ns12:Cartridge>
+                                <ns12:Name>
+                                    <xsl:value-of select="ns1:Name"/>
+                                </ns12:Name>
+                                <ns12:Version>
+                                    <xsl:value-of select="ns1:Version"/>
+                                </ns12:Version>
+                                <ns12:Source>
+                                    <xsl:value-of select="ns1:Source"/>
+                                </ns12:Source>
+                            </ns12:Cartridge>
+                        </xsl:for-each>
+                    </ns12:OcDetails>
+                    <ns12:ServiceReply>
+                        <xsl:copy-of select="$GetCUGMembers/pfx5:ActivityOutput/Body/pfx8:ServiceReply/pfx8:Header"/>
+                        <pfx8:Body>
+                            <ns33:TelcoOperationResponse>
+                                <Id>
+                                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:OrderComponentDetails/ns1:Id"/>
+                                </Id>
+                                <Name>
+                                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:OrderComponentDetails/ns1:Name"/>
+                                </Name>
+                                <OrderId>
+                                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:OrderComponentDetails/ns1:OrderId"/>
+                                </OrderId>
+                                <StatusCode>
+                                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/Success"/>
+                                </StatusCode>
+                                <StatusMessage>
+                                    <xsl:value-of select="concat($_globalVariables/ns:GlobalVariables/ErrorCodes/SuccessDescription, ' | ', $_globalVariables/ns:GlobalVariables/ErrorCodes/NoActionToPerformDescription)"/>
+                                </StatusMessage>
+                            </ns33:TelcoOperationResponse>
+                        </pfx8:Body>
+                    </ns12:ServiceReply>
+                </ns12:Request>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Parse XML">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>172</pd:x>
+        <pd:y>172</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>false</validateOutput>
+            <term>
+                <xsd:element name="RootItem" type="pfx4:RootItem"/>
+            </term>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Start/Input/pfx:RequestEAI/pfx:Body/*" element="ns1:Request"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:OrderComponentDetails/ns1:XMLMessage/*[1]"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="UpsertGlobalData">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>553</pd:x>
+        <pd:y>172</pd:y>
+        <config>
+            <processName>/Domains/OrderManagement/BusinessResources/Processes/TO2FGlobalData/UpsertGlobalData.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <OrderId>
+                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:OrderComponentDetails/ns1:OrderId"/>
+                </OrderId>
+                <ListOfKeyValue>
+                    <xsl:for-each select="$GetCUGMembers/pfx5:ActivityOutput/Body/pfx8:ServiceReply/pfx8:Body/ns4:Response/ns4:ListOfMembers/ns4:MSISDN">
+                        <KeyValue>
+                            <Key>
+                                <xsl:value-of select="concat($_globalVariables/ns:GlobalVariables/Domains/OrderManagement/GlobalDataNames/Billing/GetCUGMembers_MSISDNList,'_', position())"/>
+                            </Key>
+                            <Value>
+                                <xsl:value-of select="."/>
+                            </Value>
+                        </KeyValue>
+                    </xsl:for-each>
+                </ListOfKeyValue>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Parse XML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse XML</pd:from>
+        <pd:to>GetCUGMembers</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetCUGMembers</pd:from>
+        <pd:to>Fail-Order-Component</pd:to>
+        <pd:xpathDescription/>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-65536</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Fail-Order-Component</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetCUGMembers</pd:from>
+        <pd:to>coercion</pd:to>
+        <pd:xpathDescription>Success</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$GetCUGMembers/pfx5:ActivityOutput/Body/pfx8:ServiceReply/pfx8:Header/ns2:ResponseCode = $_globalVariables/ns:GlobalVariables/ErrorCodes/Success</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>OrderComponentResponse_SuccessNoMSISDN</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>OrderComponentIterator</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>coercion</pd:from>
+        <pd:to>UpsertGlobalData</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>UpsertGlobalData</pd:from>
+        <pd:to>OrderComponentResponse_SuccessNoMSISDN</pd:to>
+        <pd:xpathDescription>No Members</pd:xpathDescription>
+        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>count($GetCUGMembers/pfx5:ActivityOutput/Body/pfx8:ServiceReply/pfx8:Body/ns4:Response/ns4:ListOfMembers/ns4:MSISDN)=0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>UpsertGlobalData</pd:from>
+        <pd:to>OrderComponentIterator</pd:to>
+        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

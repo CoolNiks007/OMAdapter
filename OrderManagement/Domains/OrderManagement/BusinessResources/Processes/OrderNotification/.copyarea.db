@@ -1,0 +1,12 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\BusinessResources\Processes\OrderNotification
+2
+8
+26:EAIREGRESSIONOrderNotification.process|1|162d7aee9ee|13e4|70f7f983|4197f5c7377540028820590cfb234ac7|0
+23:MNPPREPROVOrderNotification.process|1|162d7aeeaa9|75e4|3d166a81|26527db696bd4f68ab49db5b2fc7be40|0
+1e:KENANOrderNotification.process|1|162d7aeeaa9|3387|34c05eaa|2aad2a5d84fd4b48b51d43819e967351|0
+1c:EAIOrderNotification.process|1|162d7aee9df|b7e|3b388181|2bfd1f6bdb204c809c10c545105713f6|0
+1f:SIEBELOrderNotification.process|1|162d7aeeab9|7370|960348c0|2826cd00a0864a059dfc821739f48148|0
+23:OrderNotificationDispatcher.process|1|162d7aeeaa9|b5c8|95922257|f151cf16020f403b837f564a9082459e|0
+8:Starters|2|0|0|0|524d492473b14815be92ca86f8bf4299|0
+7:.folder|1|162d7aee9df|18a|2b8e87f1|192c798c1fb444df82fc85e78d96300a|0

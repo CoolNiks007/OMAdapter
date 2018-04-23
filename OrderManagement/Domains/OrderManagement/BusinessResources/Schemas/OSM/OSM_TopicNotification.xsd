@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 elementFormDefault="unqualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="TelcoOrderStatusNotification">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Id" type="xs:string" minOccurs="0"/>
+				<xs:element name="MasterOrderId" type="xs:string" minOccurs="0"/>
+				<xs:element name="Reference" type="xs:string" minOccurs="0"/>
+				<xs:element name="State" type="xs:string"/>
+				<xs:element name="ProcessingDate" type="xs:string"/>
+				<xs:element name="Specification" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Cartridge" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Name" type="xs:string" minOccurs="0"/>
+										<xs:element name="Version" type="xs:string" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Type" type="xs:string" minOccurs="0"/>
+							<xs:element name="Source" type="xs:string" minOccurs="0"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ListOfRootId" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="RootId" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="CreatedBySystem" type="xs:string" minOccurs="0"/>
+				<xs:element name="CreatedBy" type="xs:string"/>
+				<xs:element name="StateMessage" type="xs:string" minOccurs="0"/>
+				<xs:element name="LastOrder" type="xs:string"/>
+				<xs:element name="PRFResponse" type="xs:string" minOccurs="0"/>
+				<xs:element name="Operational" type="xs:string" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

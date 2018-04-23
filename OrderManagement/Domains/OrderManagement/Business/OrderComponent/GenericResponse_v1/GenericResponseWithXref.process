@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://vodafone.com.tr/ServiceCatalog/Business/ProductManagement/ManageProducts/v1" xmlns:ns5="http://vodafone.com.tr/ServiceCatalog/Business/ReferenceData/UpsertIntegration/v1" xmlns:ns6="urn:com:metasolv:oms:xmlapi:1" xmlns:ns7="http://vodafone.com.tr/EAI/Common/ResponseCodes" xmlns:pfx="http://vodafone.com.tr/EAI/Common/RequestEAI" xmlns:ns8="http://www.tibco.com/pe/DeployedVarsType" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentResponseInput/v1" xmlns:ns4="http://vodafone.com.tr/EAI/ServiceCatalog/InstanceMapping" xmlns:ns3="http://vodafone.com.tr/ServiceCatalog/ServiceReply" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://vodafone.com.tr/EAI/Common/ResponseEAI" xmlns:pfx2="http://vodafone.com.tr/ServiceCatalog/Business/ReferenceData/DeleteIntegrationMapping/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/RequestEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/RequestEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentResponseInput/v1" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OrderComponent/OrderComponentResponseInput.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/ResponseEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/ResponseEAI.xsd"/>
+    <xsd:import namespace="urn:com:metasolv:oms:xmlapi:1" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OSM/OSM_OperationResponse.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/ServiceReply" schemaLocation="/Domains/ServiceCatalog/BusinessResources/Schemas/ServiceReply.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/ProductManagement/ManageProducts/v1" schemaLocation="/Domains/ServiceCatalog/Business/ProductManagement/ManageProducts_v1/Schemas/ManageProducts.xsd"/>
+    <pd:name>Domains/OrderManagement/Business/OrderComponent/GenericResponse_v1/GenericResponseWithXref.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Input">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx:RequestEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>41</pd:startX>
+    <pd:startY>304</pd:startY>
+    <pd:returnBindings>
+        <Output>
+            <pfx3:ResponseEAI>
+                <pfx3:Header>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ancestor-or-self::*/namespace::node()"/>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/@*"/>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/node()"/>
+                </pfx3:Header>
+                <xsl:choose>
+                    <xsl:when test="string-length($ErrorMessage/Error/ResponseCode)>0">
+                        <pfx3:ResponseCodes>
+                            <ns7:ResponseCode>
+                                <xsl:value-of select="$ErrorMessage/Error/ResponseCode"/>
+                            </ns7:ResponseCode>
+                            <ns7:ResponseMsg>
+                                <xsl:value-of select="$ErrorMessage/Error/ResponseMsg"/>
+                            </ns7:ResponseMsg>
+                            <ns7:ErrorCode>
+                                <xsl:value-of select="$ErrorMessage/Error/ErrorCode"/>
+                            </ns7:ErrorCode>
+                            <ns7:ErrorDescription>
+                                <xsl:value-of select="$ErrorMessage/Error/ErrorDesc"/>
+                            </ns7:ErrorDescription>
+                        </pfx3:ResponseCodes>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <pfx3:ResponseCodes>
+                            <ns7:ResponseCode>
+                                <xsl:value-of select="$_globalVariables/ns8:GlobalVariables/ErrorCodes/Success"/>
+                            </ns7:ResponseCode>
+                            <ns7:ResponseMsg>
+                                <xsl:value-of select="$_globalVariables/ns8:GlobalVariables/ErrorCodes/SuccessDescription"/>
+                            </ns7:ResponseMsg>
+                            <ns7:ErrorCode>
+                                <xsl:value-of select="$_globalVariables/ns8:GlobalVariables/ErrorCodes/Success"/>
+                            </ns7:ErrorCode>
+                            <ns7:ErrorDescription>
+                                <xsl:value-of select="$_globalVariables/ns8:GlobalVariables/ErrorCodes/SuccessDescription"/>
+                            </ns7:ErrorDescription>
+                        </pfx3:ResponseCodes>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <pfx3:Body>
+                    <ns6:TelcoOperationResponse>
+                        <Id>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns2:Request/ns2:OcDetails/ns2:Id"/>
+                        </Id>
+                        <Name>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns2:Request/ns2:OcDetails/ns2:Name"/>
+                        </Name>
+                        <OrderId>
+                            <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns2:Request/ns2:OcDetails/ns2:OrderId"/>
+                        </OrderId>
+                        <xsl:choose>
+                            <xsl:when test="string-length($ErrorMessage/Error/ResponseCode)>0">
+                                <StatusCode>
+                                    <xsl:value-of select="$ErrorMessage/Error/ResponseCode"/>
+                                </StatusCode>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <StatusCode>
+                                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns2:Request/ns2:ServiceReply/ns3:Header/ns7:ResponseCode"/>
+                                </StatusCode>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:choose>
+                            <xsl:when test="string-length($ErrorMessage/Error/ResponseCode)>0">
+                                <StatusMessage>
+                                    <xsl:value-of select="tib:left(concat($ErrorMessage/Error/ResponseMsg,': ', $ErrorMessage/Error/ErrorDesc), 1000)"/>
+                                </StatusMessage>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <StatusMessage>
+                                    <xsl:value-of select="tib:left(concat($Start/Input/pfx:RequestEAI/pfx:Body/ns2:Request/ns2:ServiceReply/ns3:Header/ns7:ResponseMsg,': ', $Start/Input/pfx:RequestEAI/pfx:Body/ns2:Request/ns2:ServiceReply/ns3:Header/ns7:ErrorDescription), 1000)"/>
+                                </StatusMessage>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <xsl:if test="string-length($ErrorMessage/Error/ResponseCode)>0">
+                            <PipelineItem>
+                                <OperationName>
+                                    <xsl:value-of select="concat($Start/Input/pfx:RequestEAI/pfx:Body/ns2:Request/ns2:OcDetails/ns2:Name, '-',$ErrorMessage/Error/Step)"/>
+                                </OperationName>
+                                <OperationId>
+                                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns2:Request/ns2:OcDetails/ns2:Id"/>
+                                </OperationId>
+                                <PipelineMessage>
+                                    <xsl:value-of select="tib:render-xml($Start/Input/pfx:RequestEAI/pfx:Body/ns2:Request/ns2:ServiceReply/ns3:Body/*[local-name() = 'Response'])"/>
+                                </PipelineMessage>
+                            </PipelineItem>
+                        </xsl:if>
+                    </ns6:TelcoOperationResponse>
+                </pfx3:Body>
+            </pfx3:ResponseEAI>
+        </Output>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="Output">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx3:ResponseEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>589</pd:endX>
+    <pd:endY>304</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <ErrorMessage>
+            <xsd:element name="Error">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ResponseCode" type="xsd:string"/>
+                        <xsd:element name="ResponseMsg" type="xsd:string"/>
+                        <xsd:element name="ErrorCode" type="xsd:string"/>
+                        <xsd:element name="ErrorDesc" type="xsd:string"/>
+                        <xsd:element name="Step" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </ErrorMessage>
+    </pd:processVariables>
+    <pd:targetNamespace>http://vodafone.com.tr/1429727185408</pd:targetNamespace>
+    <pd:activity name="UpsertIntegration">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>448</pd:x>
+        <pd:y>211</pd:y>
+        <config>
+            <processName>/GlobalCommonResources/Processes/ReferenceData/UpsertIntegration.process</processName>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Start/Input/pfx:RequestEAI/pfx:Body/*" element="ns2:Request"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <ServiceRequest>
+                <Header>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ancestor-or-self::*/namespace::node()"/>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/@*"/>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/node()"/>
+                </Header>
+                <Body>
+                    <ns5:Request>
+                        <xsl:for-each select="$Start/Input/pfx:RequestEAI/pfx:Body/ns2:Request/ns2:ServiceReply/ns3:Body/*/*/ns4:InstanceDataMapping[ns4:Action=($_globalVariables/ns8:GlobalVariables/Domains/ReferenceData/ProductMapper/Defaults/InstanceData/Action/Add,$_globalVariables/ns8:GlobalVariables/Domains/ReferenceData/ProductMapper/Defaults/InstanceData/Action/Modify)]">
+                            <ns5:MappingsList>
+                                <ns5:ExistingMapping>
+                                    <ns5:Active>
+                                        <xsl:value-of select="true()"/>
+                                    </ns5:Active>
+                                    <ns5:Application>
+                                        <ns5:Name>
+                                            <xsl:choose>
+                                                <xsl:when test="exists(current()/ns4:SourceApplication/ns4:Name)">
+                                                    <xsl:value-of select="current()/ns4:SourceApplication/ns4:Name"/>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
+                                        </ns5:Name>
+                                        <ns5:Version>
+                                            <xsl:choose>
+                                                <xsl:when test="exists(current()/ns4:SourceApplication/ns4:Version)">
+                                                    <xsl:value-of select="current()/ns4:SourceApplication/ns4:Version"/>
+                                                </xsl:when>
+                                                <xsl:otherwise>
+                                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                                </xsl:otherwise>
+                                            </xsl:choose>
+                                        </ns5:Version>
+                                    </ns5:Application>
+                                    <ns5:Entity>
+                                        <xsl:value-of select="current()/ns4:SourceInstance[1]/ns4:Entity"/>
+                                    </ns5:Entity>
+                                    <xsl:for-each select="current()/ns4:SourceInstance">
+                                        <ns5:NativeIds>
+                                            <ns5:Name>
+                                                <xsl:value-of select="ns4:NativeKey"/>
+                                            </ns5:Name>
+                                            <ns5:Value>
+                                                <xsl:value-of select="ns4:NativeId"/>
+                                            </ns5:Value>
+                                        </ns5:NativeIds>
+                                    </xsl:for-each>
+                                    <xsl:if test="current()/ns4:SourceInstance[string-length(ns4:EndDate)>0][1]/ns4:EndDate">
+                                        <ns5:EndDate>
+                                            <xsl:value-of select="current()/ns4:SourceInstance[string-length(ns4:EndDate)>0][1]/ns4:EndDate"/>
+                                        </ns5:EndDate>
+                                    </xsl:if>
+                                </ns5:ExistingMapping>
+                                <ns5:IntegrationMappingInstances>
+                                    <ns5:IntegrationMappingsUpsert>
+                                        <ns5:Active>
+                                            <xsl:value-of select="true()"/>
+                                        </ns5:Active>
+                                        <ns5:Application>
+                                            <xsl:if test="current()/ns4:TargetApplication/ns4:Name">
+                                                <ns5:Name>
+                                                    <xsl:value-of select="current()/ns4:TargetApplication/ns4:Name"/>
+                                                </ns5:Name>
+                                            </xsl:if>
+                                            <xsl:if test="current()/ns4:TargetApplication/ns4:Version">
+                                                <ns5:Version>
+                                                    <xsl:value-of select="current()/ns4:TargetApplication/ns4:Version"/>
+                                                </ns5:Version>
+                                            </xsl:if>
+                                        </ns5:Application>
+                                        <ns5:EffectiveDate>
+                                            <xsl:value-of select="current-dateTime()"/>
+                                        </ns5:EffectiveDate>
+                                        <xsl:if test="current()/ns4:TargetInstance[string-length(ns4:EndDate)>0][1]/ns4:EndDate">
+                                            <ns5:EndDate>
+                                                <xsl:value-of select="current()/ns4:TargetInstance[string-length(ns4:EndDate)>0][1]/ns4:EndDate"/>
+                                            </ns5:EndDate>
+                                        </xsl:if>
+                                        <ns5:Entity>
+                                            <xsl:value-of select="current()/ns4:TargetInstance[1]/ns4:Entity"/>
+                                        </ns5:Entity>
+                                        <xsl:for-each select="current()/ns4:TargetInstance">
+                                            <ns5:NativeIds>
+                                                <ns5:Name>
+                                                    <xsl:value-of select="current()/ns4:NativeKey"/>
+                                                </ns5:Name>
+                                                <ns5:Value>
+                                                    <xsl:value-of select="current()/ns4:NativeId"/>
+                                                </ns5:Value>
+                                            </ns5:NativeIds>
+                                        </xsl:for-each>
+                                    </ns5:IntegrationMappingsUpsert>
+                                </ns5:IntegrationMappingInstances>
+                            </ns5:MappingsList>
+                        </xsl:for-each>
+                        <ns5:user>
+                            <xsl:value-of select="'OSM'"/>
+                        </ns5:user>
+                    </ns5:Request>
+                </Body>
+            </ServiceRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="UpsertIntegrationMapping ForEndDate">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>196</pd:x>
+        <pd:y>63</pd:y>
+        <config>
+            <processName>/GlobalCommonResources/Processes/ReferenceData/UpsertIntegration.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ServiceRequest>
+                <Header>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ancestor-or-self::*/namespace::node()"/>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/@*"/>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/node()"/>
+                </Header>
+                <Body>
+                    <ns5:Request>
+                        <xsl:for-each select="$Start/Input/pfx:RequestEAI/pfx:Body/ns2:Request/ns2:ServiceReply/ns3:Body/*/*/ns4:InstanceDataMapping[ns4:Action=$_globalVariables/ns8:GlobalVariables/Domains/ReferenceData/ProductMapper/Defaults/InstanceData/Action/Delete]">
+                            <ns5:MappingsList>
+                                <ns5:ExistingMapping>
+                                    <ns5:Active>
+                                        <xsl:value-of select="true()"/>
+                                    </ns5:Active>
+                                    <ns5:Application>
+                                        <xsl:if test="current()/ns4:SourceApplication/ns4:Name">
+                                            <ns5:Name>
+                                                <xsl:value-of select="current()/ns4:SourceApplication/ns4:Name"/>
+                                            </ns5:Name>
+                                        </xsl:if>
+                                        <xsl:if test="current()/ns4:SourceApplication/ns4:Version">
+                                            <ns5:Version>
+                                                <xsl:value-of select="current()/ns4:SourceApplication/ns4:Version"/>
+                                            </ns5:Version>
+                                        </xsl:if>
+                                    </ns5:Application>
+                                    <ns5:Entity>
+                                        <xsl:value-of select="current()/ns4:SourceInstance[1]/ns4:Entity"/>
+                                    </ns5:Entity>
+                                    <xsl:for-each select="current()/ns4:SourceInstance">
+                                        <ns5:NativeIds>
+                                            <ns5:Name>
+                                                <xsl:value-of select="ns4:NativeKey"/>
+                                            </ns5:Name>
+                                            <ns5:Value>
+                                                <xsl:value-of select="ns4:NativeId"/>
+                                            </ns5:Value>
+                                        </ns5:NativeIds>
+                                    </xsl:for-each>
+                                </ns5:ExistingMapping>
+                                <ns5:IntegrationMappingInstances>
+                                    <ns5:IntegrationMappingsUpsert>
+                                        <!--Source Application-->
+                                        <ns5:Active>
+                                            <xsl:value-of select="true()"/>
+                                        </ns5:Active>
+                                        <ns5:Application>
+                                            <ns5:Name>
+                                                <xsl:value-of select="current()/ns4:SourceApplication/ns4:Name"/>
+                                            </ns5:Name>
+                                            <ns5:Version>
+                                                <xsl:value-of select="current()/ns4:SourceApplication/ns4:Version"/>
+                                            </ns5:Version>
+                                        </ns5:Application>
+                                        <ns5:EffectiveDate>
+                                            <xsl:value-of select="current-dateTime()"/>
+                                        </ns5:EffectiveDate>
+                                        <ns5:EndDate>
+                                            <xsl:value-of select="tib:add-to-dateTime(current-dateTime(), 0, '+6', 0, 0, 0, 0)"/>
+                                        </ns5:EndDate>
+                                        <ns5:Entity>
+                                            <xsl:value-of select="current()/ns4:SourceInstance[1]/ns4:Entity"/>
+                                        </ns5:Entity>
+                                        <xsl:for-each select="current()/ns4:SourceInstance">
+                                            <ns5:NativeIds>
+                                                <ns5:Name>
+                                                    <xsl:value-of select="ns4:NativeKey"/>
+                                                </ns5:Name>
+                                                <ns5:Value>
+                                                    <xsl:value-of select="ns4:NativeId"/>
+                                                </ns5:Value>
+                                            </ns5:NativeIds>
+                                        </xsl:for-each>
+                                    </ns5:IntegrationMappingsUpsert>
+                                    <xsl:if test="string-length(current()/ns4:TargetInstance)>0">
+                                        <ns5:IntegrationMappingsUpsert>
+                                            <!--Target Application-->
+                                            <ns5:Active>
+                                                <xsl:value-of select="true()"/>
+                                            </ns5:Active>
+                                            <ns5:Application>
+                                                <xsl:if test="current()/ns4:TargetApplication/ns4:Name">
+                                                    <ns5:Name>
+                                                        <xsl:value-of select="current()/ns4:TargetApplication/ns4:Name"/>
+                                                    </ns5:Name>
+                                                </xsl:if>
+                                                <xsl:if test="current()/ns4:TargetApplication/ns4:Version">
+                                                    <ns5:Version>
+                                                        <xsl:value-of select="current()/ns4:TargetApplication/ns4:Version"/>
+                                                    </ns5:Version>
+                                                </xsl:if>
+                                            </ns5:Application>
+                                            <ns5:EffectiveDate>
+                                                <xsl:value-of select="current-dateTime()"/>
+                                            </ns5:EffectiveDate>
+                                            <ns5:EndDate>
+                                                <xsl:value-of select="tib:add-to-dateTime(current-dateTime(), 0, '+6', 0, 0, 0, 0)"/>
+                                            </ns5:EndDate>
+                                            <ns5:Entity>
+                                                <xsl:value-of select="current()/ns4:TargetInstance[1]/ns4:Entity"/>
+                                            </ns5:Entity>
+                                            <xsl:for-each select="current()/ns4:TargetInstance">
+                                                <ns5:NativeIds>
+                                                    <ns5:Name>
+                                                        <xsl:value-of select="current()/ns4:NativeKey"/>
+                                                    </ns5:Name>
+                                                    <ns5:Value>
+                                                        <xsl:value-of select="current()/ns4:NativeId"/>
+                                                    </ns5:Value>
+                                                </ns5:NativeIds>
+                                            </xsl:for-each>
+                                        </ns5:IntegrationMappingsUpsert>
+                                    </xsl:if>
+                                </ns5:IntegrationMappingInstances>
+                            </ns5:MappingsList>
+                        </xsl:for-each>
+                        <ns5:user>
+                            <xsl:value-of select="'OSM'"/>
+                        </ns5:user>
+                    </ns5:Request>
+                </Body>
+            </ServiceRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Null">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>583</pd:x>
+        <pd:y>59</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Null-1">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>197</pd:x>
+        <pd:y>212</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Assign Error">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>448</pd:x>
+        <pd:y>108</pd:y>
+        <config>
+            <variableName>ErrorMessage</variableName>
+        </config>
+        <pd:inputBindings>
+            <xsl:choose>
+                <xsl:when test="$UpsertIntegrationMapping-ForEndDate/ServiceReply/Header/ns7:ResponseCode !=$_globalVariables/ns8:GlobalVariables/ErrorCodes/Success">
+                    <Error>
+                        <ResponseCode>
+                            <xsl:value-of select="$UpsertIntegrationMapping-ForEndDate/ServiceReply/Header/ns7:ResponseCode"/>
+                        </ResponseCode>
+                        <ResponseMsg>
+                            <xsl:value-of select="$UpsertIntegrationMapping-ForEndDate/ServiceReply/Header/ns7:ResponseMsg"/>
+                        </ResponseMsg>
+                        <ErrorCode>
+                            <xsl:value-of select="$UpsertIntegrationMapping-ForEndDate/ServiceReply/Header/ns7:ErrorCode"/>
+                        </ErrorCode>
+                        <ErrorDesc>
+                            <xsl:value-of select="$UpsertIntegrationMapping-ForEndDate/ServiceReply/Header/ns7:ErrorDescription"/>
+                        </ErrorDesc>
+                        <Step>
+                            <xsl:value-of select="'Delete'"/>
+                        </Step>
+                    </Error>
+                </xsl:when>
+                <xsl:otherwise>
+                    <Error>
+                        <ResponseCode>
+                            <xsl:value-of select="$UpsertIntegration/ServiceReply/Header/ns7:ResponseCode"/>
+                        </ResponseCode>
+                        <ResponseMsg>
+                            <xsl:value-of select="$UpsertIntegration/ServiceReply/Header/ns7:ResponseMsg"/>
+                        </ResponseMsg>
+                        <ErrorCode>
+                            <xsl:value-of select="$UpsertIntegration/ServiceReply/Header/ns7:ErrorCode"/>
+                        </ErrorCode>
+                        <ErrorDesc>
+                            <xsl:value-of select="$UpsertIntegration/ServiceReply/Header/ns7:ErrorDescription"/>
+                        </ErrorDesc>
+                        <Step>
+                            <xsl:value-of select="'Upsert'"/>
+                        </Step>
+                    </Error>
+                </xsl:otherwise>
+            </xsl:choose>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>UpsertIntegration</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>UpsertIntegrationMapping ForEndDate</pd:from>
+        <pd:to>UpsertIntegration</pd:to>
+        <pd:xpathDescription>Add &amp; Modify</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>count($Start/Input/pfx:RequestEAI/pfx:Body/ns2:Request/ns2:ServiceReply/ns3:Body/*/*/ns4:InstanceDataMapping[ns4:Action=($_globalVariables/ns8:GlobalVariables/Domains/ReferenceData/ProductMapper/Defaults/InstanceData/Action/Add,$_globalVariables/ns8:GlobalVariables/Domains/ReferenceData/ProductMapper/Defaults/InstanceData/Action/Modify)]) &gt; 0
+and
+$UpsertIntegrationMapping-ForEndDate/ServiceReply/Header/ns7:ResponseCode = $_globalVariables/ns8:GlobalVariables/ErrorCodes/Success</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>UpsertIntegrationMapping ForEndDate</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Null-1</pd:to>
+        <pd:xpathDescription>Needs Instance Mapping</pd:xpathDescription>
+        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>count($Start/Input/pfx:RequestEAI/pfx:Body/ns2:Request/ns2:ServiceReply/ns3:Body/*/*/ns4:InstanceDataMapping) &gt; 0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null-1</pd:from>
+        <pd:to>UpsertIntegrationMapping ForEndDate</pd:to>
+        <pd:xpathDescription>Update EndDate</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>count($Start/Input/pfx:RequestEAI/pfx:Body/ns2:Request/ns2:ServiceReply/ns3:Body/*/*/ns4:InstanceDataMapping[ns4:Action=($_globalVariables/ns8:GlobalVariables/Domains/ReferenceData/ProductMapper/Defaults/InstanceData/Action/Delete)]) &gt; 0
+and
+not(contains($Start/Input/pfx:RequestEAI/pfx:Body/ns2:Request/ns2:ServiceReply/ns3:Header/ns7:Attributes/ns7:Attribute[ns7:Name = 'OperationName']/ns7:Value, 'Upsert'))</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null-1</pd:from>
+        <pd:to>UpsertIntegration</pd:to>
+        <pd:xpathDescription>Add/Modify and don't need delete</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>(count($Start/Input/pfx:RequestEAI/pfx:Body/ns2:Request/ns2:ServiceReply/ns3:Body/*/*/ns4:InstanceDataMapping[ns4:Action=($_globalVariables/ns8:GlobalVariables/Domains/ReferenceData/ProductMapper/Defaults/InstanceData/Action/Add,$_globalVariables/ns8:GlobalVariables/Domains/ReferenceData/ProductMapper/Defaults/InstanceData/Action/Modify)]) &gt; 0
+and
+count($Start/Input/pfx:RequestEAI/pfx:Body/ns2:Request/ns2:ServiceReply/ns3:Body/*/*/ns4:InstanceDataMapping[ns4:Action=($_globalVariables/ns8:GlobalVariables/Domains/ReferenceData/ProductMapper/Defaults/InstanceData/Action/Delete)])  = 0)
+or
+contains($Start/Input/pfx:RequestEAI/pfx:Body/ns2:Request/ns2:ServiceReply/ns3:Header/ns7:Attributes/ns7:Attribute[ns7:Name = 'OperationName']/ns7:Value, 'Upsert')</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>UpsertIntegrationMapping ForEndDate</pd:from>
+        <pd:to>Assign Error</pd:to>
+        <pd:xpathDescription>Error Deleting Instance Mapping</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$UpsertIntegrationMapping-ForEndDate/ServiceReply/Header/ns7:ResponseCode !=$_globalVariables/ns8:GlobalVariables/ErrorCodes/Success</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>UpsertIntegration</pd:from>
+        <pd:to>Assign Error</pd:to>
+        <pd:xpathDescription>Error Insert/Update Instance Mapping</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$UpsertIntegration/ServiceReply/Header/ns7:ResponseCode !=$_globalVariables/ns8:GlobalVariables/ErrorCodes/Success</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign Error</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

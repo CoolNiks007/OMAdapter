@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002">
+    <name name="OrderManagement">
+        <version>37</version>
+        <author>celfocus</author>
+        <fileLocation>F:\branches\Tibco\AD_R2.0.35\framework\_libs\OrderManagement.projlib</fileLocation>
+        <resources>/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd,/Domains/ServiceCatalog/Business/OSM/CancelOrder_v1/Schemas/CancelOrder.xsd,/Domains/ServiceCatalog/Business/OSM/CloseMasterOrder_v1/Schemas/CloseMasterOrder.xsd,/Domains/ServiceCatalog/Business/OSM/CreateChildOrder_v1/Schemas/CreateChildOrder.xsd,/Domains/ServiceCatalog/Business/OSM/CreateMasterOrder_v1/Schemas/CreateMasterOrder.xsd,/Domains/ServiceCatalog/Business/OSM/CreateOrder_v1/Schemas/CreateOrder.xsd,/Domains/ServiceCatalog/Business/OSM/DecomposeForValidation_v1/Schemas/DecomposeForValidation.xsd,/Domains/ServiceCatalog/Business/OSM/FindFDOByKeyword_v1/Schemas/FindFDOByKeyword.xsd,/Domains/ServiceCatalog/Business/OSM/FindOrders_v1/Schemas/FindOrders.xsd,/Domains/ServiceCatalog/Business/OSM/GetMasterOrder_v1/Schemas/GetMasterOrder.xsd,/Domains/ServiceCatalog/Business/OSM/GetOrder_v1/Schemas/GetOrder.xsd,/Domains/ServiceCatalog/Business/OSM/GetValidationOrder_v1/Schemas/GetValidationOrder.xsd,/Domains/ServiceCatalog/Business/OSM/IsOrderCancellable_v1/Schemas/IsOrderCancellable.xsd,/Domains/ServiceCatalog/Business/OSM/ResubmitOrder_v1/Schemas/ResubmitOrder.xsd,/Domains/ServiceCatalog/Business/OSM/SubmitFutureOrder_v1/Schemas/SubmitFutureOrder.xsd,/Domains/ServiceCatalog/Business/OrderManagement/RegisterCampaign_v1/Schemas/RegisterCampaign.xsd,/Domains/ServiceCatalog/Business/OrderManagement/SendCallbackNotification_v1/Schemas/SendCallbackNotification.xsd</resources>
+        <description>AD_R2.0.35</description>
+    </name>
+</Repository:repository>

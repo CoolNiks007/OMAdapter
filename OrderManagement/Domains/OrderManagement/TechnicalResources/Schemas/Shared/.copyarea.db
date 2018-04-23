@@ -1,0 +1,8 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\TechnicalResources\Schemas\Shared
+2
+4
+12:GetMasterOrder.xsd|1|162d7af0432|7c8|c323851d|61ebb4ede1af41ddb4017c4ca4bf94d3|0
+f:CreateOrder.xsd|1|162d7af0422|36a|343623fb|0f3ff76615c74a5094670aea30b78b50|0
+f:CancelOrder.xsd|1|162d7af0422|48f|da9584b5|c92f0d8785804b948d9256178e0e9c2c|0
+7:.folder|1|162d7af0422|17f|c2e48365|92ceb93f4ab54de180e12ab82ccba13e|0

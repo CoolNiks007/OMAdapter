@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource>
+    <name>EAI Database Connection</name>
+    <resourceType>ae.shared.JDBCSharedResource</resourceType>
+    <config>
+        <driver>tibcosoftwareinc.jdbc.oracle.OracleDriver</driver>
+        <maxConnections>%%Database/EAI/MaxConnections%%</maxConnections>
+        <loginTimeout>%%Database/EAI/LoginTimeout%%</loginTimeout>
+        <connectionType>JDBC</connectionType>
+        <UseSharedJndiConfig>false</UseSharedJndiConfig>
+        <location>%%Database/EAI/JdbcUrl%%</location>
+        <user>PROCUSER01</user>
+        <password>#!xpEH/1X57HY/oiM5Xqz8pcHhY5vxLxN9r4WKwH8PvAE=</password>
+    </config>
+</BWSharedResource>

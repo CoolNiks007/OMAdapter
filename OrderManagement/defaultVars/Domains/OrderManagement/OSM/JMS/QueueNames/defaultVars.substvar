@@ -1,0 +1,29 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>OrderComponentNotificationQueueName</name>
+			<value>vftr/oms/external/jms/queue/notification_tibco</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1430835469971</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>OrderComponentRequestQueueName</name>
+			<value>vftr/oms/external/jms/queue/request</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1415288614354</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>OrderComponentResponseQueueName</name>
+			<value>vftr/oms/external/jms/queue/reply</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1415288614614</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.tibco.com/schemas/OrderManagement/Domains/OrderManagement/BusinessResources/Schemas/Schema.xsd2"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="OrderEntry-LineItem">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element type="xs:string" name="TELCOPortabilityDate"/>
+				<xs:element type="xs:string" name="TELCOPortabilityPrevAccountType"/>
+				<xs:element type="xs:string" name="TELCOPortabilityPrevOperator"/>
+				<xs:element type="xs:string" name="TELCOADSLOperator"/>
+				<xs:element type="xs:string" name="TELCOADSLAggregator"/>
+				<xs:element type="xs:string" name="TELCOContactFullName"/>
+				<xs:element type="xs:string" name="TELCOSAShipToAddressBuilding"/>
+				<xs:element type="xs:string" name="TELCOSAShipToAddressFloor"/>
+				<xs:element type="xs:string" name="TELCOSAShipToAddressFraction"/>
+				<xs:element type="xs:string" name="TELCOSAShipToAddressType"/>
+				<xs:element type="xs:string" name="TELCOSAShipToCity"/>
+				<xs:element type="xs:string" name="TELCOSAShipToCountry"/>
+				<xs:element type="xs:string" name="TELCOSAShipToPostalCode"/>
+				<xs:element type="xs:string" name="TELCOSAShipToPostalCodeDescription"/>
+				<xs:element type="xs:string" name="TELCOSAShipToPostalCodeExt"/>
+				<xs:element type="xs:string" name="TELCOSAShipToStreetAddress"/>
+				<xs:element type="xs:string" name="TELCOSAShipToStreetNum"/>
+				<xs:element type="xs:string" name="Id"/>
+				<xs:element type="xs:string" name="ActionCode"/>
+				<xs:element type="xs:string" name="AssetIntegrationId"/>
+				<xs:element type="xs:string" name="BillingAccount"/>
+				<xs:element type="xs:string" name="TELCOBillingAccountStatus"/>
+				<xs:element type="xs:string" name="TELCOPreviousParentAccount"/>
+				<xs:element type="xs:string" name="BillingAccountType"/>
+				<xs:element type="xs:string" name="TELCOPreviousBillingAccountType"/>
+				<xs:element type="xs:string" name="BillingAccountTypeCode"/>
+				<xs:element type="xs:byte" name="CalculatedNetPrice"/>
+				<xs:element type="xs:string" name="CurrencyCode"/>
+				<xs:element type="xs:string" name="ExchangeDate"/>
+				<xs:element type="xs:string" name="IntegrationId"/>
+				<xs:element type="xs:byte" name="LineNumber"/>
+				<xs:element type="xs:byte" name="NetPrice"/>
+				<xs:element type="xs:string" name="OrderHeaderId"/>
+				<xs:element type="xs:string" name="OrderRequestedShipDate"/>
+				<xs:element type="xs:string" name="ParentOrderItemId"/>
+				<xs:element type="xs:string" name="PreviousBillingAccount"/>
+				<xs:element type="xs:string" name="Product"/>
+				<xs:element type="xs:string" name="ProductIntegrationId"/>
+				<xs:element type="xs:string" name="ProductType"/>
+				<xs:element type="xs:string" name="XAClassName"/>
+				<xs:element type="xs:byte" name="QuantityRequested"/>
+				<xs:element type="xs:string" name="RootOrderItemId"/>
+				<xs:element type="xs:string" name="EndDate"/>
+				<xs:element type="xs:int" name="ServiceId"/>
+				<xs:element type="xs:string" name="StartDate"/>
+				<xs:element type="xs:string" name="SmartPartNumber"/>
+				<xs:element type="xs:string" name="TELCOActionReason"/>
+				<xs:element type="xs:string" name="TELCOActionType"/>
+				<xs:element type="xs:string" name="TELCOPreviousActionType"/>
+				<xs:element type="xs:string" name="TELCOStatusDate"/>
+				<xs:element type="xs:string" name="TELCOBillingAccountOwnerSystem"/>
+				<xs:element type="xs:string" name="TELCOBillingAccountTypeIntegrationId"/>
+				<xs:element type="xs:string" name="TELCOBillingPaymentResponsibility"/>
+				<xs:element type="xs:string" name="TELCOConsolidatedParentAccount"/>
+				<xs:element type="xs:string" name="TELCOConsolidatedParentAccountType"/>
+				<xs:element type="xs:string" name="TELCOPreviousActionReason"/>
+				<xs:element type="xs:string" name="PreviousActionCode"/>
+				<xs:element type="xs:string" name="PreviousOrderId"/>
+				<xs:element type="xs:string" name="TELCOPreviousLineItemId"/>
+				<xs:element type="xs:string" name="TELCOBillingAccountCreation"/>
+				<xs:element type="xs:string" name="TELCOBillingAccountMasterType"/>
+				<xs:element type="xs:string" name="TELCOPrimaryBillFirstName"/>
+				<xs:element type="xs:string" name="TELCOPrimaryBillLastName"/>
+				<xs:element type="xs:string" name="TELCOINProviderId"/>
+				<xs:element type="xs:string" name="TELCOINTariffId"/>
+				<xs:element type="xs:string" name="TELCOPreviousINStatus"/>
+				<xs:element type="xs:string" name="TELCOINStatus"/>
+				<xs:element type="xs:string" name="TELCOFraudLockStatus"/>
+				<xs:element type="xs:string" name="TELCOProductDurationDays"/>
+				<xs:element type="xs:string" name="TELCOPenaltyProduct"/>
+				<xs:element name="OrderEntry-ChildLineItem" maxOccurs="unbounded" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element type="xs:string" name="ProductType"/>
+							<xs:element type="xs:string" name="BillingAccount" minOccurs="0"/>
+							<xs:element type="xs:string" name="Id" minOccurs="0"/>
+							<xs:element type="xs:string" name="TELCOProductStatus" minOccurs="0"/>
+							<xs:element type="xs:string" name="ActionCode" minOccurs="0"/>
+							<xs:element type="xs:string" name="AssetIntegrationId" minOccurs="0"/>
+							<xs:element type="xs:string" name="CurrencyCode" minOccurs="0"/>
+							<xs:element type="xs:string" name="IntegrationId" minOccurs="0"/>
+							<xs:element type="xs:byte" name="LineNumber" minOccurs="0"/>
+							<xs:element type="xs:byte" name="NetPrice2" minOccurs="0"/>
+							<xs:element type="xs:byte" name="TELCOTotalPrice" minOccurs="0"/>
+							<xs:element type="xs:string" name="OrderHeaderId" minOccurs="0"/>
+							<xs:element type="xs:string" name="ParentOrderItemId" minOccurs="0"/>
+							<xs:element type="xs:string" name="Product"/>
+							<xs:element type="xs:string" name="XAClassName"/>
+							<xs:element type="xs:byte" name="QuantityRequested" minOccurs="0"/>
+							<xs:element type="xs:string" name="RootOrderItemId" minOccurs="0"/>
+							<xs:element type="xs:string" name="EndDate" minOccurs="0"/>
+							<xs:element type="xs:string" name="StartDate" minOccurs="0"/>
+							<xs:element type="xs:byte" name="TELCOProductValue" minOccurs="0"/>
+							<xs:element type="xs:string" name="ProductIntegrationId" minOccurs="0"/>
+							<xs:element type="xs:string" name="TELCOINTariffId" minOccurs="0"/>
+							<xs:element type="xs:string" name="TELCOINProviderId" minOccurs="0"/>
+							<xs:element type="xs:string" name="TELCOProductSubType" minOccurs="0"/>
+							<xs:element type="xs:string" name="TELCOChargeChanges" minOccurs="0"/>
+							<xs:element type="xs:byte" name="TELCOFnFSlots" minOccurs="0"/>
+							<xs:element type="xs:string" name="TELCOProductDurationDays" minOccurs="0"/>
+							<xs:element type="xs:string" name="TELCOProductCategory" minOccurs="0"/>
+							<xs:element type="xs:string" name="TELCOPenaltyAmount" minOccurs="0"/>
+							<xs:element type="xs:string" name="TELCOPenaltyProduct" minOccurs="0"/>
+							<xs:element name="ListOfOrderChildItemAttributes" minOccurs="0">
+								<xs:complexType mixed="true">
+									<xs:sequence>
+										<xs:element name="OrderItemChildAttribute" maxOccurs="unbounded" minOccurs="0">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element type="xs:string" name="DataType"/>
+													<xs:element type="xs:string" name="Name"/>
+													<xs:element type="xs:string" name="ObjectId"/>
+													<xs:element type="xs:string" name="TELCOPreviousAssetValue"/>
+													<xs:element type="xs:string" name="RootObjectId"/>
+													<xs:element type="xs:string" name="Value"/>
+													<xs:element type="xs:string" name="TELCOPreviousValue"/>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element type="xs:string" name="ListOfOrderItemAttributes"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

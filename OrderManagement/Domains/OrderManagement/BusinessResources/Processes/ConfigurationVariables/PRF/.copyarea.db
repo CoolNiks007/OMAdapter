@@ -1,0 +1,7 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\BusinessResources\Processes\ConfigurationVariables\PRF
+2
+3
+1e:GetPRFTransactionCodes.process|1|162d7aee887|19bc|2845cd4c|07aabcb1dc2a4f4286f2ad7675d2e9f2|0
+1f:LoadPRFTransactionCodes.process|1|162d7aee897|1ff6|7e3deb12|a62d46085ada4dba8471b3809768577a|0
+7:.folder|1|162d7aee887|17c|e4c681f6|29904a630b8945f78ff99e8c92ca3ace|0

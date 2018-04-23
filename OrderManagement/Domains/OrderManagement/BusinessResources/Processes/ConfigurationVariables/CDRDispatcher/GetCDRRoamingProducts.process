@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <pd:name>Domains/OrderManagement/BusinessResources/Processes/ConfigurationVariables/CDRDispatcher/GetCDRRoamingProducts.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="AllProductCatalogIds">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="ProductCatalogId" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>150</pd:startX>
+    <pd:startY>64</pd:startY>
+    <pd:returnBindings>
+        <Output>
+            <xsl:for-each select="$GetCDRRoamingProducts/ListOfCDRRoamingProducts/CDRRoamingProducts[ProductCatalogId=$Start/AllProductCatalogIds/ProductCatalogId]">
+                <RoamingProducts>
+                    <BundleId>
+                        <xsl:value-of select="BundleId"/>
+                    </BundleId>
+                    <ProductCatalogId>
+                        <xsl:value-of select="ProductCatalogId"/>
+                    </ProductCatalogId>
+                </RoamingProducts>
+            </xsl:for-each>
+        </Output>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="Output">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="RoamingProducts" minOccurs="0" maxOccurs="unbounded">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="BundleId" type="xsd:string" minOccurs="0"/>
+                                <xsd:element name="ProductCatalogId" type="xsd:string" minOccurs="0"/>
+                            </xsd:sequence>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>514</pd:endX>
+    <pd:endY>68</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1503904013861</pd:targetNamespace>
+    <pd:activity name="GetCDRRoamingProducts">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>307</pd:x>
+        <pd:y>65</pd:y>
+        <config>
+            <variableConfig>/Domains/OrderManagement/BusinessResources/SharedVariables/CDRDispatcher/CDR Roaming Products.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>GetCDRRoamingProducts</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetCDRRoamingProducts</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

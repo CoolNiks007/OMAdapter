@@ -1,0 +1,14 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\BusinessResources\Schemas
+2
+a
+7:TesteOC|2|0|0|0|be5f2f7fcca248c6aa4438db39cc8177|0
+17:DailyBillShockOrder.xsd|1|162d7aeeb45|2e8|7a98fb04|8e084e64be7e410d92795df0c87d03ef|0
+13:TemplateApplication|2|0|0|0|272dae3d46e148428cacf13216eb793e|0
+3:OSM|2|0|0|0|81be763a286b4071aebc30622f83f4c7|0
+b:Portability|2|0|0|0|0992e40abe7444ffa7c9d7585d11df61|0
+f:SiebelOrder.xsd|1|162d7aeecfa|b0b4|1ef6b29|8533b762b3e648f682cc2213a39d4c50|0
+e:OrderComponent|2|0|0|0|23070fc79c644327be7106fb12220bc6|0
+c:OSMOrder.xsd|1|162d7aeeceb|498|7dc872ba|ad0fc37f78b9413d976747abb1ebaf2b|0
+7:.folder|1|162d7aeeb36|180|587083d2|0d6deaa9c7e3420580b30841bcf2e783|0
+17:OrderEntry-LineItem.xsd|1|162d7aeec2f|203d|611030e8|46f61ee1f3984ad5a23b1aa2c2e517db|0

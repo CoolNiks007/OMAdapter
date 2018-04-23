@@ -1,0 +1,133 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>ADDON</name>
+			<value>Payment Model</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1441321232316</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>ADDON_DISCOUNT</name>
+			<value>Option ID</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1444052274762</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>ADDON_DISCOUNT_RECMLINE</name>
+			<value>Duration (months)</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1444052276385</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>BB_SERVICE</name>
+			<value>BB Service</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1444052350006</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>CAMP_DISCOUNT</name>
+			<value>Campaign Code</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1441321232316</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>CAMP_MINSPEND_BA</name>
+			<value>Commitment Check Period|Customer Sub Class|Customer Type|Type|Old Component</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1446736060790</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>CAMP_MINSPEND_LINE</name>
+			<value>Joker Commitment Amount|Joker Commitment Duration</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1441321232316</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>COMMITMENT</name>
+			<value>SMS Direction</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1441321232316</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>OLD_COMP</name>
+			<value>Old Component</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1446822111108</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>PMS_TECH_DISCOUNT</name>
+			<value>TechnicalOrder</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1461265876255</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>PROMO_DISCOUNT</name>
+			<value>Duration</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1441321232316</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>PROMO_PMS</name>
+			<value>Option Code</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1441321232316</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>SRV_BASE</name>
+			<value>Discount Type</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1441321232316</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>SRV_MIG</name>
+			<value>Annual RC|Fee Type</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1441321232316</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>SRV_SUPP</name>
+			<value>Type</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1441321232316</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>TARIFF_DISCOUNT</name>
+			<value>Tariff Plan ID</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1441321232316</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

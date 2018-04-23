@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns:wsi="http://ws-i.org/profiles/basic/1.1/xs"
+	 xmlns:om="http://vodafone.com.tr/ServiceCatalog/Business/OSM/GetOrder/v1"
+	 targetNamespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/GetOrder/v1"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="GetOrderRequest" type="om:GetOrderRequest"/>
+	<xs:element name="GetOrderResponse" type="om:GetOrderResponse"/>
+	<xs:complexType name="GetOrderRequest">
+		<xs:sequence>
+			<xs:element ref="om:Request"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GetOrderResponse">
+		<xs:sequence>
+			<xs:element ref="om:Response" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrderSummary">
+		<xs:sequence>
+			<xs:element name="Id" type="xs:string"/>
+			<xs:element name="Specification" type="om:OrderSpecificationType"/>
+			<xs:element name="State" type="xs:string"/>
+			<xs:element name="TargetState" type="xs:string" minOccurs="0"/>
+			<xs:element name="Reference" type="xs:string" minOccurs="0"/>
+			<xs:element name="CreatedDate" type="xs:dateTime"/>
+			<xs:element name="OrderOriginatorSystem" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="OrderIdType">
+		<xs:restriction base="xs:normalizedString"/>
+	</xs:simpleType>
+	<xs:complexType name="OrderDataType">
+		<xs:sequence>
+			<xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrderKeyType">
+		<xs:sequence>
+			<xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrderSpecificationType">
+		<xs:sequence>
+			<xs:element name="Cartridge" type="om:CartridgeType"/>
+			<xs:element name="Type" type="om:EntityNameType"/>
+			<xs:element name="Source" type="om:EntityNameType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="OrderStateType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="open.not_running.not_started"/>
+			<xs:enumeration value="open.not_running.suspended"/>
+			<xs:enumeration value="open.not_running.cancelled"/>
+			<xs:enumeration value="open.not_running.waiting_for_revision"/>
+			<xs:enumeration value="open.not_running.failed"/>
+			<xs:enumeration value="open.running.in_progress"/>
+			<xs:enumeration value="open.running.compensating.amending"/>
+			<xs:enumeration value="open.running.compensating.cancelling"/>
+			<xs:enumeration value="closed.completed"/>
+			<xs:enumeration value="closed.aborted"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PriorityType">
+		<xs:restriction base="xs:int">
+			<xs:minExclusive value="0"/>
+			<xs:maxExclusive value="9"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="EntityIdType">
+		<xs:restriction base="xs:long">
+			<xs:minExclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="EntityNameType">
+		<xs:restriction base="xs:NCName">
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AmendmentStatusType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="accepted"/>
+			<xs:enumeration value="queued"/>
+			<xs:enumeration value="in_progress"/>
+			<xs:enumeration value="skipped"/>
+			<xs:enumeration value="completed"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="CartridgeType">
+		<xs:sequence>
+			<xs:element name="Name" type="om:EntityNameType"/>
+			<xs:element name="Version" type="xs:normalizedString" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="NonEmptyNormalizedStringType">
+		<xs:restriction base="xs:normalizedString">
+			<xs:minLength value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AmendmentFilterLevelOfDetailType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="AmendedOrderSummary"/>
+			<xs:enumeration value="AmendmentsSummary"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="Response" type="om:Response"/>
+	<xs:complexType name="Response">
+		<xs:sequence>
+			<xs:element name="OrderSummary" type="om:OrderSummary"/>
+			<xs:element ref="om:OrderComponentList"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Request" type="om:Request"/>
+	<xs:complexType name="Request">
+		<xs:sequence>
+			<xs:element name="OrderId" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Data" type="om:OrderDataType"/>
+	<xs:element name="OrderComponentList">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="om:OrderComponent" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="OrderComponent">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="om:Id"/>
+				<xs:element ref="om:OCName"/>
+				<xs:element ref="om:ExecutionNumber" minOccurs="0"/>
+				<xs:element ref="om:Scenario"/>
+				<xs:element ref="om:Status"/>
+				<xs:element ref="om:ErrorId"/>
+				<xs:element ref="om:ErrorMessage"/>
+				<xs:element ref="om:SubscriberId"/>
+				<xs:element ref="om:AccountId"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Id" type="xs:string"/>
+	<xs:element name="OCName" type="xs:string"/>
+	<xs:element name="ExecutionNumber" type="xs:integer"/>
+	<xs:element name="Scenario" type="xs:string"/>
+	<xs:element name="Status" type="xs:string"/>
+	<xs:element name="ErrorId" type="xs:string"/>
+	<xs:element name="ErrorMessage" type="xs:string"/>
+	<xs:element name="SubscriberId" type="xs:string"/>
+	<xs:element name="AccountId" type="xs:string"/>
+</xs:schema>

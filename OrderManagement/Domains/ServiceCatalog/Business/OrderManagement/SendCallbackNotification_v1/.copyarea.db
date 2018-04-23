@@ -1,0 +1,9 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\ServiceCatalog\Business\OrderManagement\SendCallbackNotification_v1
+2
+5
+d:SOAPInterface|2|0|0|0|fd2f2e238b054cb095e2ef6a9a91cc73|0
+8:Starters|2|0|0|0|fcfda3df0ea94cc4b2452c0e25f29b5f|0
+7:Schemas|2|0|0|0|4871c84a0bda4c84ad3003d9485cd3ee|0
+20:SendCallbackNotification.process|1|162d7af0818|633f|ecae0a35|a646150a14ad40ee8683674cf85af0fd|0
+7:.folder|1|162d7af0809|194|bf178b92|6b4371e40b6842a2a65155a9766904a8|0

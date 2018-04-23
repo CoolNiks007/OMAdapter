@@ -1,0 +1,10 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\AESchemas
+2
+6
+2:ae|2|0|0|0|fa44faac37cd4de3a30e69155c9efbc7|0
+d:java.aeschema|1|162d7ae946f|77d|825c6e97|6d90f558be0248f4813c3f3245cb2762|0
+e:corba.aeschema|1|162d7ae946f|ca6|b3de1b60|d2af03b7797946de8045d251f0bb6421|0
+b:ae.aeschema|1|162d7ae9460|105a|13a841e0|ad686172b2fc4a70ab28bad6337ba966|0
+7:.folder|1|162d7ae9450|17b|98cd8472|27cb63d86a2c4dcfad97af3557245367|0
+c:sql.aeschema|1|162d7ae946f|d07|4b64225e|6ff5f4d8f96f41e4822b2d2a005d2f1f|0

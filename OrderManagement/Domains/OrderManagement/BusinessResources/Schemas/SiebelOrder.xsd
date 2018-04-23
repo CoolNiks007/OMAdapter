@@ -1,0 +1,717 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xsd:element name="SiebelMessage" type="SiebelMessage"/>
+	<xsd:element name="Order" type="Order"/>
+	<xsd:complexType name="SiebelMessage">
+		<xsd:sequence>
+			<xsd:element name="Order" type="Order" minOccurs="0"/>
+		</xsd:sequence>
+		<xsd:attribute name="MessageId" type="xsd:string"/>
+		<xsd:attribute name="MessageType" type="xsd:string"/>
+		<xsd:attribute name="IntObjectName" type="xsd:string"/>
+		<xsd:attribute name="IntObjectFormat" type="xsd:string"/>
+	</xsd:complexType>
+	<xsd:complexType name="Order">
+		<xsd:sequence>
+			<xsd:element name="BillAcctCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillAcctId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="MNPortInCorporateName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="MNPortInTaxId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderAcquisitionDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderBulkFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderChannel" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderComments" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderContactId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderCreationDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderCreator" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderDueDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderErrorDesc" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderFirstSubmitDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderFutureDatedFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderIsPrimary" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderOMPublicId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderOMSourceSystem" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderOrganization" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderOriginalDealerCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderOtherInfo" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderParentId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderPortId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Preferredportintime" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderPortOutDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ReferenceNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderPortingDateTime" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="TransactionId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderPriority" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderSalesForceId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderSourceSystem" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderStatus" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderSubmitDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderVIPFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="PriceDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="UndoOrderId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="WaivePenalty" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderDealerCellPhone" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderDealerEmail" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrigShopCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CutOffDateFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Alias" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BatchOrderCreation" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ExpirationBatchFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Frodo2ndOrder" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderScopeKeyword" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ListOfCustomerAccount" type="ListOfCustomerAccount" minOccurs="0"/>
+			<xsd:element name="ListOfBillingAccount" type="ListOfBillingAccount" minOccurs="0"/>
+			<xsd:element name="ListOfOrderContact" type="ListOfOrderContact" minOccurs="0"/>
+			<xsd:element name="ListOfRootItem" type="ListOfRootItem" minOccurs="0"/>
+			<xsd:element name="ListOfAdjustment" type="ListOfAdjustment" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfCustomerAccount">
+		<xsd:sequence>
+			<xsd:element name="CustomerAccount" type="CustomerAccount" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CustomerAccount">
+		<xsd:sequence>
+			<xsd:element name="CustAcctAcquisitionDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctAddressId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctAdvertisement" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctCompanyType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctContactId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctEmail" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctFax" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctFirstName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctGIBStatus" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctGIBVerification" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctIntegrationControl" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctLanguage" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctLastName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctMSegment" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctOrganization" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctPhone" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctStatus" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctSubClass" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctTaxId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctTaxOffice" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctUpdateDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctUsePrivateData" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustOrderOMPublicId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ListOfCustomerContact" type="ListOfCustomerContact" minOccurs="0"/>
+			<xsd:element name="ListOfCustomerAddress" type="ListOfCustomerAddress" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfBillingAccount">
+		<xsd:sequence>
+			<xsd:element name="BillingAccount" type="BillingAccount" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="BillingAccount">
+		<xsd:sequence>
+			<xsd:element name="BillAcctAddressId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillAcctCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillAcctContactId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillAcctCreditClass" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillAcctCreditLimit" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillAcctCurrencyCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillAcctDunningExemptFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillAcctFraudFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillAcctId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillAcctIntegrationControl" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillAcctInvIssueSkipFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillAcctLanguage" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillAcctOrganization" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillAcctStartDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillAcctStatus" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillAcctStatusReason" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillAcctTaxType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillAcctType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillAcctUpdateDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillOrderOMPublicId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DontPrintBillingContact" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ListOfInvoiceProfile" type="ListOfInvoiceProfile" minOccurs="0"/>
+			<xsd:element name="ListOfBillingContact" type="ListOfBillingContact" minOccurs="0"/>
+			<xsd:element name="ListOfBillingAddress" type="ListOfBillingAddress" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfOrderContact">
+		<xsd:sequence>
+			<xsd:element name="OrderContact" type="OrderContact" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="OrderContact">
+		<xsd:sequence>
+			<xsd:element name="ContactBirthDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactBirthPlace" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactCitizenship" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactEmail" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactFatherName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactFaxPhone" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactFirstName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactGender" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactHomePhone" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactLastname" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactMernisStatus" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactMotherName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactPersonalId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactPhone" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactSalutation" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactWorkPhone" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfRootItem">
+		<xsd:sequence>
+			<xsd:element name="RootItem" type="RootItem" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RootItem">
+		<xsd:sequence>
+			<xsd:element name="ApprovalContext" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BPStartDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AccountPayType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Action" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ActionReason" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ActionSubReason" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ActionType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ActivationSMS" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AdapterNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AdvancePaymentTerm" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AssetStatus" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AssociatedMemberStatus" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BarDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BarReason" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillAcctCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillAcctId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillingFlg" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CancelFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CancellationReason" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CollectableId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ComponentGroup" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ComponentSubType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ComponentType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CoupledICCD" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DonorOperator2" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CreditStatus" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CreditStatusOld" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustomerRepSMS" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustomerStatus" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustomerStatusOld" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DataBundlePartNumML" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DataFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DeactivationSMS" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DocumentMissingStatus" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DocumentMissingStatusOld" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DueDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DunningSMSFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DunningStatus" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DunningStatusOld" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="EndDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="FraudStatus" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="FraudStatusOld" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ICCID" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="IMEI" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="IMEIList" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="IMSI" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="IntegrationId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ItemId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="LineNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="MSISDN" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="MSISDNML" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ModifyDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrderNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OriginalIntegrationId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OriginalStartDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ParentIntegrationId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ParentItemId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ParentProductId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="PreviousLineItemId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="PreviousServiceId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="PreviousIMSI" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="PreviousPIN" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="PreviousPUK" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ProductCatalogId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ProductClass" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ProductId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ProductName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ProductType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="PromotionId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BPPromotionId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="PromotionInstanceId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ProvisioningFlg" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="RoamDataFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="RootIntegrationId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="RootItemId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="SIMCardType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="SMSFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="SalesForceId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ServAcctDesc" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ServAcctId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ServiceId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ServiceType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="SkipPenalty" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="StartDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Status" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="TargetCustomer" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="TariffFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="TerminationReason" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="UnitPrice" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="UnitPriceDisplay" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="VoiceFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="iCCBBillCycle" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="iCCBGroupId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="iCCBTariffPlan" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="iCCBTaxProfile" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ApplyPenalty" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ProdBillCycleDep" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AgreementNum" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="MNPMigrationPhase" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="MNPMigrationSRId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="iCCBCustomerId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="MNPProvisioningNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="MNPProvisioningNumberMNP" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ActionML" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="MetropolisComplainDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillAcctIntegrationControl" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillAcctType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctIntegrationControl" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="VFTRCBUMNPDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="EBUProductCategory" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="VFTRCBUNewAcquisitionDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="VFTRCBUPreToPostDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="VFTRCBUStatusControlDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="VFTRCBUSubscriptionDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="GroupCustomerType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="VoucherNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="MonthlyInstalments" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="SubsidyAmount" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Duration" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="VFTRCBUVoucher" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="VFTRCBUBPPartNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ProdPromName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Transition" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="RecipientOperator" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="NoCommunicationFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BPProductType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OriginalEndDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BPEndDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="PreviousAccountPayType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ScratchCardCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ListOfRootItemContact" type="ListOfRootItemContact" minOccurs="0"/>
+			<xsd:element name="ListOfRootItemAttribute" type="ListOfRootItemAttribute" minOccurs="0"/>
+			<xsd:element name="ListOfChildItem" type="ListOfChildItem" minOccurs="0"/>
+			<xsd:element name="ListOfRootItemPenalty" type="ListOfRootItemPenalty" minOccurs="0"/>
+			<xsd:element name="ListOfKeyFeatureSimple" type="ListOfKeyFeatureSimple" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfAdjustment">
+		<xsd:sequence>
+			<xsd:element name="Adjustment" type="Adjustment" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="Adjustment">
+		<xsd:sequence>
+			<xsd:element name="AdjustmentId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillAcctCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CommonID" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CreatedByLogin" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Description" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DueDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DunningAction" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ProductCatalogId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="RequestAmt" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="RequestDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="RequestReason" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Status" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="TaxPercentage" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ThsActionId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Type" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfCustomerContact">
+		<xsd:sequence>
+			<xsd:element name="CustomerContact" type="CustomerContact" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CustomerContact">
+		<xsd:sequence>
+			<xsd:element name="ContactBirthDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactBirthPlace" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactCitizenship" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactDocNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactDocType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactEducation" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactEmail" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactFatherName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactFaxPhone" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactFirstName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactGender" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactHomePhone" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactJobStatus" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactJobTitle" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactLastName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactLastUpdated" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactLetterCondition" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactMaritalStatus" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactMernisCountyName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactMernisDateofDeath" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactMernisStatus" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactMernisVerifDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactMotherMaidenName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactMotherName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactPersonalId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactPhone" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactSalutation" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactWorkingDocAvail" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactWorkPhone" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfCustomerAddress">
+		<xsd:sequence>
+			<xsd:element name="CustomerAddress" type="CustomerAddress" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CustomerAddress">
+		<xsd:sequence>
+			<xsd:element name="AddressAptBldgNum" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AddressCity" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AddressCountry" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AddressDistrictTown" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AddressFullAddress" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AddressId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AddressLastUpd" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AddressName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AddressNbhdVillage" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AddressNum" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AddressSitePlaza" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AddressState" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AddressStreetType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AddressVerifiedFlg" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AddressZIP" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfInvoiceProfile">
+		<xsd:sequence>
+			<xsd:element name="InvoiceProfile" type="InvoiceProfile" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="InvoiceProfile">
+		<xsd:sequence>
+			<xsd:element name="ActionProfile" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BankAccountNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BankAccountType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BankBranch" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BankName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillAcctCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillAcctId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillCycle" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CDInvoiceFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillToEmail" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CDReportsFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CreditCardExpirationDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CreditCardNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CreditCardType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DaysToCash" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DetailType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Frequency" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="InvoiceDueDateReminder" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="InvoiceGenerationReminder" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="InvoiceLimit" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="InvoiceProfileId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="MediaType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OldBillCycle" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="PayerFirstName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="PayerLastName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="PaymentMethod" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="PostingMethod" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="SingleEnvelopeFlag" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfBillingContact">
+		<xsd:sequence>
+			<xsd:element name="BillingContact" type="BillingContact" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="BillingContact">
+		<xsd:sequence>
+			<xsd:element name="ContactBirthDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactBirthPlace" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactCitizenship" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactEmail" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactFatherName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactFaxPhone" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactFirstName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactGender" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactHomePhone" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactLastname" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactMernisStatus" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactMotherName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactPersonalId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactPhone" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactSalutation" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactWorkPhone" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfBillingAddress">
+		<xsd:sequence>
+			<xsd:element name="BillingAddress" type="BillingAddress" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="BillingAddress">
+		<xsd:sequence>
+			<xsd:element name="AddressAptBldgNum" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AddressCity" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AddressCountry" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AddressDistrictTown" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AddressId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AddressName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AddressNbhdVillage" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AddressNum" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AddressSitePlaza" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AddressState" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AddressStreetType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AddressFullAddress" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AddressZIP" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfRootItemContact">
+		<xsd:sequence>
+			<xsd:element name="RootItemContact" type="RootItemContact" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RootItemContact">
+		<xsd:sequence>
+			<xsd:element name="ContactBirthDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactBirthPlace" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactCitizenship" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactEmail" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactFatherName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactFaxPhone" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactFirstName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactGender" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactHomePhone" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactLastname" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactMernisStatus" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactMotherName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactPersonalId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactPhone" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactPrimAddressId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactSalutation" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ContactWorkPhone" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ListOfRootItemContactAddress" type="ListOfRootItemContactAddress" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfRootItemAttribute">
+		<xsd:sequence>
+			<xsd:element name="RootItemAttribute" type="RootItemAttribute" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RootItemAttribute">
+		<xsd:sequence>
+			<xsd:element name="Action" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Name" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="PreviousValue" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Value" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfChildItem">
+		<xsd:sequence>
+			<xsd:element name="ChildItem" type="ChildItem" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ChildItem">
+		<xsd:sequence>
+			<xsd:element name="ListOfKeyFeature" type="ListOfKeyFeature" minOccurs="0"/>
+			<xsd:element name="AccountPayType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Action" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ActivationSMS" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AdapterNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AssociatedMemberStatus" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BarDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BarReason" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillAcctCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillAcctId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillingFlg" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CancelFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CancellationReason" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CollectableId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ComponentGroup" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DailyBillShock" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ComponentSubType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ComponentType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CoupledICCD" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustAcctId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CustomerRepSMS" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DataBundlePartNumML" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DataFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DueDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DunningSMSFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DeactivationSMS" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="EndDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="IMEI" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="IMEIList" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="IntegrationId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ItemId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="LineNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="MSISDNML" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ModifyDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OriginalIntegrationId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OriginalStartDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ParentIntegrationId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ParentItemId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ParentProductId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="PreviousLineItemId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="PreviousServiceId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ProductCatalogId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ProductClass" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ProductId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ProductName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ProductType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ProvisioningFlg" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="RoamDataFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="RootIntegrationId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="RootItemId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="SMSFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="SalesForceId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ServiceId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ServiceLastUpdate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ServiceType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="SkipPenalty" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="StartDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Status" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="TariffFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="TerminationReason" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="UnitPrice" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="UnitPriceDisplay" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="VoiceFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ActionML" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AgreementNum" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="EBUProductCategory" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ApprovalContext" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="VFTRCBUSourceAssetIntegrationId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="VFTRCBURemoveOptionalDiscountFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="VFTRCBUPayerMSISDN" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="VFTRCBUDiscountType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="VFTRCBUDiscountDurationUOM" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="VFTRCBUDiscountDuration" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="VFTRCBUDiscountAmount" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="VFTRCBUDefaultValidationFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="GroupCustomerType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="GroupHeadNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="VoucherNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OriginalEndDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="VFTRCBUVoucher" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ScratchCardCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ListOfChildItemAttribute" type="ListOfChildItemAttribute" minOccurs="0"/>
+			<xsd:element name="ListOfDataSharingDetail" type="ListOfDataSharingDetail" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfRootItemPenalty">
+		<xsd:sequence>
+			<xsd:element name="RootItemPenalty" type="RootItemPenalty" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RootItemPenalty">
+		<xsd:sequence>
+			<xsd:element name="DataNET" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DataSCT" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DataVAT" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="FixedPenaltyNET" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="FixedPenaltySCT" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="FixedPenaltyVAT" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="SubsidyNET" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="SubsidyVAT" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="VoiceNET" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="VoiceSCT" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="VoiceVAT" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfKeyFeatureSimple">
+		<xsd:sequence>
+			<xsd:element name="KeyFeatureSimple" type="KeyFeatureSimple" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="KeyFeatureSimple">
+		<xsd:sequence>
+			<xsd:element name="FeatureId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="FeatureCategory" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Feature" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="FeatureValue" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfRootItemContactAddress">
+		<xsd:sequence>
+			<xsd:element name="RootItemContactAddress" type="RootItemContactAddress" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RootItemContactAddress">
+		<xsd:sequence>
+			<xsd:element name="FullAddress" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="PostalCode" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfKeyFeature">
+		<xsd:sequence>
+			<xsd:element name="KeyFeature" type="KeyFeature" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="KeyFeature">
+		<xsd:sequence>
+			<xsd:element name="FeatureId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="FeatureCategory" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Feature" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="FeatureValue" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfChildItemAttribute">
+		<xsd:sequence>
+			<xsd:element name="ChildItemAttribute" type="ChildItemAttribute" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ChildItemAttribute">
+		<xsd:sequence>
+			<xsd:element name="Action" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Name" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="PreviousValue" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Value" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ListOfDataSharingDetail">
+		<xsd:sequence>
+			<xsd:element name="DataSharingDetail" type="DataSharingDetail" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="DataSharingDetail">
+		<xsd:sequence>
+			<xsd:element name="MSISDN" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="NextCutOff" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="SharedDataValue" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

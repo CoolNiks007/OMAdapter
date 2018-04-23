@@ -1,0 +1,12 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\Technical\OSM
+2
+8
+1d:CreateOrderBySpecification_v1|2|0|0|0|333675027b5e4d119b3aac7872fbef2f|0
+b:GetOrder_v1|2|0|0|0|e4067d0cd0054979b4761025eef4d62b|0
+e:CancelOrder_v1|2|0|0|0|e7c2f8a468cf4f37be63061219b5bd52|0
+d:FindOrders_v1|2|0|0|0|93d23c9f417d4d52b2ca525d9551d363|0
+11:ResolveFailure_v1|2|0|0|0|9283bd0bf8eb4b5da55129c3ab56a9e3|0
+15:GetValidationOrder_v1|2|0|0|0|03e1f81499034f40a5f41dc92764b25f|0
+7:.folder|1|162d7aef988|17c|ea4b81fd|eeec612e3b8f4dfebd33f1c7beda37fd|0
+e:CreateOrder_v1|2|0|0|0|fc3d4a572d474968a8871d12f084ab6d|0

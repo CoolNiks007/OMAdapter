@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns14="http://www.tibco.com/pe/EngineTypes" xmlns:ns="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:ns15="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagementServices" xmlns:ns9="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" xmlns:ns12="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/ADB/ADB_REGISTER_CAMPAIGN-SUB" xmlns:ns5="http://vodafone.com.tr/CustomerCare/Business/Siebel/ADBRegisterCampaign/v1" xmlns:ns13="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagement/RegisterCampaign/v1" xmlns:ns6="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/ADB/ADB_REGISTER_CAMPAIGN-PUB" xmlns:ns10="http://vodafone.com.tr/OrderManagement/Business/SiebelAdapterOMServices" xmlns:ns7="http://vodafone.com.tr/CustomerCare/Business/Siebel/RegisterCampaign/v1" xmlns:pfx="http://vodafone.com.tr/EAI/Common/Header" xmlns:ns11="http://www.tibco.com/xmlns/ae2xsd/2002/05/ae/ADB/ADB_REGISTER_CAMPAIGN_SUB" xmlns:ns8="http://vodafone.com.tr/OrderManagement/Business/Siebel/RegisterCampaign/v1" xmlns:ns2="http://vodafone.com.tr/EAI/Common/ResponseEAI" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://vodafone.com.tr/EAI/Common/ResponseCodes" xmlns:ns4="http://vodafone.com.tr/EAI/Common/RequestEAI" xmlns:ns3="http://www.tibco.com/pe/DeployedVarsType" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://vodafone.com.tr/CustomerCare/Business/Siebel/ADBRegisterCampaign/v1" schemaLocation="/Domains/CustomerCare/Business/Siebel/RegisterCampaign_v1/Schemas/ADBRegisterCampaign.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://vodafone.com.tr/CustomerCare/Business/Siebel/RegisterCampaign/v1" schemaLocation="/Domains/CustomerCare/Business/Siebel/RegisterCampaign_v1/Schemas/RegisterCampaign.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://vodafone.com.tr/OrderManagement/Business/Siebel/RegisterCampaign/v1" schemaLocation="/Domains/OrderManagement/Business/Siebel/RegisterCampaign_v1/Schemas/RegisterCampaign.xsd"/>
+    <pd:name>Domains/ServiceCatalog/Business/OrderManagement/RegisterCampaign_v1/Starters/ADBRegisterCampaignStarter.process</pd:name>
+    <pd:startName>Retrieve Register Campaign</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings/>
+    <pd:starter name="Retrieve Register Campaign">
+        <pd:type>com.tibco.plugin.ae.AESubscriberActivity</pd:type>
+        <pd:resourceType>ae.aepalette.aeSubscription</pd:resourceType>
+        <pd:x>146</pd:x>
+        <pd:y>72</pd:y>
+        <config>
+            <ae.aepalette.sharedProperties.transportChoice>default</ae.aepalette.sharedProperties.transportChoice>
+            <ae.aepalette.sharedProperties.useRequestReply>false</ae.aepalette.sharedProperties.useRequestReply>
+            <ae.aepalette.sharedProperties.adapterService>/Domains/OrderManagement/TechnicalResources/AdapterConfiguration/ADB_REGISTER_CAMPAIGN-PUB.adb#adapterService.VFTR_CAMPAIGN_REQUEST</ae.aepalette.sharedProperties.adapterService>
+            <tpPluginEndpointName>VFTR_CAMPAIGN_REQUEST</tpPluginEndpointName>
+            <ae.aepalette.sharedProperties.transportType>jmsQueue</ae.aepalette.sharedProperties.transportType>
+            <ae.aepalette.sharedProperties.jmsQueueSessionQueue>%%Constants/Company%%.%%Constants/ProjectName%%.%%Domains/ServiceCatalog/Name%%.%%Constants/Layer/Technical%%.%%Constants/QOS/Guarantee%%.%%Constants/RequestType/Request%%.ADB_REGISTER_CAMPAIGN-PUB.VFTR_CAMPAIGN_REQUEST</ae.aepalette.sharedProperties.jmsQueueSessionQueue>
+            <ae.aepalette.sharedProperties.jmsQueueSessionConnectionFactory>%%Domains/OrderManagement/OSM/Operations/RegisterCampaign/Transport/JMS/QueueConnectionFactory%%</ae.aepalette.sharedProperties.jmsQueueSessionConnectionFactory>
+            <ae.aepalette.sharedProperties.jmsSessionUsername>%%Domains/OrderManagement/OSM/Operations/RegisterCampaign/Transport/JMS/Username%%</ae.aepalette.sharedProperties.jmsSessionUsername>
+            <ae.aepalette.sharedProperties.jmsSessionProviderURL>%%Domains/OrderManagement/OSM/Operations/RegisterCampaign/Transport/JMS/JmsProviderUrl%%</ae.aepalette.sharedProperties.jmsSessionProviderURL>
+            <ae.aepalette.sharedProperties.autoGenClientID>true</ae.aepalette.sharedProperties.autoGenClientID>
+            <ae.aepalette.sharedProperties.jmsSessionPassword>%%Domains/OrderManagement/OSM/Operations/RegisterCampaign/Transport/JMS/Password%%</ae.aepalette.sharedProperties.jmsSessionPassword>
+            <ae.aepalette.sharedProperties.outputMeta>
+                <aeMeta>/AESchemas/ae/ADB/ADB_REGISTER_CAMPAIGN-PUB.aeschema#class.P_VFTR_CAMPAIGN_REQUEST</aeMeta>
+                <aeMeta>/AESchemas/ae/ADB/ADB_REGISTER_CAMPAIGN-PUB.aeschema#class.VFTR_CAMPAIGN_REQUEST</aeMeta>
+            </ae.aepalette.sharedProperties.outputMeta>
+        </config>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>696</pd:endX>
+    <pd:endY>64</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://vodafone.com.tr/1425052865008</pd:targetNamespace>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>181</pd:x>
+        <pd:y>502</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Confirm [ERROR]">
+        <pd:type>com.tibco.pe.core.ConfirmActivity</pd:type>
+        <pd:resourceType>activity.confirm</pd:resourceType>
+        <pd:x>389</pd:x>
+        <pd:y>143</pd:y>
+        <config>
+            <ConfirmEvent>Retrieve Register Campaign</ConfirmEvent>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Confirm [NOK]">
+        <pd:type>com.tibco.pe.core.ConfirmActivity</pd:type>
+        <pd:resourceType>activity.confirm</pd:resourceType>
+        <pd:x>514</pd:x>
+        <pd:y>64</pd:y>
+        <config>
+            <ConfirmEvent>Retrieve Register Campaign</ConfirmEvent>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Confirm [UPDATE]">
+        <pd:type>com.tibco.pe.core.ConfirmActivity</pd:type>
+        <pd:resourceType>activity.confirm</pd:resourceType>
+        <pd:x>696</pd:x>
+        <pd:y>384</pd:y>
+        <config>
+            <ConfirmEvent>Retrieve Register Campaign</ConfirmEvent>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Confirm-3">
+        <pd:type>com.tibco.pe.core.ConfirmActivity</pd:type>
+        <pd:resourceType>activity.confirm</pd:resourceType>
+        <pd:x>423</pd:x>
+        <pd:y>500</pd:y>
+        <config>
+            <ConfirmEvent>Retrieve Register Campaign</ConfirmEvent>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="DispatcherRegisterCampaign">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>294</pd:x>
+        <pd:y>64</pd:y>
+        <config>
+            <processName>/Domains/ServiceCatalog/Business/OrderManagement/RegisterCampaign_v1/DispatcherRegisterCampaign.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns15:RegisterCampaignRequest_v1>
+                <Header>
+                    <pfx:SourceSystem>
+                        <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/Domains/EAI/Name"/>
+                    </pfx:SourceSystem>
+                    <pfx:ReplyExpected>
+                        <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/Constants/Reply/Now"/>
+                    </pfx:ReplyExpected>
+                    <pfx:QoS>
+                        <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/Constants/QOS/Reliable"/>
+                    </pfx:QoS>
+                    <pfx:Credentials>
+                        <pfx:ApplicationId>
+                            <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/Domains/EAI/Name"/>
+                        </pfx:ApplicationId>
+                        <pfx:User>
+                            <xsl:value-of select="$_globalVariables/ns3:GlobalVariables/Domains/EAI/Name"/>
+                        </pfx:User>
+                    </pfx:Credentials>
+                </Header>
+                <Body>
+                    <xsl:for-each select="$Retrieve-Register-Campaign/ProcessStarterOutput/body/ns6:VFTR__CAMPAIGN__REQUEST">
+                        <ns13:Request>
+                            <ns13:EventSourceType>
+                                <xsl:value-of select="EVENT__SOURCE__TYPE"/>
+                            </ns13:EventSourceType>
+                            <ns13:EventSource>
+                                <xsl:value-of select="EVENT__SOURCE"/>
+                            </ns13:EventSource>
+                            <ns13:CampId>
+                                <xsl:value-of select="CAMP__ID"/>
+                            </ns13:CampId>
+                            <ns13:ChannelType>
+                                <xsl:value-of select="CHANNEL__TYPE"/>
+                            </ns13:ChannelType>
+                            <ns13:CampConId>
+                                <xsl:value-of select="CAMP__CON__ID"/>
+                            </ns13:CampConId>
+                            <ns13:ResponseDate>
+                                <xsl:value-of select="tib:parse-dateTime('yyyy-MM-dd HH:mm:ss', RESPONSE__DATE/dateTime)"/>
+                            </ns13:ResponseDate>
+                            <xsl:if test="not((RESPONSE__TYPE/@xsi:nil=(&quot;true&quot;)) or (RESPONSE__TYPE/@xsi:nil=(&quot;1&quot;)))">
+                                <ns13:ResponseType>
+                                    <xsl:value-of select="RESPONSE__TYPE"/>
+                                </ns13:ResponseType>
+                            </xsl:if>
+                            <xsl:if test="not((REJECTION__REASON/@xsi:nil=(&quot;true&quot;)) or (REJECTION__REASON/@xsi:nil=(&quot;1&quot;)))">
+                                <ns13:RejectionReason>
+                                    <xsl:value-of select="REJECTION__REASON"/>
+                                </ns13:RejectionReason>
+                            </xsl:if>
+                            <ns13:Keyword>
+                                <xsl:value-of select="KEYWORD"/>
+                            </ns13:Keyword>
+                            <xsl:if test="not((PRODUCT__ID/@xsi:nil=(&quot;true&quot;)) or (PRODUCT__ID/@xsi:nil=(&quot;1&quot;)))">
+                                <ns13:ProductId>
+                                    <xsl:value-of select="PRODUCT__ID"/>
+                                </ns13:ProductId>
+                            </xsl:if>
+                        </ns13:Request>
+                    </xsl:for-each>
+                </Body>
+            </ns15:RegisterCampaignRequest_v1>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Generate Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>389</pd:x>
+        <pd:y>274</pd:y>
+        <config>
+            <faultName/>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_error/ns14:ErrorReport/StackTrace"/>
+                </message>
+                <xsl:if test="$_error/ns14:ErrorReport/MsgCode">
+                    <messageCode>
+                        <xsl:value-of select="$_error/ns14:ErrorReport/MsgCode"/>
+                    </messageCode>
+                </xsl:if>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Generate-Error-1">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>638</pd:x>
+        <pd:y>503</pd:y>
+        <config>
+            <faultName/>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="UpdateOrderIdRegisterCampaign">
+        <pd:type>com.tibco.plugin.ae.AEPublisherActivity</pd:type>
+        <pd:resourceType>ae.aepalette.aePubActivity</pd:resourceType>
+        <pd:x>288</pd:x>
+        <pd:y>384</pd:y>
+        <config>
+            <ae.aepalette.sharedProperties.transportChoice>default</ae.aepalette.sharedProperties.transportChoice>
+            <ae.aepalette.sharedProperties.useRequestReply>false</ae.aepalette.sharedProperties.useRequestReply>
+            <ae.aepalette.sharedProperties.adapterService>/Domains/OrderManagement/TechnicalResources/AdapterConfiguration/ADB_REGISTER_CAMPAIGN-SUB.adb#adapterService.VFTR_CAMPAIGN_REQUEST</ae.aepalette.sharedProperties.adapterService>
+            <tpPluginEndpointName>VFTR_CAMPAIGN_REQUEST</tpPluginEndpointName>
+            <ae.aepalette.sharedProperties.transportType>jmsQueue</ae.aepalette.sharedProperties.transportType>
+            <ae.aepalette.sharedProperties.jmsQueueSessionQueue>%%Constants/Company%%.%%Constants/ProjectName%%.%%Domains/ServiceCatalog/Name%%.%%Constants/Layer/Technical%%.%%Constants/QOS/Guarantee%%.%%Constants/RequestType/Request%%.ADB_REGISTER_CAMPAIGN-SUB.VFTR_CAMPAIGN_REQUEST</ae.aepalette.sharedProperties.jmsQueueSessionQueue>
+            <ae.aepalette.sharedProperties.deliveryMode>PERSISTENT</ae.aepalette.sharedProperties.deliveryMode>
+            <ae.aepalette.sharedProperties.timeToLive>0</ae.aepalette.sharedProperties.timeToLive>
+            <ae.aepalette.sharedProperties.jmsQueueSessionConnectionFactory>%%Domains/OrderManagement/OSM/Operations/RegisterCampaign/Transport/JMS/QueueConnectionFactory%%</ae.aepalette.sharedProperties.jmsQueueSessionConnectionFactory>
+            <ae.aepalette.sharedProperties.jmsSessionUsername>%%Domains/OrderManagement/OSM/Operations/RegisterCampaign/Transport/JMS/Username%%</ae.aepalette.sharedProperties.jmsSessionUsername>
+            <ae.aepalette.sharedProperties.jmsSessionPassword>%%Domains/OrderManagement/OSM/Operations/RegisterCampaign/Transport/JMS/Password%%</ae.aepalette.sharedProperties.jmsSessionPassword>
+            <ae.aepalette.sharedProperties.jmsSessionProviderURL>%%Domains/OrderManagement/OSM/Operations/RegisterCampaign/Transport/JMS/JmsProviderUrl%%</ae.aepalette.sharedProperties.jmsSessionProviderURL>
+            <ae.aepalette.sharedProperties.autoGenClientID>false</ae.aepalette.sharedProperties.autoGenClientID>
+            <ae.aepalette.sharedProperties.useCustomOutput>false</ae.aepalette.sharedProperties.useCustomOutput>
+            <OverrideTransaction>true</OverrideTransaction>
+            <ae.aepalette.sharedProperties.outputMeta>
+                <aeMeta>/AESchemas/ae/ADB/ADB_REGISTER_CAMPAIGN-SUB.aeschema#class.VFTR_CAMPAIGN_REQUEST</aeMeta>
+            </ae.aepalette.sharedProperties.outputMeta>
+        </config>
+        <pd:inputBindings>
+            <aePubInputType>
+                <body>
+                    <ns12:VFTR__CAMPAIGN__REQUEST>
+                        <ID>
+                            <xsl:copy-of select="$Retrieve-Register-Campaign/ProcessStarterOutput/body/ns6:VFTR__CAMPAIGN__REQUEST/ID/@xsi:nil"/>
+                            <xsl:value-of select="$Retrieve-Register-Campaign/ProcessStarterOutput/body/ns6:VFTR__CAMPAIGN__REQUEST/ID"/>
+                        </ID>
+                        <ORDER__ID>
+                            <xsl:choose>
+                                <xsl:when test="exists($DispatcherRegisterCampaign/Response/ns13:Response/ns13:OrderId)">
+                                    <xsl:value-of select="$DispatcherRegisterCampaign/Response/ns13:Response/ns13:OrderId"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </ORDER__ID>
+                        <MESSAGE__ID>
+                            <xsl:choose>
+                                <xsl:when test="exists($DispatcherRegisterCampaign/Response/ns1:ResponseHeader/ns1:RequestId)">
+                                    <xsl:value-of select="$DispatcherRegisterCampaign/Response/ns1:ResponseHeader/ns1:RequestId"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </MESSAGE__ID>
+                        <xsl:if test="string-length($DispatcherRegisterCampaign/Response/ns1:ResponseHeader/ns1:ErrorCode)>0">
+                            <xsl:if test="$DispatcherRegisterCampaign/Response/ns1:ResponseHeader/ns1:ErrorCode">
+                                <ERROR__CODE>
+                                    <xsl:value-of select="$DispatcherRegisterCampaign/Response/ns1:ResponseHeader/ns1:ErrorCode"/>
+                                </ERROR__CODE>
+                            </xsl:if>
+                        </xsl:if>
+                        <xsl:if test="string-length($DispatcherRegisterCampaign/Response/ns1:ResponseHeader/ns1:ErrorDescription)>0">
+                            <xsl:if test="$DispatcherRegisterCampaign/Response/ns1:ResponseHeader/ns1:ErrorDescription">
+                                <ERROR__MESSAGE>
+                                    <xsl:value-of select="$DispatcherRegisterCampaign/Response/ns1:ResponseHeader/ns1:ErrorDescription"/>
+                                </ERROR__MESSAGE>
+                            </xsl:if>
+                        </xsl:if>
+                        <ADB__OPCODE>
+                            <xsl:value-of select="2"/>
+                        </ADB__OPCODE>
+                    </ns12:VFTR__CAMPAIGN__REQUEST>
+                </body>
+            </aePubInputType>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>DispatcherRegisterCampaign</pd:from>
+        <pd:to>UpdateOrderIdRegisterCampaign</pd:to>
+        <pd:xpathDescription>UpdateOrderId</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>string-length($DispatcherRegisterCampaign/Response/ns13:Response/ns13:OrderId)&gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>Confirm-3</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Confirm-3</pd:from>
+        <pd:to>Generate-Error-1</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Retrieve Register Campaign</pd:from>
+        <pd:to>DispatcherRegisterCampaign</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>DispatcherRegisterCampaign</pd:from>
+        <pd:to>Confirm [NOK]</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Confirm [NOK]</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>DispatcherRegisterCampaign</pd:from>
+        <pd:to>Confirm [ERROR]</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-52429</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Confirm [ERROR]</pd:from>
+        <pd:to>Generate Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>UpdateOrderIdRegisterCampaign</pd:from>
+        <pd:to>Confirm [UPDATE]</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Confirm [UPDATE]</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

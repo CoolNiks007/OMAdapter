@@ -1,0 +1,10 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\Business\OrderComponent\InventoryManagement\CDRDispatcher
+2
+6
+d:UpdateIMSI_v1|2|0|0|0|96a90af8d2d74ae89f1159587ab77ecf|0
+12:ManageCommunity_v1|2|0|0|0|29d95780ddb44969873b2aaee3bb0be3|0
+1b:ManageRoamingCostControl_v1|2|0|0|0|3aeda80d522a4d45b33fbc7f37aeb3af|0
+17:ManageCDRInformation_v1|2|0|0|0|f6bf156366544253aab964984373de04|0
+e:ManageGroup_v1|2|0|0|0|e7d7b9ca9cbf4ff8b752cac3d96ab4b6|0
+7:.folder|1|162d7aed0d3|186|84f485ee|e5ecf10c637445f887d8d747018c1edf|0

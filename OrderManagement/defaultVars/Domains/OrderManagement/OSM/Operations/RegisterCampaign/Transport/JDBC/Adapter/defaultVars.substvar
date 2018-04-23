@@ -1,0 +1,21 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>JDBCConnectionURL</name>
+			<value>jdbc:tibcosoftwareinc:oracle://10.255.34.133:1521;SID=VFTRDEV1;MaxPooledStatements=5</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1426146636960</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>JDBCDrive</name>
+			<value>tibcosoftwareinc.jdbc.oracle.OracleDriver</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1426146623710</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

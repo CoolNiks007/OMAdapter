@@ -1,0 +1,10 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\Business\Siebel
+2
+6
+1a:SyncAccountBillingCycle_v1|2|0|0|0|4c7bc94789464dc19ea963c0b90fc172|0
+13:PrintInvoiceCopy_v1|2|0|0|0|38363cb224534dae834fe237bde1344c|0
+13:RegisterCampaign_v1|2|0|0|0|36164b10b0804f3888d6af69ca656402|0
+12:SyncAccountData_v1|2|0|0|0|74a14293acad490386c0c110b2065606|0
+12:ManageComplaint_v1|2|0|0|0|e5f12f0fb4b646609190096addde8e69|0
+7:.folder|1|162d7aee1a5|17f|c0768362|621337b6d47044ef91977fa3c965c411|0

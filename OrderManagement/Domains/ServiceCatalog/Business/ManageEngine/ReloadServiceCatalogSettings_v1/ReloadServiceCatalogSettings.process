@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/pe/EngineTypes" xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:ns3="http://vodafone.com.tr/ServiceCatalog/Business/ManageEngine/ReloadServiceCatalogSettings/v1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://vodafone.com.tr/EAI/Common/RequestEAI" xmlns:pfx2="http://vodafone.com.tr/EAI/Logging" xmlns:pfx="http://vodafone.com.tr/EAI/Common/Header" xmlns:pfx6="http://vodafone.com.tr/EAI/Common/ResponseEAI">
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/RequestEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/RequestEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/ResponseEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/ResponseEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/Header" schemaLocation="/GlobalCommonResources/Schemas/Common/Header.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Logging" schemaLocation="/GlobalCommonResources/Schemas/Logging/LogMessage.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/ManageEngine/ReloadServiceCatalogSettings/v1" schemaLocation="/Domains/ServiceCatalog/Business/ManageEngine/ReloadServiceCatalogSettings_v1/Schemas/ReloadServiceCatalogSettings.xsd"/>
+    <pd:name>Domains/ServiceCatalog/Business/ManageEngine/ReloadServiceCatalogSettings_v1/ReloadServiceCatalogSettings.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Input">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx5:RequestEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>65</pd:startX>
+    <pd:startY>62</pd:startY>
+    <pd:returnBindings>
+        <Output>
+            <xsl:copy-of select="$ReloadServiceCatalogSettings/Output/pfx6:ResponseEAI"/>
+        </Output>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="Output">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx6:ResponseEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>877</pd:endX>
+    <pd:endY>65</pd:endY>
+    <pd:errorSchemas>
+        <LogMessage ref="pfx2:LogMessage"/>
+    </pd:errorSchemas>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://vodafone.com.tr/1208804728568</pd:targetNamespace>
+    <pd:activity name="ReloadServiceCatalogSettings">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>717</pd:x>
+        <pd:y>65</pd:y>
+        <config>
+            <processName>/GlobalCommonResources/Processes/Common/ProcessDispatcher.process</processName>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Start/Input/pfx5:RequestEAI/pfx5:Body/*" element="ns3:Request"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <Input>
+                <pfx5:RequestEAI>
+                    <pfx5:Header>
+                        <pfx:RequestId>
+                            <xsl:value-of select="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:RequestId"/>
+                        </pfx:RequestId>
+                        <pfx:SourceSystem>
+                            <xsl:value-of select="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:SourceSystem"/>
+                        </pfx:SourceSystem>
+                        <pfx:ReplyExpected>
+                            <xsl:value-of select="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:ReplyExpected"/>
+                        </pfx:ReplyExpected>
+                        <xsl:if test="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:QoS">
+                            <pfx:QoS>
+                                <xsl:value-of select="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:QoS"/>
+                            </pfx:QoS>
+                        </xsl:if>
+                        <xsl:if test="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:Schedule">
+                            <pfx:Schedule>
+                                <xsl:value-of select="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:Schedule"/>
+                            </pfx:Schedule>
+                        </xsl:if>
+                        <xsl:if test="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:CorrelationId">
+                            <pfx:CorrelationId>
+                                <xsl:value-of select="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:CorrelationId"/>
+                            </pfx:CorrelationId>
+                        </xsl:if>
+                        <xsl:if test="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:Priority">
+                            <pfx:Priority>
+                                <xsl:value-of select="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:Priority"/>
+                            </pfx:Priority>
+                        </xsl:if>
+                        <xsl:copy-of select="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:Credentials"/>
+                        <xsl:if test="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:ProxySystem">
+                            <pfx:ProxySystem>
+                                <xsl:value-of select="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:ProxySystem"/>
+                            </pfx:ProxySystem>
+                        </xsl:if>
+                        <xsl:if test="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:ForceSimulate">
+                            <pfx:ForceSimulate>
+                                <xsl:value-of select="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:ForceSimulate"/>
+                            </pfx:ForceSimulate>
+                        </xsl:if>
+                        <xsl:copy-of select="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:Attributes"/>
+                        <xsl:copy-of select="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:BusinessInterface"/>
+                        <pfx:TechnicalInterface>
+                            <pfx:Domain>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Domains/EAI/Name"/>
+                            </pfx:Domain>
+                            <pfx:Interface>
+                                <xsl:value-of select="&quot;LoadServiceCatalog&quot;"/>
+                            </pfx:Interface>
+                            <pfx:Version>
+                                <xsl:value-of select="1"/>
+                            </pfx:Version>
+                            <xsl:if test="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:TechnicalInterface/pfx:MethodCall">
+                                <pfx:MethodCall>
+                                    <xsl:value-of select="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:TechnicalInterface/pfx:MethodCall"/>
+                                </pfx:MethodCall>
+                            </xsl:if>
+                        </pfx:TechnicalInterface>
+                        <xsl:if test="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:TargetSystem">
+                            <pfx:TargetSystem>
+                                <xsl:value-of select="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:TargetSystem"/>
+                            </pfx:TargetSystem>
+                        </xsl:if>
+                        <xsl:if test="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:CreationTimestamp">
+                            <pfx:CreationTimestamp>
+                                <xsl:value-of select="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:CreationTimestamp"/>
+                            </pfx:CreationTimestamp>
+                        </xsl:if>
+                        <xsl:if test="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:TimeOut">
+                            <pfx:TimeOut>
+                                <xsl:value-of select="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:TimeOut"/>
+                            </pfx:TimeOut>
+                        </xsl:if>
+                        <xsl:if test="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:Tries">
+                            <pfx:Tries>
+                                <xsl:value-of select="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:Tries"/>
+                            </pfx:Tries>
+                        </xsl:if>
+                        <pfx:MaxTries>
+                            <xsl:value-of select="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:MaxTries"/>
+                        </pfx:MaxTries>
+                        <pfx:Repub>
+                            <xsl:value-of select="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:Repub"/>
+                        </pfx:Repub>
+                        <xsl:if test="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:RepubTime">
+                            <pfx:RepubTime>
+                                <xsl:value-of select="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:RepubTime"/>
+                            </pfx:RepubTime>
+                        </xsl:if>
+                        <xsl:copy-of select="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:History"/>
+                        <xsl:copy-of select="$Start/Input/pfx5:RequestEAI/pfx5:Header/pfx:Transport"/>
+                    </pfx5:Header>
+                </pfx5:RequestEAI>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="LoadOrderManagementRoutes">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>563</pd:x>
+        <pd:y>202</pd:y>
+        <config>
+            <processName>/Domains/OrderManagement/CommonResources/Processes/OrderManagement/LoadOrderManagementRoutes.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns1:OrderManagementRoute xmlns:ns1="http://www.tibco.com/schemas/OrderManagement/Domains/OrderManagement/CommonResources/Schemas/OrderManagement/Schema.xsd"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="LoadConfigurationVariables">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>267</pd:x>
+        <pd:y>204</pd:y>
+        <config>
+            <processName>/Domains/OrderManagement/BusinessResources/Processes/ConfigurationVariables/LoadConfigurationVariables.process</processName>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>ReloadServiceCatalogSettings</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>LoadOrderManagementRoutes</pd:from>
+        <pd:to>ReloadServiceCatalogSettings</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>LoadConfigurationVariables</pd:to>
+        <pd:xpathDescription>ReloadConfigurationVariables</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$_globalVariables/ns1:GlobalVariables/Engines/ReloadConfigurationVariables = 'true'</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>LoadConfigurationVariables</pd:from>
+        <pd:to>LoadOrderManagementRoutes</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>ReloadServiceCatalogSettings</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

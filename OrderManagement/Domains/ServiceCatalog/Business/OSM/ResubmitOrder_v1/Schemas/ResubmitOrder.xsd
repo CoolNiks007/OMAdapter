@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns:om="http://vodafone.com.tr/ServiceCatalog/Business/OSM/ResubmitOrder/v1"
+	 targetNamespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/ResubmitOrder/v1"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="ResubmitOrderRequest" type="om:ResubmitOrderRequest"/>
+	<xs:complexType name="ResubmitOrderRequest">
+		<xs:sequence>
+			<xs:element ref="om:Request"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ResubmitOrderResponse" type="om:ResubmitOrderResponse"/>
+	<xs:simpleType name="ResubmitOrderResponseType">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:element name="OrderId" type="xs:string"/>
+	<xs:element name="Request" type="om:Request"/>
+	<xs:complexType name="Request">
+		<xs:sequence>
+			<xs:element ref="om:OrderId"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Response" type="om:Response"/>
+	<xs:complexType name="Response"/>
+	<xs:complexType name="ResubmitOrderResponse">
+		<xs:sequence>
+			<xs:element ref="om:Response" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

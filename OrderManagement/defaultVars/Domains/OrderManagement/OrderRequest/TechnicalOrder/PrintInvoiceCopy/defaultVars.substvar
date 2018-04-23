@@ -1,0 +1,29 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>EmailFrom</name>
+			<value>bilgi@efatura.vodafone.com.tr</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1447914420268</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>NGEmailCategory</name>
+			<value>Single Email Vodafone</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1447914422362</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>OrderTypePrintInvoiceCopy</name>
+			<value>Print Copy of Invoice</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1447914423987</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

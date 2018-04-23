@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:ns1="http://schemas.tibco.com/bw/pe/plugin/5.0/exceptions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns3="http://schemas.tibco.com/bw/plugins/http/5.0/httpExceptions" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://vodafone.com.tr/OrderManagement/Technical/OSM/CreateOrder/v1" xmlns:pfx4="http://vodafone.com.tr/EAI/Common/ResponseEAI" xmlns:pfx3="http://vodafone.com.tr/EAI/Common/ResponseCodes" xmlns:pfx2="http://vodafone.com.tr/EAI/Common/RequestEAI" xmlns:pfx="http://xmlns.oracle.com/communications/ordermanagement" xmlns:eai="java://com.telco.eai.EAIFunctions">
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/RequestEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/RequestEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/ResponseCodes" schemaLocation="/GlobalCommonResources/Schemas/Common/ResponseCodes.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/ResponseEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/ResponseEAI.xsd"/>
+    <xsd:import namespace="http://xmlns.oracle.com/communications/ordermanagement" schemaLocation="/Domains/OrderManagement/TechnicalResources/Schemas/OSM/OrderManagementWS.xsd"/>
+    <wsdl:import namespace="http://xmlns.oracle.com/communications/ordermanagement" location="/Domains/OrderManagement/TechnicalResources/WSDL/OSM/OrderManagementWS.wsdl"/>
+    <pd:name>Domains/OrderManagement/Technical/OSM/CreateOrderBySpecification_v1/CreateOrderBySpecification.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Input">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx2:RequestEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>150</pd:startX>
+    <pd:startY>64</pd:startY>
+    <pd:returnBindings>
+        <Output>
+            <pfx4:ResponseEAI>
+                <pfx4:Header>
+                    <xsl:copy-of select="$Start/Input/pfx2:RequestEAI/pfx2:Header/ancestor-or-self::*/namespace::node()"/>
+                    <xsl:copy-of select="$Start/Input/pfx2:RequestEAI/pfx2:Header/@*"/>
+                    <xsl:copy-of select="$Start/Input/pfx2:RequestEAI/pfx2:Header/node()"/>
+                </pfx4:Header>
+                <pfx4:ResponseCodes>
+                    <xsl:copy-of select="$ResponseCodes/ResponseCodes/ancestor-or-self::*/namespace::node()"/>
+                    <xsl:copy-of select="$ResponseCodes/ResponseCodes/@*"/>
+                    <xsl:copy-of select="$ResponseCodes/ResponseCodes/node()"/>
+                </pfx4:ResponseCodes>
+                <pfx4:Body>
+                    <xsl:copy-of select="$CreateOrderBySpecification/outputMessage/pfx:CreateOrderBySpecificationResponse"/>
+                </pfx4:Body>
+            </pfx4:ResponseEAI>
+        </Output>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="Output">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx4:ResponseEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>647</pd:endX>
+    <pd:endY>65</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <ResponseCodes>
+            <xsd:element name="ResponseCodes" type="pfx3:ResponseCodes"/>
+        </ResponseCodes>
+    </pd:processVariables>
+    <pd:targetNamespace>http://vodafone.com.tr/1399993269596</pd:targetNamespace>
+    <pd:activity name="CreateOrderBySpecification">
+        <pd:type>com.tibco.plugin.soap.SOAPSendReceiveActivity</pd:type>
+        <pd:resourceType>ae.activities.SOAPSendReceiveUI</pd:resourceType>
+        <pd:x>313</pd:x>
+        <pd:y>64</pd:y>
+        <config>
+            <timeout>%%Domains/OrderManagement/OSM/Timeout%%</timeout>
+            <soapAttachmentStyle>SwA</soapAttachmentStyle>
+            <timeoutType>MilliSeconds</timeoutType>
+            <service>pfx:OrderManagementService</service>
+            <servicePort>OrderManagementWebServicePort</servicePort>
+            <operation>CreateOrderBySpecification</operation>
+            <soapAction>http://xmlns.oracle.com/communications/ordermanagement/CreateOrderBySpecification</soapAction>
+            <endpointURL>http://%%Domains/OrderManagement/OSM/ValDomain%%:%%Domains/OrderManagement/OSM/ValPort%%/OrderManagement/wsapi</endpointURL>
+            <authScheme>BASIC</authScheme>
+            <requireBasicAuth>true</requireBasicAuth>
+            <basicHttpAuthIdentity>/Domains/OrderManagement/TechnicalResources/Authentication/OSM Validation Identity.id</basicHttpAuthIdentity>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Start/Input/pfx2:RequestEAI/pfx2:Body/*" element="pfx:CreateOrderBySpecification"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <inputMessage>
+                <headers>
+                    <Header.SecPart>
+                        <ns2:Security>
+                            <ns2:UsernameToken>
+                                <ns2:Username>
+                                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Domains/OrderManagement/OSM/User"/>
+                                </ns2:Username>
+                                <ns2:Password>
+                                    <xsl:value-of select="eai:deObfuscatePassword('Domains/OrderManagement/OSM/Password')"/>
+                                </ns2:Password>
+                            </ns2:UsernameToken>
+                        </ns2:Security>
+                    </Header.SecPart>
+                </headers>
+                <xsl:copy-of select="$Start/Input/pfx2:RequestEAI/pfx2:Body/pfx:CreateOrderBySpecification"/>
+            </inputMessage>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Assign">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>496</pd:x>
+        <pd:y>66</pd:y>
+        <config>
+            <variableName>ResponseCodes</variableName>
+        </config>
+        <pd:inputBindings>
+            <ResponseCodes>
+                <pfx3:ResponseCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/Success"/>
+                </pfx3:ResponseCode>
+                <pfx3:ResponseMsg>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/SuccessDescription"/>
+                </pfx3:ResponseMsg>
+            </ResponseCodes>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="CreateOrderFault">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>160</pd:x>
+        <pd:y>138</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=CreateOrder_faultMsg</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="CreateOrderFault1">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>151</pd:x>
+        <pd:y>222</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=CreateOrder_faultMsg1</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="CreateOrderFault3">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>153</pd:x>
+        <pd:y>309</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=CreateOrder_faultMsg3</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="TimeOut">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>154</pd:x>
+        <pd:y>389</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=ActivityTimedOutException namespace=http://schemas.tibco.com/bw/pe/plugin/5.0/exceptions</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="CreateOrderFaultAssign">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>496</pd:x>
+        <pd:y>140</pd:y>
+        <config>
+            <variableName>ResponseCodes</variableName>
+        </config>
+        <pd:inputBindings>
+            <ResponseCodes>
+                <pfx3:ResponseCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/TargetSystemError"/>
+                </pfx3:ResponseCode>
+                <pfx3:ResponseMsg>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/TargetSystemErrorDescription"/>
+                </pfx3:ResponseMsg>
+                <pfx3:ErrorCode>
+                    <xsl:value-of select="$CreateOrderFault/CreateOrder_faultMsg/faultcode"/>
+                </pfx3:ErrorCode>
+                <pfx3:ErrorDescription>
+                    <xsl:value-of select="$CreateOrderFault/CreateOrder_faultMsg/faultstring"/>
+                </pfx3:ErrorDescription>
+            </ResponseCodes>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="CreateOrderFault1Assign">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>498</pd:x>
+        <pd:y>222</pd:y>
+        <config>
+            <variableName>ResponseCodes</variableName>
+        </config>
+        <pd:inputBindings>
+            <ResponseCodes>
+                <pfx3:ResponseCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/TargetSystemError"/>
+                </pfx3:ResponseCode>
+                <pfx3:ResponseMsg>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/TargetSystemErrorDescription"/>
+                </pfx3:ResponseMsg>
+                <pfx3:ErrorCode>
+                    <xsl:value-of select="$CreateOrderFault1/CreateOrder_faultMsg1/faultcode"/>
+                </pfx3:ErrorCode>
+                <pfx3:ErrorDescription>
+                    <xsl:value-of select="$CreateOrderFault1/CreateOrder_faultMsg1/faultstring"/>
+                </pfx3:ErrorDescription>
+            </ResponseCodes>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="CreateOrderFault3Assign">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>498</pd:x>
+        <pd:y>308</pd:y>
+        <config>
+            <variableName>ResponseCodes</variableName>
+        </config>
+        <pd:inputBindings>
+            <ResponseCodes>
+                <pfx3:ResponseCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/TargetSystemError"/>
+                </pfx3:ResponseCode>
+                <pfx3:ResponseMsg>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/TargetSystemErrorDescription"/>
+                </pfx3:ResponseMsg>
+                <pfx3:ErrorCode>
+                    <xsl:value-of select="$CreateOrderFault3/CreateOrder_faultMsg3/faultcode"/>
+                </pfx3:ErrorCode>
+                <pfx3:ErrorDescription>
+                    <xsl:value-of select="$CreateOrderFault3/CreateOrder_faultMsg3/faultstring"/>
+                </pfx3:ErrorDescription>
+            </ResponseCodes>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="TimeOutAssign">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>499</pd:x>
+        <pd:y>391</pd:y>
+        <config>
+            <variableName>ResponseCodes</variableName>
+        </config>
+        <pd:inputBindings>
+            <ResponseCodes>
+                <pfx3:ResponseCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/Timeout"/>
+                </pfx3:ResponseCode>
+                <pfx3:ResponseMsg>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/TimeoutDescription"/>
+                </pfx3:ResponseMsg>
+                <pfx3:ErrorCode>
+                    <xsl:value-of select="$TimeOut/ns1:ActivityTimedOutException/msgCode"/>
+                </pfx3:ErrorCode>
+                <pfx3:ErrorDescription>
+                    <xsl:value-of select="$TimeOut/ns1:ActivityTimedOutException/msg"/>
+                </pfx3:ErrorDescription>
+            </ResponseCodes>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="All">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>158</pd:x>
+        <pd:y>560</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="AllAssign">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>501</pd:x>
+        <pd:y>562</pd:y>
+        <config>
+            <variableName>ResponseCodes</variableName>
+        </config>
+        <pd:inputBindings>
+            <ResponseCodes>
+                <pfx3:ResponseCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/InternalError"/>
+                </pfx3:ResponseCode>
+                <pfx3:ResponseMsg>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/InternalErrorDescription"/>
+                </pfx3:ResponseMsg>
+            </ResponseCodes>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="httpCommunication">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>154</pd:x>
+        <pd:y>471</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=HttpCommunicationException namespace=http://schemas.tibco.com/bw/plugins/http/5.0/httpExceptions</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="httpCommunicationAssign">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>498</pd:x>
+        <pd:y>473</pd:y>
+        <config>
+            <variableName>ResponseCodes</variableName>
+        </config>
+        <pd:inputBindings>
+            <ResponseCodes>
+                <pfx3:ResponseCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/TargetSystemError"/>
+                </pfx3:ResponseCode>
+                <pfx3:ResponseMsg>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/TargetSystemErrorDescription"/>
+                </pfx3:ResponseMsg>
+                <xsl:if test="$httpCommunication/ns3:HttpCommunicationException/msgCode">
+                    <pfx3:ErrorCode>
+                        <xsl:value-of select="$httpCommunication/ns3:HttpCommunicationException/msgCode"/>
+                    </pfx3:ErrorCode>
+                </xsl:if>
+                <pfx3:ErrorDescription>
+                    <xsl:value-of select="$httpCommunication/ns3:HttpCommunicationException/msg"/>
+                </pfx3:ErrorDescription>
+            </ResponseCodes>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>CreateOrderBySpecification</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CreateOrderBySpecification</pd:from>
+        <pd:to>Assign</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CreateOrderFault</pd:from>
+        <pd:to>CreateOrderFaultAssign</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CreateOrderFaultAssign</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CreateOrderFault1</pd:from>
+        <pd:to>CreateOrderFault1Assign</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CreateOrderFault1Assign</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CreateOrderFault3</pd:from>
+        <pd:to>CreateOrderFault3Assign</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>CreateOrderFault3Assign</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>TimeOut</pd:from>
+        <pd:to>TimeOutAssign</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>TimeOutAssign</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>All</pd:from>
+        <pd:to>AllAssign</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>AllAssign</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>httpCommunication</pd:from>
+        <pd:to>httpCommunicationAssign</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>httpCommunicationAssign</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

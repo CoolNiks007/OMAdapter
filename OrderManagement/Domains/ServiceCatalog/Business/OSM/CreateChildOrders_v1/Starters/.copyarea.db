@@ -1,0 +1,7 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\ServiceCatalog\Business\OSM\CreateChildOrders_v1\Starters
+2
+3
+2d:JMSCreateChildOrdersGuaranteedStarter.process|1|162d7af0c2d|945f|69bfc93f|9a1fa81ac4e54271bb2d3ffd6e7742d2|0
+2b:JMSCreateChildOrdersReliableStarter.process|1|162d7af0c6c|8103|7d7b02d1|d3ca0210b8c24886884bac678766978d|0
+7:.folder|1|162d7af0c2d|181|dd98466|cec54fd8cbb844dc930c36b7dc99f60e|0

@@ -1,0 +1,53 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>DBPackage</name>
+			<value>VFTR_CAMPAIGN_MANAGEMENT</value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1427355300612</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>DBProcedure</name>
+			<value>QUEUE_CAMPAIGN </value>
+			<deploymentSettable>false</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1427355303721</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Password</name>
+			<value>#!j7iK+DAoXSe/ZC+7WoA1c/zBnfNSUiJk</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>Password</type>
+			<modTime>1426146626319</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Schema</name>
+			<value>EAICBU</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1426146634288</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Timeout</name>
+			<value>15</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1426146628991</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>Username</name>
+			<value>EAICBU</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1426146631679</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

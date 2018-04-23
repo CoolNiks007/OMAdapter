@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentRequestInput/v1" xmlns:pfx12="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns5="http://www.tibco.com/pe/EngineTypes" xmlns:ns12="http://vodafone.com.tr/CustomerCare/Business/ICCB/MNPCallback/v1" xmlns:ns7="http://vodafone.com.tr/EAI/Logging" xmlns:pfx="http://vodafone.com.tr/EAI/Common/RequestEAI" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns4="http://vodafone.com.tr/EAI/Common/ResponseCodes" xmlns:ns3="http://vodafone.com.tr/EAI/Common/Header" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" xmlns:pfx4="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagement/UpdateOrderStatus/v1" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/OSM/OSM_TopicNotification.xsd" xmlns:pfx2="http://vodafone.com.tr/EAI/Common/ResponseEAI" xmlns:pfx9="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/Portability/PortIN.xsd" xmlns:pfx8="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentResponseInput/v1" xmlns:pfx7="http://www.tibco.com/schemas/OrderManagement/Domains/OrderManagement/BusinessResources/Schemas/Schema.xsd" xmlns:pfx6="http://vodafone.com.tr/ServiceCatalog/ServiceReply">
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/RequestEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/RequestEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/ResponseEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/ResponseEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentRequestInput/v1" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OrderComponent/OrderComponentRequestInput.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" schemaLocation="/Domains/ServiceCatalog/BusinessResources/Schemas/ServiceRequest.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/OrderManagement/Domains/OrderManagement/BusinessResources/Schemas/Schema.xsd" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/ServiceReply" schemaLocation="/Domains/ServiceCatalog/BusinessResources/Schemas/ServiceReply.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentResponseInput/v1" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OrderComponent/OrderComponentResponseInput.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/OSM/OSM_TopicNotification.xsd" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OSM/OSM_TopicNotification.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagement/UpdateOrderStatus/v1" schemaLocation="/Domains/ServiceCatalog/Business/OrderManagement/UpdateOrderStatus_v1/Schemas/UpdateOrderStatus.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/Portability/PortIN.xsd" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/Portability/PortIN.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Logging" schemaLocation="/GlobalCommonResources/Schemas/Logging/LogMessage.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/CustomerCare/Business/ICCB/MNPCallback/v1" schemaLocation="/Domains/CustomerCare/Business/ICCB/ManageMNPRequest_v1/Schemas/MNPCallback.xsd"/>
+    <pd:name>Domains/OrderManagement/BusinessResources/Processes/OrderNotification/SIEBELOrderNotification.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Input">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx:RequestEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>31</pd:startX>
+    <pd:startY>136</pd:startY>
+    <pd:returnBindings>
+        <Output>
+            <pfx2:ResponseEAI>
+                <pfx2:Header>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ancestor-or-self::*/namespace::node()"/>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/@*"/>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/node()"/>
+                </pfx2:Header>
+                <pfx2:ResponseCodes>
+                    <ns4:ResponseCode>
+                        <xsl:value-of select="$_globalVariables/pfx12:GlobalVariables/ErrorCodes/Success"/>
+                    </ns4:ResponseCode>
+                </pfx2:ResponseCodes>
+            </pfx2:ResponseEAI>
+        </Output>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="Output">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx2:ResponseEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>792</pd:endX>
+    <pd:endY>136</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.vodafone.com.tr/1407237293059</pd:targetNamespace>
+    <pd:activity name="GetGlobalData">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>283</pd:x>
+        <pd:y>136</pd:y>
+        <config>
+            <processName>/Domains/OrderManagement/BusinessResources/Processes/TO2FGlobalData/GetGlobalData.process</processName>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Start/Input/pfx:RequestEAI/pfx:Body/*" element="pfx3:TelcoOrderStatusNotification"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <Input>
+                <MasterOrderId>
+                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/MasterOrderId"/>
+                </MasterOrderId>
+                <OrderId>
+                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/Id"/>
+                </OrderId>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="JMS Queue Sender">
+        <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+        <pd:x>671</pd:x>
+        <pd:y>136</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%Domains/OrderManagement/OrderNotification/SiebelNotificationQueue%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/GlobalCommonResources/Connections/JMS/JMS EAI Connection.sharedjmscon</ConnectionReference>
+            <InDataxsdString ref="pfx5:ServiceRequest"/>
+        </config>
+        <pd:inputBindings>
+            <ns2:ActivityInput>
+                <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns3:Priority">
+                    <JMSPriority>
+                        <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns3:Priority"/>
+                    </JMSPriority>
+                </xsl:if>
+                <Body>
+                    <pfx5:ServiceRequest>
+                        <xsl:for-each select="$Start/Input/pfx:RequestEAI/pfx:Header">
+                            <pfx5:Header>
+                                <xsl:if test="ns3:RequestId">
+                                    <ns3:RequestId>
+                                        <xsl:value-of select="ns3:RequestId"/>
+                                    </ns3:RequestId>
+                                </xsl:if>
+                                <ns3:SourceSystem>
+                                    <xsl:value-of select="ns3:SourceSystem"/>
+                                </ns3:SourceSystem>
+                                <ns3:ReplyExpected>
+                                    <xsl:value-of select="ns3:ReplyExpected"/>
+                                </ns3:ReplyExpected>
+                                <xsl:if test="ns3:QoS">
+                                    <ns3:QoS>
+                                        <xsl:value-of select="ns3:QoS"/>
+                                    </ns3:QoS>
+                                </xsl:if>
+                                <xsl:if test="ns3:Schedule">
+                                    <ns3:Schedule>
+                                        <xsl:value-of select="ns3:Schedule"/>
+                                    </ns3:Schedule>
+                                </xsl:if>
+                                <xsl:if test="ns3:CorrelationId">
+                                    <ns3:CorrelationId>
+                                        <xsl:value-of select="ns3:CorrelationId"/>
+                                    </ns3:CorrelationId>
+                                </xsl:if>
+                                <xsl:if test="ns3:Priority">
+                                    <ns3:Priority>
+                                        <xsl:value-of select="ns3:Priority"/>
+                                    </ns3:Priority>
+                                </xsl:if>
+                                <xsl:for-each select="ns3:Credentials">
+                                    <ns3:Credentials>
+                                        <ns3:ApplicationId>
+                                            <xsl:value-of select="ns3:ApplicationId"/>
+                                        </ns3:ApplicationId>
+                                        <ns3:User>
+                                            <xsl:value-of select="ns3:User"/>
+                                        </ns3:User>
+                                        <xsl:if test="ns3:Password">
+                                            <ns3:Password>
+                                                <xsl:value-of select="ns3:Password"/>
+                                            </ns3:Password>
+                                        </xsl:if>
+                                    </ns3:Credentials>
+                                </xsl:for-each>
+                                <xsl:if test="ns3:ProxySystem">
+                                    <ns3:ProxySystem>
+                                        <xsl:value-of select="ns3:ProxySystem"/>
+                                    </ns3:ProxySystem>
+                                </xsl:if>
+                                <xsl:if test="ns3:ForceSimulate">
+                                    <ns3:ForceSimulate>
+                                        <xsl:value-of select="ns3:ForceSimulate"/>
+                                    </ns3:ForceSimulate>
+                                </xsl:if>
+                                <xsl:for-each select="ns3:Attributes">
+                                    <ns3:Attributes>
+                                        <xsl:for-each select="ns3:Attribute">
+                                            <ns3:Attribute>
+                                                <ns3:Name>
+                                                    <xsl:value-of select="ns3:Name"/>
+                                                </ns3:Name>
+                                                <ns3:Value>
+                                                    <xsl:value-of select="ns3:Value"/>
+                                                </ns3:Value>
+                                            </ns3:Attribute>
+                                        </xsl:for-each>
+                                    </ns3:Attributes>
+                                </xsl:for-each>
+                            </pfx5:Header>
+                        </xsl:for-each>
+                        <pfx5:Body>
+                            <xsl:copy-of select="$Map-Data/pfx4:Request"/>
+                            <xsl:copy-of select="$Map-Data-1/pfx4:Request"/>
+                        </pfx5:Body>
+                    </pfx5:ServiceRequest>
+                </Body>
+            </ns2:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Log">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>379</pd:x>
+        <pd:y>261</pd:y>
+        <config>
+            <processName>/GlobalCommonResources/Processes/Logging/Logger.process</processName>
+            <processNameXPath/>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <ns7:LogMessage>
+                    <ns7:Source>
+                        <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns3:SourceSystem"/>
+                    </ns7:Source>
+                    <ns7:Target>
+                        <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/Specification/Source"/>
+                    </ns7:Target>
+                    <ns7:Process>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns5:ProcessContext/ProcessId)"/>
+                    </ns7:Process>
+                    <ns7:Service>
+                        <xsl:value-of select="'OrderNotification'"/>
+                    </ns7:Service>
+                    <ns7:Operation>
+                        <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns3:BusinessInterface/ns3:Operation"/>
+                    </ns7:Operation>
+                    <ns7:LogTimestamp>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </ns7:LogTimestamp>
+                    <ns7:MsgId>
+                        <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns3:RequestId"/>
+                    </ns7:MsgId>
+                    <ns7:Type>
+                        <xsl:value-of select="$_globalVariables/pfx12:GlobalVariables/Logging/Roles/AuditRoleName"/>
+                    </ns7:Type>
+                    <ns7:Task>
+                        <xsl:value-of select="$_globalVariables/pfx12:GlobalVariables/Logging/Tasks/Service/Start"/>
+                    </ns7:Task>
+                    <ns7:ErrorDump>
+                        <xsl:value-of select="$GetGlobalData/Output/ErrorMessage"/>
+                    </ns7:ErrorDump>
+                    <ns7:ErrorCode>
+                        <xsl:value-of select="$GetGlobalData/Output/ErrorCode"/>
+                    </ns7:ErrorCode>
+                    <ns7:MessageBody>
+                        <xsl:value-of select="tib:render-xml($GetGlobalData/Output)"/>
+                    </ns7:MessageBody>
+                    <ns7:CorrelationId>
+                        <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns3:CorrelationId"/>
+                    </ns7:CorrelationId>
+                    <ns7:UserName>
+                        <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns3:Credentials[1]/ns3:User"/>
+                    </ns7:UserName>
+                    <ns7:Version>
+                        <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns3:BusinessInterface/ns3:Version"/>
+                    </ns7:Version>
+                    <ns7:Interface>
+                        <xsl:value-of select="'Log Order Component'"/>
+                    </ns7:Interface>
+                </ns7:LogMessage>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Map Data">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>286</pd:x>
+        <pd:y>350</pd:y>
+        <config>
+            <element ref="pfx4:Request"/>
+        </config>
+        <pd:inputBindings>
+            <pfx4:Request>
+                <xsl:choose>
+                    <xsl:when test="$Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/LastOrder = 'Y'">
+                        <pfx4:OMLastNotification>
+                            <xsl:value-of select="true()"/>
+                        </pfx4:OMLastNotification>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <pfx4:OMLastNotification>
+                            <xsl:value-of select="false()"/>
+                        </pfx4:OMLastNotification>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <pfx4:OMNotificationDate>
+                    <xsl:value-of select="current-dateTime()"/>
+                </pfx4:OMNotificationDate>
+                <xsl:choose>
+                    <xsl:when test="$Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/Id = $Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/MasterOrderId">
+                        <pfx4:OMSplittedOrder>
+                            <xsl:value-of select="false()"/>
+                        </pfx4:OMSplittedOrder>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <pfx4:OMSplittedOrder>
+                            <xsl:value-of select="true()"/>
+                        </pfx4:OMSplittedOrder>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/StateMessage">
+                    <pfx4:OrderErrorDescription>
+                        <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/StateMessage"/>
+                    </pfx4:OrderErrorDescription>
+                </xsl:if>
+                <pfx4:OrderNumber>
+                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/Reference"/>
+                </pfx4:OrderNumber>
+                <pfx4:OrderOMPublicId>
+                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/MasterOrderId"/>
+                </pfx4:OrderOMPublicId>
+                <pfx4:Notification>
+                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/State"/>
+                </pfx4:Notification>
+                <pfx4:ListOfRootItem>
+                    <xsl:for-each select="$Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/ListOfRootId/RootId">
+                        <pfx4:RootItem>
+                            <pfx4:Id>
+                                <xsl:value-of select="."/>
+                            </pfx4:Id>
+                        </pfx4:RootItem>
+                    </xsl:for-each>
+                </pfx4:ListOfRootItem>
+            </pfx4:Request>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Map-Data-1">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>540</pd:x>
+        <pd:y>136</pd:y>
+        <config>
+            <element ref="pfx4:Request"/>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Start/Input/pfx:RequestEAI/pfx:Body/*" element="pfx3:TelcoOrderStatusNotification"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <pfx4:Request>
+                <xsl:choose xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                    <xsl:when test="$Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/LastOrder = 'Y'">
+                        <pfx4:OMLastNotification>
+                            <xsl:value-of select="true()"/>
+                        </pfx4:OMLastNotification>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <pfx4:OMLastNotification>
+                            <xsl:value-of select="false()"/>
+                        </pfx4:OMLastNotification>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/ProcessingDate">
+                    <pfx4:OMNotificationDate>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </pfx4:OMNotificationDate>
+                </xsl:if>
+                <xsl:choose xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                    <xsl:when test="$Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/Id = $Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/MasterOrderId">
+                        <pfx4:OMSplittedOrder>
+                            <xsl:value-of select="false()"/>
+                        </pfx4:OMSplittedOrder>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <pfx4:OMSplittedOrder>
+                            <xsl:value-of select="true()"/>
+                        </pfx4:OMSplittedOrder>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/StateMessage">
+                    <pfx4:OrderErrorDescription>
+                        <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/StateMessage"/>
+                    </pfx4:OrderErrorDescription>
+                </xsl:if>
+                <pfx4:OrderNumber>
+                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/Reference"/>
+                </pfx4:OrderNumber>
+                <pfx4:OrderOMPublicId>
+                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/MasterOrderId"/>
+                </pfx4:OrderOMPublicId>
+                <pfx4:Notification>
+                    <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/State"/>
+                </pfx4:Notification>
+                <pfx4:ListOfRootItem>
+                    <xsl:for-each xmlns:xsl="http://www.w3.org/1999/XSL/Transform" select="$Parse-XML/ListOfPortINMSISDN/PortINMSISDN[string-length(RejectCode) > 0 or AdvancePaymentPaid = 'N' ]">
+                        <pfx4:RootItem>
+                            <pfx4:Id>
+                                <xsl:value-of select="current()/RootId"/>
+                            </pfx4:Id>
+                        </pfx4:RootItem>
+                    </xsl:for-each>
+                </pfx4:ListOfRootItem>
+            </pfx4:Request>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Parse XML">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>423</pd:x>
+        <pd:y>136</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>false</validateOutput>
+            <term ref="pfx9:ListOfPortINMSISDN"/>
+        </config>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$GetGlobalData/Output/ListOfGlobalData/GlobalData[contains(Key,'PortIN') ]/Value"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Null">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>403</pd:x>
+        <pd:y>34</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Map Data</pd:from>
+        <pd:to>JMS Queue Sender</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>JMS Queue Sender</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetGlobalData</pd:from>
+        <pd:to>Parse XML</pd:to>
+        <pd:xpathDescription>PortIn first Order</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$GetGlobalData/Output/ErrorCode=$_globalVariables/pfx12:GlobalVariables/ErrorCodes/Success
+and 
+(
+contains( tib:concat-sequence($GetGlobalData/Output/ListOfGlobalData/GlobalData/Key), 'PortIN')
+and
+not(contains( tib:concat-sequence($GetGlobalData/Output/ListOfGlobalData/GlobalData/Key), 'Cancel'))
+and
+$Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/State ='COMPLETED'
+and
+$GetGlobalData/Output/ListOfGlobalData/GlobalData[contains( Key, 'PortIN') and not(contains(Key, 'Cancel'))]/OrderId = $Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/Id
+)</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse XML</pd:from>
+        <pd:to>Map-Data-1</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map-Data-1</pd:from>
+        <pd:to>JMS Queue Sender</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetGlobalData</pd:from>
+        <pd:to>Log</pd:to>
+        <pd:xpathDescription>Error</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Log</pd:from>
+        <pd:to>Map Data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>GetGlobalData</pd:to>
+        <pd:xpathDescription>SPLT and Completed</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>contains($Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/MasterOrderId, 'SPLT')
+and
+$Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/State = 'COMPLETED'
+and 
+string-length($Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/Id )&gt;0</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Map Data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>otherwise</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetGlobalData</pd:from>
+        <pd:to>Map Data</pd:to>
+        <pd:xpathDescription>Success</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$GetGlobalData/Output/ErrorCode= '-106'
+or 
+(
+$GetGlobalData/Output/ErrorCode=$_globalVariables/pfx12:GlobalVariables/ErrorCodes/Success
+and (
+	not ((contains( tib:concat-sequence($GetGlobalData/Output/ListOfGlobalData/GlobalData/Key), 'PortIN')
+	and 
+		not(contains( tib:concat-sequence($GetGlobalData/Output/ListOfGlobalData/GlobalData/Key), 'Cancel')) 
+		and 
+		$Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/State ='COMPLETED'
+		and
+$GetGlobalData/Output/ListOfGlobalData/GlobalData[contains( Key, 'PortIN') and not(contains(Key, 'Cancel'))]/OrderId = $Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/Id
+
+))))</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:xpathDescription>IN_PROGRESS OR CANCELLING STATE</pd:xpathDescription>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$Start/Input/pfx:RequestEAI/pfx:Body/TelcoOrderStatusNotification/State = ('IN_PROGRESS','CANCELLING')</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

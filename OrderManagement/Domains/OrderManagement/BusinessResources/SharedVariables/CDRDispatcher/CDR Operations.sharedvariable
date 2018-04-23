@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <name>CDR Operations</name>
+    <resourceType>ae.shared.sharedVariable</resourceType>
+    <config xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <persistent>false</persistent>
+        <multi-engine>false</multi-engine>
+        <initialValue>none</initialValue>
+        <xsdString>
+            <xsd:element name="ListOfCDROperationCodes">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="CDROperationCodes" minOccurs="0" maxOccurs="unbounded">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="OrderTypeCode" type="xsd:string"/>
+                                    <xsd:element name="ActionType" type="xsd:string"/>
+                                    <xsd:element name="ActionReason" type="xsd:string"/>
+                                    <xsd:element name="OperationType" type="xsd:string"/>
+                                    <xsd:element name="Reason" type="xsd:string"/>
+                                    <xsd:element name="ProcessType" type="xsd:string"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsdString>
+    </config>
+</BWSharedResource>

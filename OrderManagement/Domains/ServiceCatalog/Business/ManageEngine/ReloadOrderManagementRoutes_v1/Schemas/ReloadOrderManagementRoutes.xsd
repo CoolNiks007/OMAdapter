@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://vodafone.com.tr/ServiceCatalog/Business/ManageEngine/ReloadOrderManagementRoutes/v1"
+	 targetNamespace="http://vodafone.com.tr/ServiceCatalog/Business/ManageEngine/ReloadOrderManagementRoutes/v1"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:complexType name="Request"/>
+	<xs:element name="Request" type="Request"/>
+	<xs:complexType name="ReloadOrderManagementRoutesRequest">
+		<xs:sequence>
+			<xs:element name="Request" type="Request"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ReloadOrderManagementRoutesRequest" type="ReloadOrderManagementRoutesRequest"/>
+</xs:schema>

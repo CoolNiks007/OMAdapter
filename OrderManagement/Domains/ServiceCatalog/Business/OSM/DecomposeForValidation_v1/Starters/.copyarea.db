@@ -1,0 +1,7 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\ServiceCatalog\Business\OSM\DecomposeForValidation_v1\Starters
+2
+3
+32:JMSDecomposeForValidationGuaranteedStarter.process|1|162d7af1062|946e|19ebcfae|e93cae1b4ab34330822c021c529893f9|0
+30:JMSDecomposeForValidationReliableStarter.process|1|162d7af1071|8112|74df0950|8ccba1d5d613404f91d052011cd9cddf|0
+7:.folder|1|162d7af1062|181|dd98466|10a77c0ad50f4ec5a188c908cd5f4095|0

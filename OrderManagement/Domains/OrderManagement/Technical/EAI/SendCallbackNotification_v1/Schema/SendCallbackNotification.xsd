@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://vodafone.com.tr/OrderManagement/Technical/EAI/SendCallbackNotification/v1"
+	 xmlns:serviceReply="http://vodafone.com.tr/ServiceCatalog/ServiceReply"
+	 targetNamespace="http://vodafone.com.tr/OrderManagement/Technical/EAI/SendCallbackNotification/v1"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:import namespace="http://vodafone.com.tr/ServiceCatalog/ServiceReply" schemaLocation="../../../../../ServiceCatalog/BusinessResources/Schemas/ServiceReply.xsd"/>
+	<xs:complexType name="Request">
+		<xs:sequence>
+			<xs:element name="CallbackQueue" type="xs:string"/>
+			<xs:element name="CorrelationId" type="xs:string" minOccurs="0"/>
+			<xs:element ref="serviceReply:ServiceReply"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Response"/>
+	<xs:element name="Request" type="Request"/>
+	<xs:element name="Response" type="Response"/>
+</xs:schema>

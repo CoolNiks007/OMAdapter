@@ -1,0 +1,9 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\BusinessResources\Processes\ConfigurationVariables\CDRDispatcher
+2
+5
+1e:LoadCDRRoamingProducts.process|1|162d7aee76f|1451|186a4c97|1c59c97c233d4ac2b0e71a3c3aefb9c8|0
+1d:LoadCDROperationCodes.process|1|162d7aee6d3|1c15|9ca3b270|f2ba9b3d8d02407fac98be0c4e1d9ed7|0
+1d:GetCDRRoamingProducts.process|1|162d7aee711|d27|c816eda0|e5af9ec196334c32b4516ae5f0065cb1|0
+1c:GetCDROperationCodes.process|1|162d7aee5f8|e9d|7179a39e|63fb0ed572af4c02b4b8f3a46c6ce5c0|0
+7:.folder|1|162d7aee5f8|186|84f485ee|64d5fe6ae4784f368a7c3f4e1c43bc87|0

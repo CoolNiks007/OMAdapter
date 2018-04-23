@@ -1,0 +1,7 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\ServiceCatalog\Business\OSM\IsOrderCancellable_v1\Starters
+2
+3
+2c:JMSIsOrderCancellableReliableStarter.process|1|162d7af1561|8106|123303d0|fb2869eb23d6430180b4c919a51972c1|0
+2e:JMSIsOrderCancellableGuaranteedStarter.process|1|162d7af1542|9462|65f1ca43|59a90df97a6f4be79523241f8c127931|0
+7:.folder|1|162d7af1542|181|dd98466|1e3c193833e8428a9fdfd5f997900583|0

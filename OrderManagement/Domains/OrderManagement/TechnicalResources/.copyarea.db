@@ -1,0 +1,15 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\TechnicalResources
+2
+b
+f:Transformations|2|0|0|0|5be992515bd947cd8ad30b5f089c9921|0
+8:Security|2|0|0|0|c3a79a306d1e4bad985de91d61e99067|0
+b:Connections|2|0|0|0|ccba18b505ca4d5ebc2a012ca1faab5b|0
+4:Java|2|0|0|0|37cbc2f0f46f45b6bb052c90ca4fbefc|0
+14:AdapterConfiguration|2|0|0|0|8efaf73acbfe455e84db9dd80d781268|0
+e:Authentication|2|0|0|0|785bce8fcb13430eac5d16cc9aad887e|0
+4:WSDL|2|0|0|0|47b5c7dd3b8e46edb1ce517b8d710f4e|0
+f:SharedVariables|2|0|0|0|8b5738caaac4437db7a600a5dcfbc8d2|0
+7:Schemas|2|0|0|0|3b141d47dd5b4cbea1b373454ee40c80|0
+7:.folder|1|162d7af00d8|18b|bd3b8854|cd82feba3a734b47b871461a78843219|0
+9:Processes|2|0|0|0|27aca95f8989431d86df146bdda85fe5|0

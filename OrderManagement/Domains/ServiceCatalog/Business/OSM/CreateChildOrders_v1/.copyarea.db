@@ -1,0 +1,9 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\ServiceCatalog\Business\OSM\CreateChildOrders_v1
+2
+5
+d:SOAPInterface|2|0|0|0|84a77dba169740ce8c584f6ebb4debca|0
+8:Starters|2|0|0|0|10e09e7b4c3e4aa0aa88ecbc707eef57|0
+7:Schemas|2|0|0|0|eac97a985be64910a2d14e8b7ff3e60d|0
+7:.folder|1|162d7af0bd0|18d|959d88bb|63b159dd1bdd4a358834436a32e5a025|0
+19:CreateChildOrders.process|1|162d7af0bdf|b3a8|39fce645|5f6c909517f0461a8120303a0e918317|0

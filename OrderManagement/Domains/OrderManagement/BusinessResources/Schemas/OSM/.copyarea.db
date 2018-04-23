@@ -1,0 +1,8 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\BusinessResources\Schemas\OSM
+2
+4
+19:OSM_OperationResponse.xsd|1|162d7aeed29|40b|9a42470e|25077564cfe34adfbabb8b2d75f69240|0
+18:OSM_OperationRequest.xsd|1|162d7aeed19|71a|c8fb2084|20d29f64bc164ab6859aeaaa978c5485|0
+7:.folder|1|162d7aeed19|18c|55f788be|63e0ac5c88ac47bb95a6e77633b10990|0
+19:OSM_TopicNotification.xsd|1|162d7aeed29|759|a07a3d37|d8b5cf8ef32247faabf51fba1779a160|0

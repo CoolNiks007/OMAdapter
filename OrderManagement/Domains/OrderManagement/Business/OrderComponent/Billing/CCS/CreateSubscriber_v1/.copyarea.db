@@ -1,0 +1,7 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\Business\OrderComponent\Billing\CCS\CreateSubscriber_v1
+2
+3
+18:CreateSubscriber.process|1|162d7aeb42f|810f|1f80de62|4529cc38b9bc4ecd92b0b2afc74bed37|0
+21:CreateSubscriber_Response.process|1|162d7aeb43f|42ab|9dc421d8|bfa1d870250a4663bf52b04cd3d9805b|0
+7:.folder|1|162d7aeb42f|18c|2114887c|19333553c93a4003adf5b2d3a37d57d7|0

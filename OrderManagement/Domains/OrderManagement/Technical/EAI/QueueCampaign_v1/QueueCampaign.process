@@ -1,0 +1,657 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:pfx5="http://vodafone.com.tr/EAI/Logging" xmlns:pfx4="http://vodafone.com.tr/EAI/Common/ResponseCodes" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://vodafone.com.tr/EAI/Common/RequestEAI" xmlns:pfx2="http://vodafone.com.tr/EAI/Common/ResponseEAI" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns9="http://vodafone.com.tr/ServiceCatalog/Business/CampaignManagement/QueueCampaign/v1" xmlns:ns5="http://vodafone.com.tr/EAI/Common/Header" xmlns:ns12="http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions" xmlns:ns13="http://vodafone.com.tr/OrderManagement/Technical/EAI/QueueCampaign//v1" xmlns:ns6="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:ns10="http://vodafone.com.tr/OrderManagement/Technical/EAI/QueueCampaign/v1" xmlns:eai="java://com.telco.eai.EAIFunctions" xmlns:pfx="http://siebel.com/CustomUI" xmlns:ns7="http://vodafone.com.tr/ServiceCatalog/Business/CampaignManagement/RegisterCampaign/v1" xmlns:ns11="http://vodafone.com.tr/OrderManagement/Technical/EAI/RegisterCampaign//v1" xmlns:ns8="http://vodafone.com.tr/ServiceCatalog/Business/CampaignManagement/CampaignManagement/v1" xmlns:ns2="http://www.tibco.com/pe/EngineTypes" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://schemas.tibco.com/bw/pe/plugin/5.0/exceptions" xmlns:ns4="http://schemas.tibco.com/bw/plugins/http/5.0/httpExceptions" xmlns:ns3="http://vodafone.com.tr/CustomerCare/Technical/Siebel/GetCustomerIdentification/v1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/ResponseEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/ResponseEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/RequestEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/RequestEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/ResponseCodes" schemaLocation="/GlobalCommonResources/Schemas/Common/ResponseCodes.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Logging" schemaLocation="/GlobalCommonResources/Schemas/Logging/LogMessage.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/CustomerCare/Technical/Siebel/GetCustomerIdentification/v1" schemaLocation="/Domains/CustomerCare/Technical/Siebel/GetCustomerIdentification_v1/Schemas/GetCustomerIdentification.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/CampaignManagement/RegisterCampaign/v1" schemaLocation="/Domains/ServiceCatalog/Business/CampaignManagement/RegisterCampaign_v1/Schemas/RegisterCampaign.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/CampaignManagement/QueueCampaign/v1" schemaLocation="/Domains/CustomerCare/Technical/Siebel/RegisterCampaign_v1/Schema/QueueCampaign.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/OrderManagement/Technical/EAI/QueueCampaign//v1" schemaLocation="/Domains/OrderManagement/Technical/EAI/QueueCampaign_v1/Schema/QueueCampaign.xsd"/>
+    <wsdl:import namespace="http://siebel.com/CustomUI"/>
+    <pd:name>Domains/OrderManagement/Technical/EAI/QueueCampaign_v1/QueueCampaign.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Input">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx3:RequestEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>115</pd:startX>
+    <pd:startY>37</pd:startY>
+    <pd:returnCoercions>
+        <pd:coercion xpath="$Response/Response/Body/*" element="ns11:Response"/>
+    </pd:returnCoercions>
+    <pd:returnBindings>
+        <Output>
+            <pfx2:ResponseEAI>
+                <pfx2:Header>
+                    <xsl:copy-of select="$Start/Input/pfx3:RequestEAI/pfx3:Header/ancestor-or-self::*/namespace::node()"/>
+                    <xsl:copy-of select="$Start/Input/pfx3:RequestEAI/pfx3:Header/@*"/>
+                    <xsl:copy-of select="$Start/Input/pfx3:RequestEAI/pfx3:Header/node()"/>
+                </pfx2:Header>
+                <pfx2:ResponseCodes>
+                    <xsl:copy-of select="$Response/Response/ResponseCodes/ancestor-or-self::*/namespace::node()"/>
+                    <xsl:copy-of select="$Response/Response/ResponseCodes/@*"/>
+                    <xsl:copy-of select="$Response/Response/ResponseCodes/node()"/>
+                </pfx2:ResponseCodes>
+                <pfx2:Body>
+                    <xsl:copy-of select="$Response/Response/Body/ancestor-or-self::*/namespace::node()"/>
+                    <xsl:copy-of select="$Response/Response/Body/@*"/>
+                    <xsl:copy-of select="$Response/Response/Body/node()"/>
+                </pfx2:Body>
+            </pfx2:ResponseEAI>
+        </Output>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="Output">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx2:ResponseEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>613</pd:endX>
+    <pd:endY>43</pd:endY>
+    <pd:errorSchemas>
+        <LogMessage ref="pfx5:LogMessage"/>
+    </pd:errorSchemas>
+    <pd:processVariables>
+        <Response>
+            <xsd:element name="Response">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ResponseCodes" type="pfx4:ResponseCodes"/>
+                        <xsd:element name="Body" minOccurs="0">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:any minOccurs="0" processContents="skip"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </Response>
+    </pd:processVariables>
+    <pd:targetNamespace>http://vodafone.com.tr/1391003351239650</pd:targetNamespace>
+    <pd:activity name="Assign Response">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>459</pd:x>
+        <pd:y>40</pd:y>
+        <config>
+            <variableName>Response</variableName>
+        </config>
+        <pd:inputBindings>
+            <Response>
+                <xsl:choose>
+                    <xsl:when test="$RegisterCampaign/resultSet/outputSet/PO_ERROR_CODE = $_globalVariables/ns:GlobalVariables/Domains/CustomerCare/Siebel/Transport/SOAP/ErrorCodes/Success">
+                        <ResponseCodes>
+                            <pfx4:ResponseCode>
+                                <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/Success"/>
+                            </pfx4:ResponseCode>
+                            <pfx4:ResponseMsg>
+                                <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/SuccessDescription"/>
+                            </pfx4:ResponseMsg>
+                            <xsl:if test="not(($RegisterCampaign/resultSet/outputSet/PO_ERROR_CODE/@xsi:nil=(&quot;true&quot;)) or ($RegisterCampaign/resultSet/outputSet/PO_ERROR_CODE/@xsi:nil=(&quot;1&quot;)))">
+                                <pfx4:ErrorCode>
+                                    <xsl:value-of select="$RegisterCampaign/resultSet/outputSet/PO_ERROR_CODE"/>
+                                </pfx4:ErrorCode>
+                            </xsl:if>
+                            <xsl:if test="not(($RegisterCampaign/resultSet/outputSet/PO_ERROR_MESSAGE/@xsi:nil=(&quot;true&quot;)) or ($RegisterCampaign/resultSet/outputSet/PO_ERROR_MESSAGE/@xsi:nil=(&quot;1&quot;)))">
+                                <pfx4:ErrorDescription>
+                                    <xsl:value-of select="$RegisterCampaign/resultSet/outputSet/PO_ERROR_MESSAGE"/>
+                                </pfx4:ErrorDescription>
+                            </xsl:if>
+                        </ResponseCodes>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <ResponseCodes>
+                            <pfx4:ResponseCode>
+                                <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/TargetSystemError"/>
+                            </pfx4:ResponseCode>
+                            <pfx4:ResponseMsg>
+                                <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/TargetSystemErrorDescription"/>
+                            </pfx4:ResponseMsg>
+                            <xsl:if test="not(($RegisterCampaign/resultSet/outputSet/PO_ERROR_CODE/@xsi:nil=(&quot;true&quot;)) or ($RegisterCampaign/resultSet/outputSet/PO_ERROR_CODE/@xsi:nil=(&quot;1&quot;)))">
+                                <pfx4:ErrorCode>
+                                    <xsl:value-of select="$RegisterCampaign/resultSet/outputSet/PO_ERROR_CODE"/>
+                                </pfx4:ErrorCode>
+                            </xsl:if>
+                            <xsl:if test="not(($RegisterCampaign/resultSet/outputSet/PO_ERROR_MESSAGE/@xsi:nil=(&quot;true&quot;)) or ($RegisterCampaign/resultSet/outputSet/PO_ERROR_MESSAGE/@xsi:nil=(&quot;1&quot;)))">
+                                <pfx4:ErrorDescription>
+                                    <xsl:value-of select="$RegisterCampaign/resultSet/outputSet/PO_ERROR_MESSAGE"/>
+                                </pfx4:ErrorDescription>
+                            </xsl:if>
+                        </ResponseCodes>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <Body/>
+            </Response>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>271</pd:x>
+        <pd:y>464</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Generate Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>468</pd:x>
+        <pd:y>464</pd:y>
+        <config>
+            <faultName>LogMessage</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns6:ActivityInput>
+                <data>
+                    <pfx5:LogMessage>
+                        <pfx5:Source>
+                            <xsl:value-of select="$Start/Input/pfx3:RequestEAI/pfx3:Header/ns5:SourceSystem"/>
+                        </pfx5:Source>
+                        <pfx5:Target>
+                            <xsl:value-of select="$Start/Input/pfx3:RequestEAI/pfx3:Header/ns5:TargetSystem"/>
+                        </pfx5:Target>
+                        <pfx5:Engine>
+                            <xsl:value-of select="$_processContext/ns2:ProcessContext/EngineName"/>
+                        </pfx5:Engine>
+                        <pfx5:ProcessId>
+                            <xsl:value-of select="$_processContext/ns2:ProcessContext/ProcessId"/>
+                        </pfx5:ProcessId>
+                        <pfx5:Process>
+                            <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns2:ProcessContext/ProcessId)"/>
+                        </pfx5:Process>
+                        <pfx5:Service>
+                            <xsl:value-of select="$Start/Input/pfx3:RequestEAI/pfx3:Header/ns5:BusinessInterface/ns5:Service"/>
+                        </pfx5:Service>
+                        <pfx5:Operation>
+                            <xsl:value-of select="$Start/Input/pfx3:RequestEAI/pfx3:Header/ns5:BusinessInterface/ns5:Operation"/>
+                        </pfx5:Operation>
+                        <pfx5:MsgId>
+                            <xsl:value-of select="$Start/Input/pfx3:RequestEAI/pfx3:Header/ns5:RequestId"/>
+                        </pfx5:MsgId>
+                        <pfx5:Type>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Logging/Roles/ErrorRoleName"/>
+                        </pfx5:Type>
+                        <pfx5:Task>
+                            <xsl:value-of select="tib:substring-after-last($_error/ns2:ErrorReport/ProcessStack, &quot;/&quot;)"/>
+                        </pfx5:Task>
+                        <pfx5:Description>
+                            <xsl:value-of select="$_error/ns2:ErrorReport/Msg"/>
+                        </pfx5:Description>
+                        <xsl:if test="$_error/ns2:ErrorReport/StackTrace">
+                            <pfx5:ErrorDump>
+                                <xsl:value-of select="$_error/ns2:ErrorReport/StackTrace"/>
+                            </pfx5:ErrorDump>
+                        </xsl:if>
+                        <pfx5:ErrorCode>
+                            <xsl:value-of select="$_error/ns2:ErrorReport/MsgCode"/>
+                        </pfx5:ErrorCode>
+                        <pfx5:ResponseCode>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/UnspecifiedError"/>
+                        </pfx5:ResponseCode>
+                        <pfx5:CorrelationId>
+                            <xsl:value-of select="$Start/Input/pfx3:RequestEAI/pfx3:Header/ns5:CorrelationId"/>
+                        </pfx5:CorrelationId>
+                        <pfx5:UserName>
+                            <xsl:value-of select="$Start/Input/pfx3:RequestEAI/pfx3:Header/ns5:Credentials[1]/ns5:User"/>
+                        </pfx5:UserName>
+                        <pfx5:Version>
+                            <xsl:value-of select="$Start/Input/pfx3:RequestEAI/pfx3:Header/ns5:TechnicalInterface/ns5:Version"/>
+                        </pfx5:Version>
+                        <pfx5:Interface>
+                            <xsl:value-of select="$Start/Input/pfx3:RequestEAI/pfx3:Header/ns5:TechnicalInterface/ns5:Interface"/>
+                        </pfx5:Interface>
+                    </pfx5:LogMessage>
+                </data>
+            </ns6:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="RegisterCampaign">
+        <pd:type>com.tibco.plugin.jdbc.JDBCCallActivity</pd:type>
+        <pd:resourceType>ae.activities.JDBCCallActivity</pd:resourceType>
+        <pd:x>271</pd:x>
+        <pd:y>37</pd:y>
+        <config>
+            <timeout>%%Domains/OrderManagement/OSM/Operations/RegisterCampaign/Transport/JDBC/Timeout%%</timeout>
+            <maxRows>%%Domains/CustomerCare/Siebel/Transport/JDBC/MaxRows%%</maxRows>
+            <emptyStrAsNil>false</emptyStrAsNil>
+            <schema>%%Domains/OrderManagement/OSM/Operations/RegisterCampaign/Transport/JDBC/Schema%%</schema>
+            <jdbcSharedConfig>/GlobalCommonResources/Connections/JDBC/EAI Database Connection.sharedjdbc</jdbcSharedConfig>
+            <catalog>%%Domains/OrderManagement/OSM/Operations/RegisterCampaign/Transport/JDBC/DBPackage%%</catalog>
+            <ProcedureName>%%Domains/OrderManagement/OSM/Operations/RegisterCampaign/Transport/JDBC/DBProcedure%%</ProcedureName>
+            <parameterTypes>
+                <parameter>
+                    <colName>PI_EVENT_SOURCE_TYPE</colName>
+                    <colType>1</colType>
+                    <dataType>12</dataType>
+                    <typeName>VARCHAR2</typeName>
+                </parameter>
+                <parameter>
+                    <colName>PI_EVENT_SOURCE</colName>
+                    <colType>1</colType>
+                    <dataType>12</dataType>
+                    <typeName>VARCHAR2</typeName>
+                </parameter>
+                <parameter>
+                    <colName>PI_CHANNEL_TYPE</colName>
+                    <colType>1</colType>
+                    <dataType>12</dataType>
+                    <typeName>VARCHAR2</typeName>
+                </parameter>
+                <parameter>
+                    <colName>PI_CAMP_ID</colName>
+                    <colType>1</colType>
+                    <dataType>12</dataType>
+                    <typeName>VARCHAR2</typeName>
+                </parameter>
+                <parameter>
+                    <colName>PI_CAMP_CON_ID</colName>
+                    <colType>1</colType>
+                    <dataType>12</dataType>
+                    <typeName>VARCHAR2</typeName>
+                </parameter>
+                <parameter>
+                    <colName>PI_RESPONSE_DATE</colName>
+                    <colType>1</colType>
+                    <dataType>93</dataType>
+                    <typeName>TIMESTAMP</typeName>
+                </parameter>
+                <parameter>
+                    <colName>PI_RESPONSE_TYPE</colName>
+                    <colType>1</colType>
+                    <dataType>12</dataType>
+                    <typeName>VARCHAR2</typeName>
+                </parameter>
+                <parameter>
+                    <colName>PI_REJECTION_REASON</colName>
+                    <colType>1</colType>
+                    <dataType>12</dataType>
+                    <typeName>VARCHAR2</typeName>
+                </parameter>
+                <parameter>
+                    <colName>PI_KEYWORD</colName>
+                    <colType>1</colType>
+                    <dataType>12</dataType>
+                    <typeName>VARCHAR2</typeName>
+                </parameter>
+                <parameter>
+                    <colName>PI_PRODUCT_ID</colName>
+                    <colType>1</colType>
+                    <dataType>12</dataType>
+                    <typeName>VARCHAR2</typeName>
+                </parameter>
+                <parameter>
+                    <colName>PO_ERROR_CODE</colName>
+                    <colType>4</colType>
+                    <dataType>12</dataType>
+                    <typeName>VARCHAR2</typeName>
+                </parameter>
+                <parameter>
+                    <colName>PO_ERROR_MESSAGE</colName>
+                    <colType>4</colType>
+                    <dataType>12</dataType>
+                    <typeName>VARCHAR2</typeName>
+                </parameter>
+            </parameterTypes>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Start/Input/pfx3:RequestEAI/pfx3:Body/*" element="ns13:Request"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <inputs>
+                <inputSet>
+                    <PI_EVENT_SOURCE_TYPE>
+                        <xsl:choose>
+                            <xsl:when test="exists($Start/Input/pfx3:RequestEAI/pfx3:Body/ns13:Request/ns13:PI_EVENT_SOURCE_TYPE)">
+                                <xsl:value-of select="$Start/Input/pfx3:RequestEAI/pfx3:Body/ns13:Request/ns13:PI_EVENT_SOURCE_TYPE"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </PI_EVENT_SOURCE_TYPE>
+                    <PI_EVENT_SOURCE>
+                        <xsl:choose>
+                            <xsl:when test="exists(tib:right($Start/Input/pfx3:RequestEAI/pfx3:Body/ns13:Request/ns13:PI_EVENT_SOURCE,10))">
+                                <xsl:value-of select="tib:right($Start/Input/pfx3:RequestEAI/pfx3:Body/ns13:Request/ns13:PI_EVENT_SOURCE,10)"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </PI_EVENT_SOURCE>
+                    <PI_CHANNEL_TYPE>
+                        <xsl:choose>
+                            <xsl:when test="exists($Start/Input/pfx3:RequestEAI/pfx3:Body/ns13:Request/ns13:PI_CHANNEL_TYPE)">
+                                <xsl:value-of select="$Start/Input/pfx3:RequestEAI/pfx3:Body/ns13:Request/ns13:PI_CHANNEL_TYPE"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </PI_CHANNEL_TYPE>
+                    <PI_CAMP_ID>
+                        <xsl:choose>
+                            <xsl:when test="exists($Start/Input/pfx3:RequestEAI/pfx3:Body/ns13:Request/ns13:PI_CAMP_ID)">
+                                <xsl:value-of select="$Start/Input/pfx3:RequestEAI/pfx3:Body/ns13:Request/ns13:PI_CAMP_ID"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </PI_CAMP_ID>
+                    <PI_CAMP_CON_ID>
+                        <xsl:choose>
+                            <xsl:when test="exists($Start/Input/pfx3:RequestEAI/pfx3:Body/ns13:Request/ns13:PI_CAMP_CON_ID)">
+                                <xsl:value-of select="$Start/Input/pfx3:RequestEAI/pfx3:Body/ns13:Request/ns13:PI_CAMP_CON_ID"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </PI_CAMP_CON_ID>
+                    <PI_RESPONSE_DATE>
+                        <xsl:choose>
+                            <xsl:when test="exists($Start/Input/pfx3:RequestEAI/pfx3:Body/ns13:Request/ns13:PI_RESPONSE_DATE)">
+                                <xsl:value-of select="$Start/Input/pfx3:RequestEAI/pfx3:Body/ns13:Request/ns13:PI_RESPONSE_DATE"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </PI_RESPONSE_DATE>
+                    <PI_RESPONSE_TYPE>
+                        <xsl:choose>
+                            <xsl:when test="exists($Start/Input/pfx3:RequestEAI/pfx3:Body/ns13:Request/ns13:PI_RESPONSE_TYPE)">
+                                <xsl:value-of select="$Start/Input/pfx3:RequestEAI/pfx3:Body/ns13:Request/ns13:PI_RESPONSE_TYPE"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </PI_RESPONSE_TYPE>
+                    <PI_REJECTION_REASON>
+                        <xsl:choose>
+                            <xsl:when test="exists($Start/Input/pfx3:RequestEAI/pfx3:Body/ns13:Request/ns13:PI_REJECTION_REASON)">
+                                <xsl:value-of select="$Start/Input/pfx3:RequestEAI/pfx3:Body/ns13:Request/ns13:PI_REJECTION_REASON"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </PI_REJECTION_REASON>
+                    <PI_KEYWORD>
+                        <xsl:choose>
+                            <xsl:when test="exists($Start/Input/pfx3:RequestEAI/pfx3:Body/ns13:Request/ns13:PI_KEYWORD)">
+                                <xsl:value-of select="$Start/Input/pfx3:RequestEAI/pfx3:Body/ns13:Request/ns13:PI_KEYWORD"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </PI_KEYWORD>
+                    <PI_PRODUCT_ID>
+                        <xsl:choose>
+                            <xsl:when test="exists($Start/Input/pfx3:RequestEAI/pfx3:Body/ns13:Request/ns13:PI_PRODUCT_ID)">
+                                <xsl:value-of select="$Start/Input/pfx3:RequestEAI/pfx3:Body/ns13:Request/ns13:PI_PRODUCT_ID"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:attribute name="xsi:nil">true</xsl:attribute>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </PI_PRODUCT_ID>
+                </inputSet>
+            </inputs>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Assign Error Timeout">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>463</pd:x>
+        <pd:y>150</pd:y>
+        <config>
+            <variableName>Response</variableName>
+        </config>
+        <pd:inputBindings>
+            <Response>
+                <ResponseCodes>
+                    <pfx4:ResponseCode>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/Timeout"/>
+                    </pfx4:ResponseCode>
+                    <pfx4:ResponseMsg>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/TimeoutDescription"/>
+                    </pfx4:ResponseMsg>
+                    <pfx4:ErrorCode>
+                        <xsl:value-of select="$Catch-Timeout/ns12:JDBCTimedOutException/msgCode"/>
+                    </pfx4:ErrorCode>
+                    <pfx4:ErrorDescription>
+                        <xsl:value-of select="$Catch-Timeout/ns12:JDBCTimedOutException/msg"/>
+                    </pfx4:ErrorDescription>
+                </ResponseCodes>
+            </Response>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Assign Transport Error">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>465</pd:x>
+        <pd:y>230</pd:y>
+        <config>
+            <variableName>Response</variableName>
+        </config>
+        <pd:inputBindings>
+            <Response>
+                <ResponseCodes>
+                    <pfx4:ResponseCode>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/TransportError"/>
+                    </pfx4:ResponseCode>
+                    <pfx4:ResponseMsg>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/TransportErrorDescription"/>
+                    </pfx4:ResponseMsg>
+                    <pfx4:ErrorCode>
+                        <xsl:value-of select="$Catch-Transport-Error/ns12:JDBCConnectionNotFoundException/msgCode"/>
+                    </pfx4:ErrorCode>
+                    <pfx4:ErrorDescription>
+                        <xsl:value-of select="$Catch-Transport-Error/ns12:JDBCConnectionNotFoundException/msg"/>
+                    </pfx4:ErrorDescription>
+                </ResponseCodes>
+            </Response>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch Timeout">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>266</pd:x>
+        <pd:y>141</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=JDBCTimedOutException namespace=http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Catch Transport Error">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>264</pd:x>
+        <pd:y>229</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=JDBCConnectionNotFoundException namespace=http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Assign Login Timeout Error">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>463</pd:x>
+        <pd:y>309</pd:y>
+        <config>
+            <variableName>Response</variableName>
+        </config>
+        <pd:inputBindings>
+            <Response>
+                <ResponseCodes>
+                    <pfx4:ResponseCode>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/Timeout"/>
+                    </pfx4:ResponseCode>
+                    <pfx4:ResponseMsg>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/TimeoutDescription"/>
+                    </pfx4:ResponseMsg>
+                    <pfx4:ErrorCode>
+                        <xsl:value-of select="$Catch-Login-Timeout/ns12:LoginTimedOutException/msgCode"/>
+                    </pfx4:ErrorCode>
+                    <pfx4:ErrorDescription>
+                        <xsl:value-of select="$Catch-Login-Timeout/ns12:LoginTimedOutException/msg"/>
+                    </pfx4:ErrorDescription>
+                </ResponseCodes>
+            </Response>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Catch Login Timeout">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>267</pd:x>
+        <pd:y>308</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=LoginTimedOutException namespace=http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Catch Driver Transport Error">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>266</pd:x>
+        <pd:y>388</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=JDBCDriverLoadingException namespace=http://schemas.tibco.com/bw/plugins/jdbc/5.0/jdbcExceptions</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Assign Driver Transport Error">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>462</pd:x>
+        <pd:y>387</pd:y>
+        <config>
+            <variableName>Response</variableName>
+        </config>
+        <pd:inputBindings>
+            <Response>
+                <ResponseCodes>
+                    <pfx4:ResponseCode>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/TransportError"/>
+                    </pfx4:ResponseCode>
+                    <pfx4:ResponseMsg>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/TransportErrorDescription"/>
+                    </pfx4:ResponseMsg>
+                    <pfx4:ErrorCode>
+                        <xsl:value-of select="$Catch-Driver-Transport-Error/ns12:JDBCDriverLoadingException/msgCode"/>
+                    </pfx4:ErrorCode>
+                    <pfx4:ErrorDescription>
+                        <xsl:value-of select="$Catch-Driver-Transport-Error/ns12:JDBCDriverLoadingException/msg"/>
+                    </pfx4:ErrorDescription>
+                </ResponseCodes>
+            </Response>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>RegisterCampaign</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign Response</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch</pd:from>
+        <pd:to>Generate Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>RegisterCampaign</pd:from>
+        <pd:to>Assign Response</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch Timeout</pd:from>
+        <pd:to>Assign Error Timeout</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch Transport Error</pd:from>
+        <pd:to>Assign Transport Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch Login Timeout</pd:from>
+        <pd:to>Assign Login Timeout Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch Driver Transport Error</pd:from>
+        <pd:to>Assign Driver Transport Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign Driver Transport Error</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign Transport Error</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign Login Timeout Error</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign Error Timeout</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

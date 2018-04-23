@@ -1,0 +1,10 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\Business\OrderComponent\InventoryManagement\ICCB
+2
+6
+10:ChangeSIMCard_v1|2|0|0|0|a4710395b4e54e4a8f3d4a6f5c1390ab|0
+16:ManageSIMCardCouple_v1|2|0|0|0|545a15f341fc4b1b9d2b1e0e52574b14|0
+b:BurnIMEI_v1|2|0|0|0|de042a0c62814f4daf5603fd6b6804f7|0
+f:ManageMSISDN_v1|2|0|0|0|111d0a3dfb2940db91a92d22c736f7b0|0
+e:ReleaseIMEI_v1|2|0|0|0|3ad5df413076418d801cb478154ba430|0
+7:.folder|1|162d7aed140|17d|431c821f|bee665dd84894e0ab8c1d2786001e2f6|0

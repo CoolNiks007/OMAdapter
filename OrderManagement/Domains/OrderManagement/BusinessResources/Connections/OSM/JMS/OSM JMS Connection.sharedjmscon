@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource>
+    <name>OSM JMS Connection</name>
+    <resourceType>ae.shared.JMSConnectionKey</resourceType>
+    <config>
+        <NamingEnvironment>
+            <UseJNDI>true</UseJNDI>
+            <ProviderURL>tcp://localhost:7222</ProviderURL>
+            <NamingURL>%%Domains/OrderManagement/OSM/JMS/JMSProviderURL%%</NamingURL>
+            <NamingInitialContextFactory>weblogic.jndi.WLInitialContextFactory</NamingInitialContextFactory>
+            <TopicFactoryName>mslv/oms/oms1/external/jms/ConnectionFactory</TopicFactoryName>
+            <QueueFactoryName>mslv/oms/oms1/external/jms/ConnectionFactory</QueueFactoryName>
+            <NamingPrincipal>%%Domains/OrderManagement/OSM/JMS/User%%</NamingPrincipal>
+            <NamingCredential>%%Domains/OrderManagement/OSM/JMS/Password%%</NamingCredential>
+        </NamingEnvironment>
+        <ConnectionAttributes>
+            <username>%%Domains/OrderManagement/OSM/JMS/User%%</username>
+            <password>%%Domains/OrderManagement/OSM/JMS/Password%%</password>
+            <clientID/>
+            <autoGenClientID>true</autoGenClientID>
+        </ConnectionAttributes>
+        <UseXACF>false</UseXACF>
+        <UseSharedJndiConfig>false</UseSharedJndiConfig>
+        <JndiSharedConfiguration>/Domains/OrderManagement/BusinessResources/Connections/OSM/JMS/JNDI Configuration.sharedjndiconfig</JndiSharedConfiguration>
+    </config>
+</BWSharedResource>

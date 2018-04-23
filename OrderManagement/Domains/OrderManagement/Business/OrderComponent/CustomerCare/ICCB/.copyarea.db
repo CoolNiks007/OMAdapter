@@ -1,0 +1,17 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\Business\OrderComponent\CustomerCare\ICCB
+2
+d
+15:ReturnPortedNumber_v1|2|0|0|0|b8d09d2715864f0babefaaae7480dd2e|0
+16:InsertMigrationData_v1|2|0|0|0|840aa0b7756b416e820928b6796855b6|0
+19:ManageDualProvisioning_v1|2|0|0|0|6db3a38dc97c4b8ea36b5a5bae5ed8ac|0
+17:TADisconnectResponse_v1|2|0|0|0|6372813c58014a6991b5ff173d3bd39c|0
+18:CancelPortINTARequest_v1|2|0|0|0|1557af99d0314ad8972553136ccb0f62|0
+1b:UpdateCustomerSplittedId_v1|2|0|0|0|f3d09393a6f6407ab8999da6ac34259b|0
+16:ManageVodafoneGroup_v1|2|0|0|0|a88a4bf53bb844e5a494a6256b850eca|0
+16:SubmitMNPActivation_v1|2|0|0|0|d6b814e73d554d7d8f6e956391767521|0
+13:ExecuteMigration_v1|2|0|0|0|d1fad93489764772a4a704684a705d1d|0
+16:RegisterMNPHandover_v1|2|0|0|0|9976587032dd4961b9f4721f99938dd3|0
+12:UpdateBlackList_v1|2|0|0|0|edc352b2434d47c787372c6cc4743229|0
+e:ManageGroup_v1|2|0|0|0|c48cb19ea9df4b519601acca022e4389|0
+7:.folder|1|162d7aebf94|17d|431c821f|fc39b02ecbba4e9cbb408e3eccc839c1|0

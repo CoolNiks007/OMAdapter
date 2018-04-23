@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 targetNamespace="urn:com:metasolv:oms:xmlapi:1"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="TelcoOperationRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Id" type="xs:string"/>
+				<xs:element name="Name" type="xs:string"/>
+				<xs:element name="Scenario" type="xs:string"/>
+				<xs:element name="OrderId" type="xs:string"/>
+				<xs:element name="MasterOrderId" type="xs:string"/>
+				<xs:element name="NumberOfRetries" type="xs:string"/>
+				<xs:element name="Cartridge">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Name" type="xs:string"/>
+							<xs:element name="Version" type="xs:string"/>
+							<xs:element name="Source" type="xs:string"/>
+							<xs:element name="OrderCreator" type="xs:string"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="XMLMessage">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Pipeline">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="PipelineItem" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="OperationId" type="xs:string"/>
+										<xs:element name="OperationName" type="xs:string"/>
+										<xs:element name="PipelineMessage" type="xs:string"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

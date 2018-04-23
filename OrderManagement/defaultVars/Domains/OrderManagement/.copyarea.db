@@ -1,0 +1,13 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\defaultVars\Domains\OrderManagement
+2
+9
+13:TemplateApplication|2|0|0|0|2f127f4493d14112aadb699d7a15fed5|0
+3:OSM|2|0|0|0|5aa0c41d754a4f03a1486ec40b5389b9|0
+11:OrderNotification|2|0|0|0|18da1a28e6624353a17552e8fb3d8aae|0
+10:OSMORDERSPLITTER|2|0|0|0|6d097006f45c4f399ab74d5a54d1d9af|0
+11:ProductManagement|2|0|0|0|b2af8fc1e0854b09b8e76566e45360ed|0
+14:defaultVars.substvar|1|162d7ae976c|4d5|28b08b51|648286a343be4ce5ac575a860dfe9304|0
+e:OrderComponent|2|0|0|0|6f526c382e9144108d8cb3d79048ba28|0
+c:OrderRequest|2|0|0|0|f449e7955a3a48dea2acd722afd66ddf|0
+f:GlobalDataNames|2|0|0|0|ea782dbc11cb43ee854e0f66489745b5|0

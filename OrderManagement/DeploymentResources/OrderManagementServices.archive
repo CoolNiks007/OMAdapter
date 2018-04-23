@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Repository:repository xmlns:Repository="http://www.tibco.com/xmlns/repo/types/2002">
+    <enterpriseArchive>
+        <sharedArchive name="Shared Archive">
+            <resourceType>shared.archive.resource</resourceType>
+            <authorProperty>NB19365</authorProperty>
+            <sharedResources>/GlobalCommonResources/SharedVariables/AuditConfig.sharedvariable,/GlobalCommonResources/Schemas/Schematron/schematron1-5.xsd,/GlobalCommonResources/Schemas/Schematron/skeleton1-5.xsl,/GlobalCommonResources/Schemas/Schematron/schematron1-5.dtd,/Domains/ServiceCatalog/Business/OrderManagement/CreateOrder_v1/Schemas/CreateOrder.xsd,/GlobalCommonResources/Schemas/ServiceCatalog/InputValidatorConfig.xml,/GlobalCommonResources/Schemas/Schematron/schematron1-5.xml,/GlobalCommonResources/Schemas/Logging/AuditConfig.xsd</sharedResources>
+            <sharedFiles/>
+            <sharedJarFiles/>
+        </sharedArchive>
+        <processArchive name="OrderManagementServices">
+            <resourceType>process.archive.resource</resourceType>
+            <authorProperty>Celfocus</authorProperty>
+            <processProperty>/Domains/OrderManagement/Business/Siebel/SyncAccountBillingCycle_v1/SyncAccountBillingCycle.process,/Domains/OrderManagement/Business/Siebel/SyncAccountData_v1/SyncAccountData.process,/Domains/ServiceCatalog/BusinessResources/Processes/Starters/HTTPStarter.process,/Domains/ServiceCatalog/BusinessResources/Processes/Starters/JMSDedicatedTopicReliableStarter.process,/Domains/ServiceCatalog/BusinessResources/Processes/Starters/JMSQueueGuaranteedStarter.process,/Domains/ServiceCatalog/BusinessResources/Processes/Starters/JMSQueueReliableStarter.process,/Domains/ServiceCatalog/BusinessResources/Processes/Starters/JMSTopicReliableStarter.process,/Domains/EAI/Technical/Engine/LoadServiceCatalog_v1/LoadServiceCatalog.process,/Domains/EAI/Technical/Engine/SetLogRoleOnOff_v1/SetLogRoleOnOff.process,/Domains/EAI/Technical/Engine/SetLogSinkOnOff_v1/SetLogSinkOnOff.process,/Domains/ServiceCatalog/Business/ManageEngine/SetLogRoleOnOff_v1/SetLogRoleOnOff.process,/Domains/ServiceCatalog/Business/ManageEngine/ReloadServiceCatalogSettings_v1/ReloadServiceCatalogSettings.process,/Domains/ServiceCatalog/Business/ManageEngine/SetLogSinkOnOff_v1/SetLogSinkOnOff.process,/GlobalCommonResources/Processes/OnStartup.process,/Domains/ServiceCatalog/Business/OrderManagement/RegisterCampaign_v1/Starters/JMSRegisterCampaignGuaranteedStarter.process,/Domains/ServiceCatalog/Business/OrderManagement/RegisterCampaign_v1/Starters/JMSRegisterCampaignReliableStarter.process,/Domains/ServiceCatalog/Business/OrderManagement/RegisterCampaign_v1/Starters/ADBRegisterCampaignStarter.process,/Domains/ServiceCatalog/BusinessResources/Processes/Starters/OrderManagementServices.serviceagent,/Domains/ServiceCatalog/Business/OrderManagement/RegisterCampaign_v1/RegisterCampaign.process,/Domains/ServiceCatalog/Business/OrderManagement/RegisterCampaign_v1/DispatcherRegisterCampaign.process,/Domains/ServiceCatalog/Business/OrderManagement/RegisterCampaign_v1/SOAPInterface/RegisterCampaign.process,/Domains/OrderManagement/Technical/EAI/QueueCampaign_v1/QueueCampaign.process,/Domains/OrderManagement/Business/Siebel/RegisterCampaign_v1/RegisterCampaign.process,/Domains/OrderManagement/BusinessResources/Processes/OrderManagement/Starters/SiebelAdapterOMServices.serviceagent,/Domains/OrderManagement/Technical/EAI/SendCallbackNotification_v1/SendCallbackNotification.process,/Domains/ServiceCatalog/Business/OrderManagement/SendCallbackNotification_v1/SendCallbackNotification.process,/Domains/ServiceCatalog/Business/OrderManagement/SendCallbackNotification_v1/Starters/JMSSendCallbackNotificationGuaranteedStarter.process,/Domains/ServiceCatalog/Business/OrderManagement/SendCallbackNotification_v1/Starters/JMSSendCallbackNotificationReliableStarter.process,/Domains/OrderManagement/TechnicalResources/Processes/Starters/JMSQueueReliableStarter.process,/Domains/OrderManagement/TechnicalResources/Processes/Starters/JMSQueueGuaranteedStarter.process,/GlobalCommonResources/Processes/ReferenceData/CacheOperations/WriteGetTargetLOVValueCache.process,/GlobalCommonResources/Processes/ReferenceData/CacheOperations/WriteMapProductListCache.process,/Domains/ReferenceData/Technical/ProductMapper/SendXRefRequest_v1/SendXRefRequest.process,/Domains/ReferenceData/Technical/ProductMapper/SendLOVRequest_v1/SendLOVRequest.process,/Domains/ReferenceData/Technical/ProductMapper/SendIntegrationRequest_v1/SendIntegrationRequest.process,/Domains/ReferenceData/Technical/ProductMapper/SendProductMapperRequest_v1/SendProductMapperRequest.process,/Domains/ReferenceData/Technical/Engine/ClearCache_v1/ClearCache.process</processProperty>
+        </processArchive>
+        <adapterArchive name="ADB_REGISTER_CAMPAIGN-SUB">
+            <resourceType>adapter.archive.resource</resourceType>
+            <authorProperty>CELFOCUS</authorProperty>
+            <sdkVersion>7.1.0</sdkVersion>
+            <wantsManualSdkVersionUpdates>true</wantsManualSdkVersionUpdates>
+            <adapterReference>/Domains/OrderManagement/TechnicalResources/AdapterConfiguration/ADB_REGISTER_CAMPAIGN-SUB.adb#adapter.ADB_REGISTER_CAMPAIGN-SUB</adapterReference>
+            <softwareTypeProperty>adb</softwareTypeProperty>
+        </adapterArchive>
+        <adapterArchive name="ADB_REGISTER_CAMPAIGN-PUB">
+            <resourceType>adapter.archive.resource</resourceType>
+            <authorProperty>CELFOCUS</authorProperty>
+            <sdkVersion>7.0.0</sdkVersion>
+            <wantsManualSdkVersionUpdates>true</wantsManualSdkVersionUpdates>
+            <adapterReference>/Domains/OrderManagement/TechnicalResources/AdapterConfiguration/ADB_REGISTER_CAMPAIGN-PUB.adb#adapter.ADB_REGISTER_CAMPAIGN-PUB</adapterReference>
+            <softwareTypeProperty>adb</softwareTypeProperty>
+        </adapterArchive>
+        <versionProperty>R10.0.29.A</versionProperty>
+        <authorProperty>CELFOCUS</authorProperty>
+        <addServiceSettableGvars>true</addServiceSettableGvars>
+        <name>OrderManagementServices</name>
+        <designer>
+            <lockedProperties>
+                <locked>
+                    <resource>/ADB_REGISTER_CAMPAIGN-PUB</resource>
+                    <properties>sdkVersion</properties>
+                </locked>
+                <locked>
+                    <resource>/ADB_REGISTER_CAMPAIGN-SUB</resource>
+                    <properties>sdkVersion</properties>
+                </locked>
+            </lockedProperties>
+            <fixedChildren/>
+            <resourceDescriptions/>
+        </designer>
+        <fileLocationProperty>.\..\deployment\ear\CorporateServices\OrderManagementServices.ear</fileLocationProperty>
+        <description>R10.0.29.A</description>
+    </enterpriseArchive>
+</Repository:repository>

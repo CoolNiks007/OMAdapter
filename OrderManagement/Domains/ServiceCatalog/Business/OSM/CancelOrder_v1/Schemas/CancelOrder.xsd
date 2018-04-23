@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns:om="http://vodafone.com.tr/ServiceCatalog/Business/OSM/CancelOrder/v1"
+	 targetNamespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/CancelOrder/v1"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:complexType name="CancelOrderRequest">
+		<xs:sequence>
+			<xs:element ref="om:Request"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Request" type="om:Request"/>
+	<xs:complexType name="Request">
+		<xs:sequence>
+			<xs:element name="OrderId" type="xs:string"/>
+			<xs:element name="RootId" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Response" type="om:Response"/>
+	<xs:complexType name="Response"/>
+	<xs:element name="CancelOrderRequest" type="om:CancelOrderRequest"/>
+	<xs:element name="CancelOrderResponse" type="om:CancelOrderResponse"/>
+	<xs:complexType name="CancelOrderResponse">
+		<xs:sequence>
+			<xs:element ref="om:Response" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

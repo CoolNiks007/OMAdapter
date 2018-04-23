@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://vodafone.com.tr/EAI/Common/Header" xmlns:ns4="http://vodafone.com.tr/OrderManagment/BusinessResources/FR/FRResponse/v1" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns3="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/OSM/OSM_OperationResponse.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx2="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentResponseInput/v1" xmlns:ns5="urn:com:metasolv:oms:xmlapi:1" xmlns:ns6="http://vodafone.com.tr/ServiceCatalog/ServiceReply" xmlns:pfx="http://vodafone.com.tr/EAI/Common/RequestEAI">
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/RequestEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/RequestEAI.xsd"/>
+    <xsd:import namespace="urn:com:metasolv:oms:xmlapi:1" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OSM/OSM_OperationResponse.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentResponseInput/v1" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OrderComponent/OrderComponentResponseInput.xsd"/>
+    <pd:name>Domains/OrderManagement/BusinessResources/Processes/OrderComponent/OrderComponentResponse.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Input">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx2:Request"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>91</pd:startX>
+    <pd:startY>62</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>406</pd:endX>
+    <pd:endY>65</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://vodafone.com.tr/1399283500452</pd:targetNamespace>
+    <pd:activity name="JMS Queue Sender">
+        <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+        <pd:x>248</pd:x>
+        <pd:y>63</pd:y>
+        <config>
+            <PermittedMessageType>Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%Domains/OrderManagement/OSM/JMS/QueueNames/OrderComponentResponseQueueName%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/Domains/OrderManagement/BusinessResources/Connections/OSM/JMS/OSM JMS Connection.sharedjmscon</ConnectionReference>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Start/Input/pfx2:Request/pfx2:ServiceReply/ns6:Body/*" element="ns5:TelcoOperationResponse"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <ns2:ActivityInput>
+                <xsl:choose>
+                    <xsl:when test="string-length($Start/Input/pfx2:Request/pfx2:OcDetails/pfx2:CorrelationID) > 0">
+                        <JMSCorrelationID>
+                            <xsl:value-of select="$Start/Input/pfx2:Request/pfx2:OcDetails/pfx2:CorrelationID"/>
+                        </JMSCorrelationID>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <JMSCorrelationID>
+                            <xsl:value-of select="$Start/Input/pfx2:Request/pfx2:OcDetails/pfx2:Id"/>
+                        </JMSCorrelationID>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <Body>
+                    <xsl:value-of select="tib:render-xml($Start/Input/pfx2:Request/pfx2:ServiceReply/ns6:Body/ns5:TelcoOperationResponse)"/>
+                </Body>
+                <DynamicProperties>
+                    <property>
+                        <name>
+                            <xsl:value-of select="$Start/Input/pfx2:Request/pfx2:OcDetails/pfx2:Cartridge/pfx2:Name"/>
+                        </name>
+                        <value>
+                            <xsl:value-of select="$Start/Input/pfx2:Request/pfx2:OcDetails/pfx2:Cartridge/pfx2:Version"/>
+                        </value>
+                    </property>
+                </DynamicProperties>
+            </ns2:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>JMS Queue Sender</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>JMS Queue Sender</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

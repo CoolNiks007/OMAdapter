@@ -1,0 +1,12 @@
+ClearCase CopyAreaDB|4
+VFTK_EBU_TIBCO\SourceCode_CF\Tibco\Code_AD\Tibco\framework\OrderManagement\Domains\OrderManagement\BusinessResources\Processes
+2
+8
+11:OrderNotification|2|0|0|0|b435fbe639e74192833e295f3bd44bbb|0
+11:ProductManagement|2|0|0|0|bea5099764b54377893982c2411c1435|0
+f:OrderManagement|2|0|0|0|5a4df3a632324364b94cb9945ad604d0|0
+12:NotificationCenter|2|0|0|0|c0872bca09084dc6b8d93713a3edd3f4|0
+e:TO2FGlobalData|2|0|0|0|1dac6ac1e6ba4d958d6d4507a46bc8f9|0
+e:OrderComponent|2|0|0|0|5e8e178dfee94436ba9868265b7ac0f4|0
+7:.folder|1|162d7aee53d|182|992784c5|12404fd969354b9c984b77757b64429c|0
+16:ConfigurationVariables|2|0|0|0|973a902e680344b7b9d0132fe5ad477d|0

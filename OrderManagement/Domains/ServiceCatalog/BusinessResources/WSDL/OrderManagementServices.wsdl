@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:ns2="http://vodafone.com.tr/EAI/Common/Header" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns3="http://vodafone.com.tr/EAI/Common/ResponseCodes" xmlns:tns="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagementServices" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:registerCampaign="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagement/RegisterCampaign/v1" xmlns:sendCallbackNotification="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagement/SendCallbackNotification/v1" targetNamespace="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagementServices">
+    <import location="../../Business/OrderManagement/RegisterCampaign_v1/Schemas/RegisterCampaign.xsd" namespace="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagement/RegisterCampaign/v1"/>
+    <import location="../../Business/OrderManagement/SendCallbackNotification_v1/Schemas/SendCallbackNotification.xsd" namespace="http://vodafone.com.tr/ServiceCatalog/Business/OrderManagement/SendCallbackNotification/v1"/>
+    <import location="../../../../GlobalCommonResources/Schemas/Common/Header.xsd" namespace="http://vodafone.com.tr/EAI/Common/Header"/>
+    <import location="../../../../GlobalCommonResources/Schemas/Common/ResponseCodes.xsd" namespace="http://vodafone.com.tr/EAI/Common/ResponseCodes"/>
+    <message name="RegisterCampaignRequest_v1">
+        <part name="Header" type="ns2:Header"/>
+        <part name="Body" type="registerCampaign:RegisterCampaignRequest"/>
+    </message>
+    <message name="RegisterCampaignResponse_v1">
+        <part name="Header" type="ns3:ResponseHeader"/>
+        <part name="Body" type="registerCampaign:RegisterCampaignResponse"/>
+    </message>
+    <message name="SendCallbackNotificationRequest_v1">
+        <part name="Header" type="ns2:Header"/>
+        <part name="Body" type="sendCallbackNotification:SendCallbackNotificationRequest"/>
+    </message>
+    <message name="SendCallbackNotificationResponse_v1">
+        <part name="Header" type="ns3:ResponseHeader"/>
+        <part name="Body" type="sendCallbackNotification:SendCallbackNotificationResponse"/>
+    </message>
+    <portType name="OrderManagementServicesPortType">
+        <operation name="RegisterCampaign_v1">
+            <input message="tns:RegisterCampaignRequest_v1"/>
+            <output message="tns:RegisterCampaignResponse_v1"/>
+        </operation>
+        <operation name="SendCallbackNotification_v1">
+            <input message="tns:SendCallbackNotificationRequest_v1"/>
+            <output message="tns:SendCallbackNotificationResponse_v1"/>
+        </operation>
+    </portType>
+</definitions>

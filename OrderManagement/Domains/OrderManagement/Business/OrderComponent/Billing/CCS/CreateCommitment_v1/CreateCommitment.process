@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://vodafone.com.tr/EAI/Common/ResponseCodes" xmlns:ns1="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentRequestInput/v1" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns3="http://vodafone.com.tr/EAI/Common/Header" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx4="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" xmlns:pfx3="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" xmlns:pfx2="http://vodafone.com.tr/EAI/Common/ResponseEAI" xmlns:pfx8="http://vodafone.com.tr/ServiceCatalog/Business/SubscriberManagement/CreateCommitmentWA/v1" xmlns:pfx="http://vodafone.com.tr/EAI/Common/RequestEAI" xmlns:eai="java://com.telco.eai.EAIFunctions">
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/RequestEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/RequestEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/ResponseEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/ResponseEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" schemaLocation="/Domains/ServiceCatalog/BusinessResources/Schemas/ServiceRequest.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/OrderComponentRequestInput/v1" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/OrderComponent/OrderComponentRequestInput.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/Business/SubscriberManagement/CreateCommitmentWA/v1" schemaLocation="/Domains/ServiceCatalog/Business/SubscriberManagement/CreateCommitmentWA_v1/Schemas/CreateCommitmentWA.xsd"/>
+    <pd:name>Domains/OrderManagement/Business/OrderComponent/Billing/CCS/CreateCommitment_v1/CreateCommitment.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Input">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx:RequestEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>75</pd:startX>
+    <pd:startY>74</pd:startY>
+    <pd:returnBindings>
+        <Output>
+            <pfx2:ResponseEAI>
+                <pfx2:Header>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ancestor-or-self::*/namespace::node()"/>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/@*"/>
+                    <xsl:copy-of select="$Start/Input/pfx:RequestEAI/pfx:Header/node()"/>
+                </pfx2:Header>
+                <pfx2:ResponseCodes>
+                    <ns2:ResponseCode>
+                        <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/Success"/>
+                    </ns2:ResponseCode>
+                </pfx2:ResponseCodes>
+            </pfx2:ResponseEAI>
+        </Output>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="Output">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx2:ResponseEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>609</pd:endX>
+    <pd:endY>74</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://vodafone.com.tr/1414142565</pd:targetNamespace>
+    <pd:activity name="JMS Queue Sender">
+        <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+        <pd:x>485</pd:x>
+        <pd:y>74</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/GlobalCommonResources/Connections/JMS/JMS EAI Connection.sharedjmscon</ConnectionReference>
+            <InDataxsdString ref="pfx3:ServiceRequest"/>
+        </config>
+        <pd:inputBindings>
+            <pfx5:ActivityInput>
+                <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:ServiceCatalogQueue">
+                    <destinationQueue>
+                        <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:ServiceCatalogQueue"/>
+                    </destinationQueue>
+                </xsl:if>
+                <replyToQueue>
+                    <xsl:value-of select="tib:concat-sequence-format(($_globalVariables/ns:GlobalVariables/Constants/Company,$_globalVariables/ns:GlobalVariables/Constants/ProjectName,$_globalVariables/ns:GlobalVariables/Domains/OrderManagement/Name,$_globalVariables/ns:GlobalVariables/Domains/OrderManagement/OrderComponent/Name,$_globalVariables/ns:GlobalVariables/Constants/Layer/Business,$_globalVariables/ns:GlobalVariables/Constants/QOS/Guarantee,$_globalVariables/ns:GlobalVariables/Constants/RequestType/Reply),&quot;.&quot;)"/>
+                </replyToQueue>
+                <xsl:if test="$Start/Input/pfx:RequestEAI/pfx:Header/ns3:Priority">
+                    <JMSPriority>
+                        <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Header/ns3:Priority"/>
+                    </JMSPriority>
+                </xsl:if>
+                <Body>
+                    <pfx3:ServiceRequest>
+                        <xsl:for-each select="$Start/Input/pfx:RequestEAI/pfx:Header">
+                            <pfx3:Header>
+                                <xsl:if test="ns3:RequestId">
+                                    <ns3:RequestId>
+                                        <xsl:value-of select="ns3:RequestId"/>
+                                    </ns3:RequestId>
+                                </xsl:if>
+                                <ns3:SourceSystem>
+                                    <xsl:value-of select="ns3:SourceSystem"/>
+                                </ns3:SourceSystem>
+                                <ns3:ReplyExpected>
+                                    <xsl:value-of select="ns3:ReplyExpected"/>
+                                </ns3:ReplyExpected>
+                                <xsl:if test="ns3:QoS">
+                                    <ns3:QoS>
+                                        <xsl:value-of select="ns3:QoS"/>
+                                    </ns3:QoS>
+                                </xsl:if>
+                                <xsl:if test="ns3:Schedule">
+                                    <ns3:Schedule>
+                                        <xsl:value-of select="ns3:Schedule"/>
+                                    </ns3:Schedule>
+                                </xsl:if>
+                                <xsl:if test="ns3:CorrelationId">
+                                    <ns3:CorrelationId>
+                                        <xsl:value-of select="ns3:CorrelationId"/>
+                                    </ns3:CorrelationId>
+                                </xsl:if>
+                                <xsl:if test="ns3:Priority">
+                                    <ns3:Priority>
+                                        <xsl:value-of select="ns3:Priority"/>
+                                    </ns3:Priority>
+                                </xsl:if>
+                                <xsl:for-each select="ns3:Credentials">
+                                    <ns3:Credentials>
+                                        <ns3:ApplicationId>
+                                            <xsl:value-of select="ns3:ApplicationId"/>
+                                        </ns3:ApplicationId>
+                                        <ns3:User>
+                                            <xsl:value-of select="ns3:User"/>
+                                        </ns3:User>
+                                        <xsl:if test="ns3:Password">
+                                            <ns3:Password>
+                                                <xsl:value-of select="ns3:Password"/>
+                                            </ns3:Password>
+                                        </xsl:if>
+                                    </ns3:Credentials>
+                                </xsl:for-each>
+                                <xsl:if test="ns3:ProxySystem">
+                                    <ns3:ProxySystem>
+                                        <xsl:value-of select="ns3:ProxySystem"/>
+                                    </ns3:ProxySystem>
+                                </xsl:if>
+                                <xsl:if test="ns3:ForceSimulate">
+                                    <ns3:ForceSimulate>
+                                        <xsl:value-of select="ns3:ForceSimulate"/>
+                                    </ns3:ForceSimulate>
+                                </xsl:if>
+                                <xsl:for-each select="ns3:Attributes">
+                                    <ns3:Attributes>
+                                        <xsl:for-each select="ns3:Attribute">
+                                            <ns3:Attribute>
+                                                <ns3:Name>
+                                                    <xsl:value-of select="ns3:Name"/>
+                                                </ns3:Name>
+                                                <ns3:Value>
+                                                    <xsl:value-of select="ns3:Value"/>
+                                                </ns3:Value>
+                                            </ns3:Attribute>
+                                        </xsl:for-each>
+                                    </ns3:Attributes>
+                                </xsl:for-each>
+                            </pfx3:Header>
+                        </xsl:for-each>
+                        <pfx3:Body>
+                            <xsl:copy-of select="$Map-Data/pfx8:CreateCommitmentWARequest/pfx8:Request"/>
+                        </pfx3:Body>
+                    </pfx3:ServiceRequest>
+                </Body>
+            </pfx5:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Map Data">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>328</pd:x>
+        <pd:y>76</pd:y>
+        <config>
+            <element ref="pfx8:CreateCommitmentWARequest"/>
+        </config>
+        <pd:inputBindings>
+            <xsl:variable name="RootMobileLine" select="$Parse-XML/Order/ListOfRootItem/RootItem[ComponentSubType='MOBILE']"/>
+            <xsl:variable name="RootContainer" select="$Parse-XML/Order/ListOfRootItem/RootItem[ComponentGroup='CAMP CONTAINER']"/>
+            <xsl:variable name="RootCampaign" select="$Parse-XML/Order/ListOfRootItem/RootItem[ComponentGroup='CAMP PROMO'  and not(ComponentType = &quot;PERMANENCY&quot;)]"/>
+            <xsl:variable name="RootCampaignNew" select="$RootCampaign[Action = 'New']"/>
+            <xsl:variable name="RootCampaignOld" select="$RootCampaign[Action = 'Deleted']"/>
+            <pfx8:CreateCommitmentWARequest>
+                <pfx8:Request>
+                    <xsl:variable name="_isFDO" select="(($Parse-XML/Order/OrderFutureDatedFlag = 'Y' and $Parse-XML/Order/CutOffDateFlag = 'Y') or $Parse-XML/Order/ListOfRootItem/RootItem/ActionType = &quot;134&quot;) and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$Parse-XML/Order/OrderDueDate)"/>
+                    <pfx8:SubscriberNo>
+                        <xsl:value-of select="$RootMobileLine/ServiceId"/>
+                    </pfx8:SubscriberNo>
+                    <pfx8:Commitment>
+                        <pfx8:CampaignOfferId>
+                            <xsl:value-of select="$RootCampaignNew/ProductCatalogId"/>
+                        </pfx8:CampaignOfferId>
+                        <pfx8:InstanceId>
+                            <xsl:value-of select="$RootCampaignNew/AgreementNum"/>
+                        </pfx8:InstanceId>
+                        <xsl:if test="$RootCampaignNew/IntegrationId">
+                            <pfx8:CampaignOfferOrderKey>
+                                <xsl:value-of select="$RootCampaignNew/IntegrationId"/>
+                            </pfx8:CampaignOfferOrderKey>
+                        </xsl:if>
+                        <xsl:if test="not($RootCampaignOld/ComponentType = &quot;DISCOUNT&quot;) &#xA;and &#xA;not($RootCampaignOld/ComponentType = &quot;HANDSET PROMO&quot; and ($RootCampaignOld/ApplyPenalty = &quot;Y&quot; or not($RootCampaignNew/ComponentType = &quot;HANDSET PROMO&quot; and $RootCampaignNew/Action = &quot;New&quot;)))">
+                            <!--Do not send if BreakCommitment is generated-->
+                            <xsl:if test="$RootCampaignOld/AgreementNum">
+                                <pfx8:PreviousInstanceId>
+                                    <xsl:value-of select="$RootCampaignOld/AgreementNum"/>
+                                </pfx8:PreviousInstanceId>
+                            </xsl:if>
+                        </xsl:if>
+                        <xsl:if test="tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime, $RootCampaignNew/EndDate)">
+                            <pfx8:EndDate>
+                                <xsl:value-of select="eai:parseDateBySource(&quot;Siebel&quot;,$RootCampaignNew/EndDate)"/>
+                            </pfx8:EndDate>
+                        </xsl:if>
+                        <xsl:if test="$_isFDO=true() and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime, $Parse-XML/Order/OrderCreationDate)">
+                            <pfx8:RequestTime>
+                                <xsl:value-of select="eai:parseDateBySource(&quot;Siebel&quot;,$Parse-XML/Order/OrderCreationDate)"/>
+                            </pfx8:RequestTime>
+                        </xsl:if>
+                        <!--when an existing Tariff Plan is associated with the new campaign -->
+                        <xsl:for-each select="$RootMobileLine/ListOfChildItem/ChildItem[Action ='Modified'][ComponentGroup = 'TARIFF'][$RootCampaignNew/AgreementNum = AgreementNum]">
+                            <pfx8:TargetOffer>
+                                <pfx8:TargetOfferId>
+                                    <xsl:value-of select="current()/ProductCatalogId"/>
+                                </pfx8:TargetOfferId>
+                                <pfx8:IsPrimaryOffer>
+                                    <xsl:value-of select="true()"/>
+                                </pfx8:IsPrimaryOffer>
+                            </pfx8:TargetOffer>
+                        </xsl:for-each>
+                        <!--This OC is triggered on campaign activation when the swap Tariff Plan is not associated with the campaign and only existing Add-Ons are associated with the campaign-->
+                        <!--when the Tariff Plan is not associated with the campaign and only existing Add-Ons are associated with the campaign.-->
+                        <xsl:for-each-group select="$RootMobileLine/ListOfChildItem/ChildItem[Action='Modified'][ComponentGroup='ADDON'][$RootCampaignNew/AgreementNum = AgreementNum]" group-by="ProductCatalogId">
+                            <pfx8:TargetOffer>
+                                <pfx8:TargetOfferId>
+                                    <xsl:value-of select="ProductCatalogId"/>
+                                </pfx8:TargetOfferId>
+                                <xsl:if test="string-length(current()/VFTRCBUDiscountAmount) > 0">
+                                    <pfx8:DiscountInfo>
+                                        <pfx8:Value>
+                                            <xsl:value-of select="current()/VFTRCBUDiscountAmount"/>
+                                        </pfx8:Value>
+                                        <pfx8:Duration>
+                                            <xsl:value-of select="current()/VFTRCBUDiscountDuration"/>
+                                        </pfx8:Duration>
+                                        <pfx8:Type>
+                                            <xsl:value-of select="current()/VFTRCBUDiscountType"/>
+                                        </pfx8:Type>
+                                    </pfx8:DiscountInfo>
+                                </xsl:if>
+                                <pfx8:IsPrimaryOffer>
+                                    <xsl:value-of select="false()"/>
+                                </pfx8:IsPrimaryOffer>
+                            </pfx8:TargetOffer>
+                        </xsl:for-each-group>
+                        <xsl:for-each select="$RootCampaignNew[ComponentType = 'HANDSET PROMO'][1]">
+                            <xsl:variable name="_handsetPromo" select="."/>
+                            <pfx8:Handset>
+                                <xsl:if test="$RootContainer/ListOfChildItem/ChildItem[ComponentType = 'HANDSET']/ProductCatalogId">
+                                    <pfx8:HandsetType>
+                                        <xsl:value-of select="$RootContainer/ListOfChildItem/ChildItem[ComponentType = 'HANDSET']/ProductCatalogId"/>
+                                    </pfx8:HandsetType>
+                                </xsl:if>
+                                <xsl:if test="$_handsetPromo/ListOfKeyFeatureSimple/KeyFeatureSimple[Feature = 'Credit Card Instalments']/FeatureValue">
+                                    <pfx8:AdvancedPaidPeriod>
+                                        <xsl:value-of select="$_handsetPromo/ListOfKeyFeatureSimple/KeyFeatureSimple[Feature = 'Credit Card Instalments']/FeatureValue"/>
+                                    </pfx8:AdvancedPaidPeriod>
+                                </xsl:if>
+                                <xsl:if test="string-length($_handsetPromo/ListOfKeyFeatureSimple/KeyFeatureSimple[Feature = 'Credit Card Instalments']/FeatureValue)>0">
+                                    <pfx8:AdvancedPaidAmount>
+                                        <xsl:value-of select="$_handsetPromo/MonthlyInstalments"/>
+                                    </pfx8:AdvancedPaidAmount>
+                                </xsl:if>
+                                <xsl:choose>
+                                    <xsl:when test="string-length($_handsetPromo/ListOfKeyFeatureSimple/KeyFeatureSimple[Feature = 'Credit Card Instalments']/FeatureValue)>0">
+                                        <pfx8:InstallmentPeriod>
+                                            <xsl:value-of select="round($_handsetPromo/Duration - $_handsetPromo/ListOfKeyFeatureSimple/KeyFeatureSimple[Feature = 'Credit Card Instalments']/FeatureValue)"/>
+                                        </pfx8:InstallmentPeriod>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <pfx8:InstallmentPeriod>
+                                            <xsl:value-of select="$_handsetPromo/Duration"/>
+                                        </pfx8:InstallmentPeriod>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                                <xsl:if test="$_handsetPromo/MonthlyInstalments">
+                                    <pfx8:InstallmentAmount>
+                                        <xsl:value-of select="$_handsetPromo/MonthlyInstalments"/>
+                                    </pfx8:InstallmentAmount>
+                                </xsl:if>
+                                <xsl:if test="$_handsetPromo/SubsidyAmount">
+                                    <pfx8:Subsidy>
+                                        <xsl:value-of select="$_handsetPromo/SubsidyAmount"/>
+                                    </pfx8:Subsidy>
+                                </xsl:if>
+                            </pfx8:Handset>
+                        </xsl:for-each>
+                        <!--SimpleProperty Added (CR51)-->
+                        <pfx8:SimpleProperty>
+                            <pfx8:Id>
+                                <xsl:value-of select="'Campaigncode'"/>
+                            </pfx8:Id>
+                            <pfx8:Value>
+                                <xsl:value-of select="$RootCampaignNew/ProductCatalogId"/>
+                            </pfx8:Value>
+                        </pfx8:SimpleProperty>
+                        <pfx8:SimpleProperty>
+                            <pfx8:Id>
+                                <xsl:value-of select="'Campaignname'"/>
+                            </pfx8:Id>
+                            <pfx8:Value>
+                                <xsl:value-of select="$RootCampaignNew/ProductName"/>
+                            </pfx8:Value>
+                        </pfx8:SimpleProperty>
+                        <pfx8:ValidMode>
+                            <xsl:choose>
+                                <xsl:when test="($Parse-XML/Order/OrderFutureDatedFlag = 'Y' or $Parse-XML/Order/ListOfRootItem/RootItem/ActionType = &quot;134&quot; )&#xA; and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$RootCampaignNew/DueDate)">
+                                    <pfx8:Mode>
+                                        <xsl:value-of select="'4050003'"/>
+                                    </pfx8:Mode>
+                                    <xsl:if test="$Parse-XML/Order/OrderFutureDatedFlag = 'Y' and tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$RootCampaignNew/DueDate)">
+                                        <pfx8:EffectiveDate>
+                                            <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$RootCampaignNew/DueDate)"/>
+                                        </pfx8:EffectiveDate>
+                                    </xsl:if>
+                                    <xsl:if test="tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime, $RootCampaignNew/EndDate)">
+                                        <pfx8:ExpireDate>
+                                            <xsl:value-of select="eai:parseDateBySource(&quot;Siebel&quot;,$RootCampaignNew/EndDate)"/>
+                                        </pfx8:ExpireDate>
+                                    </xsl:if>
+                                </xsl:when>
+                                <xsl:when test="$Parse-XML/Order/Frodo2ndOrder = 'Y' &#xA;and&#xA; tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$RootCampaignNew/StartDate)">
+                                    <pfx8:Mode>
+                                        <xsl:value-of select="'4050003'"/>
+                                    </pfx8:Mode>
+                                    <xsl:if test="tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$RootCampaignNew/StartDate)">
+                                        <pfx8:EffectiveDate>
+                                            <xsl:value-of select="tib:parse-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime,$RootCampaignNew/StartDate)"/>
+                                        </pfx8:EffectiveDate>
+                                    </xsl:if>
+                                    <xsl:if test="tib:validate-dateTime($_globalVariables/ns:GlobalVariables/Constants/Formats/Siebel/DateTime, $RootCampaignNew/EndDate)">
+                                        <pfx8:ExpireDate>
+                                            <xsl:value-of select="eai:parseDateBySource(&quot;Siebel&quot;,$RootCampaignNew/EndDate)"/>
+                                        </pfx8:ExpireDate>
+                                    </xsl:if>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <pfx8:Mode>
+                                        <xsl:value-of select="'4050000'"/>
+                                    </pfx8:Mode>
+                                    <pfx8:ExpireDate>
+                                        <xsl:value-of select="eai:parseDateBySource(&quot;Siebel&quot;,$RootCampaignNew/EndDate)"/>
+                                    </pfx8:ExpireDate>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </pfx8:ValidMode>
+                    </pfx8:Commitment>
+                </pfx8:Request>
+            </pfx8:CreateCommitmentWARequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Parse XML">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>196</pd:x>
+        <pd:y>73</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>false</validateOutput>
+            <term>
+                <xsd:element name="Order" type="pfx4:Order"/>
+            </term>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Start/Input/pfx:RequestEAI/pfx:Body/*" element="ns1:Request"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$Start/Input/pfx:RequestEAI/pfx:Body/ns1:Request/ns1:OrderComponentDetails/ns1:XMLMessage/*[1]"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Parse XML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse XML</pd:from>
+        <pd:to>Map Data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map Data</pd:from>
+        <pd:to>JMS Queue Sender</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>JMS Queue Sender</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:label>
+        <pd:name>Label</pd:name>
+        <pd:description>O instanceID tem que ser passado para EAI para que seja utilizado no BreakCommitment</pd:description>
+        <pd:x>351</pd:x>
+        <pd:y>18</pd:y>
+        <pd:width>685</pd:width>
+        <pd:height>31</pd:height>
+        <pd:fontColor>-16777216</pd:fontColor>
+        <pd:color>-205</pd:color>
+        <pd:type>solid</pd:type>
+        <pd:thickness>0</pd:thickness>
+        <pd:fade>true</pd:fade>
+    </pd:label>
+</pd:ProcessDefinition>

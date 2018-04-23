@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	 xmlns:om="http://vodafone.com.tr/ServiceCatalog/Business/OSM/GetValidationOrder/v1"
+	 targetNamespace="http://vodafone.com.tr/ServiceCatalog/Business/OSM/GetValidationOrder/v1"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<element name="GetValidationOrderRequest" type="om:GetValidationOrderRequest"/>
+	<element name="GetValidationOrderResponse" type="om:GetValidationOrderResponse"/>
+	<complexType name="GetValidationOrderRequest">
+		<sequence>
+			<element ref="om:Request"/>
+		</sequence>
+	</complexType>
+	<complexType name="GetValidationOrderResponse">
+		<sequence>
+			<element ref="om:Response" minOccurs="0"/>
+		</sequence>
+	</complexType>
+	<complexType name="ListOfOperationsType">
+		<sequence>
+			<element name="Operation" type="om:OperationType" minOccurs="0" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	<complexType name="OperationType">
+		<sequence>
+			<element name="Id" type="string"/>
+			<element name="Name" type="string"/>
+			<element name="Root_Id" type="string"/>
+			<element name="Scenario" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="Request" type="om:Request"/>
+	<complexType name="Request">
+		<sequence>
+			<element name="OrderId" type="string"/>
+		</sequence>
+	</complexType>
+	<element name="Response" type="om:Response"/>
+	<complexType name="Response">
+		<sequence>
+			<element ref="om:ListOfOperationsType" minOccurs="0"/>
+		</sequence>
+	</complexType>
+	<element name="ListOfOperationsType" type="om:ListOfOperationsType"/>
+</schema>

@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://xmlns.telco.com/EAI/Logging/LOG_MESSAGE" xmlns:ns9="http://vodafone.com.tr/EAI/Common/ResponseEAI" xmlns:ns12="http://vodafone.com.tr/EAI/Logging" xmlns:ns5="http://xmlns.telco.com/EAI/Common/RESPONSE_CODES" xmlns:ns6="http://xmlns.telco.com/EAI/Common/Header" xmlns:ns10="http://vodafone.com.tr/EAI/Common/Header" xmlns:ns7="http://xmlns.telco.com/EAI/Common/ResponseCodes" xmlns:pfx="http://xmlns.telco.com/EAI/Common/RequestEAI" xmlns:eai="java://com.telco.eai.EAIFunctions" xmlns:ns8="http://xmlns.telco.com/EAI/Logging" xmlns:ns11="http://vodafone.com.tr/EAI/Common/ResponseCodes" xmlns:ns2="http://www.tibco.com/pe/EngineTypes" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns4="http://xmlns.telco.com/EAI/Common/HEADER" xmlns:ns3="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://vodafone.com.tr/EAI/Common/RequestEAI" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx4="http://xmlns.telco.com/EAI/Common/RESPONSE" xmlns:pfx3="http://xmlns.telco.com/EAI/Common/REQUEST" xmlns:pfx2="http://xmlns.telco.com/EAI/Common/ResponseEAI">
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/RequestEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/RequestEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/ResponseEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/ResponseEAI.xsd"/>
+    <pd:name>Domains/OrderManagement/TechnicalResources/Processes/Starters/JMSQueueReliableStarter.process</pd:name>
+    <pd:startName>JMS Queue Receiver</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings/>
+    <pd:starter name="JMS Queue Receiver">
+        <pd:type>com.tibco.plugin.jms.JMSQueueEventSource</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueEventSource</pd:resourceType>
+        <pd:x>65</pd:x>
+        <pd:y>64</pd:y>
+        <config>
+            <PermittedMessageType>Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%Constants/Company%%.%%Domains/EAI/Name%%.%%Constants/Layer/Technical%%.%%Constants/QOS/Reliable%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/GlobalCommonResources/Connections/JMS/JMS EAI Connection.sharedjmscon</ConnectionReference>
+        </config>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>806</pd:endX>
+    <pd:endY>64</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables>
+        <Response ref="ns9:ResponseEAI"/>
+    </pd:processVariables>
+    <pd:targetNamespace>http://vodafone.com.tr/1208780762554</pd:targetNamespace>
+    <pd:activity name="Parse XML">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>176</pd:x>
+        <pd:y>64</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>false</validateOutput>
+            <term ref="pfx5:RequestEAI"/>
+        </config>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$JMS-Queue-Receiver/ns3:ActivityOutput/Body"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Assign Error Invalid Parameters">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>178</pd:x>
+        <pd:y>292</pd:y>
+        <config>
+            <variableName>Response</variableName>
+        </config>
+        <pd:inputBindings>
+            <ns9:ResponseEAI>
+                <ns9:ResponseCodes>
+                    <ns11:ResponseCode>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/InvalidInputParameters"/>
+                    </ns11:ResponseCode>
+                    <ns11:ResponseMsg>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/InvalidInputParametersDescription"/>
+                    </ns11:ResponseMsg>
+                    <ns11:ErrorCode>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/InvalidInputParameters"/>
+                    </ns11:ErrorCode>
+                    <ns11:ErrorDescription>
+                        <xsl:value-of select="$_error/ns2:ErrorReport/StackTrace"/>
+                    </ns11:ErrorDescription>
+                </ns9:ResponseCodes>
+            </ns9:ResponseEAI>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="InterfaceDispatcher">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>316</pd:x>
+        <pd:y>64</pd:y>
+        <config>
+            <processName>/GlobalCommonResources/Processes/Common/InterfaceDispatcher.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <xsl:copy-of select="$Parse-XML/pfx5:RequestEAI"/>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Logger [ERROR]">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>430</pd:x>
+        <pd:y>284</pd:y>
+        <config>
+            <processName>/GlobalCommonResources/Processes/Logging/Logger.process</processName>
+        </config>
+        <pd:inputBindings>
+            <Input>
+                <ns12:LogMessage>
+                    <ns12:Source>
+                        <xsl:value-of select="$Response/ns9:ResponseEAI/ns9:Header/ns10:SourceSystem"/>
+                    </ns12:Source>
+                    <ns12:Target>
+                        <xsl:value-of select="$Response/ns9:ResponseEAI/ns9:Header/ns10:TargetSystem"/>
+                    </ns12:Target>
+                    <ns12:Process>
+                        <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns2:ProcessContext/ProcessId)"/>
+                    </ns12:Process>
+                    <ns12:Service>
+                        <xsl:value-of select="$Response/ns9:ResponseEAI/ns9:Header/ns10:BusinessInterface/ns10:Service"/>
+                    </ns12:Service>
+                    <ns12:MsgId>
+                        <xsl:value-of select="$Response/ns9:ResponseEAI/ns9:Header/ns10:RequestId"/>
+                    </ns12:MsgId>
+                    <ns12:Type>
+                        <xsl:value-of select="&quot;ERROR&quot;"/>
+                    </ns12:Type>
+                    <ns12:Task>
+                        <xsl:value-of select="tib:substring-after-last($_error/ns2:ErrorReport/ProcessStack, &quot;/&quot;)"/>
+                    </ns12:Task>
+                    <ns12:Description>
+                        <xsl:value-of select="$Response/ns9:ResponseEAI/ns9:ResponseCodes/ns11:ErrorDescription"/>
+                    </ns12:Description>
+                    <ns12:ErrorCode>
+                        <xsl:value-of select="$Response/ns9:ResponseEAI/ns9:ResponseCodes/ns11:ErrorCode"/>
+                    </ns12:ErrorCode>
+                    <ns12:ResponseCode>
+                        <xsl:value-of select="$Response/ns9:ResponseEAI/ns9:ResponseCodes/ns11:ResponseCode"/>
+                    </ns12:ResponseCode>
+                    <ns12:MessageBody>
+                        <xsl:value-of select="$JMS-Queue-Receiver/ns3:ActivityOutput/Body"/>
+                    </ns12:MessageBody>
+                    <ns12:CorrelationId>
+                        <xsl:value-of select="$Response/ns9:ResponseEAI/ns9:Header/ns10:CorrelationId"/>
+                    </ns12:CorrelationId>
+                    <ns12:UserName>
+                        <xsl:value-of select="$Response/ns9:ResponseEAI/ns9:Header/ns10:Credentials[1]/ns10:User"/>
+                    </ns12:UserName>
+                    <ns12:Version>
+                        <xsl:value-of select="$Response/ns9:ResponseEAI/ns9:Header/ns10:TechnicalInterface/ns10:Version"/>
+                    </ns12:Version>
+                </ns12:LogMessage>
+            </Input>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Assign Error No Data Found">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>319</pd:x>
+        <pd:y>202</pd:y>
+        <config>
+            <variableName>Response</variableName>
+        </config>
+        <pd:inputBindings>
+            <ns9:ResponseEAI>
+                <ns9:Header>
+                    <xsl:copy-of select="$Parse-XML/pfx5:RequestEAI/pfx5:Header/ancestor-or-self::*/namespace::node()"/>
+                    <xsl:copy-of select="$Parse-XML/pfx5:RequestEAI/pfx5:Header/@*"/>
+                    <xsl:copy-of select="$Parse-XML/pfx5:RequestEAI/pfx5:Header/node()"/>
+                </ns9:Header>
+                <ns9:ResponseCodes>
+                    <ns11:ResponseCode>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/NoDataFound"/>
+                    </ns11:ResponseCode>
+                    <ns11:ResponseMsg>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/NoDataFoundDescription"/>
+                    </ns11:ResponseMsg>
+                    <ns11:ErrorCode>
+                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/NoDataFound"/>
+                    </ns11:ErrorCode>
+                    <ns11:ErrorDescription>
+                        <xsl:value-of select="$_error/ns2:ErrorReport/StackTrace"/>
+                    </ns11:ErrorDescription>
+                </ns9:ResponseCodes>
+            </ns9:ResponseEAI>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Assign Success">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>451</pd:x>
+        <pd:y>64</pd:y>
+        <config>
+            <variableName>Response</variableName>
+        </config>
+        <pd:inputBindings>
+            <xsl:copy-of select="$InterfaceDispatcher/Output/ns9:ResponseEAI"/>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Null">
+        <pd:type>com.tibco.plugin.timer.NullActivity</pd:type>
+        <pd:resourceType>ae.activities.null</pd:resourceType>
+        <pd:x>596</pd:x>
+        <pd:y>64</pd:y>
+        <config/>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Reply to JMS Message">
+        <pd:type>com.tibco.plugin.jms.JMSReplyActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSReplyActivity</pd:resourceType>
+        <pd:x>701</pd:x>
+        <pd:y>72</pd:y>
+        <config>
+            <PermittedMessageType>XML Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>NON_PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+                <EventSource>JMS Queue Receiver</EventSource>
+            </ConfigurableHeaders>
+            <ApplicationProperties/>
+            <InDataxsdString ref="ns9:ResponseEAI"/>
+        </config>
+        <pd:inputBindings>
+            <ns3:ActivityInput>
+                <xsl:choose>
+                    <xsl:when test="string-length($Parse-XML/pfx5:RequestEAI/pfx5:Header/ns10:TimeOut)>0">
+                        <JMSExpiration>
+                            <xsl:value-of select="$Parse-XML/pfx5:RequestEAI/pfx5:Header/ns10:TimeOut div 1000"/>
+                        </JMSExpiration>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <JMSExpiration>
+                            <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/Defaults/DefaultTimeout div 1000"/>
+                        </JMSExpiration>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <Body>
+                    <xsl:copy-of select="$Response/ns9:ResponseEAI"/>
+                </Body>
+            </ns3:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Parse XML</pd:from>
+        <pd:to>Assign Error Invalid Parameters</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-65536</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse XML</pd:from>
+        <pd:to>InterfaceDispatcher</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign Error Invalid Parameters</pd:from>
+        <pd:to>Logger [ERROR]</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>InterfaceDispatcher</pd:from>
+        <pd:to>Assign Error No Data Found</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-65536</pd:lineColor>
+        <pd:conditionType>error</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign Error No Data Found</pd:from>
+        <pd:to>Logger [ERROR]</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>InterfaceDispatcher</pd:from>
+        <pd:to>Assign Success</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>JMS Queue Receiver</pd:from>
+        <pd:to>Parse XML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Assign Success</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Logger [ERROR]</pd:from>
+        <pd:to>Null</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Null</pd:from>
+        <pd:to>Reply to JMS Message</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Reply to JMS Message</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

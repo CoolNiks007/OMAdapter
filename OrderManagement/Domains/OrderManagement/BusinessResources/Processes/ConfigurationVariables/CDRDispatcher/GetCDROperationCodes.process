@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd">
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/SiebelOrder.xsd"/>
+    <pd:name>Domains/OrderManagement/BusinessResources/Processes/CDRDispatcher/GetCDROperationCodes.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="GetCDROperationCodesInput">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="OrderTypeCode" type="xsd:string"/>
+                    <xsd:element name="ActionType" type="xsd:string"/>
+                    <xsd:element name="ActionReason" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>55</pd:startX>
+    <pd:startY>63</pd:startY>
+    <pd:returnBindings>
+        <xsl:variable name="TransactionCodes" select="$GetVariable/ListOfCDROperationCodes/CDROperationCodes[OrderTypeCode=$Start/GetCDROperationCodesInput/OrderTypeCode and ActionType=$Start/GetCDROperationCodesInput/ActionType and ActionReason=$Start/GetCDROperationCodesInput/ActionReason]"/>
+        <GetCDROperationCodesOutput>
+            <OperationType>
+                <xsl:value-of select="$TransactionCodes/OperationType"/>
+            </OperationType>
+            <Reason>
+                <xsl:value-of select="$TransactionCodes/Reason"/>
+            </Reason>
+            <ProcessType>
+                <xsl:value-of select="$TransactionCodes/ProcessType"/>
+            </ProcessType>
+        </GetCDROperationCodesOutput>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="GetCDROperationCodesOutput">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="OperationType" type="xsd:string"/>
+                    <xsd:element name="Reason" type="xsd:string"/>
+                    <xsd:element name="ProcessType" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>457</pd:endX>
+    <pd:endY>65</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://vodafone.com.tr/1411467088429</pd:targetNamespace>
+    <pd:activity name="GetVariable">
+        <pd:type>com.tibco.pe.core.GetSharedVariableActivity</pd:type>
+        <pd:resourceType>ae.activities.getSharedVariable</pd:resourceType>
+        <pd:x>229</pd:x>
+        <pd:y>64</pd:y>
+        <config>
+            <variableConfig>/Domains/OrderManagement/BusinessResources/SharedVariables/CDRDispatcher/CDR Operations.sharedvariable</variableConfig>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>GetVariable</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetVariable</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

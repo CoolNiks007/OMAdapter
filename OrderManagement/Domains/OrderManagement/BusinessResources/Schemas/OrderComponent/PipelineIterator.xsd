@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/PipelineIterator/v1"
+	 targetNamespace="http://vodafone.com.tr/OrderManagment/Business/OrderComponent/PipelineIterator/v1"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="PipelineIterator">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="CurrentIterationValue" type="xs:string"/>
+				<xs:element name="CurrentIterationState" type="xs:string"/>
+				<xs:element name="XMLResponse" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:any namespace="##any" processContents="lax"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

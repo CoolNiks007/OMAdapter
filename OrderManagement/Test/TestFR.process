@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:ns2="http://vodafone.com.tr/EAI/Common/Header" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns1="http://www.tibco.com/pe/DeployedVarsType" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/jms" xmlns:ns4="http://www.tibco.com/schemas/OrderManagement/Domains/OrderManagement/BusinessResources/Schemas/TesteOC/Schema.xsd" xmlns:ns3="http://vodafone.com.tr/EAI/Common/ResponseCodes" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx4="http://vodafone.com.tr/ServiceCatalog/ServiceReply" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://vodafone.com.tr/EAI/Common/ResponseEAI" xmlns:pfx2="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" xmlns:pfx="http://www.tibco.com/schemas/OrderManagement/Domains/OrderManagement/BusinessResources/Schemas/TemplateApplication/Schema.xsd">
+    <xsd:import namespace="http://www.tibco.com/schemas/OrderManagement/Domains/OrderManagement/BusinessResources/Schemas/TemplateApplication/Schema.xsd" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/TemplateApplication/Example.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/ServiceRequest" schemaLocation="/Domains/ServiceCatalog/BusinessResources/Schemas/ServiceRequest.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/ResponseEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/ResponseEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/ServiceCatalog/ServiceReply" schemaLocation="/Domains/ServiceCatalog/BusinessResources/Schemas/ServiceReply.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/OrderManagement/Domains/OrderManagement/BusinessResources/Schemas/TesteOC/Schema.xsd" schemaLocation="/Domains/OrderManagement/BusinessResources/Schemas/TesteOC/TesteOC.xsd"/>
+    <pd:name>Test/TestFR.process</pd:name>
+    <pd:startName>JMS Queue Receiver</pd:startName>
+    <pd:startX>0</pd:startX>
+    <pd:startY>0</pd:startY>
+    <pd:returnBindings/>
+    <pd:starter name="JMS Queue Receiver">
+        <pd:type>com.tibco.plugin.jms.JMSQueueEventSource</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueEventSource</pd:resourceType>
+        <pd:x>94</pd:x>
+        <pd:y>58</pd:y>
+        <config>
+            <PermittedMessageType>Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>vftr.teste</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/GlobalCommonResources/Connections/JMS/JMS EAI Connection.sharedjmscon</ConnectionReference>
+        </config>
+        <pd:inputBindings/>
+    </pd:starter>
+    <pd:endName>End</pd:endName>
+    <pd:endX>648</pd:endX>
+    <pd:endY>58</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://vodafone.com.tr/1399462741577</pd:targetNamespace>
+    <pd:activity name="JMS Queue Sender">
+        <pd:type>com.tibco.plugin.jms.JMSQueueSendActivity</pd:type>
+        <pd:resourceType>ae.activities.JMSQueueSendActivity</pd:resourceType>
+        <pd:x>504</pd:x>
+        <pd:y>58</pd:y>
+        <config>
+            <PermittedMessageType>Text</PermittedMessageType>
+            <SessionAttributes>
+                <transacted>false</transacted>
+                <acknowledgeMode>1</acknowledgeMode>
+                <maxSessions>1</maxSessions>
+                <destination>%%Domains/OrderManagement/OrderComponent/ResponseQueueName%%</destination>
+            </SessionAttributes>
+            <ConfigurableHeaders>
+                <JMSDeliveryMode>PERSISTENT</JMSDeliveryMode>
+                <JMSExpiration>0</JMSExpiration>
+                <JMSPriority>4</JMSPriority>
+            </ConfigurableHeaders>
+            <ConnectionReference>/GlobalCommonResources/Connections/JMS/JMS EAI Connection.sharedjmscon</ConnectionReference>
+        </config>
+        <pd:inputBindings>
+            <ns:ActivityInput>
+                <xsl:if test="$JMS-Queue-Receiver/ns:ActivityOutput/JMSHeaders/ns:JMSReplyTo">
+                    <destinationQueue>
+                        <xsl:value-of select="$JMS-Queue-Receiver/ns:ActivityOutput/JMSHeaders/ns:JMSReplyTo"/>
+                    </destinationQueue>
+                </xsl:if>
+                <Body>
+                    <xsl:value-of select="tib:render-xml($Map-Data/pfx4:ServiceReply)"/>
+                </Body>
+            </ns:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Map Data">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>362</pd:x>
+        <pd:y>58</pd:y>
+        <config>
+            <element ref="pfx4:ServiceReply"/>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Parse-XML/pfx2:ServiceRequest/pfx2:Body/*" element="ns4:Input"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <pfx4:ServiceReply>
+                <pfx4:Header>
+                    <xsl:choose>
+                        <xsl:when test="string-length($Parse-XML/pfx2:ServiceRequest/pfx2:Body/ns4:Input/ns4:Cenas) > 0">
+                            <ns3:ResponseCode>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/Success"/>
+                            </ns3:ResponseCode>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <ns3:ResponseCode>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/TargetServerInternalError"/>
+                            </ns3:ResponseCode>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:choose>
+                        <xsl:when test="string-length($Parse-XML/pfx2:ServiceRequest/pfx2:Body/ns4:Input/ns4:Cenas) > 0">
+                            <ns3:ResponseMsg>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/SuccessDescription"/>
+                            </ns3:ResponseMsg>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <ns3:ResponseMsg>
+                                <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/TargetServerInternalErrorDescription"/>
+                            </ns3:ResponseMsg>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                    <xsl:if test="$Parse-XML/pfx2:ServiceRequest/pfx2:Header/ns2:RequestId">
+                        <ns3:RequestId>
+                            <xsl:value-of select="$Parse-XML/pfx2:ServiceRequest/pfx2:Header/ns2:RequestId"/>
+                        </ns3:RequestId>
+                    </xsl:if>
+                    <ns3:Domain>
+                        <xsl:value-of select="'TesteDomain'"/>
+                    </ns3:Domain>
+                    <ns3:Service>
+                        <xsl:value-of select="'TesteService'"/>
+                    </ns3:Service>
+                    <ns3:Operation>
+                        <xsl:value-of select="'TesteOperation'"/>
+                    </ns3:Operation>
+                    <ns3:Version>
+                        <xsl:value-of select="'1'"/>
+                    </ns3:Version>
+                    <xsl:for-each select="$Parse-XML/pfx2:ServiceRequest/pfx2:Header/ns2:Attributes">
+                        <ns3:Attributes>
+                            <xsl:for-each select="ns2:Attribute">
+                                <ns3:Attribute>
+                                    <ns3:Name>
+                                        <xsl:value-of select="ns2:Name"/>
+                                    </ns3:Name>
+                                    <ns3:Value>
+                                        <xsl:value-of select="ns2:Value"/>
+                                    </ns3:Value>
+                                </ns3:Attribute>
+                            </xsl:for-each>
+                        </ns3:Attributes>
+                    </xsl:for-each>
+                </pfx4:Header>
+                <pfx4:Body>
+                    <ns4:Output>
+                        <xsl:choose>
+                            <xsl:when test="string-length($Parse-XML/pfx2:ServiceRequest/pfx2:Body/ns4:Input/ns4:Cenas) > 0">
+                                <ns4:Header>
+                                    <ns4:ErrorCode>
+                                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/Success"/>
+                                    </ns4:ErrorCode>
+                                    <ns4:ErrorMessage>
+                                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/SuccessDescription"/>
+                                    </ns4:ErrorMessage>
+                                </ns4:Header>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <ns4:Header>
+                                    <ns4:ErrorCode>
+                                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/TargetServerInternalError"/>
+                                    </ns4:ErrorCode>
+                                    <ns4:ErrorMessage>
+                                        <xsl:value-of select="$_globalVariables/ns1:GlobalVariables/ErrorCodes/TargetServerInternalErrorDescription"/>
+                                    </ns4:ErrorMessage>
+                                </ns4:Header>
+                            </xsl:otherwise>
+                        </xsl:choose>
+                        <ns4:CenasOutput>
+                            <xsl:value-of select="$Parse-XML/pfx2:ServiceRequest/pfx2:Body/ns4:Input/ns4:Cenas"/>
+                        </ns4:CenasOutput>
+                    </ns4:Output>
+                </pfx4:Body>
+            </pfx4:ServiceReply>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Parse XML">
+        <pd:type>com.tibco.plugin.xml.XMLParseActivity</pd:type>
+        <pd:resourceType>ae.activities.XMLParseActivity</pd:resourceType>
+        <pd:x>216</pd:x>
+        <pd:y>58</pd:y>
+        <config>
+            <inputStyle>text</inputStyle>
+            <xsdVersion>default</xsdVersion>
+            <validateOutput>false</validateOutput>
+            <term ref="pfx2:ServiceRequest"/>
+        </config>
+        <pd:inputBindings>
+            <xmlString>
+                <xsl:value-of select="$JMS-Queue-Receiver/ns:ActivityOutput/Body"/>
+            </xmlString>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>JMS Queue Receiver</pd:from>
+        <pd:to>Parse XML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Map Data</pd:from>
+        <pd:to>JMS Queue Sender</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>JMS Queue Sender</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse XML</pd:from>
+        <pd:to>Map Data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

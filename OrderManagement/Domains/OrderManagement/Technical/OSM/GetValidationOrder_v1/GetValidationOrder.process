@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:BW="java://com.tibco.pe.core.JavaCustomXPATHFunctions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns="http://www.tibco.com/pe/DeployedVarsType" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns12="http://www.tibco.com/pe/GenerateErrorActivity/InputSchema" xmlns:ns5="http://www.tibco.com/pe/EngineTypes" xmlns:ns6="http://vodafone.com.tr/EAI/Common/Header" xmlns:eai="java://com.telco.eai.EAIFunctions" xmlns:pfx="http://xmlns.oracle.com/communications/ordermanagement" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:ns2="http://schemas.tibco.com/bw/plugins/http/5.0/httpExceptions" xmlns:ns1="http://schemas.tibco.com/bw/pe/plugin/5.0/exceptions" xmlns:ns4="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:ns3="http://vodafone.com.tr/EAI/Common/ResponseCodes" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:pfx5="http://vodafone.com.tr/EAI/Logging" xmlns:pfx4="http://vodafone.com.tr/EAI/Common/ResponseEAI" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:pfx3="http://vodafone.com.tr/EAI/Common/RequestEAI">
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/RequestEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/RequestEAI.xsd"/>
+    <xsd:import namespace="http://xmlns.oracle.com/communications/ordermanagement" schemaLocation="/Domains/OrderManagement/TechnicalResources/Schemas/OSM/OrderManagementWS.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/ResponseEAI" schemaLocation="/GlobalCommonResources/Schemas/Common/ResponseEAI.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Common/ResponseCodes" schemaLocation="/GlobalCommonResources/Schemas/Common/ResponseCodes.xsd"/>
+    <xsd:import namespace="http://vodafone.com.tr/EAI/Logging" schemaLocation="/GlobalCommonResources/Schemas/Logging/LogMessage.xsd"/>
+    <wsdl:import namespace="http://xmlns.oracle.com/communications/ordermanagement" location="/Domains/OrderManagement/TechnicalResources/WSDL/OSM/OrderManagementWS.wsdl"/>
+    <pd:name>Domains/OrderManagement/Technical/OSM/GetValidationOrder_v1/GetValidationOrder.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType>
+        <xsd:element name="Input">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx3:RequestEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:startType>
+    <pd:startX>86</pd:startX>
+    <pd:startY>58</pd:startY>
+    <pd:returnBindings>
+        <Output>
+            <pfx4:ResponseEAI>
+                <pfx4:Header>
+                    <xsl:copy-of select="$Start/Input/pfx3:RequestEAI/pfx3:Header/ancestor-or-self::*/namespace::node()"/>
+                    <xsl:copy-of select="$Start/Input/pfx3:RequestEAI/pfx3:Header/@*"/>
+                    <xsl:copy-of select="$Start/Input/pfx3:RequestEAI/pfx3:Header/node()"/>
+                </pfx4:Header>
+                <xsl:choose>
+                    <xsl:when test="string-length($ResponseCodes/ResponseCode) > 0">
+                        <pfx4:ResponseCodes>
+                            <ns3:ResponseCode>
+                                <xsl:value-of select="$ResponseCodes/ResponseCode/ns3:ResponseCode"/>
+                            </ns3:ResponseCode>
+                            <ns3:ResponseMsg>
+                                <xsl:value-of select="$ResponseCodes/ResponseCode/ns3:ResponseMsg"/>
+                            </ns3:ResponseMsg>
+                            <ns3:ErrorCode>
+                                <xsl:value-of select="$ResponseCodes/ResponseCode/ns3:ErrorCode"/>
+                            </ns3:ErrorCode>
+                            <ns3:ErrorDescription>
+                                <xsl:value-of select="$ResponseCodes/ResponseCode/ns3:ErrorDescription"/>
+                            </ns3:ErrorDescription>
+                        </pfx4:ResponseCodes>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <pfx4:ResponseCodes>
+                            <ns3:ResponseCode>
+                                <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/Success"/>
+                            </ns3:ResponseCode>
+                            <ns3:ResponseMsg>
+                                <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/SuccessDescription"/>
+                            </ns3:ResponseMsg>
+                        </pfx4:ResponseCodes>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <pfx4:Body>
+                    <xsl:copy-of select="$SOAPRequestReply/outputMessage/pfx:GetOrderResponse"/>
+                </pfx4:Body>
+            </pfx4:ResponseEAI>
+        </Output>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType>
+        <xsd:element name="Output">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element ref="pfx4:ResponseEAI"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </pd:endType>
+    <pd:endX>598</pd:endX>
+    <pd:endY>61</pd:endY>
+    <pd:errorSchemas>
+        <LogMessage ref="pfx5:LogMessage"/>
+    </pd:errorSchemas>
+    <pd:processVariables>
+        <ResponseCodes>
+            <xsd:element name="ResponseCode" type="ns3:ResponseCodes"/>
+        </ResponseCodes>
+    </pd:processVariables>
+    <pd:targetNamespace>http://vodafone.com.tr/1398779396800</pd:targetNamespace>
+    <pd:activity name="Catch all">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>317</pd:x>
+        <pd:y>469</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <catchAll>true</catchAll>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Generate Error">
+        <pd:type>com.tibco.pe.core.GenerateErrorActivity</pd:type>
+        <pd:resourceType>ae.activities.throw</pd:resourceType>
+        <pd:x>504</pd:x>
+        <pd:y>470</pd:y>
+        <config>
+            <faultName>LogMessage</faultName>
+        </config>
+        <pd:inputBindings>
+            <ns12:ActivityInput>
+                <message>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/UnspecifiedError"/>
+                </message>
+                <messageCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/UnspecifiedErrorDescription"/>
+                </messageCode>
+                <data>
+                    <pfx5:LogMessage>
+                        <pfx5:Source>
+                            <xsl:value-of select="$Start/Input/pfx3:RequestEAI/pfx3:Header/ns6:SourceSystem"/>
+                        </pfx5:Source>
+                        <pfx5:Target>
+                            <xsl:value-of select="$Start/Input/pfx3:RequestEAI/pfx3:Header/ns6:TargetSystem"/>
+                        </pfx5:Target>
+                        <pfx5:Engine>
+                            <xsl:value-of select="$_processContext/ns5:ProcessContext/EngineName"/>
+                        </pfx5:Engine>
+                        <pfx5:ProcessId>
+                            <xsl:value-of select="$_processContext/ns5:ProcessContext/ProcessId"/>
+                        </pfx5:ProcessId>
+                        <pfx5:Process>
+                            <xsl:value-of select="BW:getCurrentProcessName($_processContext/ns5:ProcessContext/ProcessId)"/>
+                        </pfx5:Process>
+                        <pfx5:Service>
+                            <xsl:value-of select="$Start/Input/pfx3:RequestEAI/pfx3:Header/ns6:BusinessInterface/ns6:Service"/>
+                        </pfx5:Service>
+                        <pfx5:Operation>
+                            <xsl:value-of select="$Start/Input/pfx3:RequestEAI/pfx3:Header/ns6:BusinessInterface/ns6:Operation"/>
+                        </pfx5:Operation>
+                        <pfx5:MsgId>
+                            <xsl:value-of select="$Start/Input/pfx3:RequestEAI/pfx3:Header/ns6:RequestId"/>
+                        </pfx5:MsgId>
+                        <pfx5:Type>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Logging/Roles/ErrorRoleName"/>
+                        </pfx5:Type>
+                        <pfx5:Task>
+                            <xsl:value-of select="tib:substring-after-last($_error/ns5:ErrorReport/ProcessStack, &quot;/&quot;)"/>
+                        </pfx5:Task>
+                        <pfx5:Description>
+                            <xsl:value-of select="$_error/ns5:ErrorReport/Msg"/>
+                        </pfx5:Description>
+                        <xsl:if test="$_error/ns5:ErrorReport/StackTrace">
+                            <pfx5:ErrorDump>
+                                <xsl:value-of select="$_error/ns5:ErrorReport/StackTrace"/>
+                            </pfx5:ErrorDump>
+                        </xsl:if>
+                        <pfx5:ErrorCode>
+                            <xsl:value-of select="$_error/ns5:ErrorReport/MsgCode"/>
+                        </pfx5:ErrorCode>
+                        <pfx5:ResponseCode>
+                            <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/UnspecifiedError"/>
+                        </pfx5:ResponseCode>
+                        <pfx5:CorrelationId>
+                            <xsl:value-of select="$Start/Input/pfx3:RequestEAI/pfx3:Header/ns6:CorrelationId"/>
+                        </pfx5:CorrelationId>
+                        <pfx5:UserName>
+                            <xsl:value-of select="$Start/Input/pfx3:RequestEAI/pfx3:Header/ns6:Credentials[1]/ns6:User"/>
+                        </pfx5:UserName>
+                        <pfx5:Version>
+                            <xsl:value-of select="$Start/Input/pfx3:RequestEAI/pfx3:Header/ns6:TechnicalInterface/ns6:Version"/>
+                        </pfx5:Version>
+                        <pfx5:Interface>
+                            <xsl:value-of select="$Start/Input/pfx3:RequestEAI/pfx3:Header/ns6:TechnicalInterface/ns6:Interface"/>
+                        </pfx5:Interface>
+                    </pfx5:LogMessage>
+                </data>
+            </ns12:ActivityInput>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Get Order Invalid View">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>317</pd:x>
+        <pd:y>230</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=GetOrder_faultMsg1</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="Get Order Order Not Found">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>317</pd:x>
+        <pd:y>148</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=GetOrder_faultMsg</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="GetOrder_faultMsg1Assign">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>504</pd:x>
+        <pd:y>232</pd:y>
+        <config>
+            <variableName>ResponseCodes</variableName>
+        </config>
+        <pd:inputBindings>
+            <ResponseCode>
+                <ns3:ResponseCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/TargetSystemError"/>
+                </ns3:ResponseCode>
+                <ns3:ResponseMsg>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/TargetSystemErrorDescription"/>
+                </ns3:ResponseMsg>
+                <ns3:ErrorCode>
+                    <xsl:value-of select="$Get-Order-Invalid-View/GetOrder_faultMsg1/faultcode"/>
+                </ns3:ErrorCode>
+                <ns3:ErrorDescription>
+                    <xsl:value-of select="&quot;Invalid Order&quot;"/>
+                </ns3:ErrorDescription>
+            </ResponseCode>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="GetOrder_faultMsg_Assign">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>504</pd:x>
+        <pd:y>147</pd:y>
+        <config>
+            <variableName>ResponseCodes</variableName>
+        </config>
+        <pd:inputBindings>
+            <ResponseCode>
+                <ns3:ResponseCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/TargetSystemError"/>
+                </ns3:ResponseCode>
+                <ns3:ResponseMsg>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/TargetSystemErrorDescription"/>
+                </ns3:ResponseMsg>
+                <ns3:ErrorCode>
+                    <xsl:value-of select="$Get-Order-Order-Not-Found/GetOrder_faultMsg/faultcode"/>
+                </ns3:ErrorCode>
+                <ns3:ErrorDescription>
+                    <xsl:value-of select="$Get-Order-Order-Not-Found/GetOrder_faultMsg/faultstring"/>
+                </ns3:ErrorDescription>
+            </ResponseCode>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Http Transport Error">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>317</pd:x>
+        <pd:y>392</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=HttpCommunicationException namespace=http://schemas.tibco.com/bw/plugins/http/5.0/httpExceptions</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="HTTPCommunicationAssign">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>504</pd:x>
+        <pd:y>393</pd:y>
+        <config>
+            <variableName>ResponseCodes</variableName>
+        </config>
+        <pd:inputBindings>
+            <ResponseCode>
+                <ns3:ResponseCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/TransportError"/>
+                </ns3:ResponseCode>
+                <ns3:ResponseMsg>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/TransportErrorDescription"/>
+                </ns3:ResponseMsg>
+                <xsl:if test="$Http-Transport-Error/ns2:HttpCommunicationException/msgCode">
+                    <ns3:ErrorCode>
+                        <xsl:value-of select="$Http-Transport-Error/ns2:HttpCommunicationException/msgCode"/>
+                    </ns3:ErrorCode>
+                </xsl:if>
+                <ns3:ErrorDescription>
+                    <xsl:value-of select="$Http-Transport-Error/ns2:HttpCommunicationException/msg"/>
+                </ns3:ErrorDescription>
+            </ResponseCode>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="SOAPRequestReply">
+        <pd:type>com.tibco.plugin.soap.SOAPSendReceiveActivity</pd:type>
+        <pd:resourceType>ae.activities.SOAPSendReceiveUI</pd:resourceType>
+        <pd:x>317</pd:x>
+        <pd:y>59</pd:y>
+        <config>
+            <timeout>0</timeout>
+            <soapAttachmentStyle>SwA</soapAttachmentStyle>
+            <timeoutType>Seconds</timeoutType>
+            <service>pfx:OrderManagementService</service>
+            <servicePort>OrderManagementWebServicePort</servicePort>
+            <operation>GetOrder</operation>
+            <soapAction>http://xmlns.oracle.com/communications/ordermanagement/GetOrder</soapAction>
+            <endpointURL>http://%%Domains/OrderManagement/OSM/ValDomain%%:%%Domains/OrderManagement/OSM/ValPort%%/OrderManagement/wsapi</endpointURL>
+            <authScheme>BASIC</authScheme>
+            <requireBasicAuth>true</requireBasicAuth>
+            <basicHttpAuthIdentity>/Domains/OrderManagement/TechnicalResources/Authentication/OSM Validation Identity.id</basicHttpAuthIdentity>
+        </config>
+        <pd:coercions>
+            <pd:coercion xpath="$Start/Input/pfx3:RequestEAI/pfx3:Body/*" element="pfx:GetOrder"/>
+        </pd:coercions>
+        <pd:inputBindings>
+            <inputMessage>
+                <pfx:GetOrder>
+                    <pfx:OrderId>
+                        <xsl:value-of select="$Start/Input/pfx3:RequestEAI/pfx3:Body/pfx:GetOrder/pfx:OrderId"/>
+                    </pfx:OrderId>
+                    <xsl:if test="$Start/Input/pfx3:RequestEAI/pfx3:Body/pfx:GetOrder/pfx:View">
+                        <pfx:View>
+                            <xsl:value-of select="$Start/Input/pfx3:RequestEAI/pfx3:Body/pfx:GetOrder/pfx:View"/>
+                        </pfx:View>
+                    </xsl:if>
+                </pfx:GetOrder>
+                <headers>
+                    <Header.SecPart>
+                        <ns4:Security>
+                            <ns4:UsernameToken>
+                                <ns4:Username>
+                                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/Domains/OrderManagement/OSM/User"/>
+                                </ns4:Username>
+                                <ns4:Password>
+                                    <xsl:value-of select="eai:deObfuscatePassword('Domains/OrderManagement/OSM/Password')"/>
+                                </ns4:Password>
+                            </ns4:UsernameToken>
+                        </ns4:Security>
+                    </Header.SecPart>
+                </headers>
+            </inputMessage>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="TimeOut">
+        <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+        <pd:resourceType>ae.activities.catch</pd:resourceType>
+        <pd:x>317</pd:x>
+        <pd:y>310</pd:y>
+        <pd:handler>true</pd:handler>
+        <config>
+            <fault>localname=ActivityTimedOutException namespace=http://schemas.tibco.com/bw/pe/plugin/5.0/exceptions</fault>
+        </config>
+        <pd:inputBindings/>
+    </pd:activity>
+    <pd:activity name="TimeOutAssign">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        <pd:resourceType>ae.activities.assignActivity</pd:resourceType>
+        <pd:x>504</pd:x>
+        <pd:y>310</pd:y>
+        <config>
+            <variableName>ResponseCodes</variableName>
+        </config>
+        <pd:inputBindings>
+            <ResponseCode>
+                <ns3:ResponseCode>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/Timeout"/>
+                </ns3:ResponseCode>
+                <ns3:ResponseMsg>
+                    <xsl:value-of select="$_globalVariables/ns:GlobalVariables/ErrorCodes/TimeoutDescription"/>
+                </ns3:ResponseMsg>
+                <ns3:ErrorCode>
+                    <xsl:value-of select="$TimeOut/ns1:ActivityTimedOutException/msg"/>
+                </ns3:ErrorCode>
+                <xsl:if test="$TimeOut/ns1:ActivityTimedOutException/msgCode">
+                    <ns3:ErrorDescription>
+                        <xsl:value-of select="$TimeOut/ns1:ActivityTimedOutException/msgCode"/>
+                    </ns3:ErrorDescription>
+                </xsl:if>
+            </ResponseCode>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>SOAPRequestReply</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>SOAPRequestReply</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get Order Order Not Found</pd:from>
+        <pd:to>GetOrder_faultMsg_Assign</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetOrder_faultMsg_Assign</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Get Order Invalid View</pd:from>
+        <pd:to>GetOrder_faultMsg1Assign</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>GetOrder_faultMsg1Assign</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>TimeOut</pd:from>
+        <pd:to>TimeOutAssign</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Http Transport Error</pd:from>
+        <pd:to>HTTPCommunicationAssign</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>TimeOutAssign</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>HTTPCommunicationAssign</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Catch all</pd:from>
+        <pd:to>Generate Error</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>
