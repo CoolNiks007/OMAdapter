@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<project name="OrderManagement" default="deployear" >
+<property file="Deployment_basic.properties" />
+<property file="createGV.properties"/>
+<property file="build.properties"/>
+ <target name="deployear"  description="deploy the ear in the windows box">
+ <echo>Inside deployment task</echo>
+ <exec executable="${tibco.DeployEar.path}" failonerror="true">
+ <env key="PATH" path="${tibco.tra.home}"/> <arg value="-deploy"/> <arg value="-app"/><arg value="Vodafone_turkey_poc/${ear.name}"/> 
+ <arg value="-domain"/> <arg value="Dev"/><arg value="-ear"/> <arg value="${ear.dir}\${ant.project.name}\${ear.name}.ear"/>
+ <arg value="-deployconfig"/> <arg value="${Exported.XML.Path}\${ant.project.name}\${ear.name}.xml"/>
+ <arg value="-user"/> <arg value="admin"/><arg value="-pw"/> <arg value="admin"/>
+ <arg value="-desc"/> <arg value="VodafoneTurkey_CI/CD POC"/><arg value="-nostart"/>
+ </exec>
+ </target>
+ </project>

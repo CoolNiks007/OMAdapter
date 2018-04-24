@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<project name="OrderManagement" default="Export_GV" >
+<taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+<property file="build.properties"/>
+<property file="createGV.properties"/>
+<tstamp/>
+<target name="Clean" description="Delete existing gv file and clean the directory">
+<move file="${Exported.XML.Path}\${ant.project.name}\${ear.name}.xml" tofile="${Exported.XML.Path}\${ant.project.name}\archive\${ear.name}.xml.${DSTAMP}.${TSTAMP}" failonerror="false"/>
+ <mkdir dir="${Exported.XML.Path}\${ant.project.name}" />
+ </target>
+<target name="Export_GV"  depends="Clean"  description=" Extracts the XML config file from the
+generated ear file with GV that defined inside the EAR ">
+<if>
+<available file="${Remote.EAR.Path}"/>
+<then>
+ <exec executable="${tib.executable.path}" failonerror="true">
+<env key="PATH" path="${tib.tra.path}"/>
+ <arg value="-export"/> <arg value="-out"/> <arg value="${Exported.XML.Path}\${ant.project.name}\${ear.name}.xml"/>
+ <arg value="-ear"/> <arg value="${Remote.EAR.Path}"/>
+ </exec>
+ </then>
+ <else>
+ <echo>
+ Ear is not present at the location : ${Remote.EAR.Path}
+ </echo>
+ </else>
+ </if>
+ </target>
+ </project>

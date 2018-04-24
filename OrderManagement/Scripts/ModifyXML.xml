@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<project name="OrderManagement" default="UpdateXML" >
+<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
+<taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+<taskdef resource="net/sf/antcontrib/antlib.xml"/>
+<property file="createGV.properties" /> 
+<property file="build.properties" /> 
+<property file="ModifyXML.properties" prefix="x"/>        
+<property name="xml.Path" value="${Exported.XML.Path}\${ant.project.name}\${ear.name}.xml"/>
+<property name="Updated.xml.Path" value="${Exported.XML.Path}\${ant.project.name}\${ear.name}_MODIFIED.xml"/>
+
+
+
+<target name="UpdateXML" description="update the generated XML configuration values based on  Property file values ">  
+
+<replace file="${Exported.XML.Path}\${ant.project.name}\${ear.name}.xml" token='encoding="UTF-8"' value='encoding="ISO-8859-9"'/>    
+<echo> CHANGED FILE ENCODING </echo>  
+   			 <propertyselector property="NVpropertyList" delimiter="," select="\1" match="x\.([^\.]*)\.NVxpath" casesensitive="true" distinct="true"/>      
+          <for list="${NVpropertyList}" param="sequence">               
+            <sequential>
+                <echo> @{sequence} </echo>  
+                <echo> @{sequence}.NVxpath = ${x.@{sequence}.NVxpath} </echo>
+                <echo> @{sequence}.NVvalue = ${x.@{sequence}.NVvalue} </echo>
+				<local name="propertyexists" />
+  			 <xmltask dest="${xml.Path}" encoding="ISO-8859-9">
+   			 <fileset file="${xml.Path}"/>
+
+			<copy path="/:application/:NVPairs/:NameValuePair[:name='${x.@{sequence}.NVxpath}']/:value/text()" property="propertyexists"/>
+				
+  			 
+  			 <replace 
+        		path="/:application/:NVPairs/:NameValuePair[:name='${x.@{sequence}.NVxpath}']/:value/text()"
+        		withText="${x.@{sequence}.NVvalue}" if="propertyexists"/>
+				
+				<replace path="/:application/:NVPairs/:NameValuePair[:name='${x.@{sequence}.NVxpath}']/:value" unless="propertyexists">
+				<![CDATA[<value xmlns="http://www.tibco.com/xmlns/ApplicationManagement">${x.@{sequence}.NVvalue}</value>]]>
+		       </replace>
+	   
+  
+		</xmltask>	
+</sequential>               
+          </for>  		
+		  
+		   <propertyselector property="BindingpropertyList" delimiter="," select="\1" match="x\.([^\.]*)\.xpath" casesensitive="true" distinct="true"/>      
+          <for list="${BindingpropertyList}" param="sequence">               
+            <sequential>
+                <echo> @{sequence} </echo>  
+                <echo> @{sequence}.xpath = ${x.@{sequence}.xpath} </echo>
+                <echo> @{sequence}.value = ${x.@{sequence}.value} </echo>
+  			 <xmltask dest="${xml.Path}" encoding="ISO-8859-9">
+   			 <fileset file="${xml.Path}" />
+  			 
+  			 <replace 
+        		path="${x.@{sequence}.xpath}"
+        		withText="${x.@{sequence}.value}" />
+		</xmltask>	
+</sequential>               
+          </for>  
+
+<propertyselector property="NVPpropertyList" delimiter="," select="\1" match="x\.([^\.]*)\.NVPxpath" casesensitive="true" distinct="true"/>      
+          <for list="${NVPpropertyList}" param="sequence">               
+            <sequential>
+                <echo> @{sequence} </echo>  
+                <echo> @{sequence}.NVPxpath = ${x.@{sequence}.NVPxpath} </echo>
+                <echo> @{sequence}.NVPvalue = ${x.@{sequence}.NVPvalue} </echo>
+				<local name="NVPpropertyexists" />
+  			 <xmltask dest="${xml.Path}" encoding="ISO-8859-9">
+   			 <fileset file="${xml.Path}"/>
+			 <copy path="/:application/:NVPairs/:NameValuePairPassword[:name='${x.@{sequence}.NVPxpath}']/:value/text()" property="NVPpropertyexists"/>
+				
+  			 
+  			 <replace 
+        		path="/:application/:NVPairs/:NameValuePairPassword[:name='${x.@{sequence}.NVPxpath}']/:value/text()"
+        		withText="${x.@{sequence}.NVPvalue}" if="NVPpropertyexists"/>
+				
+				<replace path="/:application/:NVPairs/:NameValuePairPassword[:name='${x.@{sequence}.NVPxpath}']/:value" unless="NVPpropertyexists">
+				<![CDATA[<value xmlns="http://www.tibco.com/xmlns/ApplicationManagement">${x.@{sequence}.NVPvalue}</value>]]>
+		       </replace>
+		</xmltask>	
+</sequential>               
+          </for>  				  
+    </target> 
+ </project>

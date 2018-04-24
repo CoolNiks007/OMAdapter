@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<project  default="Restore_BWEngine" >
+<taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+<property file="build.properties"/>
+<condition property="CheckBWEngineFile">
+<available file="${Remote.App.path}\trunk\${projectName}\bwengine.xml"/>
+</condition>
+<tstamp/>
+
+<target name="BWEngine">
+<if>
+<equals arg1="${CheckBWEngineFile}" arg2="true"/>
+<then>
+<echo>Replacing Bw Engine.xml file</echo>
+<move file="${tibco.BwEngine.path}" tofile="${temp.path}\default_bwengine.xml" failonerror="false"/>
+ <copy file="${Remote.App.path}\trunk\${projectName}\bwengine.xml" tofile="${tibco.BwEngine.path}" failonerror="true"/>
+  </then>
+<else>
+<echo> Par level properties do not exist </echo>
+</else>
+</if>
+ </target>
+ 
+<target name="Clean" depends="BWEngine">
+<move file="${ear.dir}\${projectName}\${projectName}.ear" tofile="${ear.dir}\${projectName}\archive\${projectName}.ear.${DSTAMP}.${TSTAMP}" failonerror="false"/>
+ <delete dir="${ear.dir}\${projectName}\${projectName}.ear" failonerror="false"/>
+ <mkdir dir="${ear.dir}\${projectName}" />
+ </target>
+ 
+ <target name="Checkout" depends="BWEngine">
+<echo> checking out ${projectName} from SVN</echo>
+ <exec executable="cmd" failonerror="true"> 
+<arg value="/c"/> 
+<arg value="svn checkout ${svnUrl}/${projectName} ${Remote.App.path}"/> 
+</exec> 
+ </target>
+ 
+ <target name="Build.EAR" depends="Clean">
+ <trycatch>
+ <try>
+ 		<echo>BuildEAR...</echo>		
+ <exec executable="${tibco.BuildEar.path}" failonerror="true">
+ <env key="PATH" path="${tibco.tra.home}"/> <arg value="-x"/> <arg value="-s"/><arg value="-v"/> 
+ <arg value="-p"/> <arg value="${Remote.App.path}"/><arg value="-a"/> <arg value="${projlib.path}"/>
+ <arg value="-o"/> <arg value="${ear.dir}\${projectName}\${projectName}.ear"/>
+ <arg value="-ear"/> <arg value="${Archive.path}"/>
+ </exec>
+ 		<echo> BuildEAR Command run successfully</echo>
+ </try>
+ <catch>
+ 
+		<echo> checking parameter ignorevalidation : ${ignorevalidation}</echo>
+		<if>
+          <equals arg1="${ignorevalidation}" arg2="true" />
+		  <then>
+		  <echo> ############# Bulding ear without validation ################</echo>
+		  <exec executable="${tibco.BuildEar.path}" failonerror="true">
+ <env key="PATH" path="${tibco.tra.home}"/> <arg value="-x"/> <arg value="-s"/> 
+ <arg value="-p"/> <arg value="${Remote.App.path}"/><arg value="-a"/> <arg value="${projlib.path}"/>
+ <arg value="-o"/> <arg value="${ear.dir}\${projectName}\${ear.name}.ear"/>
+ <arg value="-ear"/> <arg value="${Archive.path}"/>
+ </exec>
+		  </then>
+		  <else>
+		  <fail message="Has build errors , check ${projectName} project"/>
+		  </else>
+		  </if>
+ </catch>
+ </trycatch>
+ </target>
+ 
+ <target name="Restore_BWEngine" depends="Build.EAR">
+<if>
+<equals arg1="${CheckBWEngineFile}" arg2="true"/>
+<then>
+<echo>Restoring Bw Engine.xml file</echo>
+<move file="${temp.path}\default_bwengine.xml" tofile="${tibco.BwEngine.path}" overwrite="true" failonerror="true"/>
+  </then>
+<else>
+<echo> Nothing to Restore </echo>
+</else>
+</if>
+ </target>
+ 
+ </project>
